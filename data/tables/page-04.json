@@ -1,0 +1,90 @@
+{
+  "page": 4,
+  "title": "Ataque Terrestre Guiado — Interceptación de Munición",
+  "workflowRefs": ["ground_guided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 4 }],
+
+  "referenceNotes": [
+    {
+      "topic": "2) Interceptación de Munición: Reducción del Valor de Ataque",
+      "intro": "Cada sistema de defensa aérea dispara de forma independiente; debe tener un alcance de defensa aérea ≥ 0; cada unidad solo puede interceptar un tipo de ataque.",
+      "rows": [
+        { "condition": "El objetivo y el atacante están en el mismo hex o ZoC", "effect": "No se intercepta" },
+        { "condition": "Icono de interceptor de penetración (K)", "effect": "Si es un ataque marcado con el icono BM: tirar 2d10 y elegir el menor" },
+        { "condition": "Marcado con icono BM (misil balístico)", "effect": "Solo puede interceptar ataques BM" },
+        { "condition": "Distancia de ataque: 1 // Misión de Área: 2", "effect": "Solo las unidades en el mismo hex que el objetivo pueden realizar la interceptación de munición" }
+      ]
+    },
+    {
+      "topic": "Modificadores de la tirada de Interceptación de Munición",
+      "rows": [
+        { "condition": "Interceptación de rendimiento Medio", "effect": "-1" },
+        { "condition": "Interceptación de rendimiento Bajo", "effect": "-2" },
+        { "condition": "El defensor no ha detectado al atacante, pero sí al guía/designador", "effect": "-1" },
+        { "condition": "El defensor no ha detectado ni al atacante ni al guía/designador", "effect": "-2" }
+      ],
+      "note": "Coincide exactamente con interception_performance (high=0/medium=-1/low=-2) y detection_state (attacker=0/designator_only=-1/neither=-2) ya transcritos en los workflows 02/03/04/07/08."
+    },
+    {
+      "topic": "Interceptación Más Allá del Horizonte (blancos subsónicos o supersónicos)",
+      "rows": [
+        { "condition": "El objetivo bajo ataque no está dentro de la Zona Central del AWACS", "effect": "No se puede usar la 'Zona Azul'" }
+      ],
+      "note": "Confirmado y ampliado el 2026-09-27 contra Decision Book §6.5.2 (localizado con pdftotext -layout): el efecto de alerta temprana que habilita la 'Zona Azul' se obtiene si el objetivo está en el mismo hexágono que un AEW en funcionamiento o en su zona central, O AUTOMÁTICAMENTE contra cualquier ataque balístico (excepción no impresa en esta página física, pero sí explícita en el Decision Book). Ver data/rules/decision-book-excerpts.json#defensa-antiaerea. Sin el efecto, la unidad se topa a la columna más a la derecha de la sección no-más-allá-del-horizonte (Decision Book: ejemplo con A.A.=6 sin alerta temprana se resuelve como columna '4~5'). Conectado en el wizard de ataque antibuque guiado desde el 2026-09-27 (`combat-wizard-engine.js#applyBeyondHorizonCap`, pregunta `early_warning_effect`) — solo para el esquema de columna 'Convencional' que el wizard ya modela; la agrupación de consumo Bajo sigue sin un flujo que la use (roadmap Fase 8)."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "munition-interception-standard",
+      "title": "Interceptación de Munición — reducción del Valor de Ataque según método de interceptación y Valor de Defensa Aérea",
+      "rowAxis": {
+        "label": "Tirada (d10) de interceptación, modificada por rendimiento y detección",
+        "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "correctedLabel": {
+          "was": "Valor del marcador de munición",
+          "reason": "Verificado contra el golden test real (data/scenarios/golden-antiship-guided.json, transcrito de TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf): la fila usada en el ejemplo es la tirada de cada unidad interceptora (1d10) modificada por 'interception_performance'/'detection_state' (workflow 07, etapa munition_interception), NO el valor de ataque de la munición. La columna sí es, como estaba etiquetada, el Valor de Defensa Aérea — pero el propio de la unidad que dispara, no un valor agrupado. BS-20381 (A.A.=2) y BS-1164 (A.A.=4) de la hoja, con la misma tirada modificada (2), dan -1 y -2 respectivamente: cells[2][1]='-1' y cells[2][3]='-2', coincidiendo exactamente."
+        }
+      },
+      "columnAxis": {
+        "label": "Valor de Defensa Aérea (de la unidad que dispara, no agrupado)",
+        "values": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "lowConsumptionGrouping": {
+          "label": "Agrupación equivalente cuando el método de interceptación consume munición 'Bajo' (Convencional/Penetración/BM)",
+          "note": "El valor de Defensa Aérea '1' no tiene equivalente en consumo Bajo: con consumo bajo se necesita Defensa Aérea >= 2 para intentar interceptar.",
+          "buckets": [
+            { "label": "2~3", "columns": ["2", "3"] },
+            { "label": "4~5", "columns": ["4", "5"] },
+            { "label": "6~7", "columns": ["6", "7"], "beyondHorizon": true },
+            { "label": "8+", "columns": ["8", "9"], "beyondHorizon": true }
+          ]
+        },
+        "alternateLabelSets": { "low": ["2~3", "4~5", "6~7", "8+", null, null, null, null, null] },
+        "alternateLabelNote": "alternateLabelSets.low es el esquema de columna de consumo Bajo en el formato que public/js/table-engine.js#pickAxisLabels reconoce (mismo patrón que page-18.json#alternateLabelSets.low): las 4 etiquetas Bajo (2~3, 4~5, 6~7, 8+) están impresas sobre las 4 primeras columnas de datos (las mismas de Alto 1-4); las 5 restantes (Alto 5-9, zona Más Allá del Horizonte) no tienen equivalente Bajo y se declaran null. Verificado contra Tablas-de-combate 5.pdf p.4 el 2026-10-04.",
+        "highConsumptionMethod": "Convencional",
+        "beyondHorizonColumns": ["6", "7", "8", "9"]
+      },
+      "cellLegend": { ".": "Sin reducción", "NO_DISPARAR": "El sistema no puede disparar (munición agotada)" },
+      "cells": [
+        ["NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR"],
+        [".", ".", "-1", "-1", "-2", "-2", "-3", "-4", "-4"],
+        [".", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5"],
+        [".", "-1", "-1", "-2", "-2", "-3", "-4", "-4", "-5"],
+        [".", "-1", "-1", "-2", "-3", "-3", "-4", "-4", "-5"],
+        [".", "-1", "-1", "-2", "-3", "-3", "-4", "-5", "-5"],
+        ["-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "-5"],
+        ["-1", "-1", "-2", "-3", "-3", "-4", "-5", "-5", "-6"],
+        ["-1", "-1", "-2", "-3", "-3", "-4", "-5", "-5", "-6"],
+        ["-1", "-2", "-2", "-3", "-4", "-4", "-5", "-6", "-6"]
+      ],
+      "notes": [
+        "'beyondHorizon' marca las columnas de Defensa Aérea (Convencional 6-9, Bajo 6~7/8+) donde aplica la regla 'Interceptación Más Allá del Horizonte' contra blancos subsónicos/supersónicos (ver referenceNotes); no cambia los valores numéricos de la celda, es una nota de aplicabilidad adicional.",
+        "Este mismo patrón de tabla (roll 0-9 x Defensa Aérea con agrupación Bajo/Alto) se reutiliza literalmente en las páginas 8, 12, 20 y 24 según docs/rules/known-ambiguities.md — pendiente de confirmar si los valores numéricos son idénticos o solo la estructura."
+      ],
+      "sourceRefs": [
+        { "document": "Tablas-de-combate 5.pdf", "page": 4, "section": "2) Interceptación de Munición", "verifiedAtDpi": 600 },
+        { "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "description": "Golden test que confirma el significado real del eje de fila (ver rowAxis.correctedLabel).", "transcribedAt": "data/scenarios/golden-antiship-guided.json" }
+      ]
+    }
+  ]
+}

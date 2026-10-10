@@ -1,0 +1,86 @@
+{
+  "page": 3,
+  "title": "Ataque Terrestre Guiado",
+  "workflowRefs": ["ground_guided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 3 }],
+
+  "referenceNotes": [
+    {
+      "topic": "1) Defensa aérea de área: reducir el valor de ataque del proyectil (contra marcadores de munición: CM, BM…)",
+      "rows": [
+        { "condition": "Icono CM (misil de crucero) — Capacidad de ataque con proyectiles guiados: Todos CM", "effect": "Aplica contra unidades de vuelo a baja altura" },
+        { "condition": "Icono BM (misil balístico, rojo) — Capacidad de ataque con proyectiles guiados: Todos BM", "effect": "Aplica contra objetivo Especial" }
+      ]
+    },
+    {
+      "topic": "Casos especiales",
+      "rows": [
+        { "condition": "Icono de trayectoria parabólica (Balística)", "effect": "Trayectoria recta" },
+        { "condition": "Icono de trayectoria de espacio cercano (Balística)", "effect": "Tirar 2d10 y elegir el resultado menor" },
+        { "condition": "Icono de sistema interceptor (cuadro rosa/negro)", "effect": "Puede interceptar ataques balísticos" },
+        { "condition": "Marcado con icono de misil antirradiación", "effect": "Solo puede interceptar ataques balísticos" },
+        { "condition": "Disparar contra objetivos a baja altura", "effect": "Solo contra aquellos detectados por uno mismo" }
+      ]
+    },
+    {
+      "topic": "Modificadores de la tirada de Defensa Aérea de Área",
+      "rows": [
+        { "condition": "Atacante no detectado", "effect": "-2" },
+        { "condition": "Trayectoria espacio cercano (icono)", "effect": "-3" }
+      ],
+      "note": "Coincide exactamente con los efectos ya transcritos en data/workflows/02_ataque_terrestre_guiado.json (preguntas attacker_detected y near_space_trajectory de la etapa area_air_defense)."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "ground-guided-area-air-defense",
+      "title": "Defensa Aérea de Área — reducción del valor de ataque según munición disponible y Valor de Defensa Aérea",
+      "rowAxis": {
+        "label": "Tirada (d10) de defensa aérea de área, modificada por detección/trayectoria (variante de consumo: Bajo)",
+        "values": ["<=-1", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "correctedLabel": {
+          "was": "Valor del marcador de munición aérea",
+          "reason": "Resuelto el 2026-09-27 localizando Decision Book §6.3.2/§6.3.3 (Modificadores y Resolución de la Defensa Antiaérea de Área, pp. 97-98) con pdftotext -layout: el procedimiento completo es 'se lanza 1d10 (o 2d10 tomando el resultado menor si el objetivo es un ataque balístico de espacio cercano), se aplican todos los modificadores por lanzamiento de dados [-2 si el atacante no ha sido detectado; -3 si es trayectoria de espacio cercano, ambos ya transcritos en data/workflows/02_ataque_terrestre_guiado.json], y según el resultado final se consulta la tabla'. Ninguna otra fuente/sección menciona un eje de 'marcador de munición' independiente de esta tirada — mismo patrón ya confirmado en page-04.json#rowAxis.correctedLabel (fila mal etiquetada como valor de munición, en realidad la tirada modificada). El rango '<=-1' a '9' corresponde a una tirada 0-9 tras aplicar -2/-3."
+        }
+      },
+      "columnAxis": {
+        "label": "Valor de Defensa Aérea (agrupado, solo consumo Bajo)",
+        "values": ["1", "2~3", "4~5", "6~7", "8~9", "10~11", "12~13", "14~15", "16~17", "18+"],
+        "note": "Confirmado por Decision Book §6.3.1 (p. 97): 'Para la defensa antiaérea de área contra otros objetivos [no unidades aéreas], las unidades antiaéreas solo pueden utilizar disparos antiaéreos de bajo consumo' — la ausencia de una tabla de consumo Alto en esta página no es un gap de transcripción, es la regla."
+      },
+      "resolutionMechanic": {
+        "description": "Cómo se combina esta tabla con el resto de la etapa 'area_air_defense' de ground_guided/anti_radiation/antiship_guided (Decision Book §5.12 paso 2, §6.3, §6.3.2, §6.3.3).",
+        "appliesWhen": "Solo cuando la munición del ataque está marcada CM (Misil de Crucero) o BM (Misil Balístico) — Decision Book §5.12 paso 2: 'Disparo de Defensa Aérea: Defensa Aérea de Área (CM o BM)'. Si no está marcada CM/BM, esta etapa no se resuelve en absoluto.",
+        "rollProcedure": "1d10, salvo que la munición tenga trayectoria de espacio cercano (icono): en ese caso 2d10 y se toma el resultado MENOR. Se aplican después los modificadores de fila (-2 atacante no detectado / -3 espacio cercano) para obtener la tirada final, que es el valor de fila de esta tabla.",
+        "cellMeaning": "El valor de la celda ES la reducción a aplicar directamente al Valor de Ataque del proyectil (Decision Book §6.3.3: 'se reduce su valor de ataque en una cantidad equivalente a los puntos de impacto obtenidos') — a diferencia de la tabla de daño contra aeronaves (page-18.json), aquí no hace falta traducir 'puntos de impacto' a otra unidad.",
+        "distinctFrom": "No confundir con el 'Disparo en Área' de page-18.json/workflow 06 (defensa aérea de área CONTRA EL AVIÓN ATACANTE, ya resuelto en docs/rules/known-ambiguities.md): esta tabla reduce el Valor de Ataque DEL PROYECTIL/MUNICIÓN, es una mecánica distinta con el mismo nombre.",
+        "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.12 (paso 2), 6.3, 6.3.1, 6.3.2, 6.3.3", "pages": "74, 95-98" }],
+        "status": "resolved"
+      },
+      "cellLegend": {
+        ".": "Sin reducción del valor de ataque",
+        "": "Combinación no representada en la tabla (celda en blanco en el original)",
+        "NO_DISPARAR": "El sistema no puede disparar (munición agotada)"
+      },
+      "cells": [
+        ["", ".", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR"],
+        [".", ".", ".", ".", "-1", "-1", "-1", "-2", "-2", "-3"],
+        [".", ".", ".", "-1", "-1", "-1", "-2", "-3", "-3", "-3"],
+        [".", ".", ".", "-1", "-1", "-2", "-2", "-3", "-4", "-4"],
+        [".", ".", "-1", "-2", "-2", "-2", "-3", "-3", "-4", "-4"],
+        [".", ".", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-4"],
+        [".", ".", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "-5"],
+        [".", "-1", "-1", "-2", "-3", "-3", "-3", "-4", "-5", "-5"],
+        [".", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "-5", "-6"],
+        ["-1", "-1", "-2", "-2", "-3", "-4", "-4", "-5", "-6", "-6"],
+        ["-1", "-1", "-2", "-3", "-3", "-4", "-5", "-6", "-7", "-7"]
+      ],
+      "notes": [
+        "Esta página solo muestra la variante de consumo 'Bajo'; no aparece una tabla separada para consumo 'Alto'. No se ha inventado — queda como gap explícito (ver docs/rules/known-ambiguities.md si bloquea algún cálculo).",
+        "El modificador resultante reduce el Valor de Ataque del proyectil antes de la tabla de Interceptación de Munición / Daño (páginas 4-6)."
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 3, "section": "1) Defensa aérea de área", "verifiedAtDpi": 600 }]
+    }
+  ]
+}

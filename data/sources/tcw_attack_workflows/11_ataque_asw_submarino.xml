@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="asw_submarine" title="Ataque ASW por unidades submarinas" category="asw" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>30</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Preguntas para firma del atacante, firma del objetivo y valor de ataque con torpedos.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <workflow>
+    
+    
+    <stage id="attack_table" order="1" title="Ataque ASW submarino contra submarino">
+      
+      
+      <questions>
+        
+        
+        <question id="attacker_signature" type="select" appliesTo="asw_sub_table">
+          
+          
+          <prompt>Firma del atacante.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="0_3" label="0-3"/>
+            
+            
+            <option value="4" label="4"/>
+            
+            
+            <option value="5plus" label="5+"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="target_signature" type="select" appliesTo="asw_sub_table">
+          
+          
+          <prompt>Firma del objetivo.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="0_3" label="0-3"/>
+            
+            
+            <option value="4_6" label="4-6"/>
+            
+            
+            <option value="7plus" label="7+"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="torpedo_attack_value" type="number" appliesTo="asw_sub_table">
+          
+          
+          <prompt>Valor de Ataque con Torpedos.</prompt>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <specialRules>El ataque solo tiene efecto cuando el resultado de tabla contiene '*'. 'NO DISPARAR' no provoca búsqueda posterior al ataque.</specialRules>
+      
+      
+      <tableReference>Página 30: Ataque Antisubmarino por Unidades Submarinas.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Página 30: tabla de ataque submarino contra submarino.</finalTableReference>
+  
+
+</attackWorkflow>

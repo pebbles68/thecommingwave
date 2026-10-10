@@ -1,0 +1,71 @@
+{
+  "page": 2,
+  "title": "Combate Cercano - Terrestre",
+  "workflowRefs": ["ground_close_combat"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 2 }],
+
+  "tables": [
+    {
+      "id": "ground-close-combat-result",
+      "title": "1) Combate cercano del ejército",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Ataque + Apoyo de Combate",
+        "variants": {
+          "pasivo": ["1", "2", "3", "4", "5~6", "7~8", "9~10", "11~13", "14~16", "17~20", "21~24", "25~27", "28~34", "35~42", "43~50", "51+"],
+          "activo": [".", "1", "2", "3", "4", "5", "6", "7~8", "9~10", "11~12", "13~14", "15~16", "17~20", "21~25", "26~30", "31+"]
+        }
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", ".", ".", ".", ".", ".", "1", "1", "1", "1", "2", "4", "6", "6", "8"],
+        [".", ".", ".", ".", ".", ".", "1", "1", "1", "1", "2", "4", "6", "6", "8", "10"],
+        [".", ".", ".", ".", ".", "1", "1", "1", "2", "2", "4", "6", "6", "8", "10", "14"],
+        [".", ".", ".", ".", "1", "1", "1", "2", "4", "4", "6", "6", "8", "10", "14", "16"],
+        [".", ".", ".", "1", "1", "2", "2", "4", "4", "4", "6", "8", "10", "12", "16", "18"],
+        [".", ".", "1", "1", "2", "2", "3", "4", "5", "6", "7", "10", "10", "14", "18", "19"],
+        [".", "1", "1", "2", "3", "3", "4", "5", "6", "7", "8", "11", "12", "16", "20", "20"],
+        ["1", "1", "2", "2", "3", "3", "5", "6", "7", "8", "9", "12", "13", "18", "21", "22"],
+        ["1", "1", "2", "3", "4", "4", "6", "7", "8", "9", "10", "13", "14", "19", "22", "24"],
+        ["1", "2", "3", "4", "5", "5", "7", "8", "8", "10", "11", "14", "16", "20", "24", "26"]
+      ],
+      "notes": ["Si una unidad principal se encuentra fuera de suministro, no puede iniciar un combate de forma activa."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 2, "section": "1) Combate cercano del ejército", "verifiedAtDpi": 600 }]
+    },
+    {
+      "id": "ground-close-combat-electronic-warfare",
+      "title": "2) Guerra electrónica — Diferencia electrónica",
+      "rowAxis": { "label": "Tirada (d10, banda)", "values": ["0~3", "4", "5", "6", "7~9"] },
+      "columnAxis": { "label": "Diferencia electrónica (valor más alto - valor más bajo)", "values": ["1~2", "3~4", "5~6", "7+"] },
+      "cellLegend": { ".": "Sin efecto especial", "x2": "x2 número de impactos causados" },
+      "cells": [
+        [".", ".", ".", "."],
+        [".", ".", ".", "x2"],
+        [".", ".", "x2", "x2"],
+        [".", "x2", "x2", "x2"],
+        ["x2", "x2", "x2", "x2"]
+      ],
+      "notes": ["Si los valores electrónicos de ambos bandos son iguales, no hay guerra electrónica y esta tabla no se consulta."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 2, "section": "2) Guerra electrónica", "verifiedAtDpi": 600 }]
+    },
+    {
+      "id": "ground-close-combat-casualties",
+      "title": "3) Cálculo de bajas — Bajas en combate",
+      "rowAxis": { "label": "Nivel de reacción", "values": ["A", "B", "C", "D"] },
+      "columnAxis": { "label": "Tamaño de Fuerza antes del combate", "values": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      "cellLegend": { ".": "Sin bajas" },
+      "cells": [
+        [".", "1", "1~2", "1~2", "1~2", "1~2", "2~4", "2~4", "2~4", "2~5", "2~5", "2~5"],
+        [".", "1", "1~2", "1~2", "2~3", "2~3", "2~3", "2~3", "2~3", "3~5", "3~5", "3~5"],
+        [".", "1", "1", "1", "2", "2", "2", "3", "5", "4", "4", "4"],
+        [".", "1", "2", "2", "3", "3", "4", "4", "5", "5", "6", "6"]
+      ],
+      "notes": [
+        "Valor único: al alcanzarlo la unidad es 'Derrotada'.",
+        "Rango de valores: al superar el valor mínimo, elección de 'Derrotada'; al superar el valor máximo, es 'Derrotada'.",
+        "Cuando la unidad es 'Derrotada' se vuelve Brevemente Detectable, y puede ser Perseguida."
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 2, "section": "3) Cálculo de bajas", "verifiedAtDpi": 600 }]
+    }
+  ]
+}

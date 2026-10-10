@@ -1,0 +1,28 @@
+{
+  "country": "RU",
+  "countryName": "Rusia",
+  "status": "complete",
+  "transcribedSheets": ["RU 3"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/units/us.json.",
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/RU 3.pdf", "page": 1, "sheetTitle": "Unidades terrestres: formaciones y sistemas de apoyo" }
+  ],
+
+  "groundFormations": [
+    { "id": "ru-mt-lb", "name": "MT-LB", "nameLocal": "机炮团", "nameEn": "Motor-rifle Regiment", "attack": 30, "defense": 10 },
+    { "id": "ru-btr-80a", "name": "BTR-80A", "nameLocal": "海军步兵", "nameEn": "Naval Infantry", "attack": 16, "defense": 8 },
+    { "id": "ru-bmd-2", "name": "BMD-2", "nameLocal": "空突旅", "nameEn": "Air Assault Brigade", "attack": 20, "defense": 10 },
+    { "id": "ru-infantry", "name": "INFANTRY", "nameLocal": "机降步兵", "nameEn": "Air-assault Infantry", "attack": 4, "defense": 2 }
+  ],
+
+  "supportSystems": [
+    { "id": "ru-s-300pmu2", "name": "S-300PMU2", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "ru-s-400", "name": "S-400", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "ru-9m317", "name": "9M317", "nameLocal": "防空导弹", "systemType": "SAM", "value": 10, "valueMeaning": "electronic" },
+    { "id": "ru-55zh6me", "name": "55ZH6ME", "nameLocal": "预警雷达", "systemType": "EWR", "value": 2, "valueMeaning": "electronic" },
+    { "id": "ru-hlsc", "name": "HLSC", "nameLocal": "场站", "systemType": "HELIPORT", "value": 3, "valueMeaning": "electronic" }
+  ]
+}

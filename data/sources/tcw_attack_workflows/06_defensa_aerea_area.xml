@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="area_air_defense" title="Defensa aérea de área contra aeronaves" category="aereo" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>18</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Resolución concentrada de sistemas de defensa aérea contra aviones, helicópteros, UAV y objetivos de espacio cercano.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <workflow>
+    
+    
+    <stage id="area_defense" order="1" title="Defensa aérea de área contra aeronaves">
+      
+      
+      <questions>
+        
+        
+        <question id="target_type" type="select" appliesTo="area_air_defense">
+          
+          
+          <prompt>Tipo de objetivo.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="conventional" label="Convencional"/>
+            
+            
+            <option value="low_altitude" label="Baja altitud">
+              <iconRef ref="attack_low_altitude_bombing" role="representative"/>
+            </option>
+            
+            
+            <option value="near_space" label="Espacio cercano">
+              <iconRef ref="munition_near_space" role="representative"/>
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="self_detected_low_altitude" type="boolean" appliesTo="eligibility">
+          
+          
+          <prompt>Si el objetivo es de baja altitud: ¿el sistema que dispara lo ha detectado por sí mismo?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí"/>
+            
+            
+            <option value="no" label="No">
+              
+              
+              <effect type="rule" target="eligibility" value="cannot_fire"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="high_altitude_only_system" type="boolean" appliesTo="eligibility">
+          
+          
+          <prompt>¿El sistema está marcado como defensa de Gran Altitud exclusivamente?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="eligibility" value="only_near_space_target"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="ammo_consumption" type="select" appliesTo="area_air_defense_table">
+          
+          
+          <prompt>Consumo AA.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="low" label="Bajo"/>
+            
+            
+            <option value="high" label="Alto"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="aa_value" type="number" appliesTo="area_air_defense_table">
+          
+          
+          <prompt>Valor total de Defensa Aérea / Combate Aéreo concentrado.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="ew_escort" type="boolean" appliesTo="damage_application">
+          
+          
+          <prompt>¿El grupo objetivo incluye escolta electrónica con protección prioritaria?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="damage_application" value="ew_escort_absorbs_first"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <tableReference>Página 18: Defensa Aérea de Área.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Página 18: tabla de Defensa Aérea de Área.</finalTableReference>
+  
+
+</attackWorkflow>

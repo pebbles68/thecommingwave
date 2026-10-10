@@ -1,0 +1,28 @@
+{
+  "page": 10,
+  "title": "Ataque No Guiado — Contraataque a Baja Altura",
+  "workflowRefs": ["ground_unguided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 10 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "5) Contraataque a Baja Altura",
+      "rows": [
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede disparar contra plataformas de baja altura." },
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede ser realizado por la unidad que está recibiendo el ataque." },
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede disparar contra el atacante que se encuentre en el mismo hex." },
+        { "condition": "Contraataque a Baja Altura", "effect": "No consume munición de defensa aérea." }
+      ]
+    }
+  ],
+
+  "reusesTable": {
+    "id": "low-altitude-counterattack",
+    "definedIn": "data/tables/page-06.json",
+    "note": "Página 10 repite exactamente la misma tabla 'Contraataque a Baja Altura' (mismos 10 valores por columna) ya transcrita en page-06.json; verificado por comparación directa, no se duplica aquí."
+  },
+
+  "tables": [],
+  "verificationNote": "Confirmado a 300 DPI: la tabla completa (filas 0-9, columnas 1/2~3/4~5/6~7/8+) es idéntica carácter a carácter a low-altitude-counterattack de la página 6."
+}

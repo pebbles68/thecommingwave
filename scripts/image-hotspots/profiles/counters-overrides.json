@@ -1,0 +1,1001 @@
+{
+  "schemaVersion": 1,
+  "note": "Ajustes humanos de la calibración: rectángulo [x, y, ancho, alto] en píxeles del recorte original de cada plantilla (sin escalar). Tras cambiarlos, regenerar con calibrate_counters.py y revisar la imagen QA.",
+  "review": {
+    "by": "Mantenedor (Pablo)",
+    "at": "2026-10-07",
+    "note": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta."
+  },
+  "templates": {
+    "aircraft-combat-tactical": {
+      "air_combat": {
+        "px": [
+          151,
+          62,
+          25,
+          25
+        ]
+      },
+      "model": {
+        "px": [
+          183,
+          65,
+          43,
+          28
+        ]
+      },
+      "signature": {
+        "px": [
+          210,
+          94,
+          26,
+          49
+        ]
+      },
+      "surface_detection": {
+        "px": [
+          233,
+          64,
+          26,
+          26
+        ]
+      },
+      "air_search": {
+        "px": [
+          153,
+          93,
+          15,
+          15
+        ]
+      },
+      "electronic": {
+        "px": [
+          152,
+          111,
+          18,
+          24
+        ]
+      },
+      "runway": {
+        "px": [
+          240,
+          91,
+          12,
+          17
+        ]
+      },
+      "logistics": {
+        "px": [
+          241,
+          109,
+          11,
+          17
+        ]
+      },
+      "no_refuel": {
+        "px": [
+          239,
+          129,
+          17,
+          17
+        ]
+      },
+      "combat_support": {
+        "px": [
+          151,
+          145,
+          25,
+          25
+        ]
+      },
+      "protection": {
+        "px": [
+          207,
+          149,
+          12,
+          18
+        ]
+      },
+      "movement": {
+        "px": [
+          237,
+          148,
+          18,
+          20
+        ]
+      }
+    },
+    "ship-combat": {
+      "aa": {
+        "px": [
+          120,
+          82,
+          28,
+          28
+        ]
+      },
+      "model": {
+        "px": [
+          153,
+          87,
+          34,
+          14
+        ]
+      },
+      "hull_number": {
+        "px": [
+          184,
+          104,
+          12,
+          15
+        ]
+      },
+      "surface_detection": {
+        "px": [
+          194,
+          86,
+          22,
+          22
+        ]
+      },
+      "anti_jamming_air_search": {
+        "px": [
+          122,
+          112,
+          23,
+          15
+        ]
+      },
+      "port_level": {
+        "px": [
+          200,
+          111,
+          12,
+          16
+        ]
+      },
+      "electronic": {
+        "px": [
+          123,
+          130,
+          17,
+          22
+        ]
+      },
+      "logistics": {
+        "px": [
+          201,
+          132,
+          10,
+          18
+        ]
+      },
+      "support": {
+        "px": [
+          123,
+          157,
+          22,
+          22
+        ]
+      },
+      "asw": {
+        "px": [
+          152,
+          157,
+          22,
+          22
+        ]
+      },
+      "protection": {
+        "px": [
+          181,
+          160,
+          10,
+          16
+        ]
+      },
+      "movement": {
+        "px": [
+          198,
+          158,
+          16,
+          18
+        ]
+      }
+    },
+    "ground-main": {
+      "aa": {
+        "px": [
+          120,
+          87,
+          14,
+          22
+        ]
+      },
+      "skill": {
+        "px": [
+          151,
+          87,
+          21,
+          22
+        ]
+      },
+      "model": {
+        "px": [
+          176,
+          86,
+          33,
+          27
+        ]
+      },
+      "size": {
+        "px": [
+          139,
+          115,
+          16,
+          32
+        ]
+      },
+      "electronic": {
+        "px": [
+          120,
+          126,
+          16,
+          21
+        ]
+      },
+      "logistics": {
+        "px": [
+          198,
+          115,
+          9,
+          17
+        ]
+      },
+      "attack": {
+        "px": [
+          119,
+          159,
+          23,
+          22
+        ]
+      },
+      "defense": {
+        "px": [
+          148,
+          158,
+          23,
+          23
+        ]
+      },
+      "protection": {
+        "px": [
+          177,
+          162,
+          10,
+          15
+        ]
+      },
+      "initiative": {
+        "px": [
+          195,
+          160,
+          16,
+          18
+        ]
+      }
+    },
+    "aircraft-transport-tactical": {
+      "protection": {
+        "det": 0
+      },
+      "movement": {
+        "det": 1
+      },
+      "capacity": {
+        "det": 2
+      },
+      "electronic": {
+        "det": 3
+      },
+      "air_search": {
+        "det": 4
+      },
+      "runway": {
+        "px": [
+          236,
+          90,
+          12,
+          17
+        ]
+      },
+      "logistics": {
+        "det": 6
+      },
+      "model": {
+        "det": 7
+      },
+      "signature": {
+        "det": 8
+      },
+      "air_combat": {
+        "det": 9
+      },
+      "surface_detection": {
+        "px": [
+          228,
+          63,
+          26,
+          25
+        ]
+      },
+      "no_refuel": {
+        "px": [
+          233,
+          129,
+          17,
+          17
+        ]
+      }
+    },
+    "aircraft-special-awacs": {
+      "surface_detection": {
+        "px": [
+          227,
+          63,
+          21,
+          21
+        ]
+      },
+      "air_network": {
+        "det": 2
+      },
+      "air_detection": {
+        "det": 3
+      },
+      "signature": {
+        "px": [
+          228,
+          85,
+          21,
+          38
+        ]
+      },
+      "anti_jamming": {
+        "px": [
+          195,
+          98,
+          9,
+          14
+        ]
+      }
+    },
+    "aircraft-special-other-operating": {
+      "asw": {
+        "det": 0
+      },
+      "type": {
+        "det": 1
+      },
+      "electronic": {
+        "det": 2
+      },
+      "surface_detection": {
+        "det": 3
+      },
+      "operational_category": {
+        "px": [
+          210,
+          125,
+          32,
+          22
+        ]
+      },
+      "skill_2": {
+        "det": 5
+      },
+      "skill_1": {
+        "det": 6
+      },
+      "signature": {
+        "px": [
+          223,
+          84,
+          20,
+          38
+        ]
+      }
+    },
+    "aircraft-special-flying": {
+      "operational_category": {
+        "det": 0
+      },
+      "protection": {
+        "det": 1
+      },
+      "movement": {
+        "det": 2
+      },
+      "logistics": {
+        "det": 3
+      },
+      "electronic": {
+        "det": 4
+      },
+      "runway": {
+        "det": 5
+      },
+      "model": {
+        "det": 6
+      },
+      "signature": {
+        "det": 7
+      },
+      "air_combat": {
+        "det": 8
+      },
+      "anti_jamming_air_search": {
+        "px": [
+          356,
+          91,
+          10,
+          13
+        ]
+      },
+      "no_refuel": {
+        "px": [
+          426,
+          121,
+          13,
+          12
+        ]
+      }
+    },
+    "ship-carrier": {
+      "protection": {
+        "det": 0
+      },
+      "movement": {
+        "det": 1
+      },
+      "runway": {
+        "det": 4
+      },
+      "logistics": {
+        "det": 5
+      },
+      "electronic": {
+        "det": 6
+      },
+      "anti_jamming_air_search": {
+        "det": 7
+      },
+      "surface_detection": {
+        "det": 8
+      },
+      "model": {
+        "det": 9
+      },
+      "asw": {
+        "px": [
+          148,
+          157,
+          22,
+          22
+        ]
+      },
+      "aa": {
+        "px": [
+          117,
+          82,
+          28,
+          27
+        ]
+      },
+      "port_level": {
+        "px": [
+          197,
+          111,
+          11,
+          15
+        ]
+      }
+    },
+    "submarine-hidden": {
+      "movement": {
+        "det": 0
+      },
+      "torpedoes": {
+        "det": 1
+      },
+      "noise": {
+        "px": [
+          150,
+          117,
+          30,
+          31
+        ]
+      },
+      "model": {
+        "det": 3
+      },
+      "ambush": {
+        "px": [
+          177,
+          96,
+          9,
+          13
+        ]
+      },
+      "logistics": {
+        "px": [
+          176,
+          132,
+          12,
+          12
+        ]
+      }
+    },
+    "submarine-exposed": {
+      "movement": {
+        "det": 0
+      },
+      "noise": {
+        "det": 1
+      },
+      "torpedoes": {
+        "det": 2
+      },
+      "logistics": {
+        "det": 3
+      },
+      "electronic": {
+        "det": 4
+      },
+      "model": {
+        "det": 5
+      },
+      "ambush": {
+        "px": [
+          185,
+          81,
+          8,
+          14
+        ]
+      },
+      "protection": {
+        "px": [
+          170,
+          141,
+          9,
+          12
+        ]
+      }
+    },
+    "surface-transport-underway": {
+      "protection": {
+        "det": 0
+      },
+      "movement": {
+        "det": 1
+      },
+      "max_capacity": {
+        "det": 2
+      },
+      "one_unit_capacity": {
+        "det": 3
+      },
+      "logistics": {
+        "det": 4
+      },
+      "electronic": {
+        "det": 5
+      },
+      "anti_jamming_air_search": {
+        "det": 6
+      },
+      "surface_detection": {
+        "det": 7
+      },
+      "model": {
+        "det": 8
+      },
+      "aa": {
+        "px": [
+          120,
+          71,
+          28,
+          27
+        ]
+      },
+      "hull_number": {
+        "px": [
+          184,
+          94,
+          12,
+          14
+        ]
+      },
+      "port_level": {
+        "px": [
+          200,
+          99,
+          11,
+          16
+        ]
+      }
+    },
+    "surface-transport-loading": {
+      "protection": {
+        "det": 0
+      },
+      "max_capacity": {
+        "det": 1
+      },
+      "one_unit_capacity": {
+        "det": 2
+      },
+      "logistics": {
+        "det": 3
+      },
+      "anti_jamming_air_search": {
+        "det": 4
+      },
+      "electronic": {
+        "det": 5
+      },
+      "surface_detection": {
+        "det": 6
+      },
+      "unload": {
+        "px": [
+          154,
+          89,
+          22,
+          21
+        ]
+      },
+      "model": {
+        "px": [
+          150,
+          73,
+          33,
+          14
+        ]
+      },
+      "aa": {
+        "px": [
+          117,
+          68,
+          28,
+          28
+        ]
+      },
+      "hull_number": {
+        "px": [
+          180,
+          90,
+          13,
+          14
+        ]
+      },
+      "port_level": {
+        "px": [
+          197,
+          97,
+          11,
+          15
+        ]
+      }
+    },
+    "low-altitude-flying": {
+      "protection": {
+        "det": 0
+      },
+      "type": {
+        "det": 1
+      },
+      "electronic": {
+        "det": 2
+      },
+      "signature": {
+        "px": [
+          168,
+          89,
+          17,
+          32
+        ]
+      },
+      "movement": {
+        "px": [
+          178,
+          121,
+          20,
+          19
+        ]
+      },
+      "air_combat": {
+        "det": 5
+      },
+      "model": {
+        "px": [
+          158,
+          66,
+          43,
+          22
+        ]
+      },
+      "logistics": {
+        "px": [
+          191,
+          95,
+          8,
+          13
+        ]
+      }
+    },
+    "low-altitude-operating": {
+      "type": {
+        "det": 0
+      },
+      "electronic": {
+        "det": 1
+      },
+      "skill": {
+        "det": 3
+      },
+      "signature": {
+        "px": [
+          181,
+          108,
+          18,
+          34
+        ]
+      },
+      "model": {
+        "px": [
+          168,
+          86,
+          31,
+          21
+        ]
+      },
+      "surface_detection": {
+        "px": [
+          182,
+          67,
+          18,
+          17
+        ]
+      }
+    },
+    "low-altitude-operating-transport": {
+      "capacity": {
+        "det": 0
+      },
+      "electronic": {
+        "det": 1
+      },
+      "surface_detection": {
+        "det": 2
+      },
+      "skill": {
+        "det": 5
+      },
+      "model": {
+        "px": [
+          167,
+          86,
+          30,
+          21
+        ]
+      },
+      "signature": {
+        "px": [
+          178,
+          107,
+          17,
+          34
+        ]
+      }
+    },
+    "ground-tech-fire": {
+      "mobile_or_fixed": {
+        "det": 0
+      },
+      "protection": {
+        "det": 1
+      },
+      "function_support": {
+        "det": 2
+      },
+      "electronic": {
+        "det": 3
+      },
+      "model": {
+        "det": 4
+      },
+      "aa": {
+        "det": 5
+      },
+      "logistics": {
+        "px": [
+          185,
+          118,
+          7,
+          11
+        ]
+      }
+    },
+    "ground-tech-antisurface": {
+      "mobile_or_fixed": {
+        "det": 0
+      },
+      "protection": {
+        "det": 1
+      },
+      "function_type": {
+        "det": 2
+      },
+      "electronic": {
+        "det": 3
+      },
+      "surface_detection": {
+        "det": 4
+      },
+      "model": {
+        "det": 5
+      },
+      "aa": {
+        "det": 6
+      },
+      "logistics": {
+        "px": [
+          183,
+          118,
+          7,
+          11
+        ]
+      }
+    },
+    "ground-tech-heliport": {
+      "initiative": {
+        "det": 0
+      },
+      "protection": {
+        "det": 1
+      },
+      "electronic": {
+        "det": 2
+      },
+      "number": {
+        "px": [
+          169,
+          107,
+          28,
+          23
+        ]
+      }
+    },
+    "ground-tech-antiair": {
+      "mobile_or_fixed": {
+        "det": 0
+      },
+      "air_detection": {
+        "det": 1
+      },
+      "aa": {
+        "px": [
+          149,
+          77,
+          22,
+          23
+        ]
+      },
+      "electronic": {
+        "px": [
+          149,
+          103,
+          12,
+          14
+        ]
+      },
+      "ballistic_defense": {
+        "px": [
+          163,
+          110,
+          17,
+          15
+        ]
+      },
+      "anti_jamming": {
+        "px": [
+          150,
+          126,
+          7,
+          11
+        ]
+      },
+      "logistics": {
+        "px": [
+          189,
+          118,
+          6,
+          12
+        ]
+      },
+      "low_altitude_detection": {
+        "px": [
+          146,
+          143,
+          14,
+          12
+        ]
+      },
+      "protection": {
+        "px": [
+          167,
+          137,
+          9,
+          15
+        ]
+      }
+    },
+    "ground-tech-earlywarning": {
+      "mobile_or_fixed": {
+        "det": 0
+      },
+      "electronic": {
+        "det": 1
+      },
+      "air_detection": {
+        "px": [
+          115,
+          77,
+          30,
+          79
+        ]
+      },
+      "skill": {
+        "px": [
+          147,
+          79,
+          19,
+          19
+        ]
+      },
+      "anti_jamming": {
+        "px": [
+          147,
+          126,
+          7,
+          10
+        ]
+      },
+      "logistics": {
+        "px": [
+          186,
+          118,
+          7,
+          12
+        ]
+      },
+      "low_altitude_detection": {
+        "px": [
+          143,
+          143,
+          13,
+          12
+        ]
+      },
+      "protection": {
+        "px": [
+          164,
+          137,
+          8,
+          15
+        ]
+      }
+    }
+  }
+}

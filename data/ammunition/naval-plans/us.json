@@ -1,0 +1,338 @@
+{
+  "country": "US",
+  "countryName": "Estados Unidos",
+  "status": "partial",
+  "transcribedSheets": ["EEUU 3"],
+  "pendingSheets": ["EEUU 1", "EEUU 2", "EEUU 4"],
+
+  "schemaNote": "Plantilla propia, distinta de data/ammunition/attack-plans/. Los buques de superficie SI tienen distincion completa/danada (dos filas, verificado a 900 DPI en TD y BS-CT); las plataformas submarinas NO la tienen (una sola fila, verificado a 900 DPI en VG y VG B3). Todos los valores son loadFormat 'single' (nunca heavy/light en esta hoja).",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0."
+  },
+
+  "sourceRefs": [
+    {
+      "document": "Tablas de Armamento/EEUU 3.pdf",
+      "page": 1,
+      "sheetTitle": "Unidades de superficie",
+      "sheetNote": "SS: Sea-Skimming"
+    },
+    {
+      "document": "Tablas de Armamento/EEUU 3.pdf",
+      "page": 1,
+      "sheetTitle": "Plataformas submarinas (seccion inferior de la misma pagina)"
+    }
+  ],
+
+  "unmappedFactors": {
+    "leadingColumn": {
+      "note": "Cada buque de superficie (no las plataformas submarinas) lleva una celda 'FICHA_ICONO <=4' antes de sus columnas de armamento. Resuelto contra data/counters/factor-map.json#ship-combat: es el factor 'ASW' de la ficha (icono de pez/delfin saltando); '<=4' es el tope de ese factor.",
+      "resolvedFactor": "asw",
+      "value": "<=4"
+    },
+    "shipBadge": {
+      "note": "Numero en circulo junto al icono del buque (visto: 1, 2, 16). Resuelto en posicion/etiqueta contra data/counters/factor-map.json#ship-combat: es el factor 'N.º'. Su significado numerico (unidades de la clase vs. celdas VLS) sigue sin confirmar contra el reglamento (docs/rules/known-ambiguities.md).",
+      "resolvedFactor": "hull_number"
+    }
+  },
+
+  "surfaceShips": [
+    {
+      "id": "us-td",
+      "name": "TD",
+      "nameLocal": "提康德罗加",
+      "nameEn": "Ticonderoga",
+      "class": "cruiser",
+      "hasFullDamagedRows": true,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 17 }, "damaged": { "damage": 3, "range": 17 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 17 }, "damaged": { "damage": 3, "range": 17 } }
+        }
+      }
+    },
+    {
+      "id": "us-bs-ab-f1",
+      "name": "BS-AB F1",
+      "nameLocal": "阿利伯克F1",
+      "nameEn": "Arleigh Burke Flight I",
+      "class": "destroyer",
+      "hasFullDamagedRows": true,
+      "shipBadge": 2,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+        }
+      }
+    },
+    {
+      "id": "us-bs-ab-f2",
+      "name": "BS-AB F2",
+      "nameLocal": "阿利伯克F2",
+      "nameEn": "Arleigh Burke Flight II",
+      "class": "destroyer",
+      "hasFullDamagedRows": true,
+      "shipBadge": 2,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+        }
+      },
+      "note": "Los valores coinciden exactamente con BS-AB F1 en esta hoja; verificado visualmente, no es un error de copia."
+    },
+    {
+      "id": "us-bs-ab-f2a",
+      "name": "BS-AB F2A",
+      "nameLocal": "阿利伯克F2A",
+      "nameEn": "Arleigh Burke Flight IIA",
+      "class": "destroyer",
+      "hasFullDamagedRows": true,
+      "shipBadge": 2,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+        }
+      },
+      "note": "A diferencia de F1/F2, esta hoja no lista columna Harpoon II para F2A."
+    },
+    {
+      "id": "us-bs-ab-f3",
+      "name": "BS-AB F3",
+      "nameLocal": "阿利伯克F3",
+      "nameEn": "Arleigh Burke Flight III",
+      "class": "destroyer",
+      "hasFullDamagedRows": true,
+      "shipBadge": 2,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+        }
+      },
+      "note": "Igual que F2A: sin columna Harpoon II en esta hoja."
+    },
+    {
+      "id": "us-bs-ct",
+      "name": "BS-CT",
+      "nameLocal": "星座",
+      "nameEn": "Constellation",
+      "class": "frigate",
+      "hasFullDamagedRows": true,
+      "shipBadge": 1,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "NSM", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 3 }, "damaged": { "damage": 2, "range": 3 } }
+        },
+        "landAttack": {}
+      },
+      "note": "La columna A de LandAttack aparece en la cabecera pero sin valor (celda en blanco): esta clase no tiene plan de ataque terrestre en esta hoja."
+    },
+    {
+      "id": "us-bs-id",
+      "name": "BS-ID",
+      "nameLocal": "独立",
+      "nameEn": "Independence",
+      "class": "littoral-combat-ship",
+      "hasFullDamagedRows": true,
+      "shipBadge": 1,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "NSM", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } }
+        },
+        "landAttack": {}
+      },
+      "note": "La hoja no muestra columna de LandAttack en absoluto para esta clase (a diferencia de BS-CT, que si muestra la cabecera vacia)."
+    },
+    {
+      "id": "us-bs-fd",
+      "name": "BS-FD",
+      "nameLocal": "自由",
+      "nameEn": "Freedom",
+      "class": "littoral-combat-ship",
+      "hasFullDamagedRows": true,
+      "shipBadge": 1,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "HELLFIRE", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 3, "range": 0 }, "damaged": { "damage": 2, "range": 0 } }
+        },
+        "landAttack": {}
+      }
+    },
+    {
+      "id": "us-bs-zm",
+      "name": "BS-ZM",
+      "nameLocal": "朱姆沃尔特",
+      "nameEn": "Zumwalt",
+      "class": "destroyer",
+      "hasFullDamagedRows": true,
+      "shipBadge": 16,
+      "restrictions": ["无法低空反击 (No puede realizar contraataque a baja altura)."],
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 6, "range": 20 }, "damaged": { "damage": 4, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
+                 "full": { "damage": 6, "range": 20 }, "damaged": { "damage": 4, "range": 20 } }
+        }
+      }
+    }
+  ],
+
+  "submarines": [
+    {
+      "id": "us-sw-b1",
+      "name": "Sw B1",
+      "nameLocal": "海狼",
+      "nameEn": "Seawolf",
+      "class": "attack-submarine",
+      "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+        }
+      }
+    },
+    {
+      "id": "us-sw-b2",
+      "name": "Sw B2",
+      "nameLocal": "吉米卡特",
+      "nameEn": "Jimmy Carter",
+      "class": "attack-submarine",
+      "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+        }
+      }
+    },
+    {
+      "id": "us-vg",
+      "name": "VG",
+      "nameLocal": "弗吉尼亚",
+      "nameEn": "Virginia",
+      "class": "attack-submarine",
+      "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 20 } }
+        }
+      }
+    },
+    {
+      "id": "us-vg-b3",
+      "name": "VG B3",
+      "nameLocal": "北达科他",
+      "nameEn": "North Dakota",
+      "class": "attack-submarine",
+      "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 20 } }
+        }
+      }
+    },
+    {
+      "id": "us-vg-b4",
+      "name": "VG B4",
+      "nameLocal": "佛蒙特",
+      "nameEn": "Vermont",
+      "class": "attack-submarine",
+      "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 5, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 5, "range": 20 } }
+        }
+      }
+    },
+    {
+      "id": "us-la-b2",
+      "name": "LA B2",
+      "nameLocal": "洛杉矶",
+      "nameEn": "Los Angeles",
+      "class": "attack-submarine",
+      "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 2, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 2, "range": 20 } }
+        }
+      }
+    },
+    {
+      "id": "us-dh",
+      "name": "DH",
+      "nameLocal": "俄亥俄",
+      "nameEn": "Ohio",
+      "class": "cruise-missile-submarine",
+      "hasFullDamagedRows": false,
+      "restrictions": ["拥有6组巡航导弹 (Dispone de 6 grupos de misiles de crucero)."],
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
+          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+        },
+        "landAttack": {
+          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,531 @@
+{
+  "id": "counter-factor-map",
+  "description": "Mapa de los factores impresos en cada tipo de ficha (counter) de TCW, con su posicion aproximada en el diagrama y su rol de estado (volando/operando, oculto/expuesto, navegando/carga). Sirve de base para la ayuda de lectura de fichas (roadmap Fase 3) y para etiquetar los factores que en las tablas de armamento aparecian como 'unmappedFactors' / 'pending' (docs/rules/known-ambiguities.md).",
+  "sourceRefs": [
+    { "document": "Resumen counters - Español.pdf", "pages": [1, 2], "description": "Leyenda oficial de posiciones de factores por tipo de ficha." }
+  ],
+  "positionNote": "El campo 'position' es una ayuda de layout (verificada visualmente contra el diagrama de la leyenda, no coordenadas en pixeles): describe en que borde/esquina del icono de la ficha aparece cada factor, leido en el mismo orden que la leyenda (fila superior izquierda->derecha, columna izquierda arriba->abajo, columna derecha arriba->abajo, fila inferior izquierda->derecha).",
+  "expansionNote": "Los factores marcados 'expansionOnly: true' aparecen en rojo en la leyenda: 'Los valores/habilidades en rojo solo se usan en las reglas de expansion' (Resumen counters - Español.pdf).",
+  "sourceImages": {
+    "counters-aereos.jpg": { "widthPx": 789, "heightPx": 855 },
+    "resto-counters.jpg": { "widthPx": 956, "heightPx": 1280 }
+  },
+  "regionNote": "El campo 'region' de cada counterTemplate ubica, en porcentaje sobre la imagen fuente (xPct/yPct/wPct/hPct, medido con sharp sobre las dimensiones reales de counters-aereos.jpg 789x855 y resto-counters.jpg 956x1280), el recuadro que contiene ese diagrama de ficha dentro de la hoja completa; se usa para recortar/hacer zoom a la ficha concreta en la ayuda de counters. El mapa 'positionBoxes' traduce cada valor cualitativo de 'position' (ver 'positionNote') a un sector rectangular en porcentaje DENTRO de ese recuadro (no coordenadas de pixel exactas del cuadradito de valor, que no estan transcritas): cubre la zona de la etiqueta de texto y su linea guia hacia el icono, que es el nivel de precision real disponible en la fuente. Sirve para dibujar el recuadro rojo y anclar el tooltip del factor seleccionado (AGENTS.md §9.4).",
+  "positionBoxes": {
+    "top-left":            { "xPct": 0,  "yPct": 0,  "wPct": 38, "hPct": 30 },
+    "top-center":          { "xPct": 30, "yPct": 0,  "wPct": 38, "hPct": 30 },
+    "top-right":           { "xPct": 60, "yPct": 0,  "wPct": 30, "hPct": 30 },
+    "top-far-right":       { "xPct": 78, "yPct": 0,  "wPct": 22, "hPct": 30 },
+    "left-upper":          { "xPct": 0,  "yPct": 20, "wPct": 30, "hPct": 25 },
+    "left":                { "xPct": 0,  "yPct": 20, "wPct": 30, "hPct": 45 },
+    "left-lower":          { "xPct": 0,  "yPct": 45, "wPct": 30, "hPct": 20 },
+    "right-upper":         { "xPct": 70, "yPct": 20, "wPct": 30, "hPct": 25 },
+    "right-middle":        { "xPct": 70, "yPct": 35, "wPct": 30, "hPct": 25 },
+    "right":               { "xPct": 70, "yPct": 20, "wPct": 30, "hPct": 45 },
+    "right-lower":         { "xPct": 70, "yPct": 45, "wPct": 30, "hPct": 20 },
+    "bottom-left":         { "xPct": 0,  "yPct": 68, "wPct": 38, "hPct": 32 },
+    "bottom-center-left":  { "xPct": 20, "yPct": 68, "wPct": 32, "hPct": 32 },
+    "bottom-center":       { "xPct": 30, "yPct": 68, "wPct": 38, "hPct": 32 },
+    "bottom-center-right": { "xPct": 48, "yPct": 68, "wPct": 32, "hPct": 32 },
+    "bottom-right":        { "xPct": 60, "yPct": 68, "wPct": 40, "hPct": 32 }
+  },
+
+  "factorVocabulary": {
+    "air_combat": { "label": "Combate aéreo" },
+    "model": { "label": "Modelo" },
+    "signature": { "label": "Firma" },
+    "surface_detection": { "label": "Detección de superficie" },
+    "air_search": { "label": "Búsqueda aérea" },
+    "electronic": { "label": "Electrónica" },
+    "runway": { "label": "Pista" },
+    "logistics": { "label": "Logística" },
+    "no_refuel": { "label": "No repostaje" },
+    "combat_support": { "label": "Apoyo de combate" },
+    "protection": { "label": "Protección" },
+    "movement": { "label": "Movimiento" },
+    "capacity": { "label": "Capacidad" },
+    "air_network": { "label": "Red aérea" },
+    "air_detection": { "label": "Detección aérea" },
+    "anti_jamming": { "label": "Anti-Jamming" },
+    "anti_jamming_air_search": { "label": "Anti-jamming / Búsqueda aérea" },
+    "skill_1": { "label": "Habilidad 1" },
+    "skill_2": { "label": "Habilidad 2" },
+    "skill": { "label": "Habilidad" },
+    "type": { "label": "Tipo" },
+    "asw": { "label": "ASW" },
+    "operational_category": { "label": "Categoría operativa" },
+    "aa": { "label": "A.A." },
+    "hull_number": { "label": "N.º" },
+    "port_level": { "label": "Nivel de puerto" },
+    "support": { "label": "Apoyo" },
+    "one_unit_capacity": { "label": "Capacidad 1 unidad" },
+    "max_capacity": { "label": "Máxima capacidad" },
+    "unload": { "label": "Descarga" },
+    "ambush": { "label": "Emboscada" },
+    "torpedoes": { "label": "Torpedos" },
+    "noise": { "label": "Ruido" },
+    "size": { "label": "Tamaño" },
+    "attack": { "label": "Ataque" },
+    "defense": { "label": "Defensa" },
+    "initiative": { "label": "Iniciativa" },
+    "function_support": { "label": "Función / Apoyo" },
+    "mobile_or_fixed": { "label": "Móvil / Fijo" },
+    "function_type": { "label": "Tipo de función" },
+    "number": { "label": "Número" },
+    "ballistic_defense": { "label": "Defensa balística" },
+    "low_altitude_detection": { "label": "Detección de baja altitud" }
+  },
+
+  "counterTemplates": [
+    {
+      "id": "aircraft-combat-tactical",
+      "region": { "sourceImage": "counters-aereos.jpg", "xPct": 0, "yPct": 10.9, "wPct": 49.9, "hPct": 26.9 },
+      "title": "Aviones tácticos — unidades de combate",
+      "category": "air",
+      "sourceRefs": [{ "document": "Resumen counters - Español.pdf", "page": 1, "section": "AVIONES TÁCTICOS / UNIDADES DE COMBATE" }],
+      "matchHint": "Cazas tácticos y de ataque de data/ammunition/attack-plans/*.json (loadFormat con completa/dañada).",
+      "factors": [
+        { "factor": "air_combat", "position": "top-left" },
+        { "factor": "model", "position": "top-center" },
+        { "factor": "signature", "position": "top-right" },
+        { "factor": "surface_detection", "position": "top-far-right" },
+        { "factor": "air_search", "position": "left-upper", "expansionOnly": true },
+        { "factor": "electronic", "position": "left-lower" },
+        { "factor": "runway", "position": "right-upper" },
+        { "factor": "logistics", "position": "right-middle" },
+        { "factor": "no_refuel", "position": "right-lower" },
+        { "factor": "combat_support", "position": "bottom-left" },
+        { "factor": "protection", "position": "bottom-center" },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "aircraft-transport-tactical",
+      "region": { "sourceImage": "counters-aereos.jpg", "xPct": 49.9, "yPct": 10.9, "wPct": 50.1, "hPct": 26.9 },
+      "title": "Aviones tácticos — unidades de transporte",
+      "category": "air",
+      "sourceRefs": [{ "document": "Resumen counters - Español.pdf", "page": 1, "section": "AVIONES TÁCTICOS / UNIDADES DE TRANSPORTE" }],
+      "matchHint": "Aviones de transporte (no armados con planes de ataque).",
+      "factors": [
+        { "factor": "air_combat", "position": "top-left" },
+        { "factor": "model", "position": "top-center" },
+        { "factor": "signature", "position": "top-right" },
+        { "factor": "surface_detection", "position": "top-far-right" },
+        { "factor": "air_search", "position": "left-upper", "expansionOnly": true },
+        { "factor": "electronic", "position": "left-lower" },
+        { "factor": "runway", "position": "right-upper" },
+        { "factor": "logistics", "position": "right-middle" },
+        { "factor": "no_refuel", "position": "right-lower" },
+        { "factor": "capacity", "position": "bottom-left" },
+        { "factor": "protection", "position": "bottom-center" },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "aircraft-special-awacs",
+      "region": { "sourceImage": "counters-aereos.jpg", "xPct": 0, "yPct": 43.6, "wPct": 49.9, "hPct": 22.8 },
+      "title": "Aviones especiales (operando) — AWACS",
+      "category": "air",
+      "sourceRefs": [{ "document": "Resumen counters - Español.pdf", "page": 1, "section": "AVIONES ESPECIALES (OPERANDO) / AWACS" }],
+      "matchHint": "AWACS de data/ammunition/special-unit-plans/*.json.",
+      "factors": [
+        { "factor": "air_network", "position": "top-left" },
+        { "factor": "surface_detection", "position": "top-right" },
+        { "factor": "air_detection", "position": "left" },
+        { "factor": "signature", "position": "right" },
+        { "factor": "anti_jamming", "position": "bottom-center", "expansionOnly": true }
+      ]
+    },
+    {
+      "id": "aircraft-special-other-operating",
+      "region": { "sourceImage": "counters-aereos.jpg", "xPct": 49.9, "yPct": 43.6, "wPct": 50.1, "hPct": 22.8 },
+      "title": "Aviones especiales (operando) — otras (ISR/EW/ASW)",
+      "category": "air",
+      "sourceRefs": [{ "document": "Resumen counters - Español.pdf", "page": 1, "section": "AVIONES ESPECIALES (OPERANDO) / OTRAS" }],
+      "matchHint": "Aviones ISR/EW/ASW de data/ammunition/special-unit-plans/*.json distintos de AWACS.",
+      "factors": [
+        { "factor": "skill_1", "position": "top-left" },
+        { "factor": "skill_2", "position": "top-center" },
+        { "factor": "surface_detection", "position": "top-right" },
+        { "factor": "electronic", "position": "left" },
+        { "factor": "signature", "position": "right" },
+        { "factor": "type", "position": "bottom-left" },
+        { "factor": "asw", "position": "bottom-center" },
+        { "factor": "operational_category", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "aircraft-special-flying",
+      "region": { "sourceImage": "counters-aereos.jpg", "xPct": 0, "yPct": 70.8, "wPct": 100, "hPct": 23.4 },
+      "title": "Aviones especiales (volando)",
+      "category": "air",
+      "sourceRefs": [{ "document": "Resumen counters - Español.pdf", "page": 1, "section": "AVIONES ESPECIALES (VOLANDO)" }],
+      "matchHint": "Estado 'volando' (en misión) de los aviones especiales, distinto de su estado 'operando' en aeródromo.",
+      "factors": [
+        { "factor": "air_combat", "position": "top-left" },
+        { "factor": "model", "position": "top-center" },
+        { "factor": "signature", "position": "top-right" },
+        { "factor": "anti_jamming_air_search", "position": "left-upper", "expansionOnly": true },
+        { "factor": "electronic", "position": "left-lower" },
+        { "factor": "runway", "position": "right-upper" },
+        { "factor": "logistics", "position": "right-middle", "expansionOnly": true },
+        { "factor": "no_refuel", "position": "right-lower" },
+        { "factor": "operational_category", "position": "bottom-left" },
+        { "factor": "protection", "position": "bottom-center" },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "ship-combat",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 0, "yPct": 3.9, "wPct": 33.4, "hPct": 18.8 },
+      "title": "Unidades de superficie — unidades de combate",
+      "category": "naval",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES DE SUPERFICIE / UNIDADES DE COMBATE" }],
+      "matchHint": "Buques de superficie de data/ammunition/naval-plans/*.json (surfaceShips), salvo portaaviones.",
+      "factors": [
+        { "factor": "aa", "position": "top-left" },
+        { "factor": "model", "position": "top-center" },
+        { "factor": "hull_number", "position": "top-right" },
+        { "factor": "surface_detection", "position": "top-far-right" },
+        { "factor": "anti_jamming_air_search", "position": "left-upper", "expansionOnly": true },
+        { "factor": "electronic", "position": "left-lower" },
+        { "factor": "port_level", "position": "right-upper" },
+        { "factor": "logistics", "position": "right-lower", "expansionOnly": true },
+        { "factor": "support", "position": "bottom-left" },
+        { "factor": "asw", "position": "bottom-center-left", "note": "Icono de pez/delfín saltando; cap visto en tabla de armamento como '<=4'. Resuelve data/ammunition/naval-plans/*.json#unmappedFactors.leadingColumn." },
+        { "factor": "protection", "position": "bottom-center-right" },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "ship-carrier",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 33.4, "yPct": 3.9, "wPct": 33.4, "hPct": 18.8 },
+      "title": "Unidades de superficie — portaaviones",
+      "category": "naval",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES DE SUPERFICIE / PORTAAVIONES" }],
+      "matchHint": "Portaaviones de data/ammunition/naval-plans/*.json (class: carrier).",
+      "factors": [
+        { "factor": "aa", "position": "top-left" },
+        { "factor": "model", "position": "top-center" },
+        { "factor": "surface_detection", "position": "top-right" },
+        { "factor": "anti_jamming_air_search", "position": "left-upper", "expansionOnly": true },
+        { "factor": "electronic", "position": "left-lower" },
+        { "factor": "port_level", "position": "right-upper" },
+        { "factor": "logistics", "position": "right-lower", "expansionOnly": true },
+        { "factor": "runway", "position": "bottom-left" },
+        { "factor": "asw", "position": "bottom-center-left" },
+        { "factor": "protection", "position": "bottom-center-right" },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "submarine-hidden",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 66.7, "yPct": 3.9, "wPct": 33.3, "hPct": 18.8 },
+      "title": "Unidades submarinas — oculto",
+      "category": "naval",
+      "state": "hidden",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES SUBMARINAS / OCULTO" }],
+      "matchHint": "Submarinos de data/ammunition/naval-plans/*.json (submarines) mientras permanecen ocultos.",
+      "factors": [
+        { "factor": "model", "position": "top-left" },
+        { "factor": "ambush", "position": "top-right", "note": "Ver docs/rules/known-ambiguities.md: condiciones de aplicación pendientes de transcribir del Decision Book." },
+        { "factor": "logistics", "position": "right", "expansionOnly": true },
+        { "factor": "torpedoes", "position": "bottom-left" },
+        {
+          "factor": "noise", "position": "bottom-center",
+          "note": "Firma del submarino (docs/rules/known-ambiguities.md, entrada resuelta 'Ruido = Firma').",
+          "roleBands": {
+            "sourceRef": { "workflow": "data/sources/tcw_attack_workflows/11_ataque_asw_submarino.xml" },
+            "attacker": ["0-3", "4", "5+"],
+            "target": ["0-3", "4-6", "7+"],
+            "explanation": "El workflow 11 (ataque ASW submarino contra submarino) pregunta 'Firma del atacante' y 'Firma del objetivo' con bandas distintas para el mismo factor Ruido según el rol del submarino en ese ataque; de ahí el atributo 'side' (attacker/target) en vez de una única banda."
+          }
+        },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "submarine-exposed",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 66.7, "yPct": 24.6, "wPct": 33.3, "hPct": 18 },
+      "title": "Unidades submarinas — expuestas",
+      "category": "naval",
+      "state": "exposed",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES SUBMARINAS / EXPUESTAS" }],
+      "matchHint": "Submarinos de data/ammunition/naval-plans/*.json (submarines) una vez expuestos.",
+      "factors": [
+        { "factor": "model", "position": "top-left" },
+        { "factor": "ambush", "position": "top-right" },
+        { "factor": "electronic", "position": "left" },
+        { "factor": "logistics", "position": "right", "expansionOnly": true },
+        { "factor": "torpedoes", "position": "bottom-left" },
+        {
+          "factor": "noise", "position": "bottom-center-left",
+          "roleBands": {
+            "sourceRef": { "workflow": "data/sources/tcw_attack_workflows/11_ataque_asw_submarino.xml" },
+            "attacker": ["0-3", "4", "5+"],
+            "target": ["0-3", "4-6", "7+"]
+          }
+        },
+        { "factor": "protection", "position": "bottom-center-right" },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "surface-transport-underway",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 0, "yPct": 24.6, "wPct": 33.4, "hPct": 18 },
+      "title": "Unidades de superficie — transporte (navegando)",
+      "category": "naval",
+      "state": "underway",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES DE SUPERFICIE / TRANSPORTE (NAVEGANDO)" }],
+      "matchHint": "Buques de transporte mientras navegan.",
+      "factors": [
+        { "factor": "aa", "position": "top-left" },
+        { "factor": "model", "position": "top-center" },
+        { "factor": "hull_number", "position": "top-right" },
+        { "factor": "surface_detection", "position": "top-far-right" },
+        { "factor": "anti_jamming_air_search", "position": "left-upper", "expansionOnly": true },
+        { "factor": "electronic", "position": "left-lower" },
+        { "factor": "port_level", "position": "right-upper" },
+        { "factor": "logistics", "position": "right-lower", "expansionOnly": true },
+        { "factor": "one_unit_capacity", "position": "bottom-left" },
+        { "factor": "max_capacity", "position": "bottom-center-left" },
+        { "factor": "protection", "position": "bottom-center-right" },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "surface-transport-loading",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 33.4, "yPct": 24.6, "wPct": 33.4, "hPct": 18 },
+      "title": "Unidades de superficie — transporte (carga/descarga)",
+      "category": "naval",
+      "state": "loading",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES DE SUPERFICIE / TRANSPORTE (CARGA/DESCARGA)" }],
+      "matchHint": "Mismo buque de transporte que 'surface-transport-underway', en el estado de carga/descarga de puerto.",
+      "factors": [
+        { "factor": "aa", "position": "top-left" },
+        { "factor": "model", "position": "top-center" },
+        { "factor": "hull_number", "position": "top-right" },
+        { "factor": "surface_detection", "position": "top-far-right" },
+        { "factor": "anti_jamming_air_search", "position": "left-upper", "expansionOnly": true },
+        { "factor": "electronic", "position": "left-lower" },
+        { "factor": "port_level", "position": "right-upper" },
+        { "factor": "logistics", "position": "right-lower", "expansionOnly": true },
+        { "factor": "one_unit_capacity", "position": "bottom-left" },
+        { "factor": "max_capacity", "position": "bottom-center-left" },
+        { "factor": "protection", "position": "bottom-center-right" },
+        { "factor": "unload", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "low-altitude-flying",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 0, "yPct": 44.5, "wPct": 33.4, "hPct": 14.5 },
+      "title": "Unidades de baja altitud — volando",
+      "category": "low-altitude",
+      "state": "flying",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES DE BAJA ALTITUD / VOLANDO" }],
+      "matchHint": "Munición/plataforma de baja altitud (p.ej. misil de crucero en vuelo) mientras está en misión.",
+      "factors": [
+        { "factor": "air_combat", "position": "top-left" },
+        { "factor": "model", "position": "top-right" },
+        { "factor": "electronic", "position": "left" },
+        { "factor": "signature", "position": "right-upper" },
+        { "factor": "logistics", "position": "right-lower", "expansionOnly": true },
+        { "factor": "type", "position": "bottom-left" },
+        { "factor": "protection", "position": "bottom-center" },
+        { "factor": "movement", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "low-altitude-operating",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 33.4, "yPct": 44.5, "wPct": 33.4, "hPct": 14.5 },
+      "title": "Unidades de baja altitud — operando",
+      "category": "low-altitude",
+      "state": "operating",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES DE BAJA ALTITUD / OPERANDO" }],
+      "matchHint": "Misma unidad de baja altitud que 'low-altitude-flying', en su estado de preparación/almacenamiento antes de volar.",
+      "factors": [
+        { "factor": "skill", "position": "top-left" },
+        { "factor": "surface_detection", "position": "top-right" },
+        { "factor": "electronic", "position": "left" },
+        { "factor": "model", "position": "right" },
+        { "factor": "type", "position": "bottom-left" },
+        { "factor": "signature", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "low-altitude-operating-transport",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 66.7, "yPct": 44.5, "wPct": 33.3, "hPct": 14.5 },
+      "title": "Unidades de baja altitud — operando (transporte)",
+      "category": "low-altitude",
+      "state": "operating-transport",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES DE BAJA ALTITUD / OPERANDO (TRANSPORTE)" }],
+      "matchHint": "Variante de transporte/lanzador de la unidad de baja altitud en su estado 'operando'.",
+      "factors": [
+        { "factor": "skill", "position": "top-left" },
+        { "factor": "surface_detection", "position": "top-right" },
+        { "factor": "electronic", "position": "left" },
+        { "factor": "model", "position": "right" },
+        { "factor": "capacity", "position": "bottom-left" },
+        { "factor": "signature", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "ground-main",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 0, "yPct": 60.9, "wPct": 33.4, "hPct": 18 },
+      "title": "Unidades terrestres — unidades principales",
+      "category": "ground",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES TERRESTRES / UNIDADES PRINCIPALES" }],
+      "matchHint": "Formaciones terrestres de data/units/*.json (groundFormations). Confirma que el par de valores transcrito corresponde a Ataque/Defensa.",
+      "factors": [
+        { "factor": "aa", "position": "top-left" },
+        { "factor": "skill", "position": "top-center" },
+        { "factor": "model", "position": "top-right" },
+        { "factor": "size", "position": "left-upper", "note": "Tamaño de Fuerza: mismo factor que preguntan 'force_size_before'/'force_size_excess' en varios workflows." },
+        { "factor": "electronic", "position": "left-lower" },
+        { "factor": "logistics", "position": "right", "expansionOnly": true },
+        {
+          "factor": "attack", "position": "bottom-left",
+          "note": "Resuelve data/units/*.json#groundFormations: confirma la asuncion previa de que el primer valor del par es Ataque."
+        },
+        {
+          "factor": "defense", "position": "bottom-center-left",
+          "note": "Resuelve data/units/*.json#groundFormations: confirma la asuncion previa de que el segundo valor del par es Defensa."
+        },
+        { "factor": "protection", "position": "bottom-center-right" },
+        { "factor": "initiative", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "ground-tech-fire",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 33.4, "yPct": 60.9, "wPct": 33.4, "hPct": 18 },
+      "title": "Unidades terrestres — técnicas: con capacidad de disparo",
+      "category": "ground",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES TERRESTRES / TÉCNICAS: CON CAPACIDAD DE DISPARO" }],
+      "matchHint": "Piezas de artillería/cohetes de data/units/*.json (unmappedArtilleryFactors) y de data/ammunition/special-unit-plans/*.json.",
+      "factors": [
+        { "factor": "aa", "position": "top-left" },
+        { "factor": "model", "position": "top-right" },
+        { "factor": "electronic", "position": "left" },
+        { "factor": "logistics", "position": "right", "expansionOnly": true },
+        {
+          "factor": "function_support", "position": "bottom-left",
+          "note": "Candidato a resolver data/units/*.json#unmappedArtilleryFactors (M109A7=10, M142=6, M270A1=8, etc.): factor 'Función / Apoyo' de la ficha de artillería."
+        },
+        { "factor": "protection", "position": "bottom-center" },
+        { "factor": "mobile_or_fixed", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "ground-tech-antisurface",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 66.7, "yPct": 60.9, "wPct": 33.3, "hPct": 18 },
+      "title": "Unidades terrestres — técnicas: anti-superficie",
+      "category": "ground",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES TERRESTRES / TÉCNICAS: ANTI-SUPERFICIE" }],
+      "matchHint": "Misiles de crucero costeros y unidades técnicas anti-buque de data/ammunition/special-unit-plans/*.json.",
+      "factors": [
+        { "factor": "aa", "position": "top-left" },
+        { "factor": "model", "position": "top-center" },
+        { "factor": "surface_detection", "position": "top-right" },
+        { "factor": "electronic", "position": "left" },
+        { "factor": "logistics", "position": "right", "expansionOnly": true },
+        { "factor": "function_type", "position": "bottom-left" },
+        { "factor": "protection", "position": "bottom-center" },
+        { "factor": "mobile_or_fixed", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "ground-tech-heliport",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 0, "yPct": 80.9, "wPct": 33.4, "hPct": 16 },
+      "title": "Unidades terrestres — técnicas: helipuertos móviles",
+      "category": "ground",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES TERRESTRES / TÉCNICAS: HELIPUERTOS MÓVILES" }],
+      "matchHint": "Ficha HLSC de data/units/*.json (supportSystems). El valor unico transcrito (p.ej. HLSC=3) corresponde al factor Electrónica.",
+      "factors": [
+        { "factor": "number", "position": "top-right" },
+        {
+          "factor": "electronic", "position": "left",
+          "note": "Resuelve data/units/*.json#supportSystems (HLSC): mismo factor que en las fichas antiaéreas/alerta temprana."
+        },
+        { "factor": "protection", "position": "bottom-left" },
+        { "factor": "initiative", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "ground-tech-antiair",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 33.4, "yPct": 80.9, "wPct": 33.4, "hPct": 16 },
+      "title": "Unidades terrestres — técnicas: antiaéreas",
+      "category": "ground",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES TERRESTRES / TÉCNICAS: ANTIAÉREAS" }],
+      "matchHint": "Sistemas SAM de data/units/*.json (supportSystems, p.ej. MIM-104, THAAD). El valor unico transcrito corresponde al factor Electrónica.",
+      "factors": [
+        { "factor": "air_detection", "position": "top-left" },
+        { "factor": "aa", "position": "top-center" },
+        {
+          "factor": "electronic", "position": "top-right",
+          "note": "Resuelve data/units/*.json#supportSystems para los sistemas SAM (MIM-104=8, THAAD=8, etc.)."
+        },
+        { "factor": "ballistic_defense", "position": "right-upper" },
+        { "factor": "anti_jamming", "position": "left", "expansionOnly": true },
+        { "factor": "logistics", "position": "right-lower", "expansionOnly": true },
+        { "factor": "low_altitude_detection", "position": "bottom-left" },
+        { "factor": "protection", "position": "bottom-center" },
+        { "factor": "mobile_or_fixed", "position": "bottom-right" }
+      ]
+    },
+    {
+      "id": "ground-tech-earlywarning",
+      "region": { "sourceImage": "resto-counters.jpg", "xPct": 66.7, "yPct": 80.9, "wPct": 33.3, "hPct": 16 },
+      "title": "Unidades terrestres — técnicas: alerta temprana",
+      "category": "ground",
+      "sourceRefs": [{ "document": "Resto de Counters.jpg", "section": "UNIDADES TERRESTRES / TÉCNICAS: ALERTA TEMPRANA" }],
+      "matchHint": "Radares EWR de data/units/*.json (supportSystems, p.ej. AN/TPS-59, AN/TPS-2). El valor unico transcrito corresponde al factor Electrónica.",
+      "factors": [
+        { "factor": "air_detection", "position": "top-left" },
+        { "factor": "skill", "position": "top-center" },
+        {
+          "factor": "electronic", "position": "top-right",
+          "note": "Resuelve data/units/*.json#supportSystems para los radares EWR (AN/TPS-59=2, AN/TPS-2=2, etc.)."
+        },
+        { "factor": "anti_jamming", "position": "left", "expansionOnly": true },
+        { "factor": "logistics", "position": "right", "expansionOnly": true },
+        { "factor": "low_altitude_detection", "position": "bottom-left" },
+        { "factor": "protection", "position": "bottom-center" },
+        { "factor": "mobile_or_fixed", "position": "bottom-right" }
+      ]
+    }
+  ],
+
+  "crossReferences": [
+    {
+      "ambiguity": "docs/rules/known-ambiguities.md#factor-≤4-de-los-buques-de-superficie",
+      "resolution": "Corresponde al factor 'ASW' de las fichas ship-combat/ship-carrier (icono de pez/delfin saltando). El valor transcrito '<=4' es el tope de ese factor, no un dato distinto.",
+      "counterTemplateIds": ["ship-combat", "ship-carrier"],
+      "factor": "asw"
+    },
+    {
+      "ambiguity": "docs/rules/known-ambiguities.md#insignia-numérica-junto-al-icono-del-buque",
+      "resolution": "Corresponde al factor 'N.º' de las fichas ship-combat/surface-transport-*. Se confirma la posicion/etiqueta; el significado exacto del numero (unidades de la clase vs. celdas VLS) sigue sin confirmar contra el reglamento.",
+      "counterTemplateIds": ["ship-combat", "surface-transport-underway", "surface-transport-loading"],
+      "factor": "hull_number",
+      "status": "position_resolved_meaning_pending"
+    },
+    {
+      "ambiguity": "docs/rules/known-ambiguities.md#factor-no-etiquetado-junto-a-cada-pieza-de-artillería-terrestre",
+      "resolution": "Corresponde al factor 'Función / Apoyo' de la ficha ground-tech-fire.",
+      "counterTemplateIds": ["ground-tech-fire"],
+      "factor": "function_support"
+    },
+    {
+      "ambiguity": "docs/rules/known-ambiguities.md#factores-base-de-las-formaciones-terrestres",
+      "resolution": "Confirma que el par transcrito en groundFormations es Ataque/Defensa: la ficha ground-main etiqueta esas dos posiciones exactamente asi.",
+      "counterTemplateIds": ["ground-main"],
+      "factor": "attack, defense"
+    },
+    {
+      "ambiguity": "docs/rules/known-ambiguities.md#valores-de-los-sistemas-sam-ewr-hlsc",
+      "resolution": "Los tres tipos de sistema (SAM, EWR, HLSC) tienen un unico factor no-municion en su ficha: 'Electrónica'. El valor unico transcrito en supportSystems corresponde a ese factor en los tres casos.",
+      "counterTemplateIds": ["ground-tech-antiair", "ground-tech-earlywarning", "ground-tech-heliport"],
+      "factor": "electronic"
+    }
+  ]
+}

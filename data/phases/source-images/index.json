@@ -1,0 +1,44 @@
+{
+  "id": "phases-source-images",
+  "description": "Imagenes de cada pagina de 'Aerodromos y puertos 1.pdf' (puertos) y 'Aerodromos y puertos 2.pdf' (aerodromos), renderizadas a 150 DPI con pdftoppm (poppler) para poder verlas completas como apoyo visual dentro del turno guiado, tal como aparecen en el documento fuente. No hay todavia un modelo de datos de puertos/aerodromos/mando (ver data/sources/sources.json#aerodromos-puertos-1/2): son solo apoyo visual (AGENTS.md §11), igual que las hojas completas de Tablas de Armamento en data/ammunition/source-pages/.",
+  "sourceRefs": [
+    { "document": "Aeródromos y puertos 1.pdf", "description": "17 páginas: fichas de seguimiento físico de puerto." },
+    { "document": "Aeródromos y puertos 2.pdf", "description": "15 páginas: fichas de seguimiento físico de aeródromo + cartas de Capacidad de Mando (C4I) por país." }
+  ],
+  "puertos": [
+    { "image": "puertos/page-01.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 1 },
+    { "image": "puertos/page-02.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 2 },
+    { "image": "puertos/page-03.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 3 },
+    { "image": "puertos/page-04.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 4 },
+    { "image": "puertos/page-05.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 5 },
+    { "image": "puertos/page-06.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 6 },
+    { "image": "puertos/page-07.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 7 },
+    { "image": "puertos/page-08.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 8 },
+    { "image": "puertos/page-09.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 9 },
+    { "image": "puertos/page-10.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 10 },
+    { "image": "puertos/page-11.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 11 },
+    { "image": "puertos/page-12.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 12 },
+    { "image": "puertos/page-13.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 13 },
+    { "image": "puertos/page-14.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 14 },
+    { "image": "puertos/page-15.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 15 },
+    { "image": "puertos/page-16.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 16 },
+    { "image": "puertos/page-17.png", "sourceDocument": "Aeródromos y puertos 1.pdf", "page": 17 }
+  ],
+  "aerodromos": [
+    { "image": "aerodromos/page-01.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 1 },
+    { "image": "aerodromos/page-02.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 2 },
+    { "image": "aerodromos/page-03.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 3 },
+    { "image": "aerodromos/page-04.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 4 },
+    { "image": "aerodromos/page-05.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 5 },
+    { "image": "aerodromos/page-06.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 6 },
+    { "image": "aerodromos/page-07.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 7 },
+    { "image": "aerodromos/page-08.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 8 },
+    { "image": "aerodromos/page-09.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 9 },
+    { "image": "aerodromos/page-10.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 10 },
+    { "image": "aerodromos/page-11.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 11 },
+    { "image": "aerodromos/page-12.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 12 },
+    { "image": "aerodromos/page-13.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 13 },
+    { "image": "aerodromos/page-14.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 14 },
+    { "image": "aerodromos/page-15.png", "sourceDocument": "Aeródromos y puertos 2.pdf", "page": 15 }
+  ]
+}

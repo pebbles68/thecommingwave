@@ -1,0 +1,78 @@
+{
+  "page": 8,
+  "title": "Ataque Terrestre No Guiado — Interceptación de Munición y Modificación de Intensidad",
+  "workflowRefs": ["ground_unguided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 8 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "2) Interceptación de Munición: Reducción del Valor de Ataque",
+      "rows": [
+        { "condition": "El objetivo y el atacante están en el mismo hex o Zona Central", "effect": "No se intercepta" },
+        { "condition": "Distancia de ataque: 1 // Misión de Área: 2", "effect": "Solo las unidades en el mismo hex que el objetivo pueden realizar la interceptación de munición" }
+      ]
+    },
+    {
+      "topic": "Modificadores de la tirada de Interceptación de Munición",
+      "rows": [
+        { "condition": "Interceptación de rendimiento Medio", "effect": "-1" },
+        { "condition": "Interceptación de rendimiento Bajo", "effect": "-2" },
+        { "condition": "El defensor no ha detectado al atacante, pero sí al guía/designador", "effect": "-1" },
+        { "condition": "El defensor no ha detectado ni al atacante ni al guía/designador", "effect": "-2" },
+        { "condition": "El plan de ataque está marcado como Munición Ligera (icono 'L')", "effect": "-3" }
+      ],
+      "note": "Coincide con unguided_icon_type (-3) de data/workflows/03_ataque_terrestre_no_guiado.json. Confirmado el 2026-09-27 contra Decision Book §6.5.3.D ('Ataque con Munición Ligera': plan de ataque no guiado marcado como 'Ligero (L)' -> -3 a la tirada) — localizado con pdftotext -layout. Corrección respecto a la transcripción original de Fase 0 ('icono de munición no guiada', un icono genérico y distinto que habría sido tautológico en un workflow ya exclusivamente no guiado): el icono real es 'munición ligera' (data/sources/tcw_attack_workflows/index.xml#assets/icons -> munition_light), no 'munición no guiada' (munition_unguided) — ver corrección de iconRefs en el workflow."
+    },
+    {
+      "topic": "3) Modificación de la Intensidad de Ataque — Objetivo: Unidades móviles (Básico)",
+      "rows": [
+        { "condition": "Distancia de ataque: 0 // Misión de Área ≤1", "effect": "-2" },
+        { "condition": "Distancia de ataque: 1 // Misión de Área ≤2", "effect": "-5" },
+        { "condition": "Distancia de ataque: ≥2 // Misión de Área ≥3", "effect": "-10" },
+        { "condition": "Por cada 5 pnts. de Tamaño de Fuerza que exceda el límite", "effect": "+2" },
+        { "condition": "Modificador de guiado (icono)", "effect": "+?" }
+      ]
+    },
+    {
+      "topic": "Grupos de modificadores por tipo de objetivo",
+      "rows": [
+        { "condition": "Unidades Principales", "effect": "Básico" },
+        { "condition": "Unidades Técnicas", "effect": "Básico" },
+        { "condition": "Instalaciones fijas", "effect": "Sin mod." },
+        { "condition": "Modificador de guiado", "effect": "Sin mod." }
+      ],
+      "note": "A diferencia del ataque guiado (página 5), aquí las Unidades Técnicas NO suman un bloque electrónico adicional, y las Instalaciones fijas no llevan modificador de intensidad propio en el ataque no guiado — needsReview, confirmar contra el Decision Book si aplica alguna otra tabla no capturada."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "munition-interception-unguided",
+      "title": "Interceptación de Munición (No Guiado) — reducción del Valor de Ataque",
+      "rowAxis": { "label": "Valor del marcador de munición", "values": ["<=-1", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Defensa Aérea",
+        "values": ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "lowConsumptionGrouping": { "buckets": [{ "label": "2~3", "columns": ["2", "3"] }, { "label": "4~5", "columns": ["4", "5"] }, { "label": "6~7", "columns": ["6", "7"] }, { "label": "8+", "columns": ["8", "9"] }] },
+        "alternateLabelSets": { "low": ["2~3", "4~5", "6~7", "8+", null, null, null, null, null] }
+      },
+      "cellLegend": { ".": "Sin reducción", "NO_DISPARAR": "No puede disparar (munición agotada)" },
+      "cells": [
+        ["NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR"],
+        [".", ".", "-1", "-1", "-2", "-2", "-3", "-4", "-4"],
+        [".", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5"],
+        [".", "-1", "-1", "-2", "-2", "-3", "-4", "-4", "-5"],
+        [".", "-1", "-1", "-2", "-3", "-3", "-4", "-4", "-5"],
+        [".", "-1", "-1", "-2", "-3", "-3", "-4", "-5", "-5"],
+        ["-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "-5"],
+        ["-1", "-1", "-2", "-3", "-3", "-4", "-5", "-5", "-6"],
+        ["-1", "-1", "-2", "-3", "-3", "-4", "-5", "-5", "-6"],
+        ["-1", "-2", "-2", "-3", "-4", "-4", "-5", "-6", "-6"],
+        ["-1", "-2", "-2", "-3", "-4", "-5", "-5", "-6", "-7"]
+      ],
+      "notes": ["Idéntica en estructura y (en las filas comparadas) en valores a munition-interception-standard de la página 4 — sugiere que ambas tablas comparten el mismo grid subyacente para guiado/no guiado; pendiente confirmar que TODAS las filas coinciden exactamente (verificación rápida, no exhaustiva)."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 8, "section": "2) Interceptación de Munición", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

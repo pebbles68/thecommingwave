@@ -1,0 +1,55 @@
+{
+  "page": 30,
+  "title": "Ataque Antisubmarino por Unidades Submarinas",
+  "workflowRefs": ["asw_submarine"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 30 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "Ataque Antisubmarino por Unidades Submarinas",
+      "intro": "Cada unidad ataca al objetivo de forma independiente, puede atacar objetivos en el mismo hex.",
+      "rows": [
+        { "condition": "Poder de ataque de los torpedos (icono hexágono azul/blanco)", "effect": "Solo cuando hay '*', el ataque tiene efecto." },
+        { "condition": "Resultado especial 'NO DISPARAR'", "effect": "No se realiza búsqueda tras el ataque." }
+      ],
+      "note": "Confirma exactamente attack_has_effect (resultado con '*') y no_post_attack_search ('NO DISPARAR') ya transcritos como rollDependentRules en data/workflows/11_ataque_asw_submarino.json."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "asw-submarine-vs-submarine-damage",
+      "title": "Ataque Antisubmarino por Unidades Submarinas — impactos según profundidad, Firma del objetivo y Valor de Ataque con Torpedos",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0~3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Ataque con Torpedos",
+        "values": [".", "1~2", "3", "4", "5", "6", "7", "8+"],
+        "signatureBands": {
+          "P4": ["0~3", "4~6", "7+"],
+          "P3": ["0~1", "2~4", "5+"],
+          "P2_P1": ["0", "1~3", "4+"]
+        },
+        "alternateLabelSets": {
+          "band_1": ["1~4", "5", "6", "7", "8+", null, null, null],
+          "band_2": ["1", "2", "3~4", "5", "6", "7", "8+", null],
+          "band_3": [".", "1~2", "3", "4", "5", "6", "7", "8+"]
+        },
+        "headerGroupToPosition": { "5+": "P4", "4": "P3", "0~3": "P2_P1" },
+        "note": "Resuelto 2026-10-04 por el mantenedor: la fila de esta tabla depende de la PROFUNDIDAD del océano de la casilla del submarino objetivo (Decision Book §9.13.2 Paso 1), no de una 'firma del atacante'. La cabecera impresa 'FIRMA DEL ATACANTE 5+ | 4 | 0~3' es en realidad la clave de las tres posiciones de la página 29 (5+ = P.4, 4 = P.3, 0~3 = P.2/1: mismos tres rangos de Firma del objetivo en cada una — ver headerGroupToPosition). Como en la página 29, la cabecera tiene TRES filas de etiquetas de Valor de Ataque con Torpedos (bandas 1-3, todas alineadas desde la primera columna de datos) y el rango de Firma del objetivo —dependiente de la posición— elige la banda: signatureBands[posición][i] -> alternateLabelSets.band_{i+1}. Esta nota sustituye a 'attackerSignatureGrouping', que asociaba una sola fila de etiquetas 'valores' a cada grupo (mapeo incompleto).",
+        "positionDepth": { "P4": "Aguas profundas", "P3": "Aguas semi-profundas", "P2_P1": "Aguas poco profundas / muy poco profundas" }
+      },
+      "cellLegend": { ".": "Sin impactos", "N*": "N impactos; solo tiene efecto si el resultado de tabla contiene '*'" },
+      "cells": [
+        ["NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR", "NO_DISPARAR"],
+        [".", ".", ".", ".", ".", ".", ".", "."],
+        [".", ".", ".", ".", ".", ".", ".", "1"],
+        [".", ".", ".", ".", ".", "1", "1", "1"],
+        [".", ".", "1", "1", "1", "2", "2", "3"],
+        ["1", "1", "2", "2", "3", "3", "3*", "3*"],
+        ["3*", "3*", "3*", "3*", "3*", "3*", "3*", "3*"]
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 30, "section": "Ataque Antisubmarino por Unidades Submarinas", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

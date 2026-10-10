@@ -1,0 +1,22 @@
+{
+  "name": "the-coming-wave-companion",
+  "version": "1.0.0",
+  "description": "Aplicacion de ayuda para The Coming Wave (TCW): navegacion de turno, ayudas y resolucion de combates.",
+  "private": true,
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "test": "node --test test/*.test.js",
+    "test:e2e": "playwright test",
+    "build": "node scripts/build-static.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "sharp": "^0.35.4"
+  },
+  "license": "MIT"
+}

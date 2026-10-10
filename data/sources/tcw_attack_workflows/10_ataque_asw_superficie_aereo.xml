@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="asw_surface_air" title="Ataque ASW por unidades de superficie y aéreas" category="asw" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>29</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Preguntas para elegibilidad, posición/firma del objetivo y valor de ataque ASW.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <workflow>
+    
+    
+    <stage id="eligibility" order="1" title="Elegibilidad y alcance">
+      
+      
+      <questions>
+        
+        
+        <question id="attacker_type" type="select" appliesTo="eligibility">
+          
+          
+          <prompt>Tipo de atacante.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="surface" label="Unidad de superficie"/>
+            
+            
+            <option value="air" label="Unidad aérea"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="target_in_enemy_cap_zone" type="boolean" appliesTo="eligibility">
+          
+          
+          <prompt>¿El objetivo está dentro de una zona de patrulla aérea enemiga?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="eligibility" value="air_attack_restricted"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="adjacent_target" type="boolean" appliesTo="eligibility">
+          
+          
+          <prompt>¿El objetivo está en un hex adyacente?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="eligibility" value="requires_surface_adjacent_capability"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+    
+    </stage>
+    
+    
+    <stage id="attack_table" order="2" title="Resolver ataque ASW">
+      
+      
+      <questions>
+        
+        
+        <question id="target_signature" type="select" appliesTo="asw_table">
+          
+          
+          <prompt>Firma del objetivo.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="0_3" label="0-3"/>
+            
+            
+            <option value="4_6" label="4-6"/>
+            
+            
+            <option value="7plus" label="7+"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="water_depth" type="select" appliesTo="asw_table">
+          
+          
+          <prompt>Profundidad/posición aplicable (P.4, P.3, P.2/P.1).</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="p4" label="P.4"/>
+            
+            
+            <option value="p3" label="P.3"/>
+            
+            
+            <option value="p2_1" label="P.2 / P.1"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="asw_attack_value" type="number" appliesTo="asw_table">
+          
+          
+          <prompt>Valor de Ataque ASW.</prompt>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <tableReference>Página 29: Ataque Antisubmarino por Unidades de Superficie y Aéreas.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Página 29: tabla ASW de unidades de superficie y aéreas.</finalTableReference>
+  
+
+</attackWorkflow>

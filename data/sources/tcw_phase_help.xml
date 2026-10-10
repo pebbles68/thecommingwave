@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tcwHelpDatabase version="1.0" language="es" game="The Coming Wave">
+  <metadata>
+    <description>Base de datos textual para ayudas contextuales de las fases y subfases del turno.</description>
+    <notes>Los identificadores están pensados para ser usados desde Javascript. Las reglas opcionales se marcan con optional="true".</notes>
+  </metadata>
+
+  <turn id="turno" title="Turno de juego">
+    <summary>Un turno se divide en un Proceso Estratégico y dos Procesos de Campaña con la misma secuencia. El Proceso Estratégico corresponde al segmento temporal 0; el primer Proceso de Campaña ocupa los segmentos 1 a 3 y el segundo los segmentos 4 a 6.</summary>
+    <help>Avanza fase a fase siguiendo la hoja de turnos. Desde cualquier fase se podrá abrir la ayuda específica, consultar tablas, reglas, fichas y armamento, o finalizar la fase.</help>
+
+    <process id="proceso_estrategico" title="Proceso Estratégico" order="0">
+      <summary>Resuelve las acciones estratégicas del turno antes de comenzar las fases de campaña.</summary>
+
+      <phase id="crisis" title="Fase de Crisis" order="1" optional="true">
+        <summary>Resuelve el contenido de crisis que indique el escenario.</summary>
+        <actions>
+          <action order="1">Comprueba si el escenario utiliza reglas de crisis.</action>
+          <action order="2">Resuelve los combates o efectos de crisis que correspondan.</action>
+        </actions>
+        <endCondition>La fase termina cuando se han resuelto todos los efectos de crisis aplicables.</endCondition>
+        <ruleReference>2.1.1 / 15.1 Crisis Improvisadas</ruleReference>
+      </phase>
+
+      <phase id="espacio" title="Fase Espacial" order="2" optional="true">
+        <summary>Permite planificar y resolver misiones espaciales cuando se utilizan estas reglas.</summary>
+        <actions>
+          <action order="1">Comprueba los recursos o puntos de Guerra Espacial disponibles.</action>
+          <action order="2">Planifica las misiones espaciales permitidas.</action>
+          <action order="3">Resuelve sus efectos.</action>
+        </actions>
+        <endCondition>La fase termina cuando no quedan misiones espaciales por resolver.</endCondition>
+        <ruleReference>2.1.2 / 14.5 Guerra Espacial</ruleReference>
+      </phase>
+
+      <phase id="diplomacia" title="Fase Diplomática" order="3" optional="true">
+        <summary>Resuelve el contenido diplomático previsto por el escenario.</summary>
+        <actions>
+          <action order="1">Comprueba si el escenario utiliza reglas diplomáticas.</action>
+          <action order="2">Resuelve los efectos o combates diplomáticos que correspondan.</action>
+        </actions>
+        <endCondition>La fase termina cuando se han resuelto todos los efectos diplomáticos aplicables.</endCondition>
+        <ruleReference>2.1.3 / 15.2 Relaciones Diplomáticas</ruleReference>
+      </phase>
+
+      <phase id="logistica" title="Fase Logística" order="4" optional="false">
+        <summary>Determina el estado de apoyo logístico y realiza las operaciones logísticas previstas para esta fase.</summary>
+        <actions>
+          <action order="1">Verifica el abastecimiento de unidades terrestres e instalaciones fijas.</action>
+          <action order="2">Actualiza qué unidades o instalaciones obtienen o pierden soporte logístico.</action>
+          <action order="3">Al finalizar, cambia las unidades marcadas como Actuadas a No Actuadas.</action>
+        </actions>
+        <endCondition>La fase termina después de completar la verificación de abastecimiento y actualizar el estado de las unidades.</endCondition>
+        <ruleReference>2.1.4 / 11.4 Verificación de Abastecimiento</ruleReference>
+        <notes>El estado de soporte logístico se mantiene hasta la siguiente Fase Logística.</notes>
+      </phase>
+
+      <phase id="reparacion" title="Fase de Reparación" order="5" optional="true">
+        <summary>Permite realizar reparaciones navales cuando se usan las reglas opcionales correspondientes.</summary>
+        <actions>
+          <action order="1">Identifica unidades navales dañadas que puedan intentar reparación.</action>
+          <action order="2">Aplica el procedimiento de reparación en puerto o dique seco.</action>
+        </actions>
+        <endCondition>La fase termina cuando se han resuelto todos los intentos de reparación permitidos.</endCondition>
+        <ruleReference>2.1.5 / 9.9.4 Reparación de Buques</ruleReference>
+      </phase>
+    </process>
+
+    <process id="proceso_campana" title="Proceso de Campaña" order="1" repeat="2">
+      <summary>Cada turno contiene dos procesos de campaña con la misma secuencia. Cada proceso recorre acciones aéreas, de superficie, terrestres y submarinas según la hoja de turnos.</summary>
+
+      <phase id="acciones_aereas" title="Fase de Acciones Aéreas" order="1" optional="false">
+        <summary>Gestiona la planificación, despliegue, combate, recuperación y restablecimiento de las unidades aéreas.</summary>
+        <actions>
+          <action order="1">Planificación de misiones.</action>
+          <action order="2">Mantenimiento de Alerta Aérea (CAP).</action>
+          <action order="3">Recuperación de misiones largas.</action>
+          <action order="4">Preparación o integración en aeródromo.</action>
+          <action order="5">Salidas u operaciones de combate.</action>
+          <action order="6">Recuperación de misiones cortas.</action>
+          <action order="7">Restablecimiento de capacidades.</action>
+        </actions>
+        <subphases>
+          <subphase id="planificacion_misiones" order="1" title="Planificación de misiones">
+            <help>Ambos bandos planifican simultáneamente las misiones de las unidades aéreas disponibles en sus fichas de aeródromo.</help>
+          </subphase>
+          <subphase id="mantenimiento_cap" order="2" title="Mantenimiento de Alerta Aérea">
+            <help>El bando activo actúa primero y puede reemplazar grupos CAP; después actúa el bando pasivo.</help>
+          </subphase>
+          <subphase id="recuperacion_largas" order="3" title="Recuperación de misiones largas">
+            <help>Se decide qué misiones largas o sostenibles continúan y cuáles regresan. Puede intervenir el reabastecimiento aéreo.</help>
+          </subphase>
+          <subphase id="preparacion_aerodromo" order="4" title="Preparación en aeródromo">
+            <help>Ambos bandos realizan la preparación de unidades en sus aeródromos y pueden consolidar unidades cuando corresponda.</help>
+          </subphase>
+          <subphase id="salidas_combate" order="5" title="Salidas de combate">
+            <help>Los bandos alternan acciones para ejecutar misiones aéreas, pagando la Capacidad de Mando y Puntos de Mando que correspondan.</help>
+          </subphase>
+          <subphase id="recuperacion_cortas" order="6" title="Recuperación de misiones cortas">
+            <help>Las unidades que ejecutaron misiones cortas regresan y se aplican los pasos de recuperación correspondientes.</help>
+          </subphase>
+          <subphase id="restablecimiento" order="7" title="Restablecimiento de capacidades">
+            <help>Se realizan los ajustes finales de la fase para dejar preparadas las capacidades que deban restablecerse.</help>
+          </subphase>
+        </subphases>
+        <endCondition>La fase termina después del restablecimiento de capacidades y cuando no quedan operaciones aéreas pendientes.</endCondition>
+        <ruleReference>2.2.1 / 7.0 Operaciones Aéreas</ruleReference>
+      </phase>
+
+      <phase id="acciones_superficie" title="Fase de Acciones de Superficie" order="2" optional="false">
+        <summary>Gestiona las formaciones navales de superficie, sus movimientos, ataques y operaciones logísticas.</summary>
+        <subphases>
+          <subphase id="reorganizacion_formaciones" order="1" title="Reorganización de Formaciones">
+            <help>Ambos jugadores ajustan simultáneamente la composición de sus formaciones de superficie.</help>
+          </subphase>
+          <subphase id="combate_superficie" order="2" title="Combate de Superficie">
+            <help>El jugador activo actúa primero. Los bandos alternan acciones para mover y/o atacar con formaciones de superficie.</help>
+          </subphase>
+          <subphase id="logistica_transporte_superficie" order="3" title="Logística y Transporte">
+            <help>Los bandos alternan activaciones de puertos y operaciones logísticas; también pueden producirse operaciones anfibias cuando proceda.</help>
+          </subphase>
+        </subphases>
+        <endCondition>La fase termina cuando ambos bandos han completado o pasado consecutivamente en el último segmento.</endCondition>
+        <ruleReference>2.2.2 / 9.0 Operaciones Navales</ruleReference>
+      </phase>
+
+      <phase id="acciones_terrestres" title="Fase de Acciones Terrestres" order="3" optional="false">
+        <summary>Resuelve el despliegue de aviación del ejército, movimiento, combate, ataques y reorganización terrestre.</summary>
+        <subphases>
+          <subphase id="aviacion_ejercito" order="1" title="Despliegue de aviación del ejército">
+            <help>Resuelve la recuperación y salida de las unidades de aviación del ejército que puedan operar en esta fase.</help>
+          </subphase>
+          <subphase id="maniobras_terrestres" order="2" title="Maniobras terrestres">
+            <help>Activa y mueve las unidades terrestres permitidas por su nivel de reacción y por el segmento temporal actual.</help>
+          </subphase>
+          <subphase id="combate_terrestre" order="3" title="Combate terrestre">
+            <help>Resuelve los combates terrestres, incluidos apoyo de combate, guerra electrónica y aplicación de resultados.</help>
+          </subphase>
+          <subphase id="ataques_terrestres" order="4" title="Ataques terrestres">
+            <help>Resuelve ataques de largo alcance y ataques dinámicos o de reacción cuando se cumplan sus condiciones.</help>
+          </subphase>
+          <subphase id="reorganizacion_terrestre" order="5" title="Reorganización terrestre">
+            <help>Realiza las acciones de reorganización permitidas, incluyendo las vinculadas a apoyo logístico, reabastecimiento o reconstrucción cuando correspondan.</help>
+          </subphase>
+        </subphases>
+        <endCondition>La fase termina al completar la reorganización terrestre.</endCondition>
+        <ruleReference>2.2.3 / 8.0 Acciones Terrestres</ruleReference>
+      </phase>
+
+      <phase id="acciones_submarinas" title="Fase de Acciones Submarinas" order="4" optional="false">
+        <summary>Gestiona búsqueda antisubmarina, acciones de submarinos y logística asociada.</summary>
+        <subphases>
+          <subphase id="busqueda_rutina" order="1" title="Búsqueda de Rutina">
+            <help>El jugador activo actúa primero. Ambos bandos alternan búsquedas ASW con las unidades capaces de realizarlas.</help>
+          </subphase>
+          <subphase id="combate_submarino" order="2" title="Combate Submarino">
+            <help>El jugador activo actúa primero. Los bandos alternan acciones de unidades submarinas, incluyendo movimiento o ataque cuando proceda.</help>
+          </subphase>
+          <subphase id="logistica_transporte_submarino" order="3" title="Logística y Transporte">
+            <help>El jugador activo actúa primero. Se realizan operaciones logísticas de puerto para unidades submarinas y se resuelven los efectos finales del segmento.</help>
+          </subphase>
+        </subphases>
+        <endCondition>La fase termina cuando ambos bandos han completado o pasado consecutivamente en el último segmento.</endCondition>
+        <ruleReference>2.2.4 / 9.10.1 Flujo de Acciones de las Unidades Submarinas</ruleReference>
+      </phase>
+    </process>
+  </turn>
+
+  <uiGuidance>
+    <phaseHelpBehavior>Cada pantalla de fase debe poder abrir esta ayuda contextual sin abandonar el flujo principal.</phaseHelpBehavior>
+    <navigation>La interfaz debe permitir continuar a la siguiente subfase, finalizar la subfase, finalizar la fase y abrir accesos directos a tablas, armamento, reglas y ayudas de fichas.</navigation>
+    <tablet>El contenido debe mostrarse de forma cómoda en tablet en modo horizontal, evitando bloques de texto excesivamente largos.</tablet>
+  </uiGuidance>
+</tcwHelpDatabase>

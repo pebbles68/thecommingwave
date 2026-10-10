@@ -1,0 +1,109 @@
+{
+  "id": "visual-help-entities",
+  "schemaVersion": 1,
+  "description": "Catálogo declarativo de entidades de reglas con ayuda visual (ajustes_de_turno.md TUR-010). Relaciona cada entidad (aeródromo, puerto, unidad aérea...) con las plantillas visuales ya calibradas: fichas de data/counters/factor-map.json (zonas en data/image-hotspots/counters.json), tarjetas de data/image-hotspots/boards.json y planes de data/ammunition/. No guarda coordenadas ni recortes propios: reutiliza los hotspots de la Fase 22. La selección según el contexto la hace public/js/visual-help-engine.js: entidad concreta → plantilla; tipo restringido → solo su subconjunto; referencia genérica → todos los tipos del dominio; sin contexto → selector completo marcado como tal, nunca el primer ejemplo elegido a ciegas.",
+  "sourceRefs": [{ "document": "Resumen counters - Español.pdf" }, { "document": "Aeródromos y puertos 1.pdf" }, { "document": "Aeródromos y puertos 2.pdf" }],
+  "entities": {
+    "airfield-board": {
+      "id": "airfield-board", "domain": "installations", "label": "Fichas de aeródromo",
+      "summary": "Ficha de seguimiento físico de un aeródromo: salidas, nivel, capacidad, casillas de misión y áreas de aterrizaje y de salida.",
+      "helpHash": "#/turno/fase/1/air-1/preparacion_aerodromo",
+      "templates": [{ "id": "airfield", "kind": "board", "boardType": "airfield", "label": "Aeródromo" }]
+    },
+    "port-board": {
+      "id": "port-board", "domain": "installations", "label": "Fichas de puerto",
+      "summary": "Ficha de seguimiento físico de un puerto: munición, combustible, nivel, dique, flotas en puerto y área de carga del ejército.",
+      "helpHash": "#/turno/fase/1/surface/logistica_transporte_superficie",
+      "templates": [{ "id": "port", "kind": "board", "boardType": "port", "label": "Puerto" }]
+    },
+    "command-board": {
+      "id": "command-board", "domain": "installations", "label": "Capacidad de Mando (C4I)",
+      "summary": "Panel de Capacidad de Mando de un país con sus ámbitos Conjunto, Aéreo, Terrestre y de Superficie.",
+      "helpHash": "#/turno/mando/day-odd",
+      "templates": [{ "id": "command", "kind": "board", "boardType": "command", "label": "Capacidad de Mando" }]
+    },
+    "air-unit": {
+      "id": "air-unit", "domain": "air", "label": "Unidades aéreas",
+      "summary": "Fichas de las unidades aéreas: aviones tácticos y aviones de funciones especiales.",
+      "helpHash": "#/ayuda/counters/air",
+      "templates": [
+        { "id": "aircraft-combat-tactical", "kind": "counter-template", "templateId": "aircraft-combat-tactical", "label": "Avión táctico: combate" },
+        { "id": "aircraft-transport-tactical", "kind": "counter-template", "templateId": "aircraft-transport-tactical", "label": "Avión táctico: transporte" },
+        { "id": "aircraft-special-awacs", "kind": "counter-template", "templateId": "aircraft-special-awacs", "label": "Especial: AWACS" },
+        { "id": "aircraft-special-other-operating", "kind": "counter-template", "templateId": "aircraft-special-other-operating", "label": "Especial: otras (operando)" },
+        { "id": "aircraft-special-flying", "kind": "counter-template", "templateId": "aircraft-special-flying", "label": "Especial: volando" }
+      ],
+      "subsets": {
+        "tactical": { "label": "Aviones tácticos", "templates": ["aircraft-combat-tactical", "aircraft-transport-tactical"] },
+        "combat": { "label": "Avión táctico de combate", "templates": ["aircraft-combat-tactical"] },
+        "special": { "label": "Aviones de funciones especiales", "templates": ["aircraft-special-awacs", "aircraft-special-other-operating", "aircraft-special-flying"] }
+      }
+    },
+    "surface-unit": {
+      "id": "surface-unit", "domain": "naval", "label": "Unidades de superficie",
+      "summary": "Fichas de buques de combate, portaaviones y grupos de transporte.",
+      "helpHash": "#/ayuda/counters/naval",
+      "templates": [
+        { "id": "ship-combat", "kind": "counter-template", "templateId": "ship-combat", "label": "Buque de combate" },
+        { "id": "ship-carrier", "kind": "counter-template", "templateId": "ship-carrier", "label": "Portaaviones" },
+        { "id": "surface-transport-underway", "kind": "counter-template", "templateId": "surface-transport-underway", "label": "Transporte (navegando)" },
+        { "id": "surface-transport-loading", "kind": "counter-template", "templateId": "surface-transport-loading", "label": "Transporte (carga/descarga)" }
+      ],
+      "subsets": {
+        "combat": { "label": "Buques de combate", "templates": ["ship-combat", "ship-carrier"] },
+        "transport": { "label": "Transportes", "templates": ["surface-transport-underway", "surface-transport-loading"] }
+      }
+    },
+    "submarine-unit": {
+      "id": "submarine-unit", "domain": "naval", "label": "Submarinos",
+      "summary": "Fichas de submarinos en sus lados Oculto y Expuesto.",
+      "helpHash": "#/ayuda/counters/naval",
+      "templates": [
+        { "id": "submarine-hidden", "kind": "counter-template", "templateId": "submarine-hidden", "label": "Submarino oculto" },
+        { "id": "submarine-exposed", "kind": "counter-template", "templateId": "submarine-exposed", "label": "Submarino expuesto" }
+      ]
+    },
+    "ground-unit": {
+      "id": "ground-unit", "domain": "ground", "label": "Unidades terrestres",
+      "summary": "Fichas de unidades terrestres principales y técnicas. Las letras A-D de abajo a la derecha son el Nivel de Reacción (Iniciativa).",
+      "helpHash": "#/ayuda/counters/ground",
+      "templates": [
+        { "id": "ground-main", "kind": "counter-template", "templateId": "ground-main", "label": "Unidad principal" },
+        { "id": "ground-tech-fire", "kind": "counter-template", "templateId": "ground-tech-fire", "label": "Técnica: con capacidad de disparo" },
+        { "id": "ground-tech-antisurface", "kind": "counter-template", "templateId": "ground-tech-antisurface", "label": "Técnica: antisuperficie" },
+        { "id": "ground-tech-heliport", "kind": "counter-template", "templateId": "ground-tech-heliport", "label": "Técnica: helipuerto móvil" },
+        { "id": "ground-tech-antiair", "kind": "counter-template", "templateId": "ground-tech-antiair", "label": "Técnica: antiaérea" },
+        { "id": "ground-tech-earlywarning", "kind": "counter-template", "templateId": "ground-tech-earlywarning", "label": "Técnica: alerta temprana" }
+      ],
+      "subsets": {
+        "main": { "label": "Unidades principales", "templates": ["ground-main"] },
+        "technical": { "label": "Unidades técnicas", "templates": ["ground-tech-fire", "ground-tech-antisurface", "ground-tech-heliport", "ground-tech-antiair", "ground-tech-earlywarning"] }
+      }
+    },
+    "low-altitude-unit": {
+      "id": "low-altitude-unit", "domain": "air", "label": "Helicópteros y aviación del ejército",
+      "summary": "Fichas de unidades de baja altitud: volando y operando (ataque, reconocimiento y transporte).",
+      "helpHash": "#/ayuda/counters/air",
+      "templates": [
+        { "id": "low-altitude-flying", "kind": "counter-template", "templateId": "low-altitude-flying", "label": "Baja altitud: volando" },
+        { "id": "low-altitude-operating", "kind": "counter-template", "templateId": "low-altitude-operating", "label": "Baja altitud: operando" },
+        { "id": "low-altitude-operating-transport", "kind": "counter-template", "templateId": "low-altitude-operating-transport", "label": "Baja altitud: operando (transporte)" }
+      ]
+    },
+    "attack-plan": {
+      "id": "attack-plan", "domain": "munitions", "label": "Planes de ataque",
+      "summary": "Recorte de un plan de ataque de la hoja de armamento con sus zonas explicadas (letra, iconos, valores de unidad completa y dañada, munición). Es un ejemplo: los valores de cada unidad están en Ayuda rápida › Planes de ataque.",
+      "helpHash": "#/ayuda/municion",
+      "templates": [
+        { "id": "plan-aircraft", "kind": "ammo-plan", "unitId": "ru-su-30sm", "country": "ru", "dir": "attack-plans", "label": "Plan de un avión táctico" },
+        { "id": "plan-submarine", "kind": "ammo-plan", "unitId": "ch-039g", "country": "ch", "dir": "naval-plans", "label": "Plan de un submarino" }
+      ]
+    },
+    "munition-type": {
+      "id": "munition-type", "domain": "munitions", "label": "Tipos de munición",
+      "summary": "Leyenda de iconos de ataque y munición (no guiada, subsónica, supersónica, parabólica, espacio cercano, ligera...).",
+      "helpHash": "#/ayuda/municion/iconos",
+      "templates": [{ "id": "munition-legend", "kind": "link", "hash": "#/ayuda/municion/iconos", "label": "Leyenda de iconos" }]
+    }
+  }
+}

@@ -1,0 +1,465 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/05_combate_aereo.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "air_combat",
+  "title": "Combate aéreo: interceptación, BVR y WVR",
+  "category": "aereo",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "15-17"
+  },
+  "summary": "Preguntas secuenciales para iniciativa, modificador electrónico, condición de misión y rondas WVR.",
+  "stages": [
+    {
+      "id": "initiative",
+      "order": 1,
+      "title": "Penetración / Interceptación BVR",
+      "questions": [
+        {
+          "id": "initiative_a",
+          "type": "number",
+          "appliesTo": "initiative_difference",
+          "prompt": "Valor de Iniciativa del primer bando."
+        },
+        {
+          "id": "initiative_b",
+          "type": "number",
+          "appliesTo": "initiative_difference",
+          "prompt": "Valor de Iniciativa del segundo bando."
+        },
+        {
+          "id": "awacs_detects_target",
+          "type": "boolean",
+          "appliesTo": "initiative",
+          "prompt": "¿Un AWACS propio detecta al objetivo?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "initiative",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "initiative",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "interception_context",
+          "type": "select",
+          "appliesTo": "bvr_outcome",
+          "prompt": "Tipo de interceptación.",
+          "note": "Decision Book §7.15.1 (Interceptación de Combate Aéreo) / §7.15.2 (Interceptación de Penetración): elige la columna de la tabla de resultado de la página 15.",
+          "options": [
+            {
+              "value": "air_combat",
+              "label": "Interceptación de Combate Aéreo",
+              "outcomeColumn": "(Interceptación de) Combate Aéreo"
+            },
+            {
+              "value": "penetration",
+              "label": "Interceptación de Penetración",
+              "outcomeColumn": "Interceptación de Penetración"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "7.15.1 Interceptación de Combate Aéreo / 7.15.2 Interceptación de Penetración",
+              "pages": "141"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "initiative_a",
+          "initiative_b",
+          "awacs_detects_target"
+        ]
+      ],
+      "formula": "Diferencia de Iniciativa = iniciativa mayor - iniciativa menor (+1 por AWACS en red); el DRM de la tabla según la diferencia se suma a 1d10 y el total elige el tipo de combate BVR.",
+      "tableReference": "Página 15: Penetración / Combate BVR.",
+      "sideFlags": [
+        {
+          "id": "awacs_in_network",
+          "prompt": "La unidad propia que ataca al objetivo está en red con un AWACS propio que lo detecta y expone",
+          "effect": "+1 al Valor de Iniciativa (IN) de ese bando",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "7.16.2 Resolución de Combate BVR, Confirmar el Valor de Iniciativa, punto 1",
+              "pages": "144"
+            }
+          ]
+        },
+        {
+          "id": "stealth",
+          "prompt": "Unidad sigilosa (Firma Aérea 1; los LF-CM también cuentan como sigilosos para la penetración)",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "7.16.2 Resolución de Combate BVR (Nota: unidad stealth)",
+              "pages": "144"
+            },
+            {
+              "document": "Tablas-de-combate 5.pdf",
+              "section": "Combate aéreo - Interceptación",
+              "pages": "15"
+            }
+          ]
+        }
+      ],
+      "outcomeRule": {
+        "totalRule": "Se suma el resultado de 1d10 y el DRM de la Diferencia de Iniciativa (0 si es 0); el TOTAL (0~5 / 6~9 / 10+) selecciona la fila de la tabla de resultado. La etiqueta impresa de esa columna de la tabla (\"Diferencia de Iniciativa\") es el total, no la diferencia (Decision Book §7.16.2 punto 4).",
+        "rollsSide": "Tira 1d10 el bando con ventaja (el de mayor Valor de Iniciativa); si son iguales, los jugadores deciden quién tira.",
+        "bothStealth": "Duelo sigiloso: si ambas unidades del combate BVR son sigilosas, el resultado es \"Sin BVR\".",
+        "cellOutcomes": {
+          "Sin combate BVR": "no_bvr",
+          "Combate BVR simultáneo": "simultaneous",
+          "Combate con ventaja BVR": "advantage",
+          "Penetración sigilosa / BVR simultánea": "penetration_stealth_or_simultaneous",
+          "Penetración exitosa / Interceptación con ventaja BVR": "penetration_success_or_interceptor_advantage"
+        },
+        "outcomes": {
+          "no_bvr": "Sin BVR: no se realiza combate BVR; se procede directamente al combate aéreo cercano (WVR).",
+          "simultaneous": "BVR Simultáneo: ambos bandos realizan un ataque BVR simultáneamente.",
+          "advantage": "Ventaja BVR: el bando con ventaja realiza un ataque BVR unilateral, o elige retirarse activamente.",
+          "stealth_penetration": "Penetración sigilosa: una unidad sigilosa obtiene \"Penetración Exitosa\" — la interceptación falla.",
+          "penetration_success": "Penetración exitosa: el bando con ventaja penetra y la interceptación falla.",
+          "interceptor_advantage": "Interceptación con ventaja BVR: el interceptor (con ventaja) ataca unilateralmente."
+        },
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "7.16.2 Resolución de Combate BVR, Confirmar el Valor de Iniciativa",
+            "pages": "144"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "section": "Combate aéreo - Interceptación (resultado del combate)",
+            "pages": "15"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bvr",
+      "order": 2,
+      "title": "Combate BVR",
+      "questions": [
+        {
+          "id": "electronic_high",
+          "type": "number",
+          "appliesTo": "bvr_roll",
+          "prompt": "Valor Electrónico más alto.",
+          "note": "Decision Book §7.16.3 Paso 1: si el Valor Electrónico del avión de un bando es mayor, su tirada BVR aumenta en la diferencia entre los Valores Electrónicos de ambos bandos.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "7.16.3 Combate BVR, Paso 1",
+              "pages": "144"
+            }
+          ]
+        },
+        {
+          "id": "electronic_low",
+          "type": "number",
+          "appliesTo": "bvr_roll",
+          "prompt": "Valor Electrónico más bajo."
+        },
+        {
+          "id": "mission_condition",
+          "type": "select",
+          "appliesTo": "bvr_table",
+          "prompt": "Condición del atacante.",
+          "options": [
+            {
+              "value": "intercept_awacs",
+              "label": "Intercepción/DdE + AWACS",
+              "columnScheme": null
+            },
+            {
+              "value": "intercept",
+              "label": "Intercepción/DdE",
+              "columnScheme": "intercepcion_dde"
+            },
+            {
+              "value": "cap_awacs",
+              "label": "CAP + AWACS",
+              "columnScheme": "caps_awacs"
+            },
+            {
+              "value": "cap",
+              "label": "CAP",
+              "columnScheme": "caps"
+            }
+          ],
+          "note": "Resuelto 2026-10-04 con el Decision Book §7.16.3 Paso 2: \"según la misión original de la unidad que ataca (CAPs o INK) se selecciona la fila de combate aéreo correspondiente… si la unidad objetivo es detectada y expuesta por un AWACS propio, en red con la unidad propia, este ataque puede utilizar la fila '+ AWACS'\". Intercepción/DdE sin AWACS y CAPs + AWACS comparten literalmente la misma fila impresa (página 16). `columnScheme` es la clave de `columnAxis.alternateLabelSets` de la tabla (null = esquema canónico, fila «Intercepción/DdE + AWACS»).",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "7.16.3 Combate BVR, Paso 2",
+              "pages": "144-145"
+            }
+          ]
+        },
+        {
+          "id": "air_combat_value",
+          "type": "number",
+          "appliesTo": "bvr_table",
+          "prompt": "Valor de Combate Aéreo."
+        }
+      ],
+      "parallelGroups": [
+        [
+          "electronic_high",
+          "electronic_low",
+          "mission_condition",
+          "air_combat_value"
+        ]
+      ],
+      "formula": "Modificador electrónico = valor electrónico mayor - menor; el bando con el valor mayor suma ese modificador a la tirada.",
+      "tableReference": "Página 16: Combate BVR.",
+      "damageRule": {
+        "absorption": "La unidad que recibe el ataque absorbe los Puntos de Impacto: por cada cantidad de puntos de impacto absorbidos igual a su Valor de Protección sufre 1 punto de daño. En un ataque BVR simultáneo los efectos se aplican después de que ambos bandos hayan determinado sus puntos de impacto.",
+        "capsRule": "Los aviones de combate de Patrulla Aérea (CAPs) solo pueden absorber 1 punto de daño; después de absorber daño \"salen temporalmente de combate\". Los impactos no absorbidos se ignoran.",
+        "withdrawal": "Las unidades que \"salen de combate\" pueden \"Regresar\"; si el objetivo enemigo es eliminado o \"sale de combate\", la unidad propia puede retirarse y \"Regresar\". Las retiradas se deciden y ejecutan después de que todos los ataques hayan concluido.",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "7.16.3 Combate BVR, Pasos 4-5",
+            "pages": "145"
+          }
+        ]
+      }
+    },
+    {
+      "id": "wvr",
+      "order": 3,
+      "title": "Combate cercano WVR",
+      "questions": [
+        {
+          "id": "network_patrol_join",
+          "type": "boolean",
+          "appliesTo": "wvr_force",
+          "prompt": "¿Puede un grupo de Patrulla en Red unirse al combate (mismo nodo y dentro de 4 hex)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "wvr_force",
+                  "value": "add_one_network_patrol"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "previous_rounds_without_losses",
+          "type": "number",
+          "appliesTo": "wvr_roll",
+          "prompt": "Número de rondas WVR anteriores consecutivas sin pérdidas.",
+          "note": "Cada ronda previa sin pérdidas añade +1 acumulativo a la siguiente."
+        },
+        {
+          "id": "condition",
+          "type": "select",
+          "appliesTo": "wvr_table",
+          "prompt": "Condición del grupo.",
+          "options": [
+            {
+              "value": "intercept",
+              "label": "Intercepción / DdE",
+              "columnScheme": "intercepcion_dde"
+            },
+            {
+              "value": "cap",
+              "label": "CAP",
+              "columnScheme": "caps"
+            }
+          ],
+          "note": "Decision Book §7.16.4 punto 2: los grupos de Patrulla Aérea (CAPs) usan la fila \"Patrulla Aérea\"; los de Intercepción Aérea (INK)/Despegue de Emergencia usan la fila \"Intercepción/Despegue\" (esquemas `caps` / `intercepcion_dde` de la página 17).",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "7.16.4 Combate Aéreo Cercano (WVR), punto 2",
+              "pages": "146"
+            }
+          ]
+        },
+        {
+          "id": "air_combat_value",
+          "type": "number",
+          "appliesTo": "wvr_table",
+          "prompt": "Valor total de Combate Aéreo para WVR."
+        },
+        {
+          "id": "electronic_escort",
+          "type": "boolean",
+          "appliesTo": "damage_application",
+          "prompt": "¿Hay escolta electrónica con capacidad de absorber impactos prioritariamente?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "damage_application",
+                  "value": "ew_escort_absorbs_first"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "network_patrol_join",
+          "previous_rounds_without_losses",
+          "condition",
+          "air_combat_value",
+          "electronic_escort"
+        ]
+      ],
+      "tableReference": "Página 17: Combate aéreo cercano WVR.",
+      "formula": "Cada bando suma el Valor de Combate Aéreo de todas sus unidades que participan (incluidas las recién unidas), elige la fila por la misión de su grupo (CAPs → \"Patrulla Aérea\"; INK/DdE → \"Intercepción/Despegue\") y tira 1d10; los Puntos de Impacto de ambos bandos se aplican simultáneamente.",
+      "roundRule": {
+        "groupTypes": [
+          {
+            "value": "cap",
+            "label": "Patrulla Aérea (CAPs)",
+            "columnScheme": "caps"
+          },
+          {
+            "value": "intercept",
+            "label": "Intercepción Aérea (INK) / Despegue de Emergencia",
+            "columnScheme": "intercepcion_dde"
+          },
+          {
+            "value": "transport",
+            "label": "Transporte Aéreo / Lanzamiento de Suministros",
+            "columnScheme": null
+          },
+          {
+            "value": "other",
+            "label": "Otra misión (no aire-aire)",
+            "columnScheme": null
+          }
+        ],
+        "groupTypesNote": "El Decision Book solo asigna fila a los grupos CAPs y INK/DdE. Para cualquier otra misión con Valor de Combate Aéreo mayor que 0 la fuente no dice qué fila usar: el ataque de ese bando queda pendiente, no se elige una fila por analogía (AGENTS.md §14).",
+        "participation": "Todas las unidades aéreas que participan en esta batalla y aún no se han retirado participan juntas en el combate cercano. El objetivo del ataque son todas las unidades enemigas.",
+        "networkPatrol": "Organizar apoyo de patrulla aérea: si hay un marcador de grupo de misión CAPs dentro de 4 hexágonos, ejecutando patrulla aérea y conectado en la misma red (nodo), se une al combate cercano. Aunque haya varios, el jugador solo puede elegir uno.",
+        "electronicEscort": "Escolta Electrónica (EEA): si entre las unidades que participan hay un avión de guerra electrónica cuyo Valor de Protección tiene un marcador de escudo (misión de escolta electrónica), las unidades de patrulla en red del oponente solo pueden unirse en la segunda ronda. Un avión de guerra electrónica que se une después de comenzado el combate cercano no activa este efecto.",
+        "noAirCombatValue": "Una unidad sin Valor de Combate Aéreo (CA), por sus valores o por su misión, no contribuye al combate cercano. En las reglas básicas los helicópteros de aviación del ejército no contribuyen con CA.",
+        "absorption": "Cada jugador elige libremente qué unidades propias absorben los impactos. La unidad elegida absorbe puntos de impacto hasta igualar su Valor de Protección y sufre 1 punto de daño por cada vez que lo iguala; las unidades eliminadas se retiran del juego. Hay que elegir unidades que puedan sufrir daño siempre que sea posible: solo cuando los impactos restantes son menores que la Protección de cualquier unidad restante se ignora el resto.",
+        "exitAndDefeat": "Las unidades de patrulla aérea que sufren daño salen temporalmente de combate: no participan en rondas posteriores, pero no se retiran. Si todas las unidades de un grupo CAPs salen de combate, el grupo queda \"Derrotado\". Si una unidad de un grupo de Transporte Aéreo o Lanzamiento de Suministros sufre daño o es eliminada, todo el grupo queda \"Derrotado\".",
+        "withdrawal": {
+          "order": "Ambos bandos verifican simultáneamente la retirada obligatoria u opcional: primero las misiones no aire-aire, luego las aire-aire. Si ambos son CAPs, verifica primero el bando que inició el combate aéreo.",
+          "cap": "CAPs: un grupo \"Derrotado\" debe retirarse y \"Regresar\". Si no, todos sus aviones pueden continuar su misión original, incluidos los que han \"salido de combate\". Un grupo no derrotado puede hacer que una o todas sus unidades regresen.",
+          "intercept": "INK/DdE: si el oponente no es el objetivo de intercepción original, el grupo puede continuar su misión o \"Regresar\"; si lo es, el grupo de Intercepción Aérea regresa inmediatamente.",
+          "sustained": "\"Vuelo Sostenido\" en estado \"Volado\": si el grupo no está dentro de una Zona de Patrulla Aérea / Despegue de Emergencia puede continuar; si lo está, se estrella y es eliminado.",
+          "other": "Otros casos: el grupo de misión debe regresar inmediatamente."
+        },
+        "nextRound": "Solo si ambos bandos son grupos CAPs y ninguno está \"Derrotado\" ni elige retirarse: los aviones que no han salido de combate siguen con otra ronda, con las reglas de la primera, hasta que todas las unidades de un bando se retiren o sean eliminadas. Un bando que aún no recibió su patrulla en red por la escolta electrónica enemiga puede unirla ahora.",
+        "noDamageBonus": "Si ninguno de los bandos ha infligido daño al otro, en la siguiente ronda los valores de ambos bandos reciben +1, acumulativo; se restablece a cero en cuanto un bando inflige daño.",
+        "noDamageBonusApplication": "needs_review: la página 17 lo llama \"modificador de +1\" y el Decision Book \"los valores de ambos bandos +1\". El wizard lo suma a la tirada de cada bando (como el modificador electrónico del BVR) y lee la fila 9 si se pasa; ver docs/rules/known-ambiguities.md.",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "7.16.4 Combate Aéreo Cercano (WVR), puntos 1-5",
+            "pages": "145-148"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "section": "3) Combate aéreo cercano (WVR)",
+            "pages": "17"
+          }
+        ]
+      }
+    }
+  ],
+  "flowCuts": [],
+  "diceRules": [],
+  "rollDependentRules": [],
+  "finalTableReference": "Páginas 15-17: tablas de Interceptación, BVR y WVR.",
+  "interceptionRules": {
+    "targetAssignment": {
+      "eea": "El bando que tiene escolta electrónica (EEA) elige los objetivos para sus propias unidades.",
+      "priority": "Si ambos bandos tienen escolta electrónica o ninguno la tiene: las unidades no detectadas por el enemigo eligen primero (primera prioridad) y luego las detectadas (segunda prioridad). Dentro de cada prioridad elige primero la unidad con el Valor Electrónico más alto; con el mismo Valor Electrónico en unidades de bandos distintos, elige primero el bando que inició el combate aéreo.",
+      "pass": "Al realizar la selección activa se puede renunciar a elegir un objetivo, y la siguiente unidad en el orden de prioridad realiza la selección.",
+      "stop": "Una vez que todos los aviones del bando menos numeroso tienen un objetivo asignado, los aviones restantes del bando más numeroso no participan en la selección de objetivos ni en el combate BVR.",
+      "oneOpponent": "Cada avión de combate solo puede tener un oponente. Un avión de combate que ya se ha convertido en objetivo no puede ser seleccionado nuevamente.",
+      "location": "El estallido de un combate aéreo no mueve la posición del grupo de misión.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.16.1 Asignación de Objetivos en Combate BVR",
+          "pages": "143"
+        }
+      ],
+      "penetrationEea": {
+        "rule": "En una interceptación de penetración, si el bando que penetra tiene escolta electrónica, puede elegir una unidad enemiga como objetivo para el combate BVR de su unidad de escolta electrónica. Luego, el bando interceptador asigna sus objetivos. Si ambos bandos tienen escolta electrónica, no hay efecto adicional.",
+        "note": "La fuente no dice cómo se reparten el resto de objetivos ni qué ocurre si solo el interceptor tiene escolta electrónica: el wizard usa la prioridad de §7.16.1 para el resto y, sin efecto de la escolta, también en ese caso (needs_review, ver known-ambiguities.md).",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "7.10.4 Escolta Electrónica Aérea (EEA), segundo punto",
+            "pages": "136"
+          }
+        ]
+      }
+    },
+    "preBvrWithdrawal": {
+      "rule": "Las unidades que participan en este combate aéreo y no están en una misión aire-aire pueden decidir retirarse inmediatamente y \"Regresar\", excepto:",
+      "exceptions": {
+        "targeted": "A. Las unidades seleccionadas como objetivo en el combate BVR.",
+        "lowAltitude": "B. Cualquier unidad de baja altitud.",
+        "sustainedFlown": "C. Los grupos de misión de \"Vuelo Sostenido\" en estado \"Volado\".",
+        "transportGroup": "D. En un grupo de Transporte Aéreo o Lanzamiento de Suministros, si alguna unidad se convierte en objetivo, todo el grupo no puede retirarse."
+      },
+      "transportNote": "Si todas las unidades que se convirtieron en objetivos dentro de un grupo de Transporte Aéreo o Lanzamiento de Suministros pueden retirarse, toda la formación puede ejecutar la retirada.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.16.2 Resolución de Combate BVR (retirada antes del combate)",
+          "pages": "143-144"
+        }
+      ]
+    },
+    "afterBvr": "Si hay combates BVR pendientes de resolución, se comienza desde el Paso 1 para resolver un nuevo combate BVR. De lo contrario, se procede al combate aéreo cercano (WVR).",
+    "afterBvrSourceRefs": [
+      {
+        "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+        "section": "7.16.3 Combate BVR, punto 6",
+        "pages": "145"
+      }
+    ]
+  }
+}

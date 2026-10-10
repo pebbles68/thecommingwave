@@ -1,0 +1,171 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/12_acciones_estrategicas.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "strategic_actions",
+  "title": "Acciones estratégicas de ataque",
+  "category": "estrategico",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "31-32"
+  },
+  "summary": "Flujos para guerra cibernética y destrucción espacial incluidos en las tablas de combate.",
+  "stages": [
+    {
+      "id": "cyber",
+      "order": 1,
+      "title": "Guerra cibernética",
+      "questions": [
+        {
+          "id": "cyber_action_type",
+          "type": "select",
+          "appliesTo": "cyber_resolution",
+          "prompt": "Tipo de acción cibernética.",
+          "options": [
+            {
+              "value": "attack",
+              "label": "Ataque cibernético"
+            },
+            {
+              "value": "defense",
+              "label": "Defensa cibernética"
+            }
+          ]
+        },
+        {
+          "id": "network_resource",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿Se dispone de 1 Recurso de Red para pagar la acción?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "cannot_execute",
+                  "haltsWorkflow": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "cyber_action_type",
+          "network_resource"
+        ]
+      ],
+      "specialRules": "La acción se resuelve con 3d10. La acción global es exitosa si los ataques efectivos superan a los inefectivos.",
+      "tableReference": "Páginas 31-32: Guerra en el Ciberespacio."
+    },
+    {
+      "id": "space_destruction",
+      "order": 2,
+      "title": "Destrucción espacial",
+      "questions": [
+        {
+          "id": "space_attack_type",
+          "type": "select",
+          "appliesTo": "space_resolution",
+          "prompt": "Tipo de ataque espacial.",
+          "options": [
+            {
+              "value": "soft",
+              "label": "Ataque blando",
+              "effects": [
+                {
+                  "type": "dice",
+                  "target": "space_resolution",
+                  "value": "roll_1d10"
+                }
+              ]
+            },
+            {
+              "value": "hard",
+              "label": "Ataque duro / orbital",
+              "effects": [
+                {
+                  "type": "dice",
+                  "target": "space_resolution",
+                  "value": "roll_3d10"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "orbital_maneuver_reaction",
+          "type": "boolean",
+          "appliesTo": "space_resolution",
+          "prompt": "¿El defensor usa Reacción: Maniobra Orbital?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "space_resolution",
+                  "value": "roll_1d10_and_consume_orbital_resource"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "space_attack_type",
+          "orbital_maneuver_reaction"
+        ]
+      ],
+      "tableReference": "Páginas 31-32: Destrucción Espacial."
+    }
+  ],
+  "flowCuts": [
+    {
+      "stage": "cyber",
+      "question": "network_resource",
+      "optionValue": "no",
+      "effect": "cannot_execute",
+      "haltsWorkflow": true,
+      "sourceText": "¿Se dispone de 1 Recurso de Red para pagar la acción? No -> cannot_execute."
+    }
+  ],
+  "diceRules": [
+    {
+      "stage": "cyber",
+      "dice": "roll_3d10",
+      "derivedFrom": "specialRules",
+      "sourceText": "La acción se resuelve con 3d10. La acción global es exitosa si los ataques efectivos superan a los inefectivos."
+    },
+    {
+      "stage": "space_destruction",
+      "question": "space_attack_type",
+      "derivedFrom": "effect",
+      "perOption": true
+    },
+    {
+      "stage": "space_destruction",
+      "question": "orbital_maneuver_reaction",
+      "condition": "orbital_maneuver_reaction == 'yes'",
+      "dice": "roll_1d10",
+      "derivedFrom": "effect",
+      "note": "Además consume el recurso orbital (rule roll_1d10_and_consume_orbital_resource)."
+    }
+  ],
+  "rollDependentRules": [],
+  "finalTableReference": "Página 32: tabla de Acción Activa / Reacción / Fase Espacial."
+}

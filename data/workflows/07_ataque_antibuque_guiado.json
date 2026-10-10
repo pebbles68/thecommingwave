@@ -1,0 +1,552 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/07_ataque_antibuque_guiado.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "antiship_guided",
+  "title": "Ataque antibuque guiado",
+  "category": "superficie",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "19-22"
+  },
+  "summary": "Flujo completo de defensa aérea, interceptación, V.E.F., multiplicador y método de resolución.",
+  "representativeIcon": "marker_cruise_missile",
+  "cmBmMarkerIcons": ["marker_cruise_missile", "marker_low_flight_cruise_missile", "marker_supersonic_cruise_missile"],
+  "cmBmMarkerIconsNote": "Iconos de plan de ataque (data/ammunition/) que marcan munición CM/LF-CM/SUP.CM a efectos de la etapa 'area_air_defense#munition_marked_cm_or_bm' de este workflow (correcciones03.md COR03-002: antes incrustado en public/js/combat-wizard-engine.js#CM_BM_MARKER_ICONS). Catálogo cerrado de 3 iconos — ver data/sources/tcw_attack_workflows/icons/.",
+  "stages": [
+    {
+      "id": "area_air_defense",
+      "order": 1,
+      "title": "Defensa aérea de área",
+      "questions": [
+        {
+          "id": "munition_marked_cm_or_bm",
+          "type": "boolean",
+          "appliesTo": "area_air_defense",
+          "prompt": "¿La munición de este ataque está marcada CM (Misil de Crucero) o BM (Misil Balístico)?",
+          "options": [
+            { "value": "yes", "label": "Sí" },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "area_air_defense",
+                  "value": "no_cm_bm_marker_no_reduction",
+                  "cutsStage": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "attacker_detected",
+          "type": "boolean",
+          "appliesTo": "area_air_defense_roll",
+          "prompt": "¿El atacante ha sido detectado por el defensor?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "near_space_trajectory",
+          "type": "boolean",
+          "appliesTo": "area_air_defense_roll",
+          "prompt": "¿La munición usa trayectoria de espacio cercano?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": -3
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "iconRefs": [
+            {
+              "ref": "munition_near_space",
+              "role": "representative"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "attacker_detected",
+          "near_space_trajectory"
+        ]
+      ],
+      "tableReference": "Página 19: Defensa aérea de área.",
+      "iconRefs": [
+        {
+          "ref": "marker_cruise_missile",
+          "role": "munition_marker"
+        }
+      ]
+    },
+    {
+      "id": "munition_interception",
+      "order": 2,
+      "title": "Interceptación de munición",
+      "questions": [
+        {
+          "id": "same_hex_or_central_zone",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿Objetivo y atacante están en el mismo hex o Zona Central?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "no_interception",
+                  "cutsStage": true
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "early_warning_effect",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿Se obtiene el efecto de alerta temprana? (unidad AEW en funcionamiento en el mismo hexágono que el objetivo o en su Zona Central; O automáticamente si el ataque interceptado está marcado como Misil Balístico — Decision Book §6.5.2)",
+          "options": [
+            { "value": "yes", "label": "Sí" },
+            { "value": "no", "label": "No" }
+          ]
+        },
+        {
+          "id": "interception_performance",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "Rendimiento del sistema que intercepta.",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "medium",
+              "label": "Medio",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "low",
+              "label": "Bajo",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "detection_state",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "¿Qué ha detectado el defensor?",
+          "options": [
+            {
+              "value": "attacker",
+              "label": "Atacante detectado",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "designator_only",
+              "label": "No atacante, sí guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "neither",
+              "label": "Ni atacante ni guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "short_range_restriction",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿La distancia de ataque es 1 (o 2 en Misión de Área)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "only_same_hex_defenders"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "same_hex_or_central_zone"
+        ],
+        [
+          "interception_performance",
+          "detection_state",
+          "short_range_restriction"
+        ]
+      ],
+      "lowConsumptionOnlyCases": [
+        {
+          "id": "strong_penetration",
+          "label": "un plan de ataque de penetración fuerte (marcado con el indicador de penetración fuerte); además solo interceptan las unidades en el mismo hexágono que el objetivo",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "6.5.1 Capacidad de Interceptación de Munición",
+              "pages": "101"
+            }
+          ]
+        },
+        {
+          "id": "ballistic",
+          "label": "un ataque balístico (solo unidades antimisiles en la misma celda; se lanzan 2d10 y se toma el menor)",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "6.5.1 Capacidad de Interceptación de Munición",
+              "pages": "101"
+            }
+          ]
+        }
+      ],
+      "tableReference": "Página 20: Interceptación de Munición.",
+      "iconRefs": [
+        {
+          "ref": "marker_cruise_missile",
+          "role": "munition_marker"
+        }
+      ]
+    },
+    {
+      "id": "fleet_electronic_resistance",
+      "order": 3,
+      "title": "Resistencia electrónica de la flota",
+      "questions": [
+        {
+          "id": "attack_distance",
+          "type": "select",
+          "appliesTo": "vef_modifier",
+          "prompt": "Distancia de ataque / equivalente de Misión de Área.",
+          "options": [
+            {
+              "value": "0_2",
+              "label": "0-2 / Área 0-3",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "vef_modifier",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "3_5",
+              "label": "3-5 / Área 4-6",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "vef_modifier",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "value": "6plus",
+              "label": "6+ / Área 7+",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "vef_modifier",
+                  "value": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "detection_state",
+          "type": "select",
+          "appliesTo": "vef_modifier",
+          "prompt": "Estado de detección del atacante y guía/designador.",
+          "options": [
+            {
+              "value": "attacker_detected",
+              "label": "Atacante detectado",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "vef_modifier",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "designator_only",
+              "label": "Atacante no detectado, guía sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "vef_modifier",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "neither",
+              "label": "Ni atacante ni guía detectados",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "vef_modifier",
+                  "value": -3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "highest_fleet_electronic",
+          "type": "number",
+          "appliesTo": "vef",
+          "prompt": "Valor Electrónico más alto de la flota."
+        }
+      ],
+      "parallelGroups": [
+        [
+          "attack_distance",
+          "detection_state",
+          "highest_fleet_electronic"
+        ]
+      ],
+      "formula": "V.E.F. = mayor Valor Electrónico de la flota + modificadores. Aplicar la tabla Mod. V.E.F. y luego el multiplicador del ataque.",
+      "tableReference": "Página 21: Resistencia electrónica de buques."
+    },
+    {
+      "id": "attack_method",
+      "order": 4,
+      "title": "Método de ataque y tirada",
+      "questions": [
+        {
+          "id": "method",
+          "type": "select",
+          "appliesTo": "attack_resolution",
+          "prompt": "Método de ataque.",
+          "options": [
+            {
+              "value": "subsonic",
+              "label": "Subsónico",
+              "effects": [
+                {
+                  "type": "dice",
+                  "target": "attack_resolution",
+                  "value": "roll_2d10_take_highest"
+                }
+              ],
+              "iconRefs": [
+                {
+                  "ref": "munition_subsonic",
+                  "role": "representative"
+                }
+              ],
+              "munitionIconRef": "munition_subsonic",
+              "damagePerImpact": 1,
+              "damagePerImpactNote": "Decision Book §5.6.5 (correcciones.02.md COR02-006: antes incrustado en public/js/combat-wizard-engine.js#damagePerImpactForMethod).",
+              "finalTableRowScheme": "sub_sup",
+              "finalTableRowSchemeNote": "Esquema de fila de data/tables/page-22.json#antiship-guided-final-damage (rowAxis.alternateLabels). Confirmado contra el golden test (data/scenarios/golden-antiship-guided.json#steps[3]) — correcciones03.md COR03-002: antes incrustado en public/js/combat-wizard-engine.js#FINAL_TABLE_ROW_SCHEME_BY_METHOD.",
+              "impliesCmBmMarker": false
+            },
+            {
+              "value": "supersonic",
+              "label": "Supersónico",
+              "effects": [
+                {
+                  "type": "dice",
+                  "target": "attack_resolution",
+                  "value": "roll_1d10"
+                }
+              ],
+              "iconRefs": [
+                {
+                  "ref": "munition_supersonic",
+                  "role": "representative"
+                }
+              ],
+              "munitionIconRef": "munition_supersonic",
+              "damagePerImpact": 2,
+              "damagePerImpactNote": "Decision Book §5.6.5 (correcciones.02.md COR02-006: antes incrustado en public/js/combat-wizard-engine.js#damagePerImpactForMethod).",
+              "finalTableRowScheme": "sub_sup",
+              "finalTableRowSchemeNote": "Esquema de fila de data/tables/page-22.json#antiship-guided-final-damage (rowAxis.alternateLabels). Mismo esquema que Subsónico — correcciones03.md COR03-002: antes incrustado en public/js/combat-wizard-engine.js#FINAL_TABLE_ROW_SCHEME_BY_METHOD.",
+              "impliesCmBmMarker": false
+            },
+            {
+              "value": "ballistic",
+              "label": "Trayectoria balística",
+              "effects": [
+                {
+                  "type": "dice",
+                  "target": "attack_resolution",
+                  "value": "roll_1d10"
+                }
+              ],
+              "iconRefs": [
+                {
+                  "ref": "attack_ballistic",
+                  "role": "representative"
+                }
+              ],
+              "munitionIconRef": "munition_parabolic",
+              "damagePerImpact": null,
+              "damagePerImpactNote": "Decision Book §5.6.5: causa 6 puntos de daño por impacto SI el buque objetivo tiene símbolo de escudo en su Valor de Protección, o lo hunde directamente al primer impacto si NO lo tiene — mecánica cualitativamente distinta (no un multiplicador), y que requiere un dato por buque (marca de Escudo) que este proyecto no modela todavía. `null` explícito, no un valor inventado (COR02-005/COR02-006).",
+              "finalTableRowScheme": "par_ec",
+              "finalTableRowSchemeNote": "Esquema de fila de data/tables/page-22.json#antiship-guided-final-damage (rowAxis.alternateLabels). Sin golden test propio: verificado el 2026-09-27 a 600 DPI (docs/rules/known-ambiguities.md, entrada resuelta) — la cabecera impresa agrupa literalmente 'PAR'/'E.C.' bajo la misma columna de MÉTODO DE ATAQUE, separada de 'SUB'/'SUP'. Correcciones03.md COR03-002: antes incrustado en public/js/combat-wizard-engine.js#FINAL_TABLE_ROW_SCHEME_BY_METHOD.",
+              "impliesCmBmMarker": true,
+              "impliesCmBmMarkerNote": "Trayectoria balística = Misil Balístico (BM): siempre cuenta como munición CM/BM a efectos de 'area_air_defense#munition_marked_cm_or_bm', aunque el plan no lleve icono de marcador (Decision Book §5.12 paso 2). Correcciones03.md COR03-002: antes la comparación literal `method === 'ballistic'` en public/js/combat-wizard-engine.js#derivePlanCmOrBmMarker."
+            },
+            {
+              "value": "near_space",
+              "label": "Trayectoria de espacio cercano",
+              "effects": [
+                {
+                  "type": "dice",
+                  "target": "attack_resolution",
+                  "value": "roll_1d10"
+                }
+              ],
+              "iconRefs": [
+                {
+                  "ref": "munition_near_space",
+                  "role": "representative"
+                }
+              ],
+              "munitionIconRef": "munition_near_space",
+              "damagePerImpact": null,
+              "damagePerImpactNote": "Decision Book §5.6.5: misma mecánica de marca de Escudo que Balístico (ver nota de la opción «ballistic»), sin transcribir por unidad. `null` explícito (COR02-005/COR02-006).",
+              "finalTableRowScheme": "par_ec",
+              "finalTableRowSchemeNote": "Mismo esquema que Balístico (ver su nota) — correcciones03.md COR03-002: antes incrustado en public/js/combat-wizard-engine.js#FINAL_TABLE_ROW_SCHEME_BY_METHOD.",
+              "impliesCmBmMarker": false,
+              "impliesCmBmMarkerNote": "A diferencia de Balístico, Trayectoria de espacio cercano no está declarada como marca CM/BM automática por ninguna fuente transcrita — solo se marca si el plan concreto lleva icono de marcador o el campo `cruiseMissile` (correcciones03.md COR03-002)."
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "method"
+        ]
+      ],
+      "tableReference": "Páginas 21-22: Ataque guiado contra buques de superficie."
+    }
+  ],
+  "flowCuts": [
+    {
+      "stage": "munition_interception",
+      "question": "same_hex_or_central_zone",
+      "optionValue": "yes",
+      "effect": "no_interception",
+      "cutsStage": "munition_interception",
+      "haltsWorkflow": false,
+      "sourceText": "¿Objetivo y atacante están en el mismo hex o Zona Central? Sí -> no_interception."
+    }
+  ],
+  "diceRules": [
+    {
+      "stage": "attack_method",
+      "question": "method",
+      "derivedFrom": "effect",
+      "perOption": true
+    }
+  ],
+  "rollDependentRules": [],
+  "finalTableReference": "Página 22: tabla de Ataque Guiado contra Buques de Superficie."
+}

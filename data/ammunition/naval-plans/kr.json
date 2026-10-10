@@ -1,0 +1,59 @@
+{
+  "country": "KR",
+  "countryName": "Corea del Sur",
+  "status": "complete",
+  "transcribedSheets": ["KO 2 (secciones Unidades de superficie y Plataformas submarinas)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/naval-plans/us.json. Los submarinos KSS-3/KSS-3 B2 son el primer caso visto con dos columnas de plan (A y B) en formato de una sola fila, a diferencia de los submarinos de EEUU/China/Japon que solo llevan A.",
+
+  "valueFormat": { "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0." },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/KO 2.pdf", "page": 1, "sheetTitle": "Unidades de superficie" },
+    { "document": "Tablas de Armamento/KO 2.pdf", "page": 1, "sheetTitle": "Plataformas submarinas (misma pagina)" }
+  ],
+
+  "unmappedFactors": {
+    "shipBadge": { "note": "Valores vistos: 2 (la mayoria), 4 (BS-HDF). Resuelto en posicion/etiqueta contra data/counters/factor-map.json#ship-combat: es el factor 'N.º'; su significado numerico sigue sin confirmar, igual que en EEUU/China/Japon.", "resolvedFactor": "hull_number" }
+  },
+
+  "surfaceShips": [
+    { "id": "kr-bs-kdx-1", "name": "BS-KDX-1", "nameLocal": "广开土大王", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-bs-kdx-2-b1", "name": "BS-KDX-2 B1", "nameLocal": "忠武公李舜臣B1", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-bs-kdx-2-b2", "name": "BS-KDX-2 B2", "nameLocal": "忠武公李舜臣B2", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Haeseong", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-bs-kdx-3-b1", "name": "BS-KDX-3 B1", "nameLocal": "世宗大王B1", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Haeseong", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 2, "range": 2 }, "damaged": { "damage": 2, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-bs-kdx-3-b2", "name": "BS-KDX-3 B2", "nameLocal": "世宗大王B2", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Haeseong", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 2, "range": 2 }, "damaged": { "damage": 2, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-bs-ffx-1", "name": "BS-FFX-1", "nameLocal": "仁川", "class": "frigate", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Haeseong", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-bs-ffx-2", "name": "BS-FFX-2", "nameLocal": "大邱", "class": "frigate", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Haeseong", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-bs-ffx-3", "name": "BS-FFX-3", "nameLocal": "忠南", "class": "frigate", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Haeseong", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-bs-hdf", "name": "BS-HDF", "nameLocal": "厦山", "class": "corvette", "hasFullDamagedRows": true, "shipBadge": 4,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 2, "range": 2 }, "damaged": { "damage": 2, "range": 2 } } }, "landAttack": {} } }
+  ],
+
+  "submarines": [
+    { "id": "kr-kss1", "name": "KSS 1", "nameLocal": "张保皋", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-kss2", "name": "KSS 2", "nameLocal": "孙元一", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "kr-kss3", "name": "KSS 3", "nameLocal": "安昌浩", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } },
+        "landAttack": { "B": { "munition": "Hyunmoo3C", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 1, "range": 19 } } }
+      } },
+    { "id": "kr-kss3-b2", "name": "KSS 3 B2", "nameLocal": "安昌浩", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } },
+        "landAttack": { "B": { "munition": "Hyunmoo3C", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 19 } } }
+      },
+      "note": "Mismo nombre local que KSS 3 ('安昌浩'): son dos lotes (Batch I/II) de la misma clase Dosan Ahn Changho, con valor de Hyunmoo3C distinto (1 vs 2)." }
+  ]
+}

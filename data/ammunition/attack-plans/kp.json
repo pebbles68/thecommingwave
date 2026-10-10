@@ -1,0 +1,73 @@
+{
+  "country": "KP",
+  "countryName": "Corea del Norte",
+  "status": "complete",
+  "transcribedSheets": ["KP 1 (seccion Cazas tacticos)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/attack-plans/us.json.",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0.",
+    "dual": "Dos valores separados por barra + superindice opcional: heavy/light + range."
+  },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/KP 1.pdf", "page": 1, "sheetTitle": "Cazas tacticos",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer. Incluye tambien un buque (BS-NP), transcrito en data/ammunition/naval-plans/kp.json." }
+  ],
+
+  "units": [
+    {
+      "id": "kp-j-10a", "name": "J-10A", "nameLocal": "猛龙", "class": "tactical-fighter", "sourceSheet": "KP 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "B": { "munition": "LT-2", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 0 }, "damaged": { "heavy": 1, "light": 2, "range": 0 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "B": { "munition": "LT-2", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 0 }, "damaged": { "heavy": 1, "light": 2, "range": 0 } }
+        }
+      }
+    },
+    {
+      "id": "kp-jh-7a", "name": "JH-7A", "nameLocal": "飞豹", "class": "tactical-fighter", "sourceSheet": "KP 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "B": { "munition": "YJ-83K", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 4 }, "damaged": { "heavy": 2, "light": 3, "range": 4 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } }
+        }
+      },
+      "note": "landAttack solo lleva la columna A; B (YJ-83K) no esta disponible en este dominio para esta unidad."
+    },
+    {
+      "id": "kp-su-25k", "name": "Su-25K", "nameLocal": "雏鹰", "class": "tactical-fighter", "sourceSheet": "KP 1",
+      "plans": {
+        "antiShip": { "A": { "munition": "FAB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } } },
+        "landAttack": { "A": { "munition": "FAB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } } }
+      }
+    },
+    {
+      "id": "kp-mig-23", "name": "MiG-23", "nameLocal": "螺旋者", "class": "tactical-fighter", "sourceSheet": "KP 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "FAB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "B": { "munition": "Kh-23", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 0 }, "damaged": { "heavy": 1, "light": 2, "range": 0 } }
+        },
+        "landAttack": { "A": { "munition": "FAB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } } }
+      },
+      "note": "landAttack solo lleva la columna A; B (Kh-23) no esta disponible en este dominio."
+    },
+    {
+      "id": "kp-mig-29a", "name": "MiG-29A", "nameLocal": "支点", "class": "tactical-fighter", "sourceSheet": "KP 1",
+      "plans": {
+        "antiShip": { "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } } },
+        "landAttack": { "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } } }
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "country": "KP",
+  "countryName": "Corea del Norte",
+  "status": "complete",
+  "transcribedSheets": ["KP 2 (helicopteros, artilleria, misiles balisticos)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/special-unit-plans/us.json. A diferencia de EEUU/China/Japon/Corea del Sur, KP 1 no tiene seccion de aviones de rol especial (ISR/EW): solo cazas tacticos y un buque.",
+
+  "valueFormat": { "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0." },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/KP 2.pdf", "page": 1, "sheetTitle": "Plataformas de baja altitud, artilleria y misiles balisticos" }
+  ],
+
+  "units": [
+    {
+      "id": "kp-mi-24d", "name": "Mi-24D", "nameLocal": "雄鹿", "class": "attack-helicopter",
+      "sourceSheet": "KP 2", "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "B": { "munition": "AT", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 0 } }
+      }
+    },
+    {
+      "id": "kp-koksan", "name": "Koksan", "nameLocal": "榴弹炮群", "class": "artillery",
+      "sourceSheet": "KP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 1 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 1 } }
+      }
+    },
+    {
+      "id": "kp-m-1991", "name": "M-1991", "nameLocal": "火箭炮群", "class": "artillery",
+      "sourceSheet": "KP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 6, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } }
+      }
+    },
+    {
+      "id": "kp-hwasong-5", "name": "Hwasong-5", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "KP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "Hwasong-5", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 4 } } }
+    },
+    {
+      "id": "kp-hwasong-6", "name": "Hwasong-6", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "KP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "Hwasong-6", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 7 } } }
+    },
+    {
+      "id": "kp-hwasong-7", "name": "Hwasong-7", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "KP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "Hwasong-7", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 15 } } }
+    },
+    {
+      "id": "kp-hwasong-10", "name": "Hwasong-10", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "KP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "Hwasong-10", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 38 } } }
+    },
+    {
+      "id": "kp-kn-23", "name": "KN-23", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "KP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "KN-23", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 4, "range": 6 } } }
+    }
+  ]
+}

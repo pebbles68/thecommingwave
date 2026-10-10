@@ -1,0 +1,352 @@
+{
+  "id": "workflow-coverage",
+  "description": "Matriz de cobertura (ajuste AJ-004): para cada workflow de combate, qué wizard lo resuelve, qué etapas cubre, cómo se aplica el resultado y en qué estado está la fuente. Un test la contrasta con data/workflows/, las rutas de la aplicación y docs/rules/known-ambiguities.md. Estado de capacidad: done (completa y validada), partial (algo sin implementar o aplicado a mano), needs_review (implementada pero con reglas pendientes de validar), blocked_by_source (falta un dato que ninguna fuente aportada da) o not_started (sin wizard).",
+  "sourceRefs": [
+    {
+      "document": "Tablas-de-combate 5.pdf"
+    },
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf"
+    }
+  ],
+  "statuses": [
+    "done",
+    "partial",
+    "needs_review",
+    "blocked_by_source",
+    "not_started"
+  ],
+  "statusLabels": {
+    "done": "Resultado calculado y reglas validadas",
+    "partial": "Parcial: parte del flujo sigue pendiente",
+    "needs_review": "Resultado calculado, con reglas pendientes de validar",
+    "blocked_by_source": "Cálculo detenido en un punto por falta de dato",
+    "not_started": "Sin wizard todavía"
+  },
+  "gapKindLabels": {
+    "manual_application": "Aplicación manual pendiente",
+    "needs_review": "Regla no validada",
+    "blocked_by_source": "Falta un dato",
+    "not_started": "Sin implementar"
+  },
+  "gapKinds": {
+    "manual_application": "Aplicación manual pendiente: el wizard calcula el resultado pero su efecto sobre las fichas lo aplica el jugador.",
+    "needs_review": "Regla no validada: se usa un supuesto explícito que el mantenedor aún no ha confirmado.",
+    "blocked_by_source": "Falta un dato que ninguna fuente aportada contiene; el cálculo afectado se detiene o se deja al jugador.",
+    "not_started": "Sin implementar todavía."
+  },
+  "resultApplication": {
+    "calculated": "El resultado y su efecto (daño, hundimiento, estado) se calculan en la aplicación.",
+    "manual_pending": "Se calcula el resultado de la tabla, pero su aplicación a las fichas queda manual.",
+    "not_available": "Sin wizard: no hay cálculo."
+  },
+  "workflows": [
+    {
+      "workflowId": "ground_close_combat",
+      "wizards": [
+        "ground-close-combat"
+      ],
+      "stagesCovered": [
+        "eligibility",
+        "attack_value",
+        "electronic_warfare"
+      ],
+      "stagesNotCovered": [
+        {
+          "stage": "casualties",
+          "reason": "La asignación de bajas por Valor de Defensa Cercana (§8.7.6) necesita un dato que ningún registro de unidades tiene; el wizard solo calcula el umbral de Derrota."
+        }
+      ],
+      "resultApplication": "manual_pending",
+      "status": "blocked_by_source",
+      "gaps": [
+        {
+          "kind": "blocked_by_source",
+          "text": "Asignación de bajas del combate cercano: falta el Valor de Defensa Cercana de las unidades."
+        }
+      ]
+    },
+    {
+      "workflowId": "ground_guided",
+      "wizards": [
+        "ground-guided",
+        "ground-attack-result"
+      ],
+      "stagesCovered": [
+        "area_air_defense",
+        "munition_interception",
+        "attack_intensity"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "calculated",
+      "status": "partial",
+      "gaps": [
+        {
+          "kind": "manual_application",
+          "text": "El modificador de intensidad por distancia (páginas 5 y 8) pide el valor combinado «distancia // Misión de Área» en vez de derivarlo de la misión."
+        }
+      ]
+    },
+    {
+      "workflowId": "ground_unguided",
+      "wizards": [
+        "ground-unguided",
+        "ground-attack-result"
+      ],
+      "stagesCovered": [
+        "final_interception",
+        "munition_interception",
+        "attack_intensity"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "calculated",
+      "status": "partial",
+      "gaps": [
+        {
+          "kind": "manual_application",
+          "text": "El modificador de intensidad por distancia (páginas 5 y 8) pide el valor combinado «distancia // Misión de Área» en vez de derivarlo de la misión."
+        }
+      ]
+    },
+    {
+      "workflowId": "anti_radiation",
+      "wizards": [
+        "anti-radiation",
+        "ground-attack-result"
+      ],
+      "stagesCovered": [
+        "area_air_defense",
+        "munition_interception",
+        "anti_radiation_modifier"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "calculated",
+      "status": "needs_review",
+      "gaps": [
+        {
+          "kind": "needs_review",
+          "ref": "Prioridad de absorción del avión EW ante defensa aérea (§7.10.4)",
+          "text": "En el contraataque a baja altura no se aplica la prioridad del avión de guerra electrónica porque la fuente no la menciona."
+        }
+      ]
+    },
+    {
+      "workflowId": "air_combat",
+      "wizards": [
+        "air-intercept-targets",
+        "air-combat-bvr",
+        "air-combat-wvr"
+      ],
+      "stagesCovered": [
+        "initiative",
+        "bvr",
+        "wvr"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "manual_pending",
+      "status": "needs_review",
+      "gaps": [
+        {
+          "kind": "needs_review",
+          "ref": "Combate aéreo cercano WVR (página 17): cuatro puntos que la fuente no cierra",
+          "text": "Misión de un bando con grupos distintos y daño que aguanta un avión (la bonificación de rondas sin daño ya está confirmada)."
+        },
+        {
+          "kind": "manual_application",
+          "text": "La composición del grupo de misión y el reparto de impactos entre las unidades se anotan a mano (roadmap Fase 11)."
+        }
+      ]
+    },
+    {
+      "workflowId": "area_air_defense",
+      "wizards": [],
+      "stagesCovered": [
+        "area_defense"
+      ],
+      "stagesNotCovered": [],
+      "embeddedIn": [
+        "antiship-guided",
+        "antiship-unguided",
+        "ground-guided",
+        "ground-unguided",
+        "anti-radiation"
+      ],
+      "resultApplication": "calculated",
+      "status": "partial",
+      "gaps": [
+        {
+          "kind": "not_started",
+          "text": "No tiene un wizard propio: el «Disparo en Área» solo se resuelve como paso previo de los wizards de ataque."
+        }
+      ]
+    },
+    {
+      "workflowId": "antiship_guided",
+      "wizards": [
+        "antiship-guided",
+        "ship-impact-effects"
+      ],
+      "stagesCovered": [
+        "area_air_defense",
+        "munition_interception",
+        "fleet_electronic_resistance",
+        "attack_method"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "calculated",
+      "status": "blocked_by_source",
+      "gaps": [
+        {
+          "kind": "blocked_by_source",
+          "text": "Daño balístico y de espacio cercano: el escudo en la Protección de los buques no está en los datos, así que ese daño no se calcula."
+        }
+      ]
+    },
+    {
+      "workflowId": "antiship_unguided",
+      "wizards": [
+        "antiship-unguided",
+        "ship-impact-effects"
+      ],
+      "stagesCovered": [
+        "final_interception",
+        "munition_interception",
+        "attack_intensity",
+        "low_altitude_counterattack"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "calculated",
+      "status": "needs_review",
+      "gaps": [
+        {
+          "kind": "needs_review",
+          "text": "Página 25: el segundo icono de Protección es ilegible en la fuente; se usa 1 daño por impacto, el caso documentado."
+        }
+      ]
+    },
+    {
+      "workflowId": "torpedo_vs_surface",
+      "wizards": [
+        "torpedo-surface"
+      ],
+      "stagesCovered": [
+        "ambush",
+        "target_speed",
+        "detection_context"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "manual_pending",
+      "status": "partial",
+      "gaps": [
+        {
+          "kind": "manual_application",
+          "text": "La asignación a buques concretos se aplica sobre la hoja de flota física."
+        }
+      ]
+    },
+    {
+      "workflowId": "asw_surface_air",
+      "wizards": [
+        "asw-surface-air"
+      ],
+      "stagesCovered": [
+        "eligibility",
+        "attack_table"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "calculated",
+      "status": "done",
+      "gaps": []
+    },
+    {
+      "workflowId": "asw_submarine",
+      "wizards": [
+        "asw-submarine"
+      ],
+      "stagesCovered": [
+        "attack_table"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "calculated",
+      "status": "partial",
+      "gaps": [
+        {
+          "kind": "not_started",
+          "text": "Emboscada y estados oculto/expuesto solo cuando procedan según las reglas (roadmap Fase 13)."
+        }
+      ]
+    },
+    {
+      "workflowId": "strategic_actions",
+      "wizards": [
+        "cyber-attack",
+        "space-war"
+      ],
+      "stagesCovered": [
+        "cyber",
+        "space_destruction"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "manual_pending",
+      "status": "needs_review",
+      "gaps": [
+        {
+          "kind": "needs_review",
+          "ref": "Guerra espacial: suma de la Tormenta de Escombros por encima de 9",
+          "text": "Ciberataque y guerra espacial (reglas opcionales) calculan el resultado con la tabla de la página 32; el efecto sobre recursos y escombros lo anota el jugador. La Tormenta de Escombros suma el d10 con los escombros y la tabla solo llega a 9."
+        }
+      ]
+    },
+    {
+      "workflowId": "asw_search_support",
+      "wizards": [
+        "asw-air-search",
+        "asw-signature-search"
+      ],
+      "stagesCovered": [
+        "search_type",
+        "search_modifiers",
+        "air_search",
+        "signature_search"
+      ],
+      "stagesNotCovered": [],
+      "resultApplication": "calculated",
+      "status": "needs_review",
+      "gaps": [
+        {
+          "kind": "needs_review",
+          "ref": "Identificación de los 3 iconos de unidad de superficie en la tabla de Búsqueda por Diferencia de Firma (página 33)",
+          "text": "Si cada icono de la tabla representa a la vez el marco cerrado y el abierto de su forma; redacción discrepante entre §9.15.3 y §9.15.1; modificadores de Firma de la página 28."
+        }
+      ]
+    }
+  ],
+  "supportWizards": [
+    {
+      "wizard": "ship-impact-effects",
+      "purpose": "Efectos del impacto antibuque (daño crítico, portaeronaves, transportes)",
+      "status": "done"
+    },
+    {
+      "wizard": "ground-attack-result",
+      "purpose": "Resultado del ataque terrestre sobre unidad, puerto o aeródromo",
+      "status": "done"
+    },
+    {
+      "wizard": "army-resupply",
+      "purpose": "Reabastecimiento de Campo del Ejército",
+      "status": "done"
+    },
+    {
+      "wizard": "ground-reaction",
+      "purpose": "Ataques de Reacción terrestres (CF, AS, KB, BAI); sin Ataque Conjunto ni CAS como reacción",
+      "status": "partial"
+    },
+    {
+      "wizard": "logistics-guarantee",
+      "purpose": "Garantía logística",
+      "status": "needs_review",
+      "ref": "Garantía logística (capítulo 11)"
+    }
+  ]
+}

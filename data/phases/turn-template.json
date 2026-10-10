@@ -1,0 +1,1758 @@
+{
+  "id": "turno",
+  "schemaVersion": 4,
+  "title": "Turno de juego",
+  "summary": "La campaña se juega en bandas de dos días. Cada banda empieza con la Fase 0 (Estrategia, una vez) y sigue con seis fases de campaña: tres por día (mañana, tarde y noche). Cada fase recorre Aire I → Superficie → Aire II → Tierra (cuando corresponde) → Submarino.",
+  "help": "Entra directamente en cualquier fase, segmento o ayuda: el orden de la hoja es una recomendación, no un requisito. Desde cada pantalla puedes abrir tablas, reglas, fichas y armamento, o marcar lo que hayas terminado.",
+  "sourceRefs": [
+    {
+      "doc": "tcw_phase_help.xml"
+    },
+    {
+      "document": "TCW - Hoja de turnos 1.1.pdf",
+      "page": 1
+    }
+  ],
+  "sheet": {
+    "title": "Secuencia de turno y fases",
+    "note": "Transcripción de la hoja de seguimiento de turno usada en mesa (ficha de referencia del mantenedor). Este documento es la única fuente de la secuencia: el turno guiado, la consulta rápida y el buscador la leen de aquí. El turno guiado es una ayuda de consulta y seguimiento de uso libre y no prescriptivo (AGENTS.md §3.1/§6).",
+    "sourceRefs": [
+      {
+        "document": "TCW - Hoja de turnos 1.1.pdf",
+        "page": 1
+      }
+    ],
+    "dayBands": {
+      "intro": "El calendario de la campaña se divide en 14 bandas de 2 días cada una (28 días en total).",
+      "bands": [
+        {
+          "index": 1,
+          "label": "Días 1-2",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 2,
+          "label": "Días 3-4",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 3,
+          "label": "Días 5-6",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 4,
+          "label": "Días 7-8",
+          "strategicPhaseHighlight": true
+        },
+        {
+          "index": 5,
+          "label": "Días 9-10",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 6,
+          "label": "Días 11-12",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 7,
+          "label": "Días 13-14",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 8,
+          "label": "Días 15-16",
+          "strategicPhaseHighlight": true
+        },
+        {
+          "index": 9,
+          "label": "Días 17-18",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 10,
+          "label": "Días 19-20",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 11,
+          "label": "Días 21-22",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 12,
+          "label": "Días 23-24",
+          "strategicPhaseHighlight": true
+        },
+        {
+          "index": 13,
+          "label": "Días 25-26",
+          "strategicPhaseHighlight": false
+        },
+        {
+          "index": 14,
+          "label": "Días 27-28",
+          "strategicPhaseHighlight": false
+        }
+      ],
+      "strategicPhaseNote": "needs_review: las bandas 4, 8 y 12 (patrón cada 4 turnos) aparecen resaltadas en la hoja física, lo que sugiere que ahí se resuelve la Fase 0/Estratégica — la hoja no incluye texto explícito que lo confirme. Pendiente de contrastar con el Decision Book cuando se transcriba la categoría 'reglas' de Ayuda rápida."
+    },
+    "commandRecoveryNote": "Recuperación de Mando se realiza antes del inicio de cada día (antes de la fase de Refuerzos de la fase de mañana); la hoja la marca como REC. MANDO. en cada ciclo de tres fases. Su procedimiento (Decision Book 3.3.4) está en el nodo consultable.",
+    "groundActivationMarkersNote": "Los marcadores A/B/C/D junto a la columna Tierra son el Nivel de Reacción de las unidades terrestres móviles que pueden activarse en esa fase (Decision Book 8.1.2 y 8.3.1, págs. 157 y 169-170; equivale a la Iniciativa de la ficha). Activos por fase: A,B,C en la 1.ª; A,B en la 3.ª; A,B,C,D en la 4.ª; solo A en la 6.ª; la 2.ª y la 5.ª no tienen segmento terrestre. needs_review: las definiciones literales de los niveles en 8.3.1 están invertidas respecto del ejemplo del propio libro; se usa la lectura coherente con el ejemplo y con la hoja (ver docs/rules/known-ambiguities.md).",
+    "phaseOrderCrossCheck": "El orden y contenido de segments de la Primera/Cuarta Fase coincide exactamente con las 4 familias de subfases mínimas de AGENTS.md §3.1: Superficie (reorganización, combate naval, logística de transporte), Tierra (despliegue, maniobra/combate/ataque, reorganización) y Submarino (patrulla, combate, logística de transporte) son una correspondencia 1:1. Aire I/Aire II de esta hoja se reparten entre sí los 7 conceptos de la fase aérea de AGENTS.md (planificación, mantenimiento de alerta, recuperación de misiones largas/cortas, preparación de salidas, y 'Parálisis' como concepto adicional no nombrado en AGENTS.md)."
+  },
+  "band": {
+    "durationDays": 2,
+    "strategic": {
+      "id": "phase-0",
+      "title": "Fase 0 — Estrategia",
+      "summary": "Resuelve las acciones estratégicas de la banda de dos días antes de comenzar las fases de campaña. Se ejecuta una vez por banda.",
+      "phases": [
+        "crisis",
+        "espacio",
+        "diplomacia",
+        "logistica",
+        "reparacion"
+      ],
+      "sheetSteps": [
+        "Crisis",
+        "Espacio",
+        "Diplomacia",
+        "Logística",
+        "Mantenimiento"
+      ],
+      "sheetNote": "Casillero de seguimiento de la hoja (5 pasos en el orden impreso, izquierda a derecha). No se transcribe aquí el contenido de reglas de cada paso — son extractos del Decision Book, tarea de la categoría 'reglas' de Ayuda rápida, todavía sin construir.",
+      "spaceDebrisTracker": "La hoja incluye junto a la Fase 0 un casillero 'Chatarra Espacial' (con icono de satélite) para llevar la cuenta de una regla relacionada con guerra espacial/ultraterrestre (roadmap Fase 14); tampoco transcrita todavía.",
+      "sourceRefs": [
+        {
+          "document": "TCW - Hoja de turnos 1.1.pdf",
+          "page": "1",
+          "status": "verified"
+        }
+      ]
+    },
+    "days": [
+      {
+        "id": "day-odd",
+        "parity": "odd",
+        "title": "Día impar",
+        "impulses": [
+          "phase-1",
+          "phase-2",
+          "phase-3"
+        ],
+        "commandRecovery": "command-recovery",
+        "sourceRefs": [
+          {
+            "document": "TCW - Hoja de turnos 1.1.pdf",
+            "page": "1",
+            "status": "verified"
+          }
+        ],
+        "commandRecoveryPosition": "before-day"
+      },
+      {
+        "id": "day-even",
+        "parity": "even",
+        "title": "Día par",
+        "impulses": [
+          "phase-4",
+          "phase-5",
+          "phase-6"
+        ],
+        "commandRecovery": "command-recovery",
+        "sourceRefs": [
+          {
+            "document": "TCW - Hoja de turnos 1.1.pdf",
+            "page": "1",
+            "status": "verified"
+          }
+        ],
+        "commandRecoveryPosition": "before-day"
+      }
+    ],
+    "consultables": {
+      "command-recovery": {
+        "id": "command-recovery",
+        "title": "Recuperación de Mando",
+        "summary": "Fase de Recuperación de Mando: los Centros de Mando de cada facción recuperan su Capacidad de Mando. La hoja la marca al comienzo de cada ciclo diario de tres fases (REC. MANDO.).",
+        "procedure": [
+          "La Capacidad de Mando de cada ámbito operativo (aéreo, terrestre, marítimo y conjunto) se restablece hasta el Límite de Capacidad de Mando indicado en la tarjeta del Centro de Mando.",
+          "Un escenario puede fijar un límite particular para ciertos Centros de Mando: ese límite especial, mayor o menor que el de la tarjeta, es hasta donde se recupera en ese escenario.",
+          "La Capacidad de Mando sobrante al terminar una fase no se reinicia a cero: sigue disponible en la fase nueva."
+        ],
+        "status": "needs_review",
+        "pending": "Procedimiento transcrito del Decision Book (3.3.4); la posición antes de cada día la indicó el mantenedor. Pendiente de validar cuántas veces se aplica por banda frente a la marca de la hoja (REC. MANDO. por ciclo de tres fases).",
+        "sourceRefs": [
+          {
+            "status": "verified",
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "3.3.3 Saldo y 3.3.4 Recuperación de la Capacidad de Mando",
+            "page": "38"
+          },
+          {
+            "status": "verified",
+            "document": "TCW - Hoja de turnos 1.1.pdf",
+            "page": 1
+          },
+          {
+            "status": "verified",
+            "document": "Indicación del mantenedor",
+            "section": "posición en la secuencia"
+          }
+        ],
+        "position": "Antes del inicio de cada día, antes de la fase de Refuerzos de la fase de mañana (fases 1 y 4).",
+        "positionSource": {
+          "document": "Indicación del mantenedor",
+          "section": "posición en la secuencia"
+        }
+      },
+      "reinforcements": {
+        "id": "reinforcements",
+        "title": "Refuerzos",
+        "summary": "Fase adicional que se realiza al principio de cada una de las seis fases de campaña, antes de las subfases de Aire I.",
+        "procedure": null,
+        "position": "Fase adicional al principio de cada fase de campaña, antes de las subfases de Aire I.",
+        "status": "needs_review",
+        "pending": "Pendiente de transcribir/validar el procedimiento: no se ha localizado en el Decision Book ninguna regla de refuerzos del turno (búsqueda de «refuerzo» sin resultados relevantes) ni la hoja de turnos imprime este paso. La posición en la secuencia la indicó el mantenedor.",
+        "sourceRefs": [
+          {
+            "status": "verified",
+            "document": "Indicación del mantenedor",
+            "section": "posición en la secuencia"
+          }
+        ],
+        "sourceSearch": {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "method": "pdftotext -layout y búsqueda de «refuerzo»/«reinforc»",
+          "date": "2026-10-07",
+          "result": "sin reglas de refuerzos del turno"
+        },
+        "positionSource": {
+          "document": "Indicación del mantenedor",
+          "section": "posición en la secuencia"
+        }
+      }
+    },
+    "groundReactionRef": {
+      "id": "nivel-reaccion",
+      "label": "Nivel de Reacción (Iniciativa)",
+      "entityType": "ground-unit",
+      "scope": "generic",
+      "factorIds": [
+        "initiative",
+        "mobile_or_fixed"
+      ]
+    },
+    "sourceRefs": [
+      {
+        "document": "TCW - Hoja de turnos 1.1.pdf",
+        "page": "1",
+        "status": "verified",
+        "note": "Banda de dos días con seis fases de campaña y Fase 0 una vez (estructura validada por el mantenedor, 2026-10-07)."
+      }
+    ]
+  },
+  "impulses": {
+    "phase-1": {
+      "id": "phase-1",
+      "number": 1,
+      "dayId": "day-odd",
+      "period": "morning",
+      "periodLabel": "Mañana",
+      "title": "Primera Fase",
+      "hours": "4-12/16",
+      "timeOfDay": "day",
+      "commandRecoveryCycle": 1,
+      "segments": [
+        {
+          "id": "reinforcements",
+          "title": "Refuerzos",
+          "sheetStepsNotPrinted": true,
+          "positionSource": "maintainer",
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "posición en la secuencia",
+              "status": "verified",
+              "note": "La posición la indicó el mantenedor; el procedimiento no consta en el Decision Book."
+            }
+          ]
+        },
+        {
+          "id": "air-1",
+          "title": "Aire I",
+          "sheetSteps": [
+            "Planifica.",
+            "Manteni. alertas",
+            "Recupera. largas",
+            "Preparación salidas",
+            "Recupera. cortas",
+            "Parálisis"
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified"
+            }
+          ]
+        },
+        {
+          "id": "surface",
+          "title": "Superficie",
+          "sheetSteps": [
+            "Reorganiza. flotas",
+            "Combate superficie",
+            "Suministro"
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified"
+            }
+          ]
+        },
+        {
+          "id": "air-2",
+          "title": "Aire II",
+          "sheetSteps": [
+            "Planifica.",
+            "Manteni. alertas",
+            "Recupera. largas",
+            "Preparación salidas",
+            "Recupera. cortas"
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified"
+            }
+          ]
+        },
+        {
+          "id": "ground",
+          "title": "Tierra",
+          "sheetSteps": [
+            "Despliegue rec. avión. eje.",
+            "Maniobra",
+            "Compromiso",
+            "Ataque",
+            "Reorganiza."
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "needs_review",
+              "note": "La hoja imprime los marcadores A-D junto a la columna Tierra."
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "8.1.2 Unidades móviles y 8.3.1 Niveles de Reacción",
+              "page": "157, 169-170",
+              "status": "needs_review",
+              "note": "Las letras son el Nivel de Reacción; las definiciones literales de 8.3.1 están invertidas respecto del ejemplo del libro (docs/rules/known-ambiguities.md)."
+            }
+          ]
+        },
+        {
+          "id": "submarine",
+          "title": "Submarino",
+          "sheetSteps": [
+            "Patrulla",
+            "Combate",
+            "Suministro"
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified"
+            }
+          ]
+        }
+      ],
+      "groundReactionLevels": [
+        "A",
+        "B",
+        "C"
+      ],
+      "groundReactionStatus": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "TCW - Hoja de turnos 1.1.pdf",
+          "page": "1",
+          "status": "verified"
+        }
+      ]
+    },
+    "phase-2": {
+      "id": "phase-2",
+      "number": 2,
+      "dayId": "day-odd",
+      "period": "afternoon",
+      "periodLabel": "Tarde",
+      "title": "Segunda Fase",
+      "hours": "12-20",
+      "timeOfDay": "day",
+      "commandRecoveryCycle": 1,
+      "segments": [
+        {
+          "id": "reinforcements",
+          "title": "Refuerzos",
+          "sheetStepsNotPrinted": true,
+          "positionSource": "maintainer",
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "posición en la secuencia",
+              "status": "verified",
+              "note": "La posición la indicó el mantenedor; el procedimiento no consta en el Decision Book."
+            }
+          ]
+        },
+        {
+          "id": "air-1",
+          "title": "Aire I",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "surface",
+          "title": "Superficie",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "air-2",
+          "title": "Aire II",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "submarine",
+          "title": "Submarino",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        }
+      ],
+      "sheetNote": "La hoja no imprime la lista de pasos de esta fase (columnas en blanco) y tampoco incluye columna de Tierra. No se asume que reutiliza los pasos de la Primera Fase: se deja explícito que no está impreso, en vez de inventarlo (AGENTS.md §14).",
+      "sourceRefs": [
+        {
+          "document": "TCW - Hoja de turnos 1.1.pdf",
+          "page": "1",
+          "status": "verified"
+        }
+      ]
+    },
+    "phase-3": {
+      "id": "phase-3",
+      "number": 3,
+      "dayId": "day-odd",
+      "period": "night",
+      "periodLabel": "Noche",
+      "title": "Tercera Fase",
+      "hours": "20/16-4 día siguiente",
+      "timeOfDay": "night",
+      "commandRecoveryCycle": 1,
+      "segments": [
+        {
+          "id": "reinforcements",
+          "title": "Refuerzos",
+          "sheetStepsNotPrinted": true,
+          "positionSource": "maintainer",
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "posición en la secuencia",
+              "status": "verified",
+              "note": "La posición la indicó el mantenedor; el procedimiento no consta en el Decision Book."
+            }
+          ]
+        },
+        {
+          "id": "air-1",
+          "title": "Aire I",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "surface",
+          "title": "Superficie",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "air-2",
+          "title": "Aire II",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "ground",
+          "title": "Tierra",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "needs_review",
+              "note": "La hoja imprime los marcadores A-D junto a la columna Tierra."
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "8.1.2 Unidades móviles y 8.3.1 Niveles de Reacción",
+              "page": "157, 169-170",
+              "status": "needs_review",
+              "note": "Las letras son el Nivel de Reacción; las definiciones literales de 8.3.1 están invertidas respecto del ejemplo del libro (docs/rules/known-ambiguities.md)."
+            }
+          ]
+        },
+        {
+          "id": "submarine",
+          "title": "Submarino",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        }
+      ],
+      "groundReactionLevels": [
+        "A",
+        "B"
+      ],
+      "groundReactionStatus": "needs_review",
+      "sheetNote": "La hoja solo imprime los marcadores de Tierra (A,B); el resto de columnas están en blanco (ver nota de la Segunda Fase sobre no inventar la lista de pasos).",
+      "sourceRefs": [
+        {
+          "document": "TCW - Hoja de turnos 1.1.pdf",
+          "page": "1",
+          "status": "verified"
+        }
+      ]
+    },
+    "phase-4": {
+      "id": "phase-4",
+      "number": 4,
+      "dayId": "day-even",
+      "period": "morning",
+      "periodLabel": "Mañana",
+      "title": "Cuarta Fase",
+      "hours": "4-12/16",
+      "timeOfDay": "day",
+      "commandRecoveryCycle": 2,
+      "segments": [
+        {
+          "id": "reinforcements",
+          "title": "Refuerzos",
+          "sheetStepsNotPrinted": true,
+          "positionSource": "maintainer",
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "posición en la secuencia",
+              "status": "verified",
+              "note": "La posición la indicó el mantenedor; el procedimiento no consta en el Decision Book."
+            }
+          ]
+        },
+        {
+          "id": "air-1",
+          "title": "Aire I",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "surface",
+          "title": "Superficie",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "air-2",
+          "title": "Aire II",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "ground",
+          "title": "Tierra",
+          "sheetSteps": [
+            "Combate cercano"
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "needs_review",
+              "note": "La hoja imprime los marcadores A-D junto a la columna Tierra."
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "8.1.2 Unidades móviles y 8.3.1 Niveles de Reacción",
+              "page": "157, 169-170",
+              "status": "needs_review",
+              "note": "Las letras son el Nivel de Reacción; las definiciones literales de 8.3.1 están invertidas respecto del ejemplo del libro (docs/rules/known-ambiguities.md)."
+            }
+          ]
+        },
+        {
+          "id": "submarine",
+          "title": "Submarino",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        }
+      ],
+      "groundReactionLevels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "groundReactionStatus": "needs_review",
+      "sheetNote": "Misma estructura de columnas que la Primera Fase; la hoja solo vuelve a imprimir el paso de Tierra ('Combate cercano', con los 4 marcadores A-D activos). El resto de columnas están en blanco, igual que en la Segunda/Tercera Fase.",
+      "sourceRefs": [
+        {
+          "document": "TCW - Hoja de turnos 1.1.pdf",
+          "page": "1",
+          "status": "verified"
+        }
+      ]
+    },
+    "phase-5": {
+      "id": "phase-5",
+      "number": 5,
+      "dayId": "day-even",
+      "period": "afternoon",
+      "periodLabel": "Tarde",
+      "title": "Quinta Fase",
+      "hours": "12-20",
+      "timeOfDay": "day",
+      "commandRecoveryCycle": 2,
+      "segments": [
+        {
+          "id": "reinforcements",
+          "title": "Refuerzos",
+          "sheetStepsNotPrinted": true,
+          "positionSource": "maintainer",
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "posición en la secuencia",
+              "status": "verified",
+              "note": "La posición la indicó el mantenedor; el procedimiento no consta en el Decision Book."
+            }
+          ]
+        },
+        {
+          "id": "air-1",
+          "title": "Aire I",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "surface",
+          "title": "Superficie",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "air-2",
+          "title": "Aire II",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "submarine",
+          "title": "Submarino",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        }
+      ],
+      "sheetNote": "Misma estructura que la Segunda Fase: sin columna de Tierra, columnas en blanco.",
+      "sourceRefs": [
+        {
+          "document": "TCW - Hoja de turnos 1.1.pdf",
+          "page": "1",
+          "status": "verified"
+        }
+      ]
+    },
+    "phase-6": {
+      "id": "phase-6",
+      "number": 6,
+      "dayId": "day-even",
+      "period": "night",
+      "periodLabel": "Noche",
+      "title": "Sexta Fase",
+      "hours": "20/16-4 día siguiente",
+      "timeOfDay": "night",
+      "commandRecoveryCycle": 2,
+      "segments": [
+        {
+          "id": "reinforcements",
+          "title": "Refuerzos",
+          "sheetStepsNotPrinted": true,
+          "positionSource": "maintainer",
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "posición en la secuencia",
+              "status": "verified",
+              "note": "La posición la indicó el mantenedor; el procedimiento no consta en el Decision Book."
+            }
+          ]
+        },
+        {
+          "id": "air-1",
+          "title": "Aire I",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "surface",
+          "title": "Superficie",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "air-2",
+          "title": "Aire II",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        },
+        {
+          "id": "ground",
+          "title": "Tierra",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "needs_review",
+              "note": "La hoja imprime los marcadores A-D junto a la columna Tierra."
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "8.1.2 Unidades móviles y 8.3.1 Niveles de Reacción",
+              "page": "157, 169-170",
+              "status": "needs_review",
+              "note": "Las letras son el Nivel de Reacción; las definiciones literales de 8.3.1 están invertidas respecto del ejemplo del libro (docs/rules/known-ambiguities.md)."
+            }
+          ]
+        },
+        {
+          "id": "submarine",
+          "title": "Submarino",
+          "sheetStepsNotPrinted": true,
+          "sourceRefs": [
+            {
+              "document": "TCW - Hoja de turnos 1.1.pdf",
+              "page": "1",
+              "status": "verified",
+              "note": "La hoja no imprime los pasos de este segmento en esta fase."
+            }
+          ]
+        }
+      ],
+      "groundReactionLevels": [
+        "A"
+      ],
+      "groundReactionStatus": "needs_review",
+      "sheetNote": "Misma estructura que la Tercera Fase, con un único marcador de Tierra (A) activo.",
+      "sourceRefs": [
+        {
+          "document": "TCW - Hoja de turnos 1.1.pdf",
+          "page": "1",
+          "status": "verified"
+        }
+      ]
+    }
+  },
+  "segmentKinds": {
+    "reinforcements": {
+      "title": "Refuerzos",
+      "consultable": "reinforcements"
+    },
+    "air-1": {
+      "title": "Aire I",
+      "phaseRef": "acciones_aereas",
+      "extraSubphases": [
+        "paralisis_red"
+      ],
+      "extraActions": [
+        {
+          "order": 7,
+          "text": "Retirar la Parálisis de Red de los aeródromos que la sufrieran (regla opcional de ciberataque)."
+        }
+      ]
+    },
+    "surface": {
+      "title": "Superficie",
+      "phaseRef": "acciones_superficie"
+    },
+    "air-2": {
+      "title": "Aire II",
+      "phaseRef": "acciones_aereas"
+    },
+    "ground": {
+      "title": "Tierra",
+      "phaseRef": "acciones_terrestres",
+      "optional": true
+    },
+    "submarine": {
+      "title": "Submarino",
+      "phaseRef": "acciones_submarinas"
+    }
+  },
+  "phases": {
+    "crisis": {
+      "id": "crisis",
+      "title": "Fase de Crisis",
+      "order": 1,
+      "optional": true,
+      "summary": "Resuelve el contenido de crisis que indique el escenario.",
+      "actions": [
+        {
+          "order": 1,
+          "text": "Comprueba si el escenario utiliza reglas de crisis."
+        },
+        {
+          "order": 2,
+          "text": "Resuelve los combates o efectos de crisis que correspondan."
+        }
+      ],
+      "endCondition": "La fase termina cuando se han resuelto todos los efectos de crisis aplicables.",
+      "ruleReference": "2.1.1 / 15.1 Crisis Improvisadas",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "crisis",
+          "status": "verified"
+        }
+      ]
+    },
+    "espacio": {
+      "id": "espacio",
+      "title": "Fase Espacial",
+      "order": 2,
+      "optional": true,
+      "summary": "Permite planificar y resolver misiones espaciales cuando se utilizan estas reglas.",
+      "actions": [
+        {
+          "order": 1,
+          "text": "Comprueba los recursos o puntos de Guerra Espacial disponibles."
+        },
+        {
+          "order": 2,
+          "text": "Planifica las misiones espaciales permitidas."
+        },
+        {
+          "order": 3,
+          "text": "Resuelve sus efectos."
+        }
+      ],
+      "endCondition": "La fase termina cuando no quedan misiones espaciales por resolver.",
+      "ruleReference": "2.1.2 / 14.5 Guerra Espacial",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "espacio",
+          "status": "verified"
+        }
+      ]
+    },
+    "diplomacia": {
+      "id": "diplomacia",
+      "title": "Fase Diplomática",
+      "order": 3,
+      "optional": true,
+      "summary": "Resuelve el contenido diplomático previsto por el escenario.",
+      "actions": [
+        {
+          "order": 1,
+          "text": "Comprueba si el escenario utiliza reglas diplomáticas."
+        },
+        {
+          "order": 2,
+          "text": "Resuelve los efectos o combates diplomáticos que correspondan."
+        }
+      ],
+      "endCondition": "La fase termina cuando se han resuelto todos los efectos diplomáticos aplicables.",
+      "ruleReference": "2.1.3 / 15.2 Relaciones Diplomáticas",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "diplomacia",
+          "status": "verified"
+        }
+      ]
+    },
+    "logistica": {
+      "id": "logistica",
+      "title": "Fase Logística",
+      "order": 4,
+      "optional": false,
+      "summary": "Determina el estado de apoyo logístico y realiza las operaciones logísticas previstas para esta fase.",
+      "actions": [
+        {
+          "order": 1,
+          "text": "Verifica el abastecimiento de unidades terrestres e instalaciones fijas (garantía logística, 11.4); puedes marcar con «Falta de Suministros» las que no la obtengan."
+        },
+        {
+          "order": 2,
+          "text": "Actualiza qué unidades o instalaciones obtienen o pierden soporte logístico."
+        },
+        {
+          "order": 3,
+          "text": "Al final de la fase, cada Nodo de Suministro Ordinario que dio garantía a alguna unidad terrestre, puerto o aeródromo baja 1 nivel; los que llegan a nivel 0 se eliminan (11.2.2)."
+        },
+        {
+          "order": 4,
+          "text": "Al finalizar, cambia las unidades marcadas como Actuadas a No Actuadas."
+        }
+      ],
+      "endCondition": "La fase termina después de completar la verificación de abastecimiento y actualizar el estado de las unidades.",
+      "ruleReference": "2.1.4 / 11.2.2 Nodos de Suministro / 11.4 Verificación de Garantía Logística",
+      "notes": "El estado de soporte logístico se mantiene hasta la siguiente Fase Logística.",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "logistica",
+          "status": "verified"
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "11.2.2 Nodos de Suministro; 11.4 Verificación de Garantía Logística",
+          "page": "235-237",
+          "status": "verified"
+        }
+      ],
+      "wizardLinks": [
+        {
+          "wizard": "logistics_guarantee",
+          "title": "Verificación de garantía logística",
+          "description": "Comprueba si una unidad obtiene garantía logística (Decision Book 11.2-11.5)."
+        },
+        {
+          "wizard": "port_logistics",
+          "title": "Logística de puerto y munición",
+          "description": "Reabastecimiento de munición, reparación de buques, reparaciones de emergencia y agotamiento de munición (Decision Book 9.9.4, 9.9.5, 11.6)."
+        }
+      ]
+    },
+    "reparacion": {
+      "id": "reparacion",
+      "title": "Mantenimiento",
+      "order": 5,
+      "optional": true,
+      "summary": "La hoja de turnos imprime este paso de la Fase 0 como «Mantenimiento»; el modelo anterior lo llamaba «Fase de Reparación». Permite realizar reparaciones navales cuando se usan las reglas opcionales correspondientes.",
+      "actions": [
+        {
+          "order": 1,
+          "text": "Identifica unidades navales dañadas que puedan intentar reparación."
+        },
+        {
+          "order": 2,
+          "text": "Aplica el procedimiento de reparación en puerto o dique seco."
+        }
+      ],
+      "endCondition": "La fase termina cuando se han resuelto todos los intentos de reparación permitidos.",
+      "ruleReference": "2.1.5 / 9.9.4 Reparación de Buques",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "reparacion",
+          "status": "verified"
+        }
+      ],
+      "wizardLinks": [
+        {
+          "wizard": "port_logistics",
+          "title": "Logística de puerto y munición",
+          "description": "Reabastecimiento de munición, reparación de buques, reparaciones de emergencia y agotamiento de munición (Decision Book 9.9.4, 9.9.5, 11.6)."
+        }
+      ],
+      "alternativeTitles": [
+        "Fase de Reparación"
+      ],
+      "nameStatus": "needs_review",
+      "nameNote": "Equivalencia y alcance entre «Mantenimiento» (hoja de turnos) y «Fase de Reparación» (regla 2.1.5 / 9.9.4) sin verificar; se conserva la denominación de la hoja y se documenta la relación con la regla de reparación naval."
+    },
+    "acciones_aereas": {
+      "id": "acciones_aereas",
+      "title": "Fase de Acciones Aéreas",
+      "order": 1,
+      "optional": false,
+      "summary": "Gestiona la planificación, despliegue, combate y recuperación de las unidades aéreas.",
+      "actions": [
+        {
+          "order": 1,
+          "text": "Planificación de misiones."
+        },
+        {
+          "order": 2,
+          "text": "Mantenimiento de Alerta Aérea (CAP)."
+        },
+        {
+          "order": 3,
+          "text": "Recuperación de misiones largas."
+        },
+        {
+          "order": 4,
+          "text": "Preparación o integración en aeródromo."
+        },
+        {
+          "order": 5,
+          "text": "Salidas u operaciones de combate."
+        },
+        {
+          "order": 6,
+          "text": "Recuperación de misiones cortas."
+        }
+      ],
+      "subphases": [
+        "planificacion_misiones",
+        "mantenimiento_cap",
+        "recuperacion_largas",
+        "preparacion_aerodromo",
+        "salidas_combate",
+        "recuperacion_cortas"
+      ],
+      "endCondition": "La fase termina cuando no quedan operaciones aéreas pendientes.",
+      "ruleReference": "2.2.1 / 7.0 Operaciones Aéreas",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_aereas",
+          "status": "verified"
+        }
+      ]
+    },
+    "acciones_superficie": {
+      "id": "acciones_superficie",
+      "title": "Fase de Acciones de Superficie",
+      "order": 2,
+      "optional": false,
+      "summary": "Gestiona las formaciones navales de superficie, sus movimientos, ataques y operaciones logísticas.",
+      "subphases": [
+        "reorganizacion_formaciones",
+        "combate_superficie",
+        "logistica_transporte_superficie"
+      ],
+      "endCondition": "La fase termina cuando ambos bandos han completado o pasado consecutivamente en el último segmento.",
+      "ruleReference": "2.2.2 / 9.0 Operaciones Navales",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_superficie",
+          "status": "verified"
+        }
+      ]
+    },
+    "acciones_terrestres": {
+      "id": "acciones_terrestres",
+      "title": "Fase de Acciones Terrestres",
+      "order": 3,
+      "optional": false,
+      "summary": "Resuelve el despliegue de aviación del ejército, movimiento, combate, ataques y reorganización terrestre.",
+      "subphases": [
+        "aviacion_ejercito",
+        "maniobras_terrestres",
+        "combate_terrestre",
+        "ataques_terrestres",
+        "reorganizacion_terrestre"
+      ],
+      "endCondition": "La fase termina al completar la reorganización terrestre.",
+      "ruleReference": "2.2.3 / 8.0 Acciones Terrestres",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_terrestres",
+          "status": "verified"
+        }
+      ]
+    },
+    "acciones_submarinas": {
+      "id": "acciones_submarinas",
+      "title": "Fase de Acciones Submarinas",
+      "order": 4,
+      "optional": false,
+      "summary": "Gestiona búsqueda antisubmarina, acciones de submarinos y logística asociada.",
+      "subphases": [
+        "busqueda_rutina",
+        "combate_submarino",
+        "logistica_transporte_submarino"
+      ],
+      "endCondition": "La fase termina cuando ambos bandos han completado o pasado consecutivamente en el último segmento.",
+      "ruleReference": "2.2.4 / 9.10.1 Flujo de Acciones de las Unidades Submarinas",
+      "sourceRefs": [
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_submarinas",
+          "status": "verified"
+        }
+      ]
+    }
+  },
+  "subphases": {
+    "planificacion_misiones": {
+      "id": "planificacion_misiones",
+      "order": 1,
+      "title": "Planificación de misiones",
+      "help": "Ambos bandos planifican simultáneamente las misiones de las [[unidades-aereas]] disponibles en sus [[aerodromos]].",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.3 Planificación de Misiones (7.3.1)",
+          "page": "120-121",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_aereas",
+          "status": "verified"
+        }
+      ],
+      "entityRefs": [
+        {
+          "id": "unidades-aereas",
+          "label": "unidades aéreas",
+          "entityType": "air-unit",
+          "scope": "generic"
+        },
+        {
+          "id": "aerodromos",
+          "label": "fichas de aeródromo",
+          "entityType": "airfield-board",
+          "scope": "generic"
+        }
+      ]
+    },
+    "mantenimiento_cap": {
+      "id": "mantenimiento_cap",
+      "order": 2,
+      "title": "Mantenimiento de Alerta Aérea",
+      "help": "El bando activo actúa primero y puede reemplazar grupos CAP; después actúa el bando pasivo.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.7.3 Mantenimiento de Alerta Aérea (CAP)",
+          "page": "128",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_aereas",
+          "status": "verified"
+        }
+      ]
+    },
+    "recuperacion_largas": {
+      "id": "recuperacion_largas",
+      "order": 3,
+      "title": "Recuperación de misiones largas",
+      "help": "Recuperación de las misiones aéreas largas lanzadas en una fase anterior: por ejemplo, una CAP es una misión larga y se recupera al principio de la siguiente fase. Se decide qué misiones largas o sostenibles continúan y cuáles regresan. Puede intervenir el reabastecimiento aéreo.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.4.2 Misiones Largas y 7.5.5 Recuperación",
+          "page": "122, 126",
+          "status": "verified"
+        },
+        {
+          "document": "Indicación del mantenedor",
+          "section": "Recupera. largas / Recupera. cortas",
+          "status": "verified",
+          "note": "Recuperación de las misiones aéreas: las largas (p. ej. una CAP) se recuperan al principio de la siguiente fase."
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_aereas",
+          "status": "verified"
+        }
+      ]
+    },
+    "preparacion_aerodromo": {
+      "id": "preparacion_aerodromo",
+      "order": 4,
+      "title": "Preparación en aeródromo",
+      "help": "Ambos bandos realizan la preparación de unidades en sus [[aerodromos]] y pueden consolidar unidades cuando corresponda.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.6 Preparación y Mantenimiento (7.6.1, 7.6.2)",
+          "page": "127",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_aereas",
+          "status": "verified"
+        }
+      ],
+      "entityRefs": [
+        {
+          "id": "aerodromos",
+          "label": "aeródromos",
+          "entityType": "airfield-board",
+          "scope": "generic"
+        }
+      ]
+    },
+    "salidas_combate": {
+      "id": "salidas_combate",
+      "order": 5,
+      "title": "Salidas de combate",
+      "help": "Los bandos alternan acciones para ejecutar misiones aéreas, pagando la [[capacidad-mando]] y Puntos de Mando que correspondan.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.5.1 Salida; 7.7 Misiones Aire-Aire; 7.8 Misiones Aire-Superficie",
+          "page": "123-129",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_aereas",
+          "status": "verified"
+        }
+      ],
+      "relatedWorkflowIds": [
+        "air_combat",
+        "area_air_defense",
+        "antiship_guided",
+        "antiship_unguided",
+        "ground_guided",
+        "ground_unguided",
+        "anti_radiation",
+        "asw_surface_air",
+        "asw_search_support"
+      ],
+      "entityRefs": [
+        {
+          "id": "capacidad-mando",
+          "label": "Capacidad de Mando",
+          "entityType": "command-board",
+          "scope": "generic"
+        }
+      ],
+      "workflowsNote": "Las misiones de combate aéreo y los ataques de las misiones aéreas (planes de ataque antibuque y terrestres de los aviones, antirradiación y patrulla marítima ASW)."
+    },
+    "recuperacion_cortas": {
+      "id": "recuperacion_cortas",
+      "order": 6,
+      "title": "Recuperación de misiones cortas",
+      "help": "Recuperación de las misiones aéreas cortas lanzadas en esta misma fase aérea: por ejemplo, una BARCAP es una misión corta y se recupera al final de la misma fase aérea en la que se lanzó. Las unidades regresan y se aplican los pasos de recuperación correspondientes.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.4.1 Misiones Cortas y 7.5.3 Regreso",
+          "page": "122, 125",
+          "status": "verified"
+        },
+        {
+          "document": "Indicación del mantenedor",
+          "section": "Recupera. largas / Recupera. cortas",
+          "status": "verified",
+          "note": "Recuperación de las misiones aéreas: las cortas (p. ej. una BARCAP) se recuperan al final de la misma fase aérea en la que se lanzaron."
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_aereas",
+          "status": "verified"
+        }
+      ]
+    },
+    "paralisis_red": {
+      "id": "paralisis_red",
+      "order": 7,
+      "optionalRule": true,
+      "title": "Parálisis",
+      "help": "Recordatorio de regla opcional: si un aeródromo ha sufrido un ciberataque de Parálisis de Red, retírale la parálisis en este momento. Si no usas el ciberataque o ningún aeródromo está paralizado, no hay nada que hacer: puedes omitir este paso.",
+      "sourceRefs": [
+        {
+          "document": "TCW - Hoja de turnos 1.1.pdf",
+          "section": "Aire I: último paso impreso «Parálisis»",
+          "page": "1",
+          "status": "verified"
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "14.4.1 Atacar el Sistema de Instalaciones (Parálisis de Red)",
+          "page": "245",
+          "status": "verified"
+        },
+        {
+          "document": "Indicación del mantenedor",
+          "section": "Significado del paso «Parálisis» de la hoja de turnos",
+          "status": "verified",
+          "note": "El término hace referencia a la regla opcional de ciberataque a Sistemas de Instalaciones (14.4.1): es un recordatorio para retirar la Parálisis de Red de un aeródromo en ese momento."
+        }
+      ],
+      "wizardLinks": [
+        {
+          "wizard": "cyber_attack",
+          "title": "Ataque cibernético",
+          "description": "Regla opcional: la Parálisis de Red se produce con un ciberataque a un aeródromo o puerto (Decision Book 14.4.1)."
+        }
+      ]
+    },
+    "reorganizacion_formaciones": {
+      "id": "reorganizacion_formaciones",
+      "order": 1,
+      "title": "Reorganización de Formaciones",
+      "help": "Ambos jugadores ajustan simultáneamente la composición de sus formaciones de [[unidades-superficie]].",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.4 Reorganización de Formaciones",
+          "page": "198-199",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_superficie",
+          "status": "verified"
+        }
+      ],
+      "entityRefs": [
+        {
+          "id": "unidades-superficie",
+          "label": "superficie",
+          "entityType": "surface-unit",
+          "scope": "generic"
+        }
+      ]
+    },
+    "combate_superficie": {
+      "id": "combate_superficie",
+      "order": 2,
+      "title": "Combate de Superficie",
+      "help": "El jugador activo actúa primero. Los bandos alternan acciones para mover y/o atacar con formaciones de [[unidades-superficie]].",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.5 Combate de Superficie; 9.7 Ataques de Unidades de Superficie",
+          "page": "200-204",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_superficie",
+          "status": "verified"
+        }
+      ],
+      "relatedWorkflowIds": [
+        "antiship_guided",
+        "antiship_unguided"
+      ],
+      "wizardLinks": [
+        {
+          "wizard": "submarine_ambush",
+          "title": "Emboscada de submarino",
+          "description": "Reacción de un submarino Oculto cuando una formación de superficie entra, sale o se mueve en su Zona de Emboscada (Decision Book 9.16)."
+        }
+      ],
+      "entityRefs": [
+        {
+          "id": "unidades-superficie",
+          "label": "superficie",
+          "entityType": "surface-unit",
+          "scope": "generic"
+        }
+      ]
+    },
+    "logistica_transporte_superficie": {
+      "id": "logistica_transporte_superficie",
+      "order": 3,
+      "title": "Logística y Transporte",
+      "help": "Los bandos alternan activaciones de [[puertos]] y operaciones logísticas; también pueden producirse operaciones anfibias cuando proceda.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.9 Logística y Transporte",
+          "page": "204-206",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_superficie",
+          "status": "verified"
+        }
+      ],
+      "entityRefs": [
+        {
+          "id": "puertos",
+          "label": "puertos",
+          "entityType": "port-board",
+          "scope": "generic"
+        }
+      ]
+    },
+    "aviacion_ejercito": {
+      "id": "aviacion_ejercito",
+      "order": 1,
+      "title": "Despliegue de aviación del ejército",
+      "help": "Resuelve la recuperación y salida de las [[aviacion-ejercito]] que puedan operar en esta fase.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.4 Segmento de Despliegue de Aviación del Ejército",
+          "page": "170-171",
+          "status": "verified",
+          "note": "La hoja lo llama «Despliegue rec. avión. eje.»."
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_terrestres",
+          "status": "verified"
+        }
+      ],
+      "entityRefs": [
+        {
+          "id": "aviacion-ejercito",
+          "label": "unidades de aviación del ejército",
+          "entityType": "low-altitude-unit",
+          "scope": "generic"
+        }
+      ]
+    },
+    "maniobras_terrestres": {
+      "id": "maniobras_terrestres",
+      "order": 2,
+      "title": "Maniobras terrestres",
+      "help": "Activa y mueve las [[unidades-terrestres]] permitidas por su nivel de reacción y por el segmento temporal actual.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.5 Segmento de Movimiento Terrestre",
+          "page": "172-176",
+          "status": "verified",
+          "note": "La hoja lo llama «Maniobra»."
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_terrestres",
+          "status": "verified"
+        }
+      ],
+      "entityRefs": [
+        {
+          "id": "unidades-terrestres",
+          "label": "unidades terrestres",
+          "entityType": "ground-unit",
+          "scope": "generic"
+        }
+      ]
+    },
+    "combate_terrestre": {
+      "id": "combate_terrestre",
+      "order": 3,
+      "title": "Combate terrestre",
+      "help": "Resuelve los combates terrestres, incluidos apoyo de combate, guerra electrónica y aplicación de resultados.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.6 Segmento de Combate Terrestre",
+          "page": "176-183",
+          "status": "needs_review",
+          "note": "La hoja imprime «Compromiso»; se asume que corresponde al Segmento de Combate Terrestre (8.6) y está pendiente de validar."
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_terrestres",
+          "status": "verified"
+        }
+      ],
+      "relatedWorkflowIds": [
+        "ground_close_combat"
+      ]
+    },
+    "ataques_terrestres": {
+      "id": "ataques_terrestres",
+      "order": 4,
+      "title": "Ataques terrestres",
+      "help": "Resuelve ataques de largo alcance y ataques dinámicos o de reacción cuando se cumplan sus condiciones.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.10 Segmento de Ataque Terrestre",
+          "page": "184-185",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_terrestres",
+          "status": "verified"
+        }
+      ],
+      "relatedWorkflowIds": [
+        "ground_guided",
+        "ground_unguided",
+        "anti_radiation"
+      ],
+      "wizardLinks": [
+        {
+          "wizard": "ground_reaction",
+          "title": "Ataque de reacción (CF, AS, KB, BAI)",
+          "description": "Contrabatería, Contrafuegos, Persecución Aérea e Interdicción de Batalla, cuando se cumplan sus condiciones."
+        },
+        {
+          "wizard": "ground_attack_result",
+          "title": "Resultado del ataque terrestre",
+          "description": "Asignación de impactos a unidades terrestres, puertos y aeródromos."
+        }
+      ]
+    },
+    "reorganizacion_terrestre": {
+      "id": "reorganizacion_terrestre",
+      "order": 5,
+      "title": "Reorganización terrestre",
+      "help": "Realiza las acciones de reorganización permitidas, incluyendo las vinculadas a apoyo logístico, reabastecimiento o reconstrucción cuando correspondan.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.11 Segmento de Reorganización Terrestre",
+          "page": "185-187",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_terrestres",
+          "status": "verified"
+        }
+      ],
+      "wizardLinks": [
+        {
+          "wizard": "army_resupply",
+          "title": "Reabastecimiento de Campo del Ejército",
+          "description": "Tabla de reabastecimiento según la Iniciativa de la unidad."
+        }
+      ]
+    },
+    "busqueda_rutina": {
+      "id": "busqueda_rutina",
+      "order": 1,
+      "title": "Búsqueda de Rutina",
+      "help": "El jugador activo actúa primero. Ambos bandos alternan búsquedas ASW con las unidades capaces de realizarlas.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.11 Búsqueda de Rutina",
+          "page": "207-208",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_submarinas",
+          "status": "verified"
+        }
+      ],
+      "relatedWorkflowIds": [
+        "asw_search_support"
+      ]
+    },
+    "combate_submarino": {
+      "id": "combate_submarino",
+      "order": 2,
+      "title": "Combate Submarino",
+      "help": "El jugador activo actúa primero. Los bandos alternan acciones de unidades [[submarinos]], incluyendo movimiento o ataque cuando proceda.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.10 Acciones de las Unidades Submarinas; 9.13 Ataques de Unidades Submarinas",
+          "page": "206-213",
+          "status": "verified"
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_submarinas",
+          "status": "verified"
+        }
+      ],
+      "relatedWorkflowIds": [
+        "asw_submarine",
+        "asw_surface_air",
+        "torpedo_vs_surface"
+      ],
+      "entityRefs": [
+        {
+          "id": "submarinos",
+          "label": "submarinas",
+          "entityType": "submarine-unit",
+          "scope": "generic"
+        }
+      ]
+    },
+    "logistica_transporte_submarino": {
+      "id": "logistica_transporte_submarino",
+      "order": 3,
+      "title": "Logística y Transporte",
+      "help": "El jugador activo actúa primero. Se realizan operaciones logísticas de [[puertos]] para unidades [[submarinos]] y se resuelven los efectos finales del segmento.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.9 Logística y Transporte; 9.12.3 Unidades Submarinas Entrando a Puertos",
+          "page": "204-206, 210",
+          "status": "needs_review",
+          "note": "La sección 9.9 es la de superficie; su aplicación a la logística de submarinos en puerto está pendiente de validar."
+        },
+        {
+          "document": "tcw_phase_help.xml",
+          "section": "acciones_submarinas",
+          "status": "verified"
+        }
+      ],
+      "entityRefs": [
+        {
+          "id": "puertos",
+          "label": "puerto",
+          "entityType": "port-board",
+          "scope": "generic"
+        },
+        {
+          "id": "submarinos",
+          "label": "submarinas",
+          "entityType": "submarine-unit",
+          "scope": "generic"
+        }
+      ]
+    }
+  }
+}

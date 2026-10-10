@@ -1,0 +1,27 @@
+{
+  "country": "KP",
+  "countryName": "Corea del Norte",
+  "status": "complete",
+  "transcribedSheets": ["KP 1 (seccion Unidades de superficie)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/naval-plans/us.json. KP no tiene ninguna plataforma submarina en las hojas disponibles.",
+
+  "valueFormat": { "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0." },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/KP 1.pdf", "page": 1, "sheetTitle": "Unidades de superficie (misma pagina que los cazas tacticos)",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer." }
+  ],
+
+  "surfaceShips": [
+    {
+      "id": "kp-bs-np", "name": "BS-NP", "nameLocal": "南浦", "class": "missile-boat",
+      "hasFullDamagedRows": true, "shipBadge": 1,
+      "restrictions": ["无法低空反击 (No puede realizar contraataque a baja altura)."],
+      "plans": { "antiShip": { "A": { "munition": "Kumsong-3", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 2, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} }
+    }
+  ],
+
+  "submarines": []
+}

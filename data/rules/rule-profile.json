@@ -1,0 +1,28 @@
+{
+  "id": "rule-profile",
+  "title": "Perfil de reglas",
+  "note": "Textos de la pantalla #/perfil-reglas. Las marcas que deciden qué se oculta (`expansionOnly`, `optionalRule`) viven en cada elemento de los datos y las interpreta public/js/rule-profile-engine.js.",
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "Reglas opcionales marcadas «(Opcional)» en los capítulos 9, 11 y 14", "pages": "206, 222, 245" }
+  ],
+  "intro": "El perfil decide qué opciones te ofrece la aplicación. Por defecto usa solo las reglas básicas. Se guarda en este navegador y no cambia las reglas: solo oculta lo que no uses.",
+  "toggles": [
+    {
+      "key": "expansion",
+      "label": "Expansión",
+      "question": "¿Juegas con el contenido de la expansión?",
+      "yes": "Se muestran los factores y elementos que solo existen con la expansión (por ejemplo, los marcados «Solo expansión» en las fichas).",
+      "no": "Los factores y elementos de la expansión se mantienen etiquetados, pero la aplicación no los pregunta."
+    },
+    {
+      "key": "optionalRules",
+      "label": "Reglas opcionales",
+      "question": "¿Juegas con las reglas opcionales del Decision Book?",
+      "yes": "Se ofrecen las operaciones de regla opcional, como la reparación de buques (9.9.4) y los señuelos (9.19).",
+      "no": "Las operaciones de regla opcional se ocultan en los wizards y las ayudas las marcan como desactivadas en tu perfil."
+    }
+  ],
+  "afterRules": [
+    "Nada se aplica sin que lo actives: un wizard nunca usa una regla opcional o de expansión si tu perfil no la tiene activada."
+  ]
+}

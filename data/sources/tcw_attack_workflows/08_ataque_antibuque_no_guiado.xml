@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="antiship_unguided" title="Ataque antibuque no guiado" category="superficie" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>23-26</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Flujo de intercepción y modificación de intensidad para ataques no guiados contra buques.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <representativeIcons>
+    <iconRef ref="munition_unguided"/>
+  </representativeIcons>
+  <workflow>
+    
+    
+    <stage id="final_interception" order="1" title="Intercepción final">
+      
+      
+      <questions>
+        
+        
+        <question id="aa_low_total" type="number" appliesTo="final_interception">
+          
+          
+          <prompt>Valor AA total de los buques con consumo bajo.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="aa_high_total" type="number" appliesTo="final_interception">
+          
+          
+          <prompt>Valor AA total de los buques con consumo alto.</prompt>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <formula>Resolver por tipo de consumo y sumar los impactos de Alto Consumo + Bajo Consumo.</formula>
+      
+      
+      <tableReference>Página 23: Intercepción final.</tableReference>
+      
+    
+    </stage>
+    
+    
+    <stage id="munition_interception" order="2" title="Interceptación de munición">
+      
+      
+      <questions>
+        
+        
+        <question id="same_hex_or_central_zone" type="boolean" appliesTo="munition_interception">
+          
+          
+          <prompt>¿Objetivo y atacante están en el mismo hex o Zona Central?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="munition_interception" value="no_interception"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="interception_performance" type="select" appliesTo="munition_interception_roll">
+          
+          
+          <prompt>Rendimiento del sistema que intercepta.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="high" label="Alto">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="medium" label="Medio">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-1"/>
+              
+            
+            </option>
+            
+            
+            <option value="low" label="Bajo">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-2"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="detection_state" type="select" appliesTo="munition_interception_roll">
+          
+          
+          <prompt>¿Qué ha detectado el defensor?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="attacker" label="Atacante detectado">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="designator_only" label="No atacante, sí guía/designador">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-1"/>
+              
+            
+            </option>
+            
+            
+            <option value="neither" label="Ni atacante ni guía/designador">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-2"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="short_range_restriction" type="boolean" appliesTo="munition_interception">
+          
+          
+          <prompt>¿La distancia de ataque es 1 (o 2 en Misión de Área)?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="munition_interception" value="only_same_hex_defenders"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="unguided_icon_type" type="boolean" appliesTo="munition_interception_roll">
+          
+          
+          <prompt>¿El ataque corresponde al tipo de munición no guiada marcado con el icono de bombas de la tabla?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-3"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="0"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+          <iconRef ref="munition_unguided" role="representative"/>
+        </question>
+        
+      
+      </questions>
+      
+      
+      <tableReference>Página 24: Interceptación de Munición.</tableReference>
+      
+    
+    </stage>
+    
+    
+    <stage id="attack_intensity" order="3" title="Modificación de intensidad">
+      
+      
+      <questions>
+        
+        
+        <question id="distance" type="select" appliesTo="attack_intensity">
+          
+          
+          <prompt>Distancia de ataque / equivalente de Misión de Área.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="0" label="0 / Área ≤1">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="1" label="1 / Área 2">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-3"/>
+              
+            
+            </option>
+            
+            
+            <option value="2plus" label="≥2 / Área ≥3">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-8"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <formula>Los valores negativos desplazan columnas a la izquierda y se omite la columna '·'.</formula>
+      
+      
+      <specialRules>Si la tirada de resolución es 9, se cancela la modificación de intensidad.</specialRules>
+      
+      
+      <tableReference>Página 24: Modificación de la Intensidad del Ataque.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Página 25: Daño de Ataque no Guiado / Combate Naval Cercano con Artillería.</finalTableReference>
+  
+
+</attackWorkflow>

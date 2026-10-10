@@ -1,0 +1,441 @@
+{
+  "id": "wizard-visual-refs",
+  "description": "Ayuda visual declarativa (ajuste AJ-008): para cada campo numérico que un wizard pide leer de una ficha, tabla, plan de ataque o hoja de aeródromo/puerto, dónde se lee. La interfaz (core-visual-refs.js) añade bajo el campo un bloque «¿Dónde se lee este valor?» según el tipo; un test comprueba que ningún campo numérico de los wizards carece de entrada y que las referencias existen. Ningún valor numérico se deduce de imágenes: las imágenes solo señalan dónde se lee.",
+  "sourceRefs": [
+    {
+      "document": "Resumen counters - Español.pdf",
+      "note": "leyenda de factores de ficha (data/counters/factor-map.json)"
+    },
+    {
+      "document": "Aeródromos y puertos 1.pdf",
+      "note": "fichas de seguimiento de puertos"
+    },
+    {
+      "document": "Aeródromos y puertos 2.pdf",
+      "note": "fichas de seguimiento de aeródromos"
+    }
+  ],
+  "kinds": {
+    "counter-factor": "Ayuda visual de un factor de ficha: entityRef (entidad del catálogo data/visual-help/entities.json + factorId) y se abre en el panel lateral con el factor resaltado en todas las fichas compatibles.",
+    "table": "Enlace a la tabla relacionada (page + tableId de data/tables/).",
+    "source-page": "Hoja de origen (documento y descripción) donde se lee el valor; con entityRef se abre en el panel lateral la tarjeta correspondiente con la zona resaltada.",
+    "plan-crop": "El valor sale del plan de ataque de la unidad; con entityRef se abre en el panel lateral un plan de ejemplo con sus zonas explicadas.",
+    "no-physical-source": "No es un valor leído de una ficha o tabla (tirada, distancia medida, estado de la partida, impactos ya calculados).",
+    "pending-visual": "Valor físico sin recorte transcrito todavía; el motivo consta en `reason`."
+  },
+  "entries": [
+    {
+      "id": "ship-protection",
+      "pattern": "^Buque \\$?\\{?.*\\}?: Protección$|^Buque \\d+: Protección$",
+      "wizards": [
+        "antiship-unguided",
+        "antiship-guided"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "surface-unit",
+        "scope": "generic",
+        "factorId": "protection"
+      }
+    },
+    {
+      "id": "ship-sink-value",
+      "pattern": "Valor de Hundimiento|Resistencia al Hundimiento",
+      "wizards": [
+        "antiship-unguided",
+        "antiship-guided",
+        "ship-impact-effects"
+      ],
+      "kind": "pending-visual",
+      "reason": "El Valor de Resistencia/Hundimiento (HR) de los buques no está en el mapa de factores de ficha transcrito."
+    },
+    {
+      "id": "ship-count-before-hit",
+      "pattern": "^Barcos que le quedaban",
+      "wizards": [
+        "ship-impact-effects"
+      ],
+      "kind": "no-physical-source",
+      "reason": "Estado de la partida: tamaño actual de la unidad."
+    },
+    {
+      "id": "ew-escort-protection",
+      "pattern": "^Protección del avión de guerra electrónica",
+      "wizards": [
+        "*"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "air-unit",
+        "scope": "generic",
+        "factorId": "protection"
+      }
+    },
+    {
+      "id": "ship-aa-own-guided",
+      "pattern": "^Disparo \\d+: Valor de Defensa Aérea propio$",
+      "wizards": [
+        "antiship-guided"
+      ],
+      "kind": "counter-factor",
+      "renderedBy": "wizard",
+      "entityRef": {
+        "entityType": "surface-unit",
+        "scope": "generic",
+        "factorId": "aa"
+      }
+    },
+    {
+      "id": "ship-aa-own",
+      "pattern": "^Disparo \\d+: Valor de Defensa Aérea propio$",
+      "wizards": [
+        "*"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "surface-unit",
+        "scope": "generic",
+        "factorId": "aa"
+      }
+    },
+    {
+      "id": "low-altitude-attacker-protection",
+      "pattern": "^Atacante \\d+: Valor de Protección$",
+      "wizards": [
+        "*"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "low-altitude-unit",
+        "scope": "generic",
+        "factorId": "protection"
+      }
+    },
+    {
+      "id": "grouped-aa",
+      "pattern": "^Valor de Defensa Aérea agrupado",
+      "wizards": [
+        "antiship-guided",
+        "anti-radiation",
+        "ground-guided",
+        "ground-unguided"
+      ],
+      "kind": "table",
+      "page": "page-03.json",
+      "tableId": "ground-guided-area-air-defense",
+      "reason": "Suma de los Valores de Defensa Aérea de las unidades que disparan; la tabla de Defensa Aérea de Área usa ese total como columna."
+    },
+    {
+      "id": "bvr-air-combat-value",
+      "pattern": "Valor de Combate Aéreo",
+      "wizards": [
+        "air-combat-bvr",
+        "air-combat-wvr",
+        "air-mission-group"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "air-unit",
+        "scope": "generic",
+        "factorId": "air_combat"
+      }
+    },
+    {
+      "id": "air-electronic-value",
+      "pattern": "^.*: Valor Electrónico$|^.* · unidad \\d+: Valor Electrónico$",
+      "wizards": [
+        "air-combat-bvr",
+        "air-intercept-targets",
+        "air-mission-group"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "air-unit",
+        "scope": "generic",
+        "factorId": "electronic"
+      }
+    },
+    {
+      "id": "air-protection",
+      "pattern": "Valor de Protección",
+      "wizards": [
+        "air-combat-bvr",
+        "air-combat-wvr",
+        "air-mission-group"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "air-unit",
+        "scope": "generic",
+        "factorId": "protection"
+      }
+    },
+    {
+      "id": "bvr-initiative",
+      "pattern": "Valor de Iniciativa \\(IN\\)",
+      "wizards": [
+        "air-combat-bvr"
+      ],
+      "kind": "pending-visual",
+      "reason": "La iniciativa (IN) del grupo de misión aérea no figura en el mapa de factores de ficha transcrito."
+    },
+    {
+      "id": "asw-air-detection",
+      "pattern": "Valor de Detección Aérea|Detección Aérea \\(ASW\\)|^Unidad \\d+: ",
+      "wizards": [
+        "asw-air-search"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "air-unit",
+        "scope": "generic",
+        "factorId": "asw"
+      }
+    },
+    {
+      "id": "ground-force-size",
+      "pattern": "Tamaño de [Ff]uerza|tamaño de fuerza|Límite impreso original de fuerza",
+      "wizards": [
+        "ground-close-combat",
+        "ground-guided",
+        "ground-unguided",
+        "army-resupply"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "ground-unit",
+        "scope": "generic",
+        "factorId": "size"
+      }
+    },
+    {
+      "id": "ground-electronic",
+      "pattern": "^Valor Electrónico más alto",
+      "wizards": [
+        "ground-close-combat"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "ground-unit",
+        "scope": "generic",
+        "factorId": "electronic"
+      }
+    },
+    {
+      "id": "ground-attack-total",
+      "pattern": "^Introduce el valor total de ataque",
+      "wizards": [
+        "ground-close-combat"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "ground-unit",
+        "scope": "generic",
+        "factorId": "attack"
+      }
+    },
+    {
+      "id": "ground-combat-support",
+      "pattern": "^Introduce el apoyo de combate",
+      "wizards": [
+        "ground-close-combat"
+      ],
+      "kind": "pending-visual",
+      "reason": "El apoyo de combate se suma de varias fichas y de la hoja de combate; no hay un recorte único transcrito."
+    },
+    {
+      "id": "ground-protection",
+      "pattern": "^Valor de Protección de la unidad$",
+      "wizards": [
+        "ground-attack-result"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "ground-unit",
+        "scope": "generic",
+        "factorId": "protection"
+      }
+    },
+    {
+      "id": "ground-terrain",
+      "pattern": "^Valor de Terreno",
+      "wizards": [
+        "ground-attack-result"
+      ],
+      "kind": "pending-visual",
+      "reason": "El Valor de Terreno se lee de los marcadores de terreno del mapa; no hay recorte transcrito."
+    },
+    {
+      "id": "designation-correction",
+      "pattern": "^Corrección de designación",
+      "wizards": [
+        "ground-guided",
+        "ground-unguided"
+      ],
+      "kind": "pending-visual",
+      "reason": "La corrección de designación depende de la unidad designadora y de la regla del Decision Book; no hay recorte transcrito."
+    },
+    {
+      "id": "ground-damage-so-far",
+      "pattern": "^Daño ya sufrido",
+      "wizards": [
+        "ground-close-combat"
+      ],
+      "kind": "no-physical-source",
+      "reason": "Estado de la partida: daño acumulado en este combate."
+    },
+    {
+      "id": "port-protection",
+      "pattern": "^Valor de Protección del puerto|^Puntos de Impacto asignados al puerto",
+      "wizards": [
+        "ground-attack-result"
+      ],
+      "kind": "source-page",
+      "document": "Aeródromos y puertos 1.pdf",
+      "description": "Ficha de seguimiento del puerto (Protección, munición, combustible y buques).",
+      "entityRef": {
+        "entityType": "port-board",
+        "scope": "generic",
+        "hotspotId": "protection"
+      }
+    },
+    {
+      "id": "airfield-protection",
+      "pattern": "^Valor de Protección del aeródromo",
+      "wizards": [
+        "ground-attack-result"
+      ],
+      "kind": "source-page",
+      "document": "Aeródromos y puertos 2.pdf",
+      "description": "Ficha de seguimiento del aeródromo (nivel de pista, capacidad de hangares, Preparación).",
+      "entityRef": {
+        "entityType": "airfield-board",
+        "scope": "generic",
+        "hotspotId": "protection"
+      }
+    },
+    {
+      "id": "airfield-capacity",
+      "pattern": "^Capacidad de Hangares",
+      "wizards": [
+        "ground-attack-result"
+      ],
+      "kind": "source-page",
+      "document": "Aeródromos y puertos 2.pdf",
+      "description": "Ficha de seguimiento del aeródromo (nivel de pista, capacidad de hangares, Preparación).",
+      "entityRef": {
+        "entityType": "airfield-board",
+        "scope": "generic",
+        "hotspotId": "capacity"
+      }
+    },
+    {
+      "id": "airfield-readiness",
+      "pattern": "^Valor de Preparación actual",
+      "wizards": [
+        "ground-attack-result"
+      ],
+      "kind": "source-page",
+      "document": "Aeródromos y puertos 2.pdf",
+      "description": "Ficha de seguimiento del aeródromo (nivel de pista, capacidad de hangares, Preparación). Se muestra la tarjeta completa porque la equivalencia exacta de «Preparación» con una zona impresa no está validada.",
+      "entityRef": {
+        "entityType": "airfield-board",
+        "scope": "generic"
+      }
+    },
+    {
+      "id": "impact-points",
+      "pattern": "Puntos de Impacto",
+      "wizards": [
+        "ground-attack-result"
+      ],
+      "kind": "no-physical-source",
+      "reason": "Resultado ya calculado en la tabla de resolución del ataque."
+    },
+    {
+      "id": "attack-base-value",
+      "pattern": "^Valor de Ataque base",
+      "wizards": [
+        "antiship-unguided",
+        "antiship-guided",
+        "anti-radiation",
+        "ground-guided",
+        "ground-unguided"
+      ],
+      "kind": "plan-crop",
+      "reason": "Sale del plan de ataque de la unidad atacante (Ayuda rápida → Planes de ataque y municiones).",
+      "entityRef": {
+        "entityType": "attack-plan",
+        "scope": "generic"
+      }
+    },
+    {
+      "id": "attack-distance",
+      "pattern": "^Distancia",
+      "wizards": [
+        "*"
+      ],
+      "kind": "no-physical-source",
+      "reason": "Distancia medida en el mapa."
+    },
+    {
+      "id": "dice-roll",
+      "pattern": "^(Tirada|Segunda tirada)",
+      "wizards": [
+        "*"
+      ],
+      "kind": "no-physical-source",
+      "reason": "Tirada de dado."
+    },
+    {
+      "id": "port-logistics-values",
+      "pattern": "^(Valor de|Número de Diques).*del puerto",
+      "wizards": [
+        "port-logistics"
+      ],
+      "kind": "source-page",
+      "document": "Aeródromos y puertos 1.pdf",
+      "description": "Ficha de seguimiento del puerto (munición, diques y valores de reparación). Se muestra la tarjeta completa porque la equivalencia exacta con una zona impresa no está validada.",
+      "entityRef": {
+        "entityType": "port-board",
+        "scope": "generic"
+      }
+    },
+    {
+      "id": "port-logistics-counts",
+      "pattern": "^(Unidades|Buques|Marcadores|Munición|Valor de ataque)",
+      "wizards": [
+        "port-logistics"
+      ],
+      "kind": "no-physical-source",
+      "reason": "Recuento del estado de la partida (unidades, buques, marcadores, munición restante o valor del plan de ataque)."
+    },
+    {
+      "id": "cyber-capacity-points",
+      "pattern": "^Puntos de Capacidad de Guerra Cibernética",
+      "wizards": [
+        "cyber-attack"
+      ],
+      "kind": "pending-visual",
+      "reason": "La Capacidad de Guerra Cibernética se lleva en la Ficha de Capacidad Estratégica, que no tiene recorte transcrito todavía."
+    },
+    {
+      "id": "space-war-resources",
+      "pattern": "^Recursos (de Lanzamiento|Orbitales)",
+      "wizards": [
+        "space-war"
+      ],
+      "kind": "pending-visual",
+      "reason": "Los Recursos Espaciales se llevan en la Ficha de Capacidad Estratégica, que no tiene recorte transcrito todavía."
+    },
+    {
+      "id": "space-war-debris",
+      "pattern": "^Escombros Espaciales presentes",
+      "wizards": [
+        "space-war"
+      ],
+      "kind": "pending-visual",
+      "reason": "Los Escombros Espaciales se cuentan en el área «Escombros Espaciales» del Tablero de Flujo de Turno, que no tiene recorte transcrito todavía."
+    }
+  ]
+}

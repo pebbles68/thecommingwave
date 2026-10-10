@@ -1,0 +1,968 @@
+{
+  "schemaVersion": 1,
+  "description": "Catálogo semántico de las zonas de las tarjetas de Aeródromos y puertos (ajuste_imagenes.md §6). Nombra lo impreso en la tarjeta; el efecto en el juego de cada zona sigue pendiente de transcribir y por eso ningún concepto es verified.",
+  "statuses": [
+    "generated",
+    "needs_review",
+    "verified",
+    "rejected"
+  ],
+  "concepts": [
+    {
+      "id": "airfield-capacity",
+      "label": "Capacidad",
+      "summary": "Capacidad de Hangar: el aeródromo aloja unidades aéreas sin límite, pero al ser atacado solo las de tamaño igual o menor que la Capacidad de Hangar usan el Valor de Protección del Hangar.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo",
+          "pages": "118-120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-emergency-scramble",
+      "label": "Salida de emergencia",
+      "summary": "Área de Despegue de Emergencia: aquí se preasignan aviones tácticos con Valor de Combate Aéreo para interceptar. Su límite de fichas está impreso en la ficha y ocupa Valor de Lanzamiento.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.3.3 Intercepción de Emergencia Pre-asignada",
+          "pages": "121"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-landing-damaged",
+      "label": "Área de aterrizaje: dañadas",
+      "summary": "Zona de Bajas, cuadro de Aterrizaje: aquí se colocan las unidades que regresan y han resultado dañadas durante esta salida.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.4 Áreas Funcionales del Aeródromo",
+          "pages": "120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-landing-waiting",
+      "label": "Área de aterrizaje: en espera de preparación",
+      "summary": "Zona de Preparación, cuadro de Aterrizaje: aquí se colocan las unidades que regresan en su lado Intacto y las que despegaron dañadas y siguen dañadas.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.4 Áreas Funcionales del Aeródromo",
+          "pages": "120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-launch",
+      "label": "Salidas",
+      "summary": "Valor de Lanzamiento: máximo de salidas del aeródromo en una fase aérea. Cada ficha de avión ocupa 1 punto (½ las de funciones especiales con combustible adicional) y el total del Área de Misiones no puede superarlo.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 y 7.3.2 Valor de Lanzamiento",
+          "pages": "118, 121"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-level",
+      "label": "Nivel",
+      "summary": "Nivel de pista, de A (el más alto) a E, más los especiales Ct, St, Vt y Ht. Una unidad solo aterriza si el nivel es igual o mayor que su requisito de pista; los ataques lo bajan hasta E.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo",
+          "pages": "118-120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-low-altitude",
+      "label": "Capacidad de baja altitud",
+      "summary": "Capacidad de Baja Altitud: cuántas unidades de aviación del ejército (helicópteros) puede desplegar el aeródromo en una fase de operaciones de aviación del ejército.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo",
+          "pages": "118-120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-mission-air-strike",
+      "label": "Casilla de misión: Ataque Aéreo",
+      "summary": "Casilla de misión de Ataque Aéreo: en la Planificación de Misiones se colocan aquí las unidades listas para despegar que prepararán esa misión.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.4 Áreas Funcionales (Área de Misiones); 7.3.1 Planificación de Misiones",
+          "pages": "120-121"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-mission-air-superiority",
+      "label": "Casilla de misión: Superioridad Aérea",
+      "summary": "Casilla de misión de Superioridad Aérea: en la Planificación de Misiones se colocan aquí las unidades listas para despegar que prepararán esa misión.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.4 Áreas Funcionales (Área de Misiones); 7.3.1 Planificación de Misiones",
+          "pages": "120-121"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-mission-air-transport",
+      "label": "Casilla de misión: Transporte / Carga",
+      "summary": "Casilla de misión de Transporte Aéreo: en la Planificación de Misiones se colocan aquí las unidades listas para despegar que prepararán esa misión.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.4 Áreas Funcionales (Área de Misiones); 7.3.1 Planificación de Misiones",
+          "pages": "120-121"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-mission-airdrops",
+      "label": "Casilla de misión: Lanzamientos aéreos",
+      "summary": "Casilla de misión de Lanzamiento de Suministros (airdrop): en la Planificación de Misiones se colocan aquí las unidades listas para despegar que prepararán esa misión.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.4 Áreas Funcionales (Área de Misiones); 7.3.1 Planificación de Misiones",
+          "pages": "120-121"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-mission-on-call",
+      "label": "Casilla de misión: A Demanda",
+      "summary": "Casilla de colocación de las unidades asignadas a la misión A Demanda (On.Call).",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-mission-special",
+      "label": "Casilla de misión: Especial",
+      "summary": "Casilla de Misiones Especiales: en la Planificación de Misiones se colocan aquí las unidades listas para despegar que prepararán esa misión.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.4 Áreas Funcionales (Área de Misiones); 7.3.1 Planificación de Misiones",
+          "pages": "120-121"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-ready-to-launch",
+      "label": "Listas para salir",
+      "summary": "Zona Lista para Despegar: las unidades aquí pueden planificar misiones. Las del Área de Misiones que no ejecutan misión vuelven aquí al empezar la Recuperación de Misiones Cortas.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.4 Áreas Funcionales del Aeródromo",
+          "pages": "120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "airfield-reorganization",
+      "label": "Reorganización",
+      "summary": "Valor de Reorganización (RZ): cada punto permite consolidar 1 operador o ficha de unidad aérea. La Capacidad de Reparación puede devolver puntos perdidos sin superar el valor inicial de la ficha.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo",
+          "pages": "118-120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "board-electronic",
+      "label": "Valor electrónico",
+      "summary": "Valor Electrónico: capacidad de la instalación para interferir los ataques de precisión guiados enemigos cuando es atacada.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo; 9.2.1 Valores del Puerto",
+          "pages": "119, 198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "board-level-short",
+      "label": "Nivel",
+      "summary": "Nivel de pista, de A (el más alto) a E, más los especiales Ct, St, Vt y Ht. Una unidad solo aterriza si el nivel es igual o mayor que su requisito de pista; los ataques lo bajan hasta E.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo",
+          "pages": "118-120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "board-location",
+      "label": "Posición y coordenadas",
+      "summary": "Texto de posición y coordenadas de la instalación en el mapa de juego, tal como están impresas.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "board-low-altitude",
+      "label": "Capacidad de baja altitud",
+      "summary": "Capacidad de Baja Altitud: cuántas unidades de aviación del ejército (helicópteros) puede desplegar el aeródromo en una fase de operaciones de aviación del ejército.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo",
+          "pages": "118-120"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "board-map",
+      "label": "Mapa de situación",
+      "summary": "Mapa del país con un punto que marca dónde está la instalación.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "board-name-code",
+      "label": "Nombre y código",
+      "summary": "Nombre de la instalación (en chino y latino) y su código con un valor entre paréntesis cuyo significado está pendiente de validar.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "board-protection",
+      "label": "Protección",
+      "summary": "Valor de Protección: capacidad de la instalación para resistir ataques. En el puerto, cuanto mayor es, menos probable es que quede «Inutilizado». En el aeródromo es la Protección de Hangar.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo; 9.2.1 Valores del Puerto",
+          "pages": "119, 198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "board-repair",
+      "label": "Reparación",
+      "summary": "Reparación: en el aeródromo, cada punto devuelve 1 nivel de pista y 1 de Reorganización en la Recuperación de Paralización. En el puerto, cada punto elimina 1 marcador de «Instalaciones Inutilizadas».",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.2.3 Valores del Aeródromo; 9.2.1 y 9.9.5 Reparaciones de Emergencia",
+          "pages": "120, 198, 206"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "command-air",
+      "label": "Mando Aéreo",
+      "summary": "Panel del dominio Aéreo (C4I) con sus valores impresos. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "command-capacity",
+      "label": "Capacidad de mando del país",
+      "summary": "Valor general de capacidad de mando (Force Command) del país, junto al icono de ordenador portátil. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "command-joint",
+      "label": "Mando Conjunto",
+      "summary": "Panel del dominio Conjunto (C4I) con sus valores y costes impresos. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "command-land",
+      "label": "Mando Terrestre",
+      "summary": "Panel del dominio Terrestre (C4I) con sus valores y costes impresos. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "command-surface",
+      "label": "Mando de Superficie",
+      "summary": "Panel del dominio de Superficie (C4I) con sus valores impresos. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "heliport-capacity",
+      "label": "Capacidad",
+      "summary": "Valor de capacidad (容量) impreso junto al icono de aviones. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "heliport-main-area",
+      "label": "Área del helipuerto",
+      "summary": "Área de colocación de las unidades dentro del helipuerto. Lleva un texto impreso en chino sobre las unidades dentro del helipuerto cuya traducción está pendiente de validar.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "heliport-marker",
+      "label": "Marcador del helipuerto",
+      "summary": "Marcador con el número del helipuerto y la anotación «HLSC 6 C». Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "heliport-name",
+      "label": "Nombre del helipuerto",
+      "summary": "Nombre y número del helipuerto.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "heliport-platform-label",
+      "label": "Plataforma de combate de baja altitud",
+      "summary": "Etiqueta «Low Altitude Combat Platform» del helipuerto.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "platform-label",
+      "label": "Plataforma de combate de baja altitud",
+      "summary": "Etiqueta «Low Altitude Combat Platform» de la tarjeta.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "platform-main-area",
+      "label": "Área de la plataforma",
+      "summary": "Área de colocación de las unidades sobre la plataforma de combate de baja altitud.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "platform-marker",
+      "label": "Ficha de la plataforma",
+      "summary": "Ficha de la unidad que actúa como plataforma de combate de baja altitud, reproducida en la tarjeta. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-ammunition",
+      "label": "Munición disponible",
+      "summary": "Reabastecimiento de Munición (AMMO): máximo de unidades de superficie a las que el puerto puede reabastecer de munición por turno.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2 Puertos y 9.2.1 Valores del Puerto",
+          "pages": "196-198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-army-loading-area",
+      "label": "Área de carga del ejército",
+      "summary": "Área de Carga del Ejército: unidades terrestres que se preparan para cargar o descargar suministros. Siguen en el mapa, así que no pueden ser atacadas cuando se ataca el puerto.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2 Puertos y 9.2.1 Valores del Puerto",
+          "pages": "196-198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-dock-count",
+      "label": "Número de diques",
+      "summary": "Número de Diques (DOCK, regla opcional): cuántas unidades de superficie pueden estar reparándose a la vez en el Área de Dique Seco del puerto.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2 Puertos y 9.2.1 Valores del Puerto",
+          "pages": "196-198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-dockyard",
+      "label": "Dique",
+      "summary": "Área de Dique Seco: aquí se colocan las unidades de superficie que se reparan. Solo estas pueden ser reparadas y su número no puede superar el Número de Diques.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2 Puertos y 9.2.1 Valores del Puerto",
+          "pages": "196-198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-fleet-just-came-in",
+      "label": "Flota recién llegada",
+      "summary": "Área de Nueva Flota Entrante: formaciones de superficie que se preparan para entrar. Deben pasar por aquí antes de pasar a «Buques en Espera» en Logística y Transporte; el número es ilimitado.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2 Puertos y 9.2.1 Valores del Puerto",
+          "pages": "196-198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-fleet-repair",
+      "label": "Reparación de buques",
+      "summary": "Reparación de Buques (REP, regla opcional): la reparación de un buque en dique seco tiene éxito si el resultado de 1d10 es menor que este valor.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2.1 y 9.9.4 Reparación de Buques",
+          "pages": "197, 206"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-fleet-waiting-orders",
+      "label": "Buques / flota esperando órdenes en puerto",
+      "summary": "Área de Flota/Buques en Espera: formaciones amarradas en el puerto. Solo aquí se cargan, descargan, reabastecen y entran en dique seco. Solo se llega desde «Nueva Flota Entrante».",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2 Puertos y 9.2.1 Valores del Puerto",
+          "pages": "196-198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-fuel",
+      "label": "Combustible disponible",
+      "summary": "Reabastecimiento de Combustible (FUEL): máximo de unidades de superficie a las que el puerto puede reabastecer de combustible por turno (el combustible es regla opcional).",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2 Puertos y 9.2.1 Valores del Puerto",
+          "pages": "196-198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "port-level",
+      "label": "Nivel",
+      "summary": "Clase de Puerto (A, B o C): una unidad solo atraca en un puerto que cumpla su requisito. Requisito A, solo clase A; B, clases A o B; C, cualquier clase.",
+      "status": "generated",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.2 Puertos y 9.2.1 Valores del Puerto",
+          "pages": "196-198"
+        },
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "strategy-cyber-attack",
+      "label": "Ciberataque",
+      "summary": "Panel «Cyber Attack» con su lista de objetivos impresa en chino. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "strategy-launch",
+      "label": "Lanzamiento",
+      "summary": "Panel «Launch» con su lista de acciones impresa en chino. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "strategy-launch-used",
+      "label": "Lanzamiento: usado",
+      "summary": "Casilla «Launch — Used» de la tarjeta estratégica. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "strategy-orbit",
+      "label": "Recursos orbitales",
+      "summary": "Panel «Orbit» con su lista de acciones (reacción/consumo, activa/destrucción) impresa en chino. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "strategy-space-used",
+      "label": "Espacio: usado",
+      "summary": "Casilla «Space — Used» de la tarjeta estratégica. Su efecto en el juego aún no está transcrito.",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    },
+    {
+      "id": "strategy-title",
+      "label": "Capacidad estratégica",
+      "summary": "Título y emblema de la tarjeta de capacidades estratégicas (Strategy).",
+      "status": "needs_review",
+      "sourceRefs": [
+        {
+          "document": "Aeródromos y puertos 1.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        },
+        {
+          "document": "Aeródromos y puertos 2.pdf",
+          "section": "Fichas de seguimiento físico (texto impreso en la tarjeta)"
+        }
+      ]
+    }
+  ]
+}

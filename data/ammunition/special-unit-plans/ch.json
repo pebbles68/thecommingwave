@@ -1,0 +1,315 @@
+{
+  "country": "CH",
+  "countryName": "China",
+  "status": "complete",
+  "transcribedSheets": ["CH 2 (seccion Aviones de rol especial)", "CH 4 (helicopteros, artilleria, misiles de crucero e hipersonicos)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Estas unidades declaran plan de ataque por municion (letra A, B, C...) como en data/ammunition/attack-plans/, pero NO tienen distincion de unidad completa/danada: una sola fila de valores.",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0.",
+    "dual": "Dos valores separados por barra + superindice opcional: heavy/light + range."
+  },
+
+  "sourceRefs": [
+    {
+      "document": "Tablas de Armamento/CH 2.pdf",
+      "page": 1,
+      "sheetTitle": "Aviones de rol especial",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer."
+    },
+    {
+      "document": "Tablas de Armamento/CH 4.pdf",
+      "page": 1,
+      "sheetTitle": "Plataformas de baja altitud (helicopteros)",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer."
+    }
+  ],
+
+  "units": [
+    {
+      "id": "ch-j-15d",
+      "name": "J-15D",
+      "nameLocal": "震苍",
+      "class": "special-aircraft",
+      "role": "EW",
+      "sourceSheet": "CH 2",
+      "domainSplit": true,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": null, "icons": [], "loadFormat": "single", "full": { "damage": null, "range": 0 }, "note": "Columna A sin valor en la hoja (celda en blanco)." }
+        },
+        "landAttack": {
+          "A": { "munition": null, "icons": [], "loadFormat": "single", "full": { "damage": null, "range": 0 }, "note": "Columna A sin valor en la hoja (celda en blanco)." },
+          "B": { "munition": "YJ-91", "icons": ["attack_anti_radiation"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 3 } }
+        }
+      },
+      "note": "Nombre local leido a 900 DPI; caracteres de dificil lectura, candidato a revision."
+    },
+    {
+      "id": "ch-j-16d",
+      "name": "J-16D",
+      "nameLocal": "震龙",
+      "class": "special-aircraft",
+      "role": "EW",
+      "sourceSheet": "CH 2",
+      "domainSplit": true,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": null, "icons": [], "loadFormat": "single", "full": { "damage": null, "range": 0 }, "note": "Columna A sin valor en la hoja (celda en blanco)." }
+        },
+        "landAttack": {
+          "A": { "munition": null, "icons": [], "loadFormat": "single", "full": { "damage": null, "range": 0 }, "note": "Columna A sin valor en la hoja (celda en blanco)." },
+          "B": { "munition": "YJ-91", "icons": ["attack_anti_radiation"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 3 } }
+        }
+      }
+    },
+    {
+      "id": "ch-ch-4b",
+      "name": "CH-4B",
+      "nameLocal": "彩虹4B",
+      "class": "special-aircraft",
+      "role": "ISR",
+      "sourceSheet": "CH 2",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "B": { "munition": "LS-6", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } }
+      },
+      "note": "La hoja repite la columna A dos veces antes de B, igual que los helicopteros de EEUU; numeradas A1/A2 (needs_review, ver known-ambiguities.md)."
+    },
+    {
+      "id": "ch-gj-2",
+      "name": "GJ-2",
+      "nameLocal": "翼龙II",
+      "class": "special-aircraft",
+      "role": "ISR",
+      "sourceSheet": "CH 2",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "B": { "munition": "FT-10", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "ch-wzk-005c",
+      "name": "WZK-005C",
+      "nameLocal": "长鹰",
+      "class": "special-aircraft",
+      "role": "ISR",
+      "sourceSheet": "CH 2",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 0 } },
+        "A2": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 0 } },
+        "B": { "munition": "AKD", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 2, "range": 0 } }
+      }
+    },
+    {
+      "id": "ch-tb-001",
+      "name": "TB-001",
+      "nameLocal": "双尾蝎",
+      "class": "special-aircraft",
+      "role": "ISR",
+      "sourceSheet": "CH 2",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "B": { "munition": "AKD", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "C": { "munition": "TS-20", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM", "full": { "damage": 2, "range": 13 } }
+      }
+    },
+    {
+      "id": "ch-z-10",
+      "name": "Z-10",
+      "nameLocal": "毒蜂火",
+      "class": "attack-helicopter",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "B": { "munition": "AKD", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 5, "range": 0 } }
+      }
+    },
+    {
+      "id": "ch-z-19",
+      "name": "Z-19",
+      "nameLocal": "黑旋风",
+      "class": "attack-helicopter",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 0 } },
+        "B": { "munition": "AKD", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 5, "range": 0 } }
+      }
+    },
+    {
+      "id": "ch-cr500a",
+      "name": "CR500A",
+      "nameLocal": "金雕",
+      "class": "attack-helicopter",
+      "role": "unmanned",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 1, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 1, "range": 0 } },
+        "B": { "munition": "AKD", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 5, "range": 0 } }
+      }
+    },
+    {
+      "id": "ch-plz-05",
+      "name": "PLZ-05",
+      "nameLocal": "榴弹炮群",
+      "class": "artillery",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad, antes de la cuadricula de planes", "note": "Mismo patron pendiente que en special-unit-plans/us.json." , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "ch-pcl-181",
+      "name": "PCL-181",
+      "nameLocal": "榴弹炮群",
+      "class": "artillery",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 6, "rawLabel": "numero junto al icono de unidad, antes de la cuadricula de planes" , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "ch-phl-03",
+      "name": "PHL-03",
+      "nameLocal": "火箭炮群",
+      "class": "artillery",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad, antes de la cuadricula de planes" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 17, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 17, "range": 0 } },
+        "B": { "munition": "Precision", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 12, "range": 2 } }
+      }
+    },
+    {
+      "id": "ch-phl-191",
+      "name": "PHL-191",
+      "nameLocal": "火箭炮群",
+      "class": "artillery",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 6, "rawLabel": "numero junto al icono de unidad, antes de la cuadricula de planes" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 15, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 15, "range": 0 } },
+        "B": { "munition": "Precision", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 8, "range": 5 } },
+        "C": { "munition": "Precision", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 10, "range": 2 } },
+        "D": { "munition": "BM", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 7 } }
+      },
+      "note": "Dos columnas distintas etiquetadas 'Precision' (B y C) con valores y rangos diferentes; transcritas por separado tal como aparecen."
+    },
+    {
+      "id": "ch-yj-12b-coastal",
+      "name": "YJ-12B (costero)",
+      "nameLocal": "超音巡航",
+      "class": "coastal-missile",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A": { "munition": "YJ-12B(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 6, "range": 3 } },
+        "B": { "munition": "YJ-12B", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 6, "range": 6 } }
+      },
+      "note": "Icono de unidad 'SCM' (misil de crucero de superficie/costero), distinto de las plataformas aereas. Categoria nueva no vista en EEUU."
+    },
+    {
+      "id": "ch-df-10a-coastal",
+      "name": "DF-10A (costero)",
+      "nameLocal": "超音巡航",
+      "class": "coastal-missile",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A": { "munition": "DF-10A", "icons": [], "loadFormat": "single", "full": { "damage": 6, "range": 19 }, "note": "Marcado 'SUP.CM' (misil de crucero supersonico) en la hoja; sin icono equivalente en el catalogo actual." },
+        "B": { "munition": "DF-10A", "icons": [], "loadFormat": "single", "full": { "damage": 6, "range": 19 } }
+      }
+    },
+    {
+      "id": "ch-df-100-coastal",
+      "name": "DF-100 (costero)",
+      "nameLocal": "超音巡航",
+      "class": "coastal-missile",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A": { "munition": "DF-100", "icons": [], "loadFormat": "single", "full": { "damage": 4, "range": 25 }, "note": "Marcado 'SUP.CM' en la hoja; sin icono equivalente en el catalogo actual." },
+        "B": { "munition": "DF-100", "icons": [], "loadFormat": "single", "full": { "damage": 4, "range": 25 } }
+      }
+    },
+    {
+      "id": "ch-df-15b",
+      "name": "DF-15B",
+      "nameLocal": "弹道导弹",
+      "class": "ballistic-missile",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "DF-15B", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 13 } } }
+    },
+    {
+      "id": "ch-df-16",
+      "name": "DF-16",
+      "nameLocal": "弹道导弹",
+      "class": "ballistic-missile",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "DF-16", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 19 } } }
+    },
+    {
+      "id": "ch-df-26",
+      "name": "DF-26",
+      "nameLocal": "高超声速",
+      "class": "hypersonic-weapon",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A": { "munition": "DF-26", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 50 } },
+        "B": { "munition": "DF-26", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 50 } }
+      },
+      "note": "Etiquetado 'HW' (arma hipersonica) en la hoja, categoria distinta de 'BM' (balistico) usada para DF-15B/DF-16."
+    },
+    {
+      "id": "ch-df-17",
+      "name": "DF-17",
+      "nameLocal": "高超声速",
+      "class": "hypersonic-weapon",
+      "sourceSheet": "CH 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A": { "munition": "DF-17", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 32 } },
+        "B": { "munition": "DF-17", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 32 } }
+      }
+    }
+  ]
+}

@@ -1,0 +1,389 @@
+{
+  "country": "US",
+  "countryName": "Estados Unidos",
+  "status": "complete",
+  "transcribedSheets": ["EEUU 1", "EEUU 2 (seccion Cazas tacticos 2 / bombarderos)"],
+  "pendingSheets": [],
+  "seeAlso": {
+    "data/ammunition/special-unit-plans/us.json": "EEUU 2 seccion 'Aviones de rol especial' y EEUU 4 helicopteros/artilleria: plan de una sola fila, sin distincion completa/danada.",
+    "data/units/us.json": "EEUU 4 formaciones terrestres (factores Ataque/Defensa) y sistemas SAM/EWR/HLSC: no son planes de ataque con municion.",
+    "data/ammunition/naval-plans/us.json": "EEUU 3: buques de superficie y plataformas submarinas, plantilla propia."
+  },
+
+  "valueFormat": {
+    "note": "Formato de celda segun la leyenda de 'Tablas de municiones.pdf'. El superindice es el RANGO, no una nota al pie.",
+    "single": "Un valor + superindice: damage + range. Ejemplo 4^24 = damage 4, range 24.",
+    "dual": "Dos valores separados por barra + superindice: heavy/light + range. Ejemplo 2/4^8 = heavy 2, light 4, range 8.",
+    "absentRange": "La ausencia de superindice se transcribe como range 0.",
+    "damagedIsTabulated": "Los valores de unidad danada NO se derivan por formula de los de unidad completa; estan tabulados individualmente. Verificado en LRASM (2/4 -> 1/4) y SLAM-ER del F/A-18E/F (2/6 -> 1/4)."
+  },
+
+  "sourceRefs": [
+    {
+      "document": "Tablas de Armamento/EEUU 1.pdf",
+      "page": 1,
+      "sheetTitle": "Cazas tacticos 1",
+      "columns": "A-E antibuque (AsuW) y A-E ataque terrestre (LAND ATTACK)",
+      "sheetNote": "SS: Sea-Skimming"
+    },
+    {
+      "document": "Tablas de Armamento/EEUU 2.pdf",
+      "page": 1,
+      "sheetTitle": "Cazas tacticos 2 (seccion superior: bombarderos y ala volante)",
+      "columns": "A-E antibuque y A-E terrestre; B-52J usa A-F (6 columnas) con marcador de misil de crucero ALCM ademas de LF-CM",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer."
+    },
+    {
+      "document": "Tablas de municiones.pdf",
+      "page": 1,
+      "usedFor": "Leyenda de formato de celda e iconos de municion. NO usada como fuente de valores: ver docs/rules/known-ambiguities.md."
+    }
+  ],
+
+  "units": [
+    {
+      "id": "us-f-35a",
+      "name": "F-35A",
+      "nameLocal": "闪电II",
+      "class": "tactical-fighter",
+      "sourceSheet": "EEUU 1",
+      "cruiseMissileMarker": {
+        "type": "LF-CM",
+        "icons": ["attack_high_penetration", "munition_subsonic"],
+        "flightData": { "signature": -9, "raw": "-9 LF-CM / 0 / 1" }
+      },
+      "plans": {
+        "antiShip": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } }
+        },
+        "landAttack": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "SDB", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual",
+                 "full": { "heavy": 8, "light": 12, "range": 2 }, "damaged": { "heavy": 4, "light": 6, "range": 2 } },
+          "D": { "munition": "AARGM-ER", "icons": ["attack_high_penetration", "attack_anti_radiation"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 4 }, "damaged": { "damage": 2, "range": 4 } },
+          "E": { "munition": "JASSM-ER", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM",
+                 "full": { "damage": 4, "range": 12 }, "damaged": { "damage": 2, "range": 12 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-f-35b",
+      "name": "F-35B",
+      "nameLocal": "闪电II",
+      "class": "tactical-fighter",
+      "sourceSheet": "EEUU 1",
+      "plans": {
+        "antiShip": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } }
+        },
+        "landAttack": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "SDB", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 2 }, "damaged": { "damage": 4, "range": 2 } },
+          "D": { "munition": "AARGM-ER", "icons": ["attack_high_penetration", "attack_anti_radiation"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 4 }, "damaged": { "damage": 2, "range": 4 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-f-35c",
+      "name": "F-35C",
+      "nameLocal": "闪电II",
+      "class": "tactical-fighter",
+      "sourceSheet": "EEUU 1",
+      "plans": {
+        "antiShip": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 7 }, "damaged": { "damage": 2, "range": 7 } },
+          "E": { "munition": "LRASM", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "dual", "cruiseMissile": "LF-CM",
+                 "full": { "heavy": 2, "light": 4, "range": 12 }, "damaged": { "heavy": 1, "light": 4, "range": 12 } }
+        },
+        "landAttack": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "SDB", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 2 }, "damaged": { "damage": 4, "range": 2 } },
+          "D": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 7 }, "damaged": { "damage": 2, "range": 7 } },
+          "E": { "munition": "AARGM-ER", "icons": ["attack_anti_radiation"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 4 }, "damaged": { "damage": 2, "range": 4 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-f-16v",
+      "name": "F-16V",
+      "nameLocal": "蝰蛇",
+      "class": "tactical-fighter",
+      "sourceSheet": "EEUU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 12, "range": 0 }, "damaged": { "heavy": 2, "light": 6, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 6, "range": 1 }, "damaged": { "heavy": 1, "light": 3, "range": 1 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 12, "range": 0 }, "damaged": { "heavy": 2, "light": 6, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 6, "range": 1 }, "damaged": { "heavy": 1, "light": 3, "range": 1 } },
+          "C": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "D": { "munition": "HARM", "icons": ["attack_high_penetration", "attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } },
+          "E": { "munition": "JASSM-ER", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "dual", "cruiseMissile": "LF-CM",
+                 "full": { "heavy": 2, "light": 4, "range": 12 }, "damaged": { "heavy": 1, "light": 2, "range": 12 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-f-15e",
+      "name": "F-15E",
+      "nameLocal": "鹰",
+      "class": "tactical-fighter",
+      "sourceSheet": "EEUU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 8, "light": 16, "range": 0 }, "damaged": { "heavy": 4, "light": 8, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 8, "light": 16, "range": 0 }, "damaged": { "heavy": 4, "light": 8, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } },
+          "C": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "E": { "munition": "JASSM-ER", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "dual", "cruiseMissile": "LF-CM",
+                 "full": { "heavy": 4, "light": 6, "range": 12 }, "damaged": { "heavy": 2, "light": 3, "range": 12 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-fa-18cd",
+      "name": "F/A-18C/D",
+      "nameLocal": "大黄蜂",
+      "class": "tactical-fighter",
+      "sourceSheet": "EEUU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 12, "range": 0 }, "damaged": { "heavy": 2, "light": 6, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 1 }, "damaged": { "heavy": 1, "light": 2, "range": 1 } },
+          "C": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } },
+          "D": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 7 }, "damaged": { "heavy": 1, "light": 2, "range": 7 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 12, "range": 0 }, "damaged": { "heavy": 2, "light": 6, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 1 }, "damaged": { "heavy": 1, "light": 2, "range": 1 } },
+          "C": { "munition": "SLAM-ER", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } },
+          "D": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 0 }, "damaged": { "heavy": 1, "light": 2, "range": 0 } },
+          "E": { "munition": "HARM", "icons": ["attack_high_penetration", "attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-fa-18ef",
+      "name": "F/A-18E/F",
+      "nameLocal": "超黄蜂",
+      "class": "tactical-fighter",
+      "sourceSheet": "EEUU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 14, "range": 0 }, "damaged": { "heavy": 2, "light": 7, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 6, "range": 1 }, "damaged": { "heavy": 1, "light": 3, "range": 1 } },
+          "C": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 6, "range": 4 }, "damaged": { "heavy": 1, "light": 3, "range": 4 } },
+          "D": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 6, "range": 7 }, "damaged": { "heavy": 1, "light": 3, "range": 7 } },
+          "E": { "munition": "LRASM", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "dual", "cruiseMissile": "LF-CM",
+                 "full": { "heavy": 2, "light": 4, "range": 12 }, "damaged": { "heavy": 1, "light": 4, "range": 12 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 14, "range": 0 }, "damaged": { "heavy": 2, "light": 7, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 6, "range": 1 }, "damaged": { "heavy": 1, "light": 3, "range": 1 } },
+          "C": { "munition": "SLAM-ER", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 6, "range": 4 }, "damaged": { "heavy": 1, "light": 4, "range": 4 } },
+          "D": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "E": { "munition": "HARM", "icons": ["attack_high_penetration", "attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 2 }, "damaged": { "heavy": 2, "light": 4, "range": 2 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-a-10c",
+      "name": "A-10C",
+      "nameLocal": "疣猪",
+      "class": "tactical-fighter",
+      "sourceSheet": "EEUU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } },
+          "B": { "munition": "GBU", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } },
+          "B": { "munition": "GBU", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } },
+          "C": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-x-47b",
+      "name": "X-47B",
+      "nameLocal": "咸犬",
+      "class": "unmanned-combat-air-vehicle",
+      "sourceSheet": "EEUU 2",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 0 }, "damaged": { "damage": 1, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 1 }, "damaged": { "damage": 1, "range": 1 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 0 }, "damaged": { "damage": 1, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 1 }, "damaged": { "damage": 1, "range": 1 } },
+          "C": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 0 }, "damaged": { "damage": 1, "range": 0 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-b-1b",
+      "name": "B-1B",
+      "nameLocal": "枪骑兵",
+      "class": "bomber",
+      "sourceSheet": "EEUU 2",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single",
+                 "full": { "damage": 10, "range": 0 }, "damaged": { "damage": 5, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 1 }, "damaged": { "damage": 4, "range": 1 } },
+          "C": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 7 }, "damaged": { "damage": 2, "range": 7 } },
+          "E": { "munition": "LRASM", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM",
+                 "full": { "damage": 6, "range": 12 }, "damaged": { "damage": 2, "range": 12 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single",
+                 "full": { "damage": 10, "range": 0 }, "damaged": { "damage": 5, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 1 }, "damaged": { "damage": 4, "range": 1 } },
+          "C": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 7 }, "damaged": { "damage": 2, "range": 7 } },
+          "E": { "munition": "JASSM-XR", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM",
+                 "full": { "damage": 6, "range": 24 }, "damaged": { "damage": 2, "range": 24 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-b-52j",
+      "name": "B-52J",
+      "nameLocal": "同温层堡垒",
+      "class": "bomber",
+      "sourceSheet": "EEUU 2",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single",
+                 "full": { "damage": 10, "range": 0 }, "damaged": { "damage": 5, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 7 }, "damaged": { "damage": 2, "range": 7 } },
+          "D": { "munition": "ARRW", "icons": ["attack_ballistic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 23 }, "damaged": { "damage": 0.5, "range": 23 } },
+          "E": { "munition": "LRASM", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM",
+                 "full": { "damage": 4, "range": 12 }, "damaged": { "damage": 2, "range": 12 } },
+          "F": { "munition": "ALCM", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM",
+                 "full": { "damage": 6, "range": 32 }, "damaged": { "damage": 3, "range": 32 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single",
+                 "full": { "damage": 10, "range": 0 }, "damaged": { "damage": 5, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 7 }, "damaged": { "damage": 2, "range": 7 } },
+          "D": { "munition": "ARRW", "icons": ["attack_ballistic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 23 }, "damaged": { "damage": 0.5, "range": 23 } },
+          "E": { "munition": "JASSM-XR", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM",
+                 "full": { "damage": 4, "range": 24 }, "damaged": { "damage": 2, "range": 24 } },
+          "F": { "munition": "ALCM", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM",
+                 "full": { "damage": 6, "range": 32 }, "damaged": { "damage": 3, "range": 32 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-b-2a",
+      "name": "B-2A",
+      "nameLocal": "幽灵",
+      "class": "bomber",
+      "sourceSheet": "EEUU 2",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single",
+                 "full": { "damage": 12, "range": 0 }, "damaged": { "damage": 6, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 6, "range": 1 }, "damaged": { "damage": 3, "range": 1 } },
+          "C": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 6, "range": 7 }, "damaged": { "damage": 3, "range": 7 } },
+          "E": { "munition": "LRASM", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM",
+                 "full": { "damage": 6, "range": 12 }, "damaged": { "damage": 3, "range": 12 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single",
+                 "full": { "damage": 12, "range": 0 }, "damaged": { "damage": 6, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 6, "range": 1 }, "damaged": { "damage": 3, "range": 1 } },
+          "C": { "munition": "JSOW-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 6, "range": 7 }, "damaged": { "damage": 3, "range": 7 } },
+          "E": { "munition": "JASSM-XR", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM",
+                 "full": { "damage": 6, "range": 24 }, "damaged": { "damage": 3, "range": 24 } }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,2648 @@
+{
+  "id": "unit-registry-index",
+  "description": "Índice generado (scripts/build-unit-registry.js) de los tipos de unidad ya transcritos en data/ammunition/{attack-plans,naval-plans,special-unit-plans}/ y data/units/. No sustituye a esos archivos (que siguen siendo la fuente de los datos completos, incluidos planes de ataque y sourceRefs): solo permite resolver un id de unidad al archivo/clave donde vive, sin tener que buscar en 24 archivos. Regenerar con `node scripts/build-unit-registry.js` tras transcribir unidades nuevas.",
+  "generatedBy": "scripts/build-unit-registry.js",
+  "count": 264,
+  "entries": [
+    {
+      "id": "ch-039a",
+      "name": "039A",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-039b",
+      "name": "039B",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-039c",
+      "name": "039C",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-039g",
+      "name": "039G",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-093",
+      "name": "093",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-093a",
+      "name": "093A",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-093b",
+      "name": "093B",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-093b1",
+      "name": "093B1",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-093b2",
+      "name": "093B2",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-636m",
+      "name": "636M",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ch-bs-052",
+      "name": "BS-052",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-052b",
+      "name": "BS-052B",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-052c",
+      "name": "BS-052C",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-052d",
+      "name": "BS-052D",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-052dg",
+      "name": "BS-052DG",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-053h1g",
+      "name": "BS-053H1G",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-053h3",
+      "name": "BS-053H3",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-054a",
+      "name": "BS-054A",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-055",
+      "name": "BS-055",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "cruiser",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-056a",
+      "name": "BS-056A",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "corvette",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-22",
+      "name": "BS-22",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "missile-boat",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-956em",
+      "name": "BS-956EM",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-bs-95ge",
+      "name": "BS-95GE",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/ch.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ch-ch-4b",
+      "name": "CH-4B",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-cr500a",
+      "name": "CR500A",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-csk-181",
+      "name": "CSK-181",
+      "nameEn": "Light Brigade",
+      "country": "CH",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ch.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ch-df-100-coastal",
+      "name": "DF-100 (costero)",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "coastal-missile",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-df-10a-coastal",
+      "name": "DF-10A (costero)",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "coastal-missile",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-df-15b",
+      "name": "DF-15B",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-df-16",
+      "name": "DF-16",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-df-17",
+      "name": "DF-17",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "hypersonic-weapon",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-df-26",
+      "name": "DF-26",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "hypersonic-weapon",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-gj-11",
+      "name": "GJ-11",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "unmanned-combat-air-vehicle",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-gj-2",
+      "name": "GJ-2",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-h-6n",
+      "name": "H-6N",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "bomber",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-hlsc",
+      "name": "HLSC",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "support-system",
+      "class": "HELIPORT",
+      "file": "data/units/ch.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ch-hq-16f",
+      "name": "HQ-16F",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/ch.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ch-hq-9a",
+      "name": "HQ-9A",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/ch.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ch-hq-9b",
+      "name": "HQ-9B",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/ch.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ch-infantry",
+      "name": "INFANTRY",
+      "nameEn": "Air-assault Infantry",
+      "country": "CH",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ch.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ch-j-10c",
+      "name": "J-10C",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-j-11b",
+      "name": "J-11B",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-j-11bg",
+      "name": "J-11BG",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-j-15",
+      "name": "J-15",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-j-15d",
+      "name": "J-15D",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-j-15t",
+      "name": "J-15T",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-j-16",
+      "name": "J-16",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-j-16d",
+      "name": "J-16D",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-j-35",
+      "name": "J-35",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-jh-7a",
+      "name": "JH-7A",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-pcl-181",
+      "name": "PCL-181",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-phl-03",
+      "name": "PHL-03",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-phl-191",
+      "name": "PHL-191",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-plz-05",
+      "name": "PLZ-05",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-s-300pmu2",
+      "name": "S-300PMU2",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/ch.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ch-s-400e",
+      "name": "S-400E",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/ch.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ch-slc-7",
+      "name": "SLC-7",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/ch.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ch-su-30mk2",
+      "name": "Su-30MK2",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-su-35sk",
+      "name": "Su-35SK",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-tb-001",
+      "name": "TB-001",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-wzk-005c",
+      "name": "WZK-005C",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-yj-12b-coastal",
+      "name": "YJ-12B (costero)",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "coastal-missile",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-ylc-8e",
+      "name": "YLC-8E",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/ch.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ch-z-10",
+      "name": "Z-10",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-z-19",
+      "name": "Z-19",
+      "nameEn": null,
+      "country": "CH",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/ch.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ch-zbd-03",
+      "name": "ZBD-03",
+      "nameEn": "Airborne Force",
+      "country": "CH",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ch.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ch-ztd-05",
+      "name": "ZTD-05",
+      "nameEn": "Marine Force",
+      "country": "CH",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ch.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ch-ztq-09",
+      "name": "ZTQ-09",
+      "nameEn": "Medium Brigade",
+      "country": "CH",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ch.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ch-ztq-15",
+      "name": "ZTQ-15",
+      "nameEn": "Mountain Heavy Brigade",
+      "country": "CH",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ch.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ch-ztz-96b",
+      "name": "ZTZ-96B",
+      "nameEn": "Amphibious Heavy Force",
+      "country": "CH",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ch.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ch-ztz-99a",
+      "name": "ZTZ-99A",
+      "nameEn": "Heavy Brigade",
+      "country": "CH",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ch.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "jp-05ss",
+      "name": "05SS",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "jp-16ss",
+      "name": "16SS",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "jp-29ss",
+      "name": "29SS",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "jp-ah-1s",
+      "name": "AH-1S",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-ah-64e",
+      "name": "AH-64E",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-bs-ac",
+      "name": "BS-AC",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-ah",
+      "name": "BS-AH",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-ak",
+      "name": "BS-AK",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-at",
+      "name": "BS-AT",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-hy",
+      "name": "BS-HY",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-kg",
+      "name": "BS-KG",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-mg",
+      "name": "BS-MG",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-ms",
+      "name": "BS-MS",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-my",
+      "name": "BS-MY",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-bs-tn",
+      "name": "BS-TN",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/jp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "jp-f-2ab",
+      "name": "F-2A/B",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-f-35a",
+      "name": "F-35A",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-f-35b",
+      "name": "F-35B",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-hayate",
+      "name": "Hayate",
+      "nameEn": "Reserve Division",
+      "country": "JP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/jp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "jp-hlsc",
+      "name": "HLSC",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "support-system",
+      "class": "HELIPORT",
+      "file": "data/units/jp.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "jp-jgcrf",
+      "name": "JGCRF",
+      "nameEn": "Rapid Reaction Regiment",
+      "country": "JP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/jp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "jp-lav",
+      "name": "JP-LAV",
+      "nameEn": "Amphibious Rapid Deployment Regiment",
+      "country": "JP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/jp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "jp-m110",
+      "name": "M110",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-m270",
+      "name": "M270",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-mim-104",
+      "name": "MIM-104",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/jp.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "jp-p-1",
+      "name": "P-1",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-p-3c",
+      "name": "P-3C",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-type03",
+      "name": "Type 03",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/jp.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "jp-type10-div",
+      "name": "Type 10",
+      "nameEn": "Armored Division",
+      "country": "JP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/jp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "jp-type12-coastal",
+      "name": "Type 12 (costero)",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "coastal-missile",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-type16",
+      "name": "Type 16",
+      "nameEn": "Mobile Brigade",
+      "country": "JP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/jp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "jp-type88-coastal",
+      "name": "Type 88 (costero)",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "coastal-missile",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "jp-type90-div",
+      "name": "Type 90",
+      "nameEn": "Tank Regiment",
+      "country": "JP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/jp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "jp-type96-div",
+      "name": "Type 96",
+      "nameEn": "Regular Division",
+      "country": "JP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/jp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "jp-type99",
+      "name": "Type 99",
+      "nameEn": null,
+      "country": "JP",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/jp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-19zh6",
+      "name": "19ZH6",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/kp.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "kp-5hb4a",
+      "name": "5HB4A",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/kp.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "kp-bs-np",
+      "name": "BS-NP",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "naval-surface",
+      "class": "missile-boat",
+      "file": "data/ammunition/naval-plans/kp.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kp-btr-80",
+      "name": "BTR-80",
+      "nameEn": "Infantry Division A",
+      "country": "KP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kp-cheon-ma",
+      "name": "Cheon ma",
+      "nameEn": "Tank Division B",
+      "country": "KP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kp-chun-ma",
+      "name": "Chun ma",
+      "nameEn": "Infantry Division B",
+      "country": "KP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kp-hwasong-10",
+      "name": "Hwasong-10",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-hwasong-5",
+      "name": "Hwasong-5",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-hwasong-6",
+      "name": "Hwasong-6",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-hwasong-7",
+      "name": "Hwasong-7",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-j-10a",
+      "name": "J-10A",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-jh-7a",
+      "name": "JH-7A",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-kn-06",
+      "name": "KN-06",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/kp.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "kp-kn-23",
+      "name": "KN-23",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-koksan",
+      "name": "Koksan",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-m-1991",
+      "name": "M-1991",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-m2020",
+      "name": "M2020",
+      "nameEn": "Tank Division A",
+      "country": "KP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kp-mi-24d",
+      "name": "Mi-24D",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-mig-23",
+      "name": "MiG-23",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-mig-29a",
+      "name": "MiG-29A",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-su-25k",
+      "name": "Su-25K",
+      "nameEn": null,
+      "country": "KP",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kp.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kp-t-62",
+      "name": "T-62",
+      "nameEn": "Tank Division C",
+      "country": "KP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kp-vtt-323",
+      "name": "VTT-323",
+      "nameEn": "Mechanized Infantry Division",
+      "country": "KP",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kp.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kr-aav-7",
+      "name": "AAV-7",
+      "nameEn": "Marine Corps",
+      "country": "KR",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kr.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kr-ah-1f",
+      "name": "AH-1F",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-ah-64e",
+      "name": "AH-64E",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-an-tps-117",
+      "name": "AN/TPS-117",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/kr.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "kr-bs-ffx-1",
+      "name": "BS-FFX-1",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-bs-ffx-2",
+      "name": "BS-FFX-2",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-bs-ffx-3",
+      "name": "BS-FFX-3",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-bs-hdf",
+      "name": "BS-HDF",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "corvette",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-bs-kdx-1",
+      "name": "BS-KDX-1",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-bs-kdx-2-b1",
+      "name": "BS-KDX-2 B1",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-bs-kdx-2-b2",
+      "name": "BS-KDX-2 B2",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-bs-kdx-3-b1",
+      "name": "BS-KDX-3 B1",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-bs-kdx-3-b2",
+      "name": "BS-KDX-3 B2",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "kr-cheongung2",
+      "name": "Cheongung2",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/kr.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "kr-el-m-2080",
+      "name": "EL/M-2080",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/kr.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "kr-f-15k",
+      "name": "F-15K",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-f-35a",
+      "name": "F-35A",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-f-5e",
+      "name": "F-5E",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-fa-50",
+      "name": "FA-50",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-hlsc",
+      "name": "HLSC",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "support-system",
+      "class": "HELIPORT",
+      "file": "data/units/kr.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "kr-hyunmoo-2b",
+      "name": "Hyunmoo-2B",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-hyunmoo-3c-bm",
+      "name": "Hyunmoo-3C (balistico)",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-k1a1",
+      "name": "K1A1",
+      "nameEn": "Armored Brigade B",
+      "country": "KR",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kr.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kr-k2",
+      "name": "K2",
+      "nameEn": "Armored Division A",
+      "country": "KR",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kr.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kr-k200",
+      "name": "K200",
+      "nameEn": "Infantry Division A",
+      "country": "KR",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kr.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kr-k239",
+      "name": "K239",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-k55",
+      "name": "K55",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-k9",
+      "name": "K9",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-kf-16c",
+      "name": "KF-16C",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-kss1",
+      "name": "KSS 1",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "kr-kss2",
+      "name": "KSS 2",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "kr-kss3",
+      "name": "KSS 3",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "kr-kss3-b2",
+      "name": "KSS 3 B2",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/kr.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "kr-m113",
+      "name": "M113",
+      "nameEn": "Infantry Regiment B",
+      "country": "KR",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kr.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kr-m270",
+      "name": "M270",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-m48a5",
+      "name": "M48A5",
+      "nameEn": "Homeland Defense Division",
+      "country": "KR",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/kr.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "kr-mim-104",
+      "name": "MIM-104",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/kr.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "kr-p-3c",
+      "name": "P-3C",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "kr-p-8a",
+      "name": "P-8A",
+      "nameEn": null,
+      "country": "KR",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/kr.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-2s19",
+      "name": "2S19",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-2s3",
+      "name": "2S3",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-2s7m",
+      "name": "2S7M",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-3k55-bastion",
+      "name": "3K55 (Bastion)",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "coastal-missile",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-3k60-coastal",
+      "name": "3K60 (costero)",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "coastal-missile",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-4k51-coastal",
+      "name": "4K51 (costero)",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "coastal-missile",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-55zh6me",
+      "name": "55ZH6ME",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/ru.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ru-636-3",
+      "name": "636.3",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ru-677",
+      "name": "677",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ru-885m",
+      "name": "885M",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ru-949a",
+      "name": "949A",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ru-971i",
+      "name": "971I",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ru-971m",
+      "name": "971M",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ru-971u",
+      "name": "971U",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "ru-9k720",
+      "name": "9K720",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-9k79",
+      "name": "9K79",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "ballistic-missile",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-9m317",
+      "name": "9M317",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/ru.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ru-bm-21",
+      "name": "BM-21",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-bm-30",
+      "name": "BM-30",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-bmd-2",
+      "name": "BMD-2",
+      "nameEn": "Air Assault Brigade",
+      "country": "RU",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ru.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ru-bs-1155m",
+      "name": "BS-1155M",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ru-bs-1164",
+      "name": "BS-1164",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-surface",
+      "class": "cruiser",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ru-bs-12341",
+      "name": "BS-12341",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-surface",
+      "class": "missile-boat",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ru-bs-12411",
+      "name": "BS-12411",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-surface",
+      "class": "missile-boat",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ru-bs-20381",
+      "name": "BS-20381",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-surface",
+      "class": "corvette",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ru-bs-20385",
+      "name": "BS-20385",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-surface",
+      "class": "corvette",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ru-bs-22350",
+      "name": "BS-22350",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/ru.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "ru-btr-80a",
+      "name": "BTR-80A",
+      "nameEn": "Naval Infantry",
+      "country": "RU",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ru.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ru-hlsc",
+      "name": "HLSC",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "support-system",
+      "class": "HELIPORT",
+      "file": "data/units/ru.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ru-infantry",
+      "name": "INFANTRY",
+      "nameEn": "Air-assault Infantry",
+      "country": "RU",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ru.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ru-ka-52a",
+      "name": "Ka-52A",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-mi-24",
+      "name": "Mi-24",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-mi-35",
+      "name": "Mi-35",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-mig-29smt",
+      "name": "MiG-29SMT",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-mig-31bm",
+      "name": "MiG-31BM",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-mt-lb",
+      "name": "MT-LB",
+      "nameEn": "Motor-rifle Regiment",
+      "country": "RU",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/ru.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "ru-s-300pmu2",
+      "name": "S-300PMU2",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/ru.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ru-s-400",
+      "name": "S-400",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/ru.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "ru-su-24m",
+      "name": "Su-24M",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-su-30sm",
+      "name": "Su-30SM",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-su-34",
+      "name": "Su-34",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-su-34m",
+      "name": "Su-34M",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-su-35s",
+      "name": "Su-35S",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-su-57",
+      "name": "Su-57",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-tu-22m",
+      "name": "Tu-22M",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "bomber",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "ru-tu-95",
+      "name": "Tu-95",
+      "nameEn": null,
+      "country": "RU",
+      "domain": "attack-plan",
+      "class": "bomber",
+      "file": "data/ammunition/attack-plans/ru.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-a-10c",
+      "name": "A-10C",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-aav-7",
+      "name": "AAV-7",
+      "nameEn": "Vanguard",
+      "country": "US",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/us.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "us-ah-1z",
+      "name": "AH-1Z",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-ah-64d",
+      "name": "AH-64D",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-an-tps-2",
+      "name": "AN/TPS-2",
+      "nameEn": null,
+      "country": "US",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/us.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "us-an-tps-59",
+      "name": "AN/TPS-59(V)3",
+      "nameEn": null,
+      "country": "US",
+      "domain": "support-system",
+      "class": "EWR",
+      "file": "data/units/us.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "us-b-1b",
+      "name": "B-1B",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "bomber",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-b-2a",
+      "name": "B-2A",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "bomber",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-b-52j",
+      "name": "B-52J",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "bomber",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-bs-ab-f1",
+      "name": "BS-AB F1",
+      "nameEn": "Arleigh Burke Flight I",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-bs-ab-f2",
+      "name": "BS-AB F2",
+      "nameEn": "Arleigh Burke Flight II",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-bs-ab-f2a",
+      "name": "BS-AB F2A",
+      "nameEn": "Arleigh Burke Flight IIA",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-bs-ab-f3",
+      "name": "BS-AB F3",
+      "nameEn": "Arleigh Burke Flight III",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-bs-ct",
+      "name": "BS-CT",
+      "nameEn": "Constellation",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "frigate",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-bs-fd",
+      "name": "BS-FD",
+      "nameEn": "Freedom",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "littoral-combat-ship",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-bs-id",
+      "name": "BS-ID",
+      "nameEn": "Independence",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "littoral-combat-ship",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-bs-zm",
+      "name": "BS-ZM",
+      "nameEn": "Zumwalt",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "destroyer",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-dh",
+      "name": "DH",
+      "nameEn": "Ohio",
+      "country": "US",
+      "domain": "naval-submarine",
+      "class": "cruise-missile-submarine",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "us-ea-18g",
+      "name": "EA-18G",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-f-15e",
+      "name": "F-15E",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-f-16v",
+      "name": "F-16V",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-f-35a",
+      "name": "F-35A",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-f-35b",
+      "name": "F-35B",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-f-35c",
+      "name": "F-35C",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-fa-18cd",
+      "name": "F/A-18C/D",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-fa-18ef",
+      "name": "F/A-18E/F",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "tactical-fighter",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-hlsc",
+      "name": "HLSC",
+      "nameEn": null,
+      "country": "US",
+      "domain": "support-system",
+      "class": "HELIPORT",
+      "file": "data/units/us.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "us-infantry",
+      "name": "INFANTRY",
+      "nameEn": "Air-assault Infantry",
+      "country": "US",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/us.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "us-la-b2",
+      "name": "LA B2",
+      "nameEn": "Los Angeles",
+      "country": "US",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "us-lav-25",
+      "name": "LAV-25",
+      "nameEn": "Marine Corps",
+      "country": "US",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/us.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "us-m109a7",
+      "name": "M109A7",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-m1127",
+      "name": "M1127",
+      "nameEn": "Stryker Brigade",
+      "country": "US",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/us.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "us-m1279",
+      "name": "M1279",
+      "nameEn": "Infantry Brigade",
+      "country": "US",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/us.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "us-m142",
+      "name": "M142",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-m1a2",
+      "name": "M1A2",
+      "nameEn": "Armored Brigade",
+      "country": "US",
+      "domain": "ground-formation",
+      "class": "ground-formation",
+      "file": "data/units/us.json",
+      "arrayKey": "groundFormations"
+    },
+    {
+      "id": "us-m270a1",
+      "name": "M270A1",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "artillery",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-mim-104",
+      "name": "MIM-104",
+      "nameEn": null,
+      "country": "US",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/us.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "us-mq-1c",
+      "name": "MQ-1C",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-mq-8c",
+      "name": "MQ-8C",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-mq-9a",
+      "name": "MQ-9A",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-oh-58d",
+      "name": "OH-58D",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "attack-helicopter",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-p-8a",
+      "name": "P-8A",
+      "nameEn": null,
+      "country": "US",
+      "domain": "special-unit",
+      "class": "special-aircraft",
+      "file": "data/ammunition/special-unit-plans/us.json",
+      "arrayKey": "units"
+    },
+    {
+      "id": "us-sw-b1",
+      "name": "Sw B1",
+      "nameEn": "Seawolf",
+      "country": "US",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "us-sw-b2",
+      "name": "Sw B2",
+      "nameEn": "Jimmy Carter",
+      "country": "US",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "us-td",
+      "name": "TD",
+      "nameEn": "Ticonderoga",
+      "country": "US",
+      "domain": "naval-surface",
+      "class": "cruiser",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "surfaceShips"
+    },
+    {
+      "id": "us-thaad",
+      "name": "THAAD",
+      "nameEn": null,
+      "country": "US",
+      "domain": "support-system",
+      "class": "SAM",
+      "file": "data/units/us.json",
+      "arrayKey": "supportSystems"
+    },
+    {
+      "id": "us-vg",
+      "name": "VG",
+      "nameEn": "Virginia",
+      "country": "US",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "us-vg-b3",
+      "name": "VG B3",
+      "nameEn": "North Dakota",
+      "country": "US",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "us-vg-b4",
+      "name": "VG B4",
+      "nameEn": "Vermont",
+      "country": "US",
+      "domain": "naval-submarine",
+      "class": "attack-submarine",
+      "file": "data/ammunition/naval-plans/us.json",
+      "arrayKey": "submarines"
+    },
+    {
+      "id": "us-x-47b",
+      "name": "X-47B",
+      "nameEn": null,
+      "country": "US",
+      "domain": "attack-plan",
+      "class": "unmanned-combat-air-vehicle",
+      "file": "data/ammunition/attack-plans/us.json",
+      "arrayKey": "units"
+    }
+  ]
+}

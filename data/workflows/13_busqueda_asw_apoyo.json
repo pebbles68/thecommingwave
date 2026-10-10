@@ -1,0 +1,652 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/13_busqueda_asw_apoyo.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "asw_search_support",
+  "title": "Búsqueda ASW (flujo de apoyo)",
+  "category": "asw",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "28, 33-34"
+  },
+  "summary": "Flujo auxiliar previo o posterior a ataques ASW. No es un ataque, pero condiciona varias resoluciones.",
+  "isSupportFlow": true,
+  "stages": [
+    {
+      "id": "search_type",
+      "order": 1,
+      "title": "Tipo de búsqueda ASW",
+      "questions": [
+        {
+          "id": "search_type",
+          "type": "select",
+          "appliesTo": "asw_search",
+          "prompt": "Tipo de búsqueda.",
+          "options": [
+            {
+              "value": "signature",
+              "label": "Diferencia de firma"
+            },
+            {
+              "value": "air",
+              "label": "Búsqueda aérea"
+            }
+          ]
+        },
+        {
+          "id": "event",
+          "type": "select",
+          "appliesTo": "asw_search",
+          "prompt": "Momento de la búsqueda.",
+          "options": [
+            {
+              "value": "routine",
+              "label": "Búsqueda de rutina",
+              "airSearchTable": "asw-air-search-routine"
+            },
+            {
+              "value": "movement",
+              "label": "Movimiento submarino",
+              "airSearchTable": "asw-air-search-routine"
+            },
+            {
+              "value": "pre_ambush",
+              "label": "Antes de emboscada",
+              "airSearchTable": "asw-air-search-routine"
+            },
+            {
+              "value": "post_attack",
+              "label": "Después del ataque",
+              "airSearchTable": "asw-air-search-post-attack"
+            },
+            {
+              "value": "pre_evasion",
+              "label": "Antes de evadir",
+              "airSearchTable": "asw-air-search-post-attack"
+            }
+          ],
+          "airSearchTableNote": "Tabla de resolución de Búsqueda Aérea ASW según el evento (Decision Book §9.14.3 y §9.15.4 Paso 2; Tablas-de-combate 5.pdf p.34): rutina / movimiento submarino / antes de emboscada → \"asw-air-search-routine\"; después del ataque / antes de evadir → \"asw-air-search-post-attack\".",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.14.3 Eventos que Desencadenan una Búsqueda ASW",
+              "pages": "214-215"
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 2",
+              "pages": "218"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "search_type",
+          "event"
+        ]
+      ]
+    },
+    {
+      "id": "search_modifiers",
+      "order": 2,
+      "title": "Modificadores y restricciones",
+      "questions": [
+        {
+          "id": "high_speed_surface",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿La flota de superficie está a alta velocidad?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "signature_search_not_allowed"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "sub_maneuver_state",
+          "type": "boolean",
+          "appliesTo": "search_roll",
+          "prompt": "¿El submarino está en estado de maniobra?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "search_roll",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "search_roll",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sub_moved_2plus",
+          "type": "boolean",
+          "appliesTo": "search_roll",
+          "prompt": "¿El submarino ha movido 2 o más hex durante el proceso?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "search_roll",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "search_roll",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "high_speed_surface",
+          "sub_maneuver_state",
+          "sub_moved_2plus"
+        ]
+      ],
+      "tableReference": "Páginas 28, 33 y 34: Búsqueda Antisubmarina."
+    },
+    {
+      "id": "air_search",
+      "order": 3,
+      "title": "Búsqueda Aérea ASW",
+      "questions": [
+        {
+          "id": "target_in_enemy_cap_zone",
+          "type": "boolean",
+          "appliesTo": "air_search",
+          "prompt": "¿El submarino objetivo está dentro de una Zona de Patrulla Aérea enemiga?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 1",
+              "pages": "218"
+            }
+          ]
+        },
+        {
+          "id": "target_depth",
+          "type": "select",
+          "appliesTo": "air_search",
+          "prompt": "Profundidad del océano en la casilla del submarino objetivo (P.4 / P.3 / P.2).",
+          "options": [
+            {
+              "value": "P4",
+              "label": "P.4 — Aguas profundas"
+            },
+            {
+              "value": "P3",
+              "label": "P.3 — Aguas semi-profundas"
+            },
+            {
+              "value": "P2",
+              "label": "P.2 — Aguas poco profundas"
+            }
+          ],
+          "note": "La tabla de la página 34 imprime solo tres posiciones (P.4/P.3/P.2); P.2 está definida como aguas poco profundas en la tabla de la página 33. Las aguas muy poco profundas no tienen columna propia en esta tabla.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.14.2 Profundidad del Océano",
+              "pages": "214"
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 3",
+              "pages": "218"
+            }
+          ]
+        },
+        {
+          "id": "target_signature",
+          "type": "number",
+          "appliesTo": "air_search",
+          "prompt": "Valor de Firma (SIG) impreso del submarino objetivo.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 3",
+              "pages": "218"
+            }
+          ]
+        },
+        {
+          "id": "target_moving",
+          "type": "boolean",
+          "appliesTo": "air_search",
+          "prompt": "¿El submarino objetivo está en su lado \"En Movimiento\"?",
+          "note": "Las unidades submarinas en su lado \"En Movimiento\" tienen su Valor de Firma aumentado en +1 (§9.15.4 Paso 3).",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "target_signature",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "target_signature",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 3",
+              "pages": "218"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "target_in_enemy_cap_zone",
+          "target_depth",
+          "target_signature",
+          "target_moving"
+        ]
+      ],
+      "unitFields": [
+        {
+          "id": "airValue",
+          "prompt": "Valor de Detección Aérea (ASW) de la unidad",
+          "note": "Número en la esquina superior derecha del Valor ASW de la unidad de superficie; una unidad con \"-\" en la misma formación que un Portaaviones (CV) o Buque de Asalto Anfibio (LA) con capacidad de Detección Aérea tiene la del CV/LA; todas las MPA tienen uno (§9.15.2)."
+        },
+        {
+          "id": "highSpeed",
+          "prompt": "Formación de superficie a Alta Velocidad"
+        },
+        {
+          "id": "inEnemyCapZone",
+          "prompt": "Unidad dentro de una Zona de Patrulla Aérea enemiga"
+        }
+      ],
+      "restrictions": [
+        {
+          "id": "target_in_enemy_cap_zone",
+          "text": "No se puede realizar Búsqueda Aérea ASW contra unidades submarinas enemigas ubicadas dentro de una Zona de Patrulla Aérea enemiga.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 1",
+              "pages": "218"
+            }
+          ]
+        },
+        {
+          "id": "unit_in_enemy_cap_zone",
+          "text": "Las unidades propias ubicadas dentro de una Zona de Patrulla Aérea enemiga no pueden realizar Búsqueda Aérea ASW (no suman su Valor).",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 1",
+              "pages": "218"
+            }
+          ]
+        },
+        {
+          "id": "high_speed_excluded",
+          "text": "Las formaciones de superficie en estado de \"Alta Velocidad\" no pueden contribuir con su Valor de Detección Aérea a búsquedas de \"Rutina\", \"Movimiento Submarino\" ni \"Antes de la Emboscada\" (Decision Book §9.15.4 Paso 1 para Rutina y Movimiento; página 28 y confirmación del mantenedor, 2026-10-07, para la Emboscada).",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 1",
+              "pages": "218"
+            }
+          ]
+        },
+        {
+          "id": "routine_no_deep_water",
+          "text": "Durante una Búsqueda de \"Rutina\", la Búsqueda Aérea ASW no puede detectar unidades submarinas en Aguas Profundas.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.4 Búsqueda Aérea ASW, Paso 1",
+              "pages": "218"
+            }
+          ]
+        }
+      ],
+      "rangeNotes": {
+        "routine_movement_pre_ambush": "La unidad de superficie solo puede buscar en su mismo hex (Tablas-de-combate 5.pdf p.34).",
+        "post_attack_pre_evasion": "La unidad de superficie puede buscar objetivos atacantes en hexs. adyacentes, pero solo puede buscar objetivos que realicen movimientos de ocultación/maniobra en su mismo hex (Tablas-de-combate 5.pdf p.34)."
+      },
+      "resolutionRule": {
+        "text": "Se suman los Valores de Detección Aérea de las unidades que pueden buscar (Paso 1), se cruzan con la Firma del objetivo (Pasos 3-4) y se tira 1d10: si el resultado cae dentro del rango de descubrimiento (p.ej. \"8+\" = 8 o 9; \"9\" = solo 9) la búsqueda tiene éxito y el submarino queda Expuesto (o falla su intento de Evasión); con \"·\" o un resultado fuera del rango, la búsqueda falla automáticamente. Una unidad que detecta con éxito puede iniciar de inmediato un Ataque Antisubmarino (§9.15.5).",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "9.15.4 Búsqueda Aérea ASW, Pasos 4-5 / 9.15.5",
+            "pages": "218-219"
+          }
+        ]
+      },
+      "tableReference": "Página 34: Búsqueda Aérea Antisubmarina."
+    },
+    {
+      "id": "signature_search",
+      "order": 4,
+      "title": "Búsqueda por Diferencia de Firma",
+      "questions": [
+        {
+          "id": "searcher_kind",
+          "type": "select",
+          "appliesTo": "signature_search",
+          "prompt": "¿Quién realiza la búsqueda?",
+          "options": [
+            {
+              "value": "surface",
+              "label": "Unidad de superficie"
+            },
+            {
+              "value": "submarine",
+              "label": "Unidad submarina"
+            }
+          ]
+        },
+        {
+          "id": "trigger",
+          "type": "select",
+          "appliesTo": "signature_search",
+          "prompt": "¿Qué activó la búsqueda ASW?",
+          "options": [
+            {
+              "value": "routine_movement",
+              "label": "Rutina / Movimiento Submarino / Emboscada",
+              "rangeGroup": "rango1"
+            },
+            {
+              "value": "after_attack_evasion",
+              "label": "Después del Ataque / Antes de la Evasión",
+              "rangeGroup": "rango2"
+            }
+          ],
+          "note": "§9.15.3 Paso 5: búsqueda activa en Rutina o por movimiento → columna \"Rutina / Movimiento / Emboscada\"; después de un ataque o al empezar una Evasión → \"Después del Ataque / Antes de la Evasión\".",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.3 Búsqueda por Diferencia de Firma, Paso 5",
+              "pages": "218"
+            }
+          ]
+        },
+        {
+          "id": "target_depth",
+          "type": "select",
+          "appliesTo": "signature_search",
+          "prompt": "Profundidad del océano en la casilla del objetivo (solo si busca una unidad de superficie).",
+          "options": [
+            {
+              "value": "P4",
+              "label": "P.4 — Aguas profundas"
+            },
+            {
+              "value": "P3",
+              "label": "P.3 — Aguas semi-profundas"
+            },
+            {
+              "value": "P2",
+              "label": "P.2 — Aguas poco profundas"
+            }
+          ],
+          "note": "La tabla imprime solo P.4 / P.3 / P.2 (la nota de la página 33 las define); las aguas muy poco profundas no tienen columna propia (§9.14.2).",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.14.2 Profundidad del Océano",
+              "pages": "214"
+            }
+          ]
+        },
+        {
+          "id": "surface_frame",
+          "type": "select",
+          "appliesTo": "signature_search",
+          "prompt": "Forma del marco que rodea el Valor ASW de la unidad de superficie que busca.",
+          "options": [
+            {
+              "value": "1",
+              "label": "Marco hexagonal"
+            },
+            {
+              "value": "2",
+              "label": "Marco rectangular / cuadrado"
+            },
+            {
+              "value": "3",
+              "label": "Marco en rombo"
+            }
+          ],
+          "note": "Decision Book §9.15.1: cada forma de marco usa columnas distintas de la tabla. Qué clase de buque lleva cada marco no consta en las fuentes aportadas (docs/rules/known-ambiguities.md).",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.1 Búsqueda por Diferencia de Firma y su Alcance",
+              "pages": "215"
+            }
+          ]
+        },
+        {
+          "id": "frame_closed",
+          "type": "boolean",
+          "appliesTo": "signature_search",
+          "prompt": "¿El marco del Valor ASW es cerrado (p.ej. cuadrado sólido)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ],
+          "note": "§9.15.1: con marco cerrado la unidad solo busca en su propia casilla y no puede hacer Búsqueda Aérea ASW.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.1 Búsqueda por Diferencia de Firma y su Alcance",
+              "pages": "215"
+            }
+          ]
+        },
+        {
+          "id": "searcher_signature",
+          "type": "number",
+          "appliesTo": "signature_search",
+          "prompt": "Valor de Firma (SIG) del submarino que busca.",
+          "note": "§9.15.3 Paso 3: si el buscador es un submarino, la columna se elige por su Valor de Firma (8 o más comparten la columna \"8+\").",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.3 Búsqueda por Diferencia de Firma, Paso 3",
+              "pages": "217"
+            }
+          ]
+        },
+        {
+          "id": "target_signature",
+          "type": "number",
+          "appliesTo": "signature_search",
+          "prompt": "Valor de Firma (SIG) del submarino objetivo."
+        },
+        {
+          "id": "target_moving",
+          "type": "boolean",
+          "appliesTo": "signature_search",
+          "prompt": "¿El submarino objetivo está en su lado \"En Movimiento\"?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ],
+          "note": "§9.15.3 Paso 2: las unidades submarinas \"En Movimiento\" tienen su Firma +1. La página 28 lista además \"estado de maniobra +1\" y \"movimiento ≥ 2 hex +1\" sin equivalente en §9.15.3; el wizard aplica solo el +1 del Decision Book (docs/rules/known-ambiguities.md).",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.3 Búsqueda por Diferencia de Firma, Paso 2",
+              "pages": "217"
+            }
+          ]
+        },
+        {
+          "id": "distance",
+          "type": "select",
+          "appliesTo": "signature_search",
+          "prompt": "Distancia entre el buscador y el objetivo.",
+          "options": [
+            {
+              "value": "hex",
+              "label": "En la misma casilla (HEX)"
+            },
+            {
+              "value": "adjacent",
+              "label": "En una casilla adyacente (ADYAC)"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.3 Búsqueda por Diferencia de Firma, Paso 6",
+              "pages": "218"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [],
+      "restrictions": [
+        {
+          "id": "high_speed_no_routine",
+          "text": "Las formaciones de superficie en estado de \"Alta Velocidad\" NO PUEDEN realizar Búsquedas de Rutina.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.3 Búsqueda por Diferencia de Firma, Paso 1",
+              "pages": "216"
+            }
+          ]
+        },
+        {
+          "id": "adjacent_needs_deep_water",
+          "text": "El alcance es de 1 hex solo en Aguas Profundas; en Aguas Semi-Profundas, Poco Profundas y Muy Poco Profundas es 0 (solo la casilla propia). Con buscador y objetivo ambos en aguas profundas se pueden detectar objetivos en casillas adyacentes.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.14.2 Profundidad del Océano / 9.15.1",
+              "pages": "214-215"
+            }
+          ]
+        },
+        {
+          "id": "closed_frame_own_hex",
+          "text": "Si el marco del Valor ASW es cerrado (p.ej. cuadrado sólido), la unidad solo puede buscar en su propia casilla y no puede realizar Búsqueda Aérea ASW.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.15.1 Búsqueda por Diferencia de Firma y su Alcance",
+              "pages": "215"
+            }
+          ]
+        }
+      ],
+      "unitSelection": {
+        "text": "Si la flota busca en respuesta a un ataque, solo 3 unidades de superficie pueden realizar la búsqueda: se tira 1d10 tres veces; la unidad más a la izquierda de la formación es la 0 y se cuenta de izquierda a derecha, volviendo a empezar desde la izquierda si hay menos unidades que el resultado. Si varias tiradas eligen la misma unidad, solo se usa esa unidad. Cada unidad busca individualmente.",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "9.15.3 Búsqueda por Diferencia de Firma, Paso 1",
+            "pages": "216-217"
+          }
+        ]
+      },
+      "resolutionRule": {
+        "text": "Se tira 1d10. Si el resultado cae dentro del rango de descubrimiento (Paso 4), la búsqueda tiene éxito: la unidad submarina objetivo queda Expuesta o falla su intento de Evasión. Si no está dentro del rango, o es \"-\", la búsqueda falla automáticamente.",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "9.15.3 Búsqueda por Diferencia de Firma, Paso 7",
+            "pages": "218"
+          }
+        ]
+      },
+      "steps": [
+        "Paso 2: Valor de Firma (SIG) del objetivo, +1 si está En Movimiento.",
+        "Paso 3: si busca un submarino, la columna se elige por su Valor de Firma; si busca una unidad de superficie, por la forma del marco de su Valor ASW y la profundidad de la casilla del objetivo.",
+        "Paso 4: en esa columna se busca el número que corresponde a la Firma del objetivo y, desde esa fila, se mueve a la derecha hasta el rango de descubrimiento.",
+        "Paso 5: según lo que activó la búsqueda (Rutina/Movimiento/Emboscada o Después del Ataque/Antes de la Evasión), se usa uno u otro grupo de columnas del rango.",
+        "Paso 6: la distancia entre buscador y objetivo elige la columna HEX (misma casilla) o ADYAC (adyacente).",
+        "Paso 7: 1d10 dentro del rango = éxito."
+      ],
+      "tableReference": "Página 33: Búsqueda por Diferencia de Firma y Rango de Detección."
+    }
+  ],
+  "flowCuts": [],
+  "diceRules": [],
+  "rollDependentRules": [],
+  "finalTableReference": "Páginas 33-34: tablas de búsqueda por diferencia de firma y búsqueda aérea."
+}

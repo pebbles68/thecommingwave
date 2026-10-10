@@ -1,0 +1,91 @@
+{
+  "id": "attack-workflows-index",
+  "description": "Indice de los 13 workflows de resolucion de ataque/combate, convertidos de XML (data/sources/tcw_attack_workflows/) a JSON con grafo de dependencias explicito: showIf (preguntas condicionadas por una respuesta previa, derivado del texto de <prompt> cuando lo indica explicitamente), parallelGroups (preguntas de la misma etapa sin dependencia entre si), flowCuts (efectos que detienen la resolucion antes de llegar a la tabla, ej. combat_not_allowed/cannot_fire/cannot_execute), diceRules (mecanica de dados explicita en <effect type=\"dice\"> o derivada literalmente de <specialRules>/<formula>) y rollDependentRules (efectos que dependen del resultado de la tirada final, ej. un 9 natural cancela los modificadores de intensidad).",
+  "sourceRefs": [
+    {
+      "sourceId": "tablas-combate",
+      "document": "Tablas-de-combate 5.pdf",
+      "description": "34 paginas de tablas de combate, ya estructuradas como XML en data/sources/tcw_attack_workflows/"
+    }
+  ],
+  "files": [
+    {
+      "id": "ground_close_combat",
+      "file": "01_combate_cercano_terrestre.json",
+      "title": "Combate cercano terrestre",
+      "category": "terrestre"
+    },
+    {
+      "id": "ground_guided",
+      "file": "02_ataque_terrestre_guiado.json",
+      "title": "Ataque terrestre guiado",
+      "category": "terrestre"
+    },
+    {
+      "id": "ground_unguided",
+      "file": "03_ataque_terrestre_no_guiado.json",
+      "title": "Ataque terrestre no guiado",
+      "category": "terrestre"
+    },
+    {
+      "id": "anti_radiation",
+      "file": "04_ataque_antirradiacion.json",
+      "title": "Ataque antirradiación (ARM)",
+      "category": "terrestre"
+    },
+    {
+      "id": "air_combat",
+      "file": "05_combate_aereo.json",
+      "title": "Combate aéreo: interceptación, BVR y WVR",
+      "category": "aereo"
+    },
+    {
+      "id": "area_air_defense",
+      "file": "06_defensa_aerea_area.json",
+      "title": "Defensa aérea de área contra aeronaves",
+      "category": "aereo"
+    },
+    {
+      "id": "antiship_guided",
+      "file": "07_ataque_antibuque_guiado.json",
+      "title": "Ataque antibuque guiado",
+      "category": "superficie"
+    },
+    {
+      "id": "antiship_unguided",
+      "file": "08_ataque_antibuque_no_guiado.json",
+      "title": "Ataque antibuque no guiado",
+      "category": "superficie"
+    },
+    {
+      "id": "torpedo_vs_surface",
+      "file": "09_ataque_torpedos_superficie.json",
+      "title": "Ataque con torpedos a buques de superficie",
+      "category": "asw"
+    },
+    {
+      "id": "asw_surface_air",
+      "file": "10_ataque_asw_superficie_aereo.json",
+      "title": "Ataque ASW por unidades de superficie y aéreas",
+      "category": "asw"
+    },
+    {
+      "id": "asw_submarine",
+      "file": "11_ataque_asw_submarino.json",
+      "title": "Ataque ASW por unidades submarinas",
+      "category": "asw"
+    },
+    {
+      "id": "strategic_actions",
+      "file": "12_acciones_estrategicas.json",
+      "title": "Acciones estratégicas de ataque",
+      "category": "estrategico"
+    },
+    {
+      "id": "asw_search_support",
+      "file": "13_busqueda_asw_apoyo.json",
+      "title": "Búsqueda ASW (flujo de apoyo)",
+      "category": "asw"
+    }
+  ]
+}

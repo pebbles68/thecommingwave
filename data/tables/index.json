@@ -1,0 +1,424 @@
+{
+  "id": "combat-tables-index",
+  "description": "Indice de las 34 paginas de Tablas-de-combate 5.pdf transcritas a JSON (roadmap Fase 0/5). Cada archivo corresponde a una pagina y puede contener varias sub-tablas (tables[]) y/o notas de referencia cualitativas (referenceNotes[]). Cuando una tabla es identica a otra ya transcrita en una pagina anterior, el archivo usa reusesTable en vez de duplicar los datos.",
+  "sourceRefs": [
+    {
+      "document": "Tablas-de-combate 5.pdf",
+      "pages": "1-34"
+    }
+  ],
+  "pages": [
+    {
+      "page": 2,
+      "file": "page-02.json",
+      "title": "Combate Cercano - Terrestre",
+      "workflowRefs": [
+        "ground_close_combat"
+      ],
+      "tableIds": [
+        "ground-close-combat-result",
+        "ground-close-combat-electronic-warfare",
+        "ground-close-combat-casualties"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 3,
+      "file": "page-03.json",
+      "title": "Ataque Terrestre Guiado",
+      "workflowRefs": [
+        "ground_guided"
+      ],
+      "tableIds": [
+        "ground-guided-area-air-defense"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 4,
+      "file": "page-04.json",
+      "title": "Ataque Terrestre Guiado — Interceptación de Munición",
+      "workflowRefs": [
+        "ground_guided"
+      ],
+      "tableIds": [
+        "munition-interception-standard"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 5,
+      "file": "page-05.json",
+      "title": "Ataque Terrestre Guiado — Modificación de Intensidad y Ataque de Precisión",
+      "workflowRefs": [
+        "ground_guided"
+      ],
+      "tableIds": [
+        "ground-precision-attack-damage"
+      ],
+      "needsReview": false,
+      "transcriptionStatus": "verified",
+      "ruleStatus": "resolved",
+      "blockingIssues": []
+    },
+    {
+      "page": 6,
+      "file": "page-06.json",
+      "title": "Ataque Terrestre Guiado — Aplicación de Efectos y Contraataque a Baja Altura",
+      "workflowRefs": [
+        "ground_guided"
+      ],
+      "tableIds": [
+        "low-altitude-counterattack"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 7,
+      "file": "page-07.json",
+      "title": "Ataque Terrestre No Guiado — Intercepción Final",
+      "workflowRefs": [
+        "ground_unguided"
+      ],
+      "tableIds": [
+        "ground-unguided-final-interception"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 8,
+      "file": "page-08.json",
+      "title": "Ataque Terrestre No Guiado — Interceptación de Munición y Modificación de Intensidad",
+      "workflowRefs": [
+        "ground_unguided"
+      ],
+      "tableIds": [
+        "munition-interception-unguided"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 9,
+      "file": "page-09.json",
+      "title": "Ataque No Guiado contra Objetivos Terrestres",
+      "workflowRefs": [
+        "ground_unguided"
+      ],
+      "tableIds": [
+        "ground-unguided-attack-damage"
+      ],
+      "needsReview": false,
+      "transcriptionStatus": "verified",
+      "ruleStatus": "resolved",
+      "blockingIssues": []
+    },
+    {
+      "page": 10,
+      "file": "page-10.json",
+      "title": "Ataque No Guiado — Contraataque a Baja Altura",
+      "workflowRefs": [
+        "ground_unguided"
+      ],
+      "tableIds": [],
+      "reusesTableId": "low-altitude-counterattack",
+      "needsReview": false
+    },
+    {
+      "page": 11,
+      "file": "page-11.json",
+      "title": "Ataque Antirradiación — Defensa Aérea de Área",
+      "workflowRefs": [
+        "anti_radiation"
+      ],
+      "tableIds": [],
+      "reusesTableId": "ground-guided-area-air-defense",
+      "needsReview": false
+    },
+    {
+      "page": 12,
+      "file": "page-12.json",
+      "title": "Ataque Antirradiación — Interceptación de Munición",
+      "workflowRefs": [
+        "anti_radiation"
+      ],
+      "tableIds": [],
+      "reusesTableId": "munition-interception-standard",
+      "needsReview": false
+    },
+    {
+      "page": 13,
+      "file": "page-13.json",
+      "title": "Ataque Antirradiación — Modificador y Objetivo del Ataque",
+      "workflowRefs": [
+        "anti_radiation"
+      ],
+      "tableIds": [
+        "anti-radiation-target-damage"
+      ],
+      "needsReview": false,
+      "transcriptionStatus": "verified",
+      "ruleStatus": "resolved",
+      "blockingIssues": []
+    },
+    {
+      "page": 14,
+      "file": "page-14.json",
+      "title": "Ataque Antirradiación — Contraataque a Baja Altura",
+      "workflowRefs": [
+        "anti_radiation"
+      ],
+      "tableIds": [
+        "anti-radiation-low-altitude-counterattack"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 15,
+      "file": "page-15.json",
+      "title": "Combate Aéreo - Interceptación (Penetración / BVR)",
+      "workflowRefs": [
+        "air_combat"
+      ],
+      "tableIds": [
+        "air-combat-initiative-drm",
+        "air-combat-bvr-outcome"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 16,
+      "file": "page-16.json",
+      "title": "Combate Aéreo — Combate BVR",
+      "workflowRefs": [
+        "air_combat"
+      ],
+      "tableIds": [
+        "air-combat-bvr-damage"
+      ],
+      "needsReview": false,
+      "transcriptionStatus": "verified",
+      "ruleStatus": "resolved",
+      "blockingIssues": []
+    },
+    {
+      "page": 17,
+      "file": "page-17.json",
+      "title": "Combate Aéreo — Combate Aéreo Cercano (WVR)",
+      "workflowRefs": [
+        "air_combat"
+      ],
+      "tableIds": [
+        "air-combat-wvr-damage"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 18,
+      "file": "page-18.json",
+      "title": "Combate Aéreo - Defensa Aérea de Área",
+      "workflowRefs": [
+        "area_air_defense"
+      ],
+      "tableIds": [
+        "area-air-defense-concentrated-damage"
+      ],
+      "needsReview": false,
+      "transcriptionStatus": "verified",
+      "ruleStatus": "resolved",
+      "blockingIssues": []
+    },
+    {
+      "page": 19,
+      "file": "page-19.json",
+      "title": "Ataque Antibuque Guiado — Defensa Aérea de Área",
+      "workflowRefs": [
+        "antiship_guided"
+      ],
+      "tableIds": [],
+      "reusesTableId": "ground-guided-area-air-defense",
+      "needsReview": false
+    },
+    {
+      "page": 20,
+      "file": "page-20.json",
+      "title": "Ataque Antibuque Guiado — Interceptación de Munición",
+      "workflowRefs": [
+        "antiship_guided"
+      ],
+      "tableIds": [],
+      "reusesTableId": "munition-interception-standard",
+      "needsReview": false
+    },
+    {
+      "page": 21,
+      "file": "page-21.json",
+      "title": "Ataque Antibuque Guiado — Resistencia Electrónica de Buques y Método de Ataque",
+      "workflowRefs": [
+        "antiship_guided"
+      ],
+      "tableIds": [
+        "antiship-guided-vef-modifier",
+        "antiship-guided-attack-multiplier"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 22,
+      "file": "page-22.json",
+      "title": "Ataque Antibuque Guiado — Ataque Guiado contra Buques de Superficie (tabla final) y Contraataque a Baja Altura",
+      "workflowRefs": [
+        "antiship_guided"
+      ],
+      "tableIds": [
+        "antiship-guided-final-damage",
+        "surface-artillery-low-altitude-counterattack"
+      ],
+      "needsReview": true,
+      "transcriptionStatus": "verified",
+      "ruleStatus": "needs_review",
+      "blockingIssues": ["Daño balístico/espacio cercano con escudo en la Protección: el dato de escudo de los buques no está modelado, por lo que ese daño no se calcula (antiship-guided-result.js, roadmap Fase 7)."]
+    },
+    {
+      "page": 23,
+      "file": "page-23.json",
+      "title": "Ataque Antibuque No Guiado — Intercepción Final",
+      "workflowRefs": [
+        "antiship_unguided"
+      ],
+      "tableIds": [],
+      "reusesTableId": "ground-unguided-final-interception",
+      "needsReview": false
+    },
+    {
+      "page": 24,
+      "file": "page-24.json",
+      "title": "Ataque Antibuque No Guiado — Interceptación de Munición y Modificación de Intensidad",
+      "workflowRefs": [
+        "antiship_unguided"
+      ],
+      "tableIds": [],
+      "reusesTableId": "munition-interception-unguided",
+      "needsReview": false
+    },
+    {
+      "page": 25,
+      "file": "page-25.json",
+      "title": "Ataque Antibuque No Guiado — Daño y Combate Naval Cercano con Artillería",
+      "workflowRefs": [
+        "antiship_unguided"
+      ],
+      "tableIds": [
+        "antiship-unguided-damage-and-naval-artillery"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 26,
+      "file": "page-26.json",
+      "title": "Ataque Antibuque No Guiado — Contraataque a Baja Altura",
+      "workflowRefs": [
+        "antiship_unguided"
+      ],
+      "tableIds": [],
+      "reusesTableId": "surface-artillery-low-altitude-counterattack",
+      "needsReview": false
+    },
+    {
+      "page": 27,
+      "file": "page-27.json",
+      "title": "Ataque con Torpedos a Buques de Superficie",
+      "workflowRefs": [
+        "torpedo_vs_surface"
+      ],
+      "tableIds": [
+        "torpedo-vs-surface-damage"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 28,
+      "file": "page-28.json",
+      "title": "Búsqueda Antisubmarina (ASW)",
+      "workflowRefs": [
+        "asw_search_support"
+      ],
+      "tableIds": [],
+      "needsReview": false
+    },
+    {
+      "page": 29,
+      "file": "page-29.json",
+      "title": "Ataque a Unidades Submarinas (ASW) — por Unidades de Superficie y Aéreas",
+      "workflowRefs": [
+        "asw_surface_air"
+      ],
+      "tableIds": [
+        "asw-surface-air-attack-damage"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 30,
+      "file": "page-30.json",
+      "title": "Ataque Antisubmarino por Unidades Submarinas",
+      "workflowRefs": [
+        "asw_submarine"
+      ],
+      "tableIds": [
+        "asw-submarine-vs-submarine-damage"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 31,
+      "file": "page-31.json",
+      "title": "Acciones Estratégicas — Guerra en el Ciberespacio y Destrucción Espacial",
+      "workflowRefs": [
+        "strategic_actions"
+      ],
+      "tableIds": [],
+      "needsReview": false
+    },
+    {
+      "page": 32,
+      "file": "page-32.json",
+      "title": "Acciones Estratégicas (tabla final) y Reabastecimiento Logístico del Ejército",
+      "workflowRefs": [
+        "strategic_actions"
+      ],
+      "tableIds": [
+        "strategic-actions-outcome",
+        "army-logistics-resupply"
+      ],
+      "needsReview": false
+    },
+    {
+      "page": 33,
+      "file": "page-33.json",
+      "title": "Búsqueda por Diferencia de Firma y Rango de Detección",
+      "workflowRefs": [
+        "asw_search_support"
+      ],
+      "tableIds": [
+        "asw-signature-difference-search"
+      ],
+      "needsReview": true,
+      "transcriptionStatus": "verified",
+      "ruleStatus": "needs_review",
+      "blockingIssues": ["Si cada icono de la tabla representa a la vez el marco cerrado y el abierto de su forma.","Redacción discrepante entre §9.15.3 (Tipo de Firma del objetivo) y §9.15.1 (marco del buscador).","Modificadores de Firma de la página 28 sin equivalente en §9.15.3/§9.15.4."]
+    },
+    {
+      "page": 34,
+      "file": "page-34.json",
+      "title": "Búsqueda Aérea Antisubmarina",
+      "workflowRefs": [
+        "asw_search_support"
+      ],
+      "tableIds": [
+        "asw-air-search-routine",
+        "asw-air-search-post-attack"
+      ],
+      "needsReview": false
+    }
+  ]
+}

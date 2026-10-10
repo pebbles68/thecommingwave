@@ -1,0 +1,45 @@
+{
+  "page": 7,
+  "title": "Ataque Terrestre No Guiado — Intercepción Final",
+  "workflowRefs": ["ground_unguided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 7 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "1) Intercepción final: puede disparar a la unidad atacante cuando tiene el icono de intercepción final",
+      "rows": [
+        { "condition": "En un mismo ataque", "effect": "No importa cuántas unidades ataquen, solo se realiza una intercepción final." },
+        { "condition": "En un mismo ataque", "effect": "La unidad atacante utiliza su valor de ataque después de haber completado esta intercepción final." },
+        { "condition": "Regla para unidades terrestres", "effect": "Cuando realizan una intercepción final, no consumen munición de defensa aérea." }
+      ]
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "ground-unguided-final-interception",
+      "title": "Intercepción Final — impactos según Capacidad AA y Valor de Defensa Aérea",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Defensa Aérea (total de las unidades de ese consumo — Bajo o Alto, resueltos por separado y sumados, ver notes)",
+        "values": ["1", "2~3", "4~5", "6~7", "8~9", "10~11", "12~13", "14~15", "16~17", "18+"]
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", ".", ".", "1", "1", "1", "2", "2", "3"],
+        [".", ".", ".", "1", "1", "1", "2", "3", "3", "3"],
+        [".", ".", ".", "1", "1", "2", "2", "3", "4", "4"],
+        [".", ".", "1", "2", "2", "2", "3", "3", "4", "4"],
+        [".", ".", "1", "2", "2", "3", "3", "4", "4", "4"],
+        [".", ".", "1", "2", "2", "3", "3", "4", "5", "5"],
+        [".", "1", "1", "2", "3", "3", "3", "4", "5", "5"],
+        [".", "1", "2", "2", "3", "3", "4", "5", "5", "6"],
+        ["1", "1", "2", "2", "3", "4", "4", "5", "6", "6"],
+        ["1", "1", "2", "3", "3", "4", "5", "6", "7", "7"]
+      ],
+      "notes": ["Esta tabla comparte el mismo patrón estructural (roll 0-9 x Defensa Aérea) visto en las páginas 3 y 4, pero a diferencia de esas, aquí es una única cuadrícula usada hasta dos veces, no dos esquemas superpuestos ni dos filas de datos — confirmado el 2026-09-27 (needsReview anterior resuelto) contra Decision Book §6.4.1-§6.4.2 ('si esta intercepción final involucra simultáneamente disparos de bajo y alto consumo, el lado defensor aplica el resultado del lanzamiento de dados a AMBOS modos de disparo y suma los puntos de impacto') y contra la propia nota ya transcrita en data/tables/page-23.json ('Impactos Finales = Impactos de Alto Consumo + Bajo Consumo'): se resuelve la MISMA tirada contra la columna del total de A.A. de consumo Bajo y, por separado, contra la columna del total de A.A. de consumo Alto (si existe), sumando ambos resultados. Localizado con pdftotext -layout, mismo método que los ítems 53-56/65."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 7, "section": "1) Intercepción final", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

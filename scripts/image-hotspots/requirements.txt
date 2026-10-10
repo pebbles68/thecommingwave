@@ -1,0 +1,8 @@
+# Solo para las herramientas de desarrollo de scripts/image-hotspots (no es dependencia de la aplicación).
+# Ejecución reproducible sin instalar nada global:
+#   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/calibrate_counters.py
+#   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/calibrate_boards.py
+#   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/calibrate_ammo_plans.py
+#   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/export_pending_summaries.py
+opencv-python-headless==5.0.0.93
+numpy==2.5.3

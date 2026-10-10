@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="air_combat" title="Combate aéreo: interceptación, BVR y WVR" category="aereo" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>15-17</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Preguntas secuenciales para iniciativa, modificador electrónico, condición de misión y rondas WVR.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <workflow>
+    
+    
+    <stage id="initiative" order="1" title="Penetración / Interceptación BVR">
+      
+      
+      <questions>
+        
+        
+        <question id="initiative_a" type="number" appliesTo="initiative_difference">
+          
+          
+          <prompt>Valor de Iniciativa del primer bando.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="initiative_b" type="number" appliesTo="initiative_difference">
+          
+          
+          <prompt>Valor de Iniciativa del segundo bando.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="awacs_detects_target" type="boolean" appliesTo="initiative">
+          
+          
+          <prompt>¿Un AWACS propio detecta al objetivo?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="modifier" target="initiative" value="1"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No">
+              
+              
+              <effect type="modifier" target="initiative" value="0"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <formula>Diferencia de Iniciativa = iniciativa mayor - iniciativa menor; aplicar el DRM de la tabla según la diferencia.</formula>
+      
+      
+      <tableReference>Página 15: Penetración / Combate BVR.</tableReference>
+      
+    
+    </stage>
+    
+    
+    <stage id="bvr" order="2" title="Combate BVR">
+      
+      
+      <questions>
+        
+        
+        <question id="electronic_high" type="number" appliesTo="bvr_roll">
+          
+          
+          <prompt>Valor Electrónico más alto.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="electronic_low" type="number" appliesTo="bvr_roll">
+          
+          
+          <prompt>Valor Electrónico más bajo.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="mission_condition" type="select" appliesTo="bvr_table">
+          
+          
+          <prompt>Condición del atacante.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="intercept_awacs" label="Intercepción/DdE + AWACS"/>
+            
+            
+            <option value="intercept" label="Intercepción/DdE"/>
+            
+            
+            <option value="cap_awacs" label="CAP + AWACS"/>
+            
+            
+            <option value="cap" label="CAP"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="air_combat_value" type="number" appliesTo="bvr_table">
+          
+          
+          <prompt>Valor de Combate Aéreo.</prompt>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <formula>Modificador electrónico = valor electrónico mayor - menor; el bando con el valor mayor suma ese modificador a la tirada.</formula>
+      
+      
+      <tableReference>Página 16: Combate BVR.</tableReference>
+      
+    
+    </stage>
+    
+    
+    <stage id="wvr" order="3" title="Combate cercano WVR">
+      
+      
+      <questions>
+        
+        
+        <question id="network_patrol_join" type="boolean" appliesTo="wvr_force">
+          
+          
+          <prompt>¿Puede un grupo de Patrulla en Red unirse al combate (mismo nodo y dentro de 4 hex)?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="wvr_force" value="add_one_network_patrol"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="previous_rounds_without_losses" type="number" appliesTo="wvr_roll">
+          
+          
+          <prompt>Número de rondas WVR anteriores consecutivas sin pérdidas.</prompt>
+          
+          
+          <note>Cada ronda previa sin pérdidas añade +1 acumulativo a la siguiente.</note>
+          
+        
+        </question>
+        
+        
+        <question id="condition" type="select" appliesTo="wvr_table">
+          
+          
+          <prompt>Condición del grupo.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="intercept" label="Intercepción / DdE"/>
+            
+            
+            <option value="cap" label="CAP"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="air_combat_value" type="number" appliesTo="wvr_table">
+          
+          
+          <prompt>Valor total de Combate Aéreo para WVR.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="electronic_escort" type="boolean" appliesTo="damage_application">
+          
+          
+          <prompt>¿Hay escolta electrónica con capacidad de absorber impactos prioritariamente?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="damage_application" value="ew_escort_absorbs_first"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <tableReference>Página 17: Combate aéreo cercano WVR.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Páginas 15-17: tablas de Interceptación, BVR y WVR.</finalTableReference>
+  
+
+</attackWorkflow>

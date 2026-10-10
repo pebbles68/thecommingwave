@@ -1,0 +1,95 @@
+{
+  "country": "KR",
+  "countryName": "Corea del Sur",
+  "status": "complete",
+  "transcribedSheets": ["KO (seccion Cazas tacticos)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/attack-plans/us.json, con una variante nueva: F-5E, FA-50 y KF-16C muestran '-/X' en vez de 'X/Y' para varias municiones -- el guion en la posicion de carga pesada significa que esa aeronave NO puede portar la variante pesada de esa municion, no que el valor sea 0. Se transcribe como heavy:null para distinguirlo de heavy:0.",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0.",
+    "dual": "Dos valores separados por barra + superindice opcional: heavy/light + range. Un guion ('-') en la posicion de heavy significa que esa carga no existe para esa unidad; se transcribe como heavy: null."
+  },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/KO.pdf", "page": 1, "sheetTitle": "Cazas tacticos",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer. El tab de la pagina dice 'KR', aunque el archivo se llama KO.pdf." }
+  ],
+
+  "units": [
+    {
+      "id": "kr-f-35a", "name": "F-35A", "nameLocal": "闪电II", "class": "tactical-fighter", "sourceSheet": "KO",
+      "plans": {
+        "antiShip": { "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } } },
+        "landAttack": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "SDB", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual", "full": { "heavy": 8, "light": 12, "range": 2 }, "damaged": { "heavy": 4, "light": 6, "range": 2 } }
+        }
+      }
+    },
+    {
+      "id": "kr-f-5e", "name": "F-5E", "nameLocal": "虎", "class": "tactical-fighter", "sourceSheet": "KO",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": null, "light": 4, "range": 0 }, "damaged": { "heavy": null, "light": 2, "range": 0 } },
+          "B": { "munition": "KGGB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": null, "light": 6, "range": 1 }, "damaged": { "heavy": null, "light": 3, "range": 1 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": null, "light": 4, "range": 0 }, "damaged": { "heavy": null, "light": 2, "range": 0 } },
+          "B": { "munition": "KGGB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": null, "light": 6, "range": 1 }, "damaged": { "heavy": null, "light": 3, "range": 1 } }
+        }
+      }
+    },
+    {
+      "id": "kr-fa-50", "name": "FA-50", "nameLocal": "金鹰", "class": "tactical-fighter", "sourceSheet": "KO",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": null, "light": 8, "range": 0 }, "damaged": { "heavy": null, "light": 3, "range": 0 } },
+          "B": { "munition": "GBU", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": null, "light": 10, "range": 0 }, "damaged": { "heavy": null, "light": 5, "range": 0 } },
+          "C": { "munition": "KGGB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": null, "light": 6, "range": 1 }, "damaged": { "heavy": null, "light": 3, "range": 1 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": null, "light": 8, "range": 0 }, "damaged": { "heavy": null, "light": 3, "range": 0 } },
+          "B": { "munition": "GBU", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": null, "light": 10, "range": 0 }, "damaged": { "heavy": null, "light": 5, "range": 0 } },
+          "C": { "munition": "KGGB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": null, "light": 6, "range": 1 }, "damaged": { "heavy": null, "light": 3, "range": 1 } },
+          "D": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual", "full": { "heavy": null, "light": 6, "range": 0 }, "damaged": { "heavy": null, "light": 3, "range": 0 } }
+        }
+      }
+    },
+    {
+      "id": "kr-kf-16c", "name": "KF-16C", "nameLocal": "战隼", "class": "tactical-fighter", "sourceSheet": "KO",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 4, "light": 12, "range": 0 }, "damaged": { "heavy": 2, "light": 6, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 1 }, "damaged": { "heavy": 1, "light": 3, "range": 1 } },
+          "C": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 3 }, "damaged": { "heavy": 1, "light": 3, "range": 3 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 4, "light": 12, "range": 0 }, "damaged": { "heavy": 2, "light": 6, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 1 }, "damaged": { "heavy": 1, "light": 3, "range": 1 } },
+          "C": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 1, "light": 4, "range": 0 } },
+          "D": { "munition": "HARM", "icons": ["attack_high_penetration", "attack_anti_radiation"], "loadFormat": "dual", "full": { "heavy": 2, "light": 3, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } }
+        }
+      }
+    },
+    {
+      "id": "kr-f-15k", "name": "F-15K", "nameLocal": "猛鹰", "class": "tactical-fighter", "sourceSheet": "KO",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 16, "range": 0 }, "damaged": { "heavy": 4, "light": 8, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } },
+          "C": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 4 }, "damaged": { "heavy": 2, "light": 4, "range": 4 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 16, "range": 0 }, "damaged": { "heavy": 4, "light": 8, "range": 0 } },
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } },
+          "C": { "munition": "AGM-130A", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 1 }, "damaged": { "heavy": 1, "light": 2, "range": 1 } },
+          "D": { "munition": "Maverick", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "E": { "munition": "HARM", "icons": ["attack_high_penetration", "attack_anti_radiation"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 2 }, "damaged": { "heavy": 2, "light": 3, "range": 2 } },
+          "F": { "munition": "KEPD 350K", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "dual", "cruiseMissile": "LF-CM", "full": { "heavy": 2, "light": 4, "range": 7 }, "damaged": { "heavy": 1, "light": 2, "range": 7 } }
+        }
+      }
+    }
+  ]
+}

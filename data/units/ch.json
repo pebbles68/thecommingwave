@@ -1,0 +1,36 @@
+{
+  "country": "CH",
+  "countryName": "China",
+  "status": "complete",
+  "transcribedSheets": ["CH 4"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/units/us.json. La artilleria, misiles de crucero costeros, balisticos e hipersonicos de esta hoja se transcribieron en data/ammunition/special-unit-plans/ch.json (llevan municion por letra) en vez de aqui.",
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/CH 4.pdf", "page": 1, "sheetTitle": "Unidades terrestres: formaciones y sistemas de apoyo",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer." }
+  ],
+
+  "groundFormations": [
+    { "id": "ch-ztz-99a", "name": "ZTZ-99A", "nameLocal": "重型旅", "nameEn": "Heavy Brigade", "attack": 72, "defense": 12 },
+    { "id": "ch-ztq-15", "name": "ZTQ-15", "nameLocal": "山地重型旅", "nameEn": "Mountain Heavy Brigade", "attack": 72, "defense": 12 },
+    { "id": "ch-ztq-09", "name": "ZTQ-09", "nameLocal": "中型旅", "nameEn": "Medium Brigade", "attack": 48, "defense": 8 },
+    { "id": "ch-csk-181", "name": "CSK-181", "nameLocal": "轻型旅", "nameEn": "Light Brigade", "attack": 20, "defense": 4 },
+    { "id": "ch-ztz-96b", "name": "ZTZ-96B", "nameLocal": "两栖重型部队", "nameEn": "Amphibious Heavy Force", "attack": 24, "defense": 12 },
+    { "id": "ch-ztd-05", "name": "ZTD-05", "nameLocal": "陆战部队", "nameEn": "Marine Force", "attack": 20, "defense": 10 },
+    { "id": "ch-zbd-03", "name": "ZBD-03", "nameLocal": "空降部队", "nameEn": "Airborne Force", "attack": 20, "defense": 10 },
+    { "id": "ch-infantry", "name": "INFANTRY", "nameLocal": "机降步兵", "nameEn": "Air-assault Infantry", "attack": 4, "defense": 2 }
+  ],
+
+  "supportSystems": [
+    { "id": "ch-hq-16f", "name": "HQ-16F", "nameLocal": "防空导弹", "systemType": "SAM", "value": 6, "valueMeaning": "electronic" },
+    { "id": "ch-hq-9a", "name": "HQ-9A", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "ch-hq-9b", "name": "HQ-9B", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "ch-s-300pmu2", "name": "S-300PMU2", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "ch-s-400e", "name": "S-400E", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "ch-slc-7", "name": "SLC-7", "nameLocal": "预警雷达", "systemType": "EWR", "value": 4, "valueMeaning": "electronic" },
+    { "id": "ch-ylc-8e", "name": "YLC-8E", "nameLocal": "预警雷达", "systemType": "EWR", "value": 4, "valueMeaning": "electronic" },
+    { "id": "ch-hlsc", "name": "HLSC", "nameLocal": "场站", "systemType": "HELIPORT", "value": 3, "valueMeaning": "electronic" }
+  ]
+}

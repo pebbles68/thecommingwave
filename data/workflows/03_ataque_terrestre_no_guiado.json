@@ -1,0 +1,458 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/03_ataque_terrestre_no_guiado.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "ground_unguided",
+  "title": "Ataque terrestre no guiado",
+  "category": "terrestre",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "7-10"
+  },
+  "summary": "Flujo de preguntas para intercepción final, interceptación de munición y modificadores de un ataque terrestre no guiado.",
+  "representativeIcon": "munition_unguided",
+  "stages": [
+    {
+      "id": "final_interception",
+      "order": 1,
+      "title": "Intercepción final",
+      "questions": [
+        {
+          "id": "aa_value",
+          "type": "number",
+          "appliesTo": "final_interception",
+          "prompt": "Valor de Defensa Aérea agrupado aplicable."
+        },
+        {
+          "id": "ammo_consumption",
+          "type": "select",
+          "appliesTo": "final_interception",
+          "prompt": "Tipo de consumo de munición AA.",
+          "options": [
+            {
+              "value": "low",
+              "label": "Bajo"
+            },
+            {
+              "value": "high",
+              "label": "Alto"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "aa_value",
+          "ammo_consumption"
+        ]
+      ],
+      "specialRules": "Solo se realiza una intercepción final por ataque. Las unidades terrestres no consumen munición AA al realizarla.",
+      "tableReference": "Página 7: Intercepción final."
+    },
+    {
+      "id": "munition_interception",
+      "order": 2,
+      "title": "Interceptación de munición",
+      "questions": [
+        {
+          "id": "same_hex_or_central_zone",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿Objetivo y atacante están en el mismo hex o Zona Central?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "no_interception",
+                  "cutsStage": true
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "interception_performance",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "Rendimiento del sistema que intercepta.",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "medium",
+              "label": "Medio",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "low",
+              "label": "Bajo",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "detection_state",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "¿Qué ha detectado el defensor?",
+          "options": [
+            {
+              "value": "attacker",
+              "label": "Atacante detectado",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "designator_only",
+              "label": "No atacante, sí guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "neither",
+              "label": "Ni atacante ni guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "short_range_restriction",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿La distancia de ataque es 1 (o 2 en Misión de Área)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "only_same_hex_defenders"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "unguided_icon_type",
+          "type": "boolean",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "¿El plan de ataque está marcado como Munición Ligera (icono 'L')?",
+          "note": "Confirmado el 2026-09-27 contra Decision Book §6.5.3.D ('Ataque con Munición Ligera'): un plan de ataque no guiado marcado como 'Ligero (L)' recibe -3 a la tirada de interceptación. Corrección respecto a la transcripción original de Fase 0 (prompt/iconRefs apuntaban al icono genérico 'munición no guiada', que habría sido una condición tautológica en un workflow ya exclusivamente no guiado); el icono real es el de 'munición ligera' (munition_light).",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -3
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "iconRefs": [
+            {
+              "ref": "munition_light",
+              "role": "representative"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "same_hex_or_central_zone"
+        ],
+        [
+          "interception_performance",
+          "detection_state",
+          "short_range_restriction",
+          "unguided_icon_type"
+        ]
+      ],
+      "tableReference": "Página 8: Interceptación de Munición."
+    },
+    {
+      "id": "attack_intensity",
+      "order": 3,
+      "title": "Modificación de intensidad",
+      "questions": [
+        {
+          "id": "target_mobile",
+          "type": "boolean",
+          "appliesTo": "attack_intensity",
+          "prompt": "¿El objetivo es una unidad móvil?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "distance",
+          "type": "select",
+          "appliesTo": "attack_intensity",
+          "prompt": "Si es unidad móvil: distancia de ataque / equivalente de Misión de Área.",
+          "showIf": {
+            "questionId": "target_mobile",
+            "equals": "yes"
+          },
+          "options": [
+            {
+              "value": "0",
+              "label": "0 / Área ≤1",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -2
+                }
+              ]
+            },
+            {
+              "value": "1",
+              "label": "1 / Área ≤2",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "value": "2plus",
+              "label": "≥2 / Área ≥3",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "force_size_excess",
+          "type": "number",
+          "appliesTo": "attack_intensity",
+          "prompt": "Bloques completos de 5 puntos de Tamaño de Fuerza que exceden el límite.",
+          "note": "Cada bloque añade +2."
+        },
+        {
+          "id": "guidance_modifier",
+          "type": "number",
+          "appliesTo": "attack_intensity",
+          "prompt": "Introduce el modificador de guiado, si procede.",
+          "note": "La tabla lo deja como +?."
+        }
+      ],
+      "parallelGroups": [
+        [
+          "target_mobile",
+          "force_size_excess",
+          "guidance_modifier"
+        ]
+      ],
+      "formula": "Suma modificadores. Si el total es ≥1, se considera 0. Los negativos desplazan columnas a la izquierda.",
+      "specialRules": "Un resultado natural de 9 en la tirada de resolución cancela las modificaciones de intensidad.",
+      "tableReference": "Página 8: Modificación de la Intensidad de Ataque.",
+      "modifierGroups": {
+        "note": "Qué modificaciones de Fuerza de Ataque se aplican según el objetivo (§5.13.2): contra unidades principales y técnicas (unidades móviles) se aplican distancia, densidad de tropas y corrección de designación; contra instalaciones fijas no hay modificaciones. A diferencia del ataque guiado no hay modificación de alta penetración ni de Valor Electrónico. Las claves son ids de pregunta de esta etapa. Las modificaciones positivas solo compensan negativas: la modificación neta máxima es 0.",
+        "byTarget": {
+          "mobile": [
+            "distance",
+            "force_size_excess",
+            "guidance_modifier"
+          ],
+          "fixed": []
+        },
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "5.13.2 Ataque Terrestre No Guiado: Modificaciones",
+            "pages": "79"
+          },
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "5.13.3-5.13.5 Modificación por Distancia / Densidad de Tropas / Corrección de Designación",
+            "pages": "79-80"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "section": "Grupos de modificadores por tipo de objetivo",
+            "pages": "8"
+          }
+        ]
+      },
+      "distanceRule": {
+        "text": "La distancia de ataque se cuenta siempre desde el hexágono que ocupas. Si la misión es de Área y el destino también tiene área, se puede contar hasta un hexágono adyacente al de la ficha de destino (un hexágono menos). Por eso la tabla de distancias tiene dos columnas: «distancia» y «Misión de Área».",
+        "sourceRefs": [
+          { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.13.3 Modificación por Distancia", "pages": "79" },
+          { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "7.4.5 Misión de Área", "pages": "123" }
+        ],
+        "confirmedBy": "Mantenedor, 2026-10-07"
+      },
+      "forceSize": {
+        "note": "Densidad de tropas (§5.13.4): si la escala total de fuerza restante de las unidades terrestres propias en el hexágono supera los 30 puntos, por cada bloque completo de 5 puntos que lo excede la Fuerza de Ataque aumenta +2; las fracciones menores de 5 se ignoran.",
+        "limit": 30,
+        "blockSize": 5,
+        "perBlock": 2,
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "5.13.4 Modificación por Densidad de Tropas",
+            "pages": "79"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "section": "Modificación de la Intensidad de Ataque",
+            "pages": "8"
+          }
+        ]
+      },
+      "designationNote": "Corrección de designación (§5.13.5): solo la de una unidad designadora por hexágono objetivo surte efecto; por cada ataque la Fuerza de Ataque aumenta en un valor equivalente a la corrección. El valor lo da la unidad designadora (la tabla lo deja como +?)."
+    }
+  ],
+  "flowCuts": [
+    {
+      "stage": "munition_interception",
+      "question": "same_hex_or_central_zone",
+      "optionValue": "yes",
+      "effect": "no_interception",
+      "cutsStage": "munition_interception",
+      "haltsWorkflow": false,
+      "sourceText": "¿Objetivo y atacante están en el mismo hex o Zona Central? Sí -> no_interception."
+    }
+  ],
+  "diceRules": [],
+  "rollDependentRules": [
+    {
+      "stage": "attack_intensity",
+      "condition": "finalRoll == 9",
+      "effect": "cancel_intensity_modifiers",
+      "sourceText": "Un resultado natural de 9 en la tirada de resolución cancela las modificaciones de intensidad."
+    }
+  ],
+  "finalTableReference": "Páginas 9-10: Ataque no guiado contra objetivos terrestres y Contraataque a Baja Altura.",
+  "finalResolution": {
+    "note": "Resolución final del Ataque Terrestre No Guiado (§5.13.6, página 9): misma estructura que la página 5 del ataque guiado. Hay UNA cuadrícula de impactos y lo que cambia según el método es qué fila de etiquetas traduce el Valor de Ataque a columna. Dos tipos de ataque (Ligero [L] o no ligero) por dos tipos de munición (Normal o Persecución, la munición con el icono junto a \"Persecución\") dan 4 combinaciones. La fila de etiquetas \"1~2, 3~4, 5~6…\" es una celda combinada que sirve a \"[L] Persecución\" y a \"Normal\". La fila de la cuadrícula la da la tirada de 1d10 según el objetivo sea Móvil o Fijo. `columnScheme: null` = etiquetas canónicas (`columnAxis.values`) de la tabla.",
+    "table": {
+      "file": "page-09.json",
+      "id": "ground-unguided-attack-damage"
+    },
+    "valueCap": 66,
+    "methodRows": [
+      {
+        "lightPlan": true,
+        "pursuit": false,
+        "label": "[L] Normal (plan Ligero, munición Normal)",
+        "columnScheme": "normal_ataque"
+      },
+      {
+        "lightPlan": true,
+        "pursuit": true,
+        "label": "[L] Persecución (plan Ligero, munición Persecución)",
+        "columnScheme": "persecucion_ataque"
+      },
+      {
+        "lightPlan": false,
+        "pursuit": false,
+        "label": "Normal (plan no ligero, munición Normal)",
+        "columnScheme": "persecucion_ataque"
+      },
+      {
+        "lightPlan": false,
+        "pursuit": true,
+        "label": "Persecución (plan no ligero, munición Persecución)",
+        "columnScheme": null
+      }
+    ],
+    "rollRowScheme": {
+      "mobile": "movil",
+      "fixed": "fijo"
+    },
+    "nineCancelsModifiers": true,
+    "resolutionStatus": "Confirmado por el mantenedor (2026-10-05): la página 9 tiene la misma estructura que la 5 (4 combinaciones Ligero/no ligero × Normal/Persecución). La lectura de la celda combinada de etiquetas se comprobó en la página a 110 DPI; el ejemplo de §5.13.6 (Convencional - Estándar, instalación fija, columna \"26~35\", tirada 6 → 9 impactos) la reproduce.",
+    "sourceRefs": [
+      {
+        "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+        "section": "5.13.6 Resolución de Ataque Terrestre No Guiado",
+        "pages": "80-81"
+      },
+      {
+        "document": "Tablas-de-combate 5.pdf",
+        "section": "4) Ataque no guiado contra objetivos terrestres",
+        "pages": "9"
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "id": "logistics-guarantee",
+  "title": "Garantía logística: Nodos de Suministro, Líneas de Comunicación y consecuencias de perderla (Decision Book §11.0-§11.5)",
+  "note": "Reglas y textos que consume public/js/logistics-guarantee-engine.js y el wizard #/wizard/logistics-guarantee. El motor decide si la unidad tiene garantía logística y por qué no; el texto vive aquí (AGENTS.md §4.1). La geometría del mapa (qué hexágonos recorre la línea, bordes con Restricción de Movimiento) no está modelada: la declara el jugador.",
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.0 Logística, 11.1-11.5", "pages": "234-237" }
+  ],
+  "intro": "Todas las operaciones de combate requieren soporte logístico: las unidades que no puedan obtener garantías logísticas sufrirán impactos negativos en el combate. Se verifica durante la Fase de Logística del Segmento de Tiempo 0 (§11.4); se llama \"con suministros\" al estado en el que se obtiene garantía y \"sin suministros\" al contrario.",
+  "unitTypes": [
+    {
+      "id": "ground_main",
+      "label": "Unidad terrestre principal",
+      "withoutGuarantee": "Solo puede iniciar un \"Combate Pasivo\" y no puede realizar reabastecimiento en el campo. Si al menos una unidad principal participante pierde la garantía logística, el jugador solo puede iniciar un \"Combate Pasivo\".",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.5 Pérdida de la Garantía Logística", "pages": "237" }]
+    },
+    {
+      "id": "ground_technical",
+      "label": "Unidad técnica terrestre",
+      "withoutGuarantee": "No puede obtener reabastecimiento de munición.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.5 Pérdida de la Garantía Logística", "pages": "237" }]
+    },
+    {
+      "id": "airfield",
+      "label": "Aeródromo / Base Aérea",
+      "withoutGuarantee": "No puede reacondicionar unidades; las unidades de vuelo a baja altura no pueden despegar en misión; no puede realizar reparaciones de emergencia (recuperar nivel de pista, valor de reacondicionamiento). Además las unidades aéreas basadas en él no pueden planificar misiones de ataque / ataque dinámico, y las aeronaves especiales tampoco pueden realizar ataques durante misiones especiales (§11.6.1).",
+      "carrierException": "En las reglas básicas, el reacondicionamiento en aeródromos de portaaviones / buques de asalto anfibio no requiere obtener garantía logística (§11.1).",
+      "sourceRefs": [
+        { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.5 Pérdida de la Garantía Logística / 11.6.1", "pages": "237-238" },
+        { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.1 Lógica de operación logística", "pages": "234" }
+      ]
+    },
+    {
+      "id": "port",
+      "label": "Puerto",
+      "withoutGuarantee": "No puede realizar reabastecimiento de munición, ni de combustible, ni reparaciones de emergencia (reducir el efecto de \"Instalaciones Inutilizadas\").",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.5 Pérdida de la Garantía Logística", "pages": "237" }]
+    }
+  ],
+  "questions": [
+    {
+      "id": "node_kind",
+      "prompt": "Nodo de Suministro del que parte la Línea de Comunicación.",
+      "options": [
+        { "value": "advanced", "label": "Nodo de Suministro Avanzado", "text": "Gran base de distribución: las unidades o instalaciones conectadas a él por una Línea de Comunicación obtienen garantía logística; su duración es ilimitada." },
+        { "value": "ordinary", "label": "Nodo de Suministro Ordinario (nivel 1 o más)", "text": "Carga de suministros transportada o centro temporal: las unidades conectadas a él por una Línea de Comunicación obtienen garantía logística. Cada nivel abastece a un número ilimitado de unidades terrestres, puertos y aeródromos." },
+        { "value": "none", "label": "Ninguno (o Ordinario de nivel 0 / eliminado)", "text": "Sin Nodo de Suministro no hay origen de la Línea de Comunicación. Un Nodo Ordinario que baja a nivel 0 se elimina inmediatamente." }
+      ],
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.2.2 Nodos de Suministro", "pages": "235-236" }]
+    },
+    {
+      "id": "node_enemy_controlled",
+      "prompt": "¿El hexágono del Nodo de Suministro está controlado por el enemigo?",
+      "yesText": "El Nodo de Suministro es eliminado inmediatamente; un Nodo Avanzado eliminado no recupera su funcionalidad aunque se recupere el hexágono.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.2.3 Ubicación de los Nodos de Suministro", "pages": "236" }]
+    },
+    {
+      "id": "blocked_edge",
+      "prompt": "¿La Línea de Comunicación atraviesa un borde de hexágono con Restricción de Movimiento (Pasaje) de \"No\" o \"-\"?",
+      "yesText": "Una Línea de Comunicación no puede atravesar bordes de hexágono con Restricción de Movimiento \"No\" o \"-\" (sí puede atravesar los de \"1\"). No tiene límite de hexágonos.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.3.1 Restricciones de las Líneas de Comunicación", "pages": "236" }]
+    },
+    {
+      "id": "enemy_units_on_path",
+      "prompt": "¿La línea tendría que pasar a través de un hexágono con unidades enemigas (sin contar el hexágono de destino)?",
+      "yesText": "Una Línea de Comunicación no puede pasar a través de hexágonos que contengan unidades enemigas, aunque sí puede entrar en ellos.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.3.1 Restricciones de las Líneas de Comunicación", "pages": "236" }]
+    },
+    {
+      "id": "tactical_containment",
+      "prompt": "¿Una unidad aliada puede realizar Contención Táctica (§8.5.5) en ese hexágono?",
+      "showIf": { "questionId": "enemy_units_on_path", "equals": "yes" },
+      "yesText": "Si una unidad aliada puede realizar Contención Táctica (§8.5.5), la Línea de Comunicación puede pasar a través de hexágonos que contengan unidades enemigas.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.3.2 Proteger las Líneas de Comunicación", "pages": "236" }]
+    },
+    {
+      "id": "enemy_controlled_on_path",
+      "prompt": "¿La línea tendría que pasar a través de un hexágono controlado por el enemigo (sin contar el hexágono de destino)?",
+      "yesText": "Una Línea de Comunicación no puede pasar a través de hexágonos controlados por el enemigo, aunque sí puede entrar en ellos. La Contención Táctica solo se menciona para hexágonos con unidades enemigas.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "11.3.1 Restricciones de las Líneas de Comunicación", "pages": "236" }]
+    }
+  ],
+  "reasons": {
+    "no_node": "No hay un Nodo de Suministro del que parta la Línea de Comunicación.",
+    "node_eliminated": "El hexágono del Nodo de Suministro está controlado por el enemigo: el nodo queda eliminado (§11.2.3).",
+    "blocked_edge": "La Línea de Comunicación atraviesa un borde con Restricción de Movimiento \"No\" o \"-\" (§11.3.1).",
+    "enemy_units_on_path": "La Línea de Comunicación pasa por un hexágono con unidades enemigas y no hay Contención Táctica que la proteja (§11.3.1-§11.3.2).",
+    "enemy_controlled_on_path": "La Línea de Comunicación pasa por un hexágono controlado por el enemigo (§11.3.1).",
+    "carrier_exception": "Aeródromo de portaaviones / buque de asalto anfibio: en las reglas básicas el reacondicionamiento no requiere garantía logística (§11.1)."
+  },
+  "afterRules": [
+    "Si no se puede obtener garantía logística, los jugadores pueden colocar una ficha de \"Falta de Suministros\" sobre las unidades afectadas (§11.4).",
+    "Al final de la Fase de Logística del Turno Estratégico, todo Nodo de Suministro Ordinario que haya dado garantía logística a al menos una unidad terrestre, puerto o aeródromo desciende 1 nivel; con nivel 0 se elimina inmediatamente (§11.2.2).",
+    "Siempre que una unidad pueda conectarse a un Nodo de Suministro por una Línea de Comunicación, se considera conectada con el Almacén General de Suministros (§11.2.2, nota 29)."
+  ],
+  "notModeled": "El mapa no está modelado: qué hexágonos recorre la línea, los bordes con Restricción de Movimiento, el control de hexágonos y los niveles de los Nodos Ordinarios los declara el jugador. Tampoco se lleva el inventario del Almacén General de Suministros ni el consumo de munición (§11.6)."
+}

@@ -1,0 +1,88 @@
+{
+  "id": "cyber-attack",
+  "title": "Ataque cibernético (Decision Book §14.2-§14.4, regla opcional)",
+  "note": "Textos, objetivos y fuentes que consume public/js/cyber-attack-engine.js y el wizard #/wizard/cyber-attack. La aritmética del ataque (número de tiradas y éxitos finales) vive en el motor; el resultado de cada d10 (Éxito, Sin efecto o Fallo) se lee de la tabla transcrita de la página 32 de Tablas-de-combate 5.pdf (columna «Guerra Cibernética»).",
+  "optionalRule": true,
+  "sourceRefs": [
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "section": "14.2 Guerra Cibernética, 14.2.1 Capacidad de Guerra Cibernética, 14.3 Ataque Cibernético, 14.3.1-14.3.3 Tiradas",
+      "pages": "244-245"
+    },
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "section": "14.4 Objetivos del Ataque Cibernético (14.4.1-14.4.5)",
+      "pages": "245-246"
+    },
+    {
+      "document": "Tablas-de-combate 5.pdf",
+      "section": "Acciones Estratégicas: Guerra en el Ciberespacio y tabla de resultados",
+      "pages": "31-32"
+    }
+  ],
+  "intro": "Regla opcional. Un ataque cibernético se puede hacer en cualquier momento de cualquier fase, gasta Capacidad de Guerra Cibernética (un recurso que no se recupera) y se resuelve con tiradas de 1d10 de atacante y defensor.",
+  "rollsPerPoint": 3,
+  "targets": [
+    {
+      "value": "facilities",
+      "label": "Sistema de Instalaciones (aeródromo o puerto)",
+      "section": "14.4.1",
+      "restriction": {
+        "question": "¿El objetivo es una base aérea móvil, un buque de asalto anfibio o un portaaviones?",
+        "text": "No se pueden realizar ataques cibernéticos contra bases aéreas móviles, buques de asalto anfibio ni portaaviones."
+      },
+      "onSuccess": "El objetivo entra en estado de «Parálisis de Red» durante un turno. Un aeródromo en Parálisis de Red no puede reacondicionar ni planificar misiones; un puerto en Parálisis de Red no puede realizar operaciones de carga logística."
+    },
+    {
+      "value": "traffic",
+      "label": "Sistema de Gestión de Tráfico (hexágono de ciudad)",
+      "section": "14.4.2",
+      "onSuccess": "La capacidad máxima de paso de los bordes de ese hexágono de ciudad se reduce a «1» durante un turno."
+    },
+    {
+      "value": "tactical",
+      "label": "Red Táctica (hexágono con combate terrestre)",
+      "section": "14.4.3",
+      "onSuccess": "Durante ese combate terrestre, el enemigo no puede iniciar un «Combate Activo»."
+    },
+    {
+      "value": "command",
+      "label": "Sistema de Mando de Operaciones (dominio enemigo)",
+      "section": "14.4.4",
+      "onSuccessTemplate": "Se deducen {net} puntos de Capacidad de Mando restantes del enemigo en el dominio declarado. El atacante elige qué puntos deducir."
+    },
+    {
+      "value": "space",
+      "label": "Activos Espaciales (antes de una acción espacial enemiga)",
+      "section": "14.4.5",
+      "onSuccess": "Se cancela la acción espacial actual del enemigo. El ataque debe declararse antes de que el enemigo realice la acción de guerra espacial."
+    }
+  ],
+  "reasons": {
+    "restricted_target": "Este objetivo no admite ataques cibernéticos.",
+    "defense_counts_exceed": "Has introducido más resultados de defensa que tiradas disponibles.",
+    "attack_counts_exceed": "Has introducido más resultados de ataque que tiradas disponibles.",
+    "wrong_dice_format": "Escribe solo cifras del 0 al 9 separadas por espacios.",
+    "defense_dice_count": "Introduce exactamente un resultado de d10 por cada tirada de defensa.",
+    "attack_dice_count": "Introduce exactamente un resultado de d10 por cada tirada de ataque."
+  },
+  "texts": {
+    "capacity_spent": "Cada punto de Capacidad de Guerra Cibernética gastado se pierde: es un recurso no recuperable durante el escenario.",
+    "defense_rule": "Defensa: cada «Éxito» reduce una tirada del atacante y cada «Fallo» añade una.",
+    "attack_rule": "Ataque: cada «Éxito» suma un éxito y cada «Fallo» resta uno. El ataque tiene éxito si los éxitos finales son más de 0.",
+    "rolls_floor": "El número de tiradas del atacante no baja de 0.",
+    "success": "El ataque cibernético tiene éxito.",
+    "failure": "El ataque cibernético no tiene éxito: los éxitos finales no superan 0.",
+    "defense_note": "La defensa cibernética no es infalible: un comportamiento demasiado activo puede exponer vulnerabilidades propias (nota de diseño de 14.3).",
+    "dice_reading": "Cada d10 se lee en la columna «Guerra Cibernética» de la tabla: 0-1 Fallo, 2-5 Sin efecto, 6-9 Éxito."
+  },
+  "afterRules": [
+    "Tira los d10 y escribe los resultados: la aplicación los clasifica con la tabla de la página 32 y calcula las tiradas y los éxitos finales."
+  ],
+  "table": {
+    "file": "page-32.json",
+    "id": "strategic-actions-outcome",
+    "column": "cyber",
+    "hash": "#/ayuda/tablas/page-32.json/strategic-actions-outcome"
+  }
+}

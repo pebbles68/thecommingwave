@@ -1,0 +1,46 @@
+{
+  "page": 31,
+  "title": "Acciones Estratégicas — Guerra en el Ciberespacio y Destrucción Espacial",
+  "workflowRefs": ["strategic_actions"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 31 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "Guerra en el Ciberespacio — Guerra cibernética",
+      "rows": [
+        { "condition": "Coste de la acción", "effect": "1 Recurso de Red" },
+        { "condition": "Resolución de la acción", "effect": "Tirar 3d10" },
+        { "condition": "Ataque cibernético — Éxito", "effect": "Ataque efectivo" },
+        { "condition": "Ataque cibernético — Fallo", "effect": "Ataque inefectivo" },
+        { "condition": "Defensa cibernética — Éxito", "effect": "Ataque inefectivo" },
+        { "condition": "Defensa cibernética — Fallo", "effect": "Ataque efectivo" },
+        { "condition": "Acción exitosa", "effect": "Núm. de ataques efectivos > Núm. de ataques inefectivos" }
+      ],
+      "note": "Coincide con roll_3d10 y cannot_execute (network_resource) ya transcritos en data/workflows/12_acciones_estrategicas.json (stage cyber)."
+    },
+    {
+      "topic": "Destrucción Espacial — Ataque blando",
+      "rows": [
+        { "condition": "Coste del ataque", "effect": "1 Recurso de Lanzamiento (LAUNCH)" },
+        { "condition": "Resolución del ataque", "effect": "Tirar 1d10" },
+        { "condition": "Por cada resultado de combate exitoso", "effect": "Consume un Recurso Orbital del defensor" },
+        { "condition": "Por cada resultado de combate fallido", "effect": "Sin efecto" }
+      ],
+      "note": "Coincide con roll_1d10 (space_attack_type='soft') ya transcrito en data/workflows/12_acciones_estrategicas.json."
+    },
+    {
+      "topic": "Destrucción Espacial — Ataque duro / Ataque orbital",
+      "rows": [
+        { "condition": "Coste del ataque", "effect": "1 Recurso de Lanzamiento (LAUNCH) / 1 Recurso Orbital" },
+        { "condition": "Resolución del ataque", "effect": "Tirar 3d10" },
+        { "condition": "Por cada resultado de combate exitoso", "effect": "Destruye 1 Recurso Orbital del defensor, genera 2 fragmentos de basura espacial" },
+        { "condition": "Por cada resultado de combate fallido", "effect": "Genera 1 fragmento de basura espacial" },
+        { "condition": "Reacción: Maniobra Orbital", "effect": "Consume 1 recurso Orbital del defensor y la resolución del ataque cambia a 'Tirar 1d10'" }
+      ],
+      "note": "Coincide con roll_3d10 (space_attack_type='hard') y roll_1d10_and_consume_orbital_resource (orbital_maneuver_reaction) ya transcritos en data/workflows/12_acciones_estrategicas.json. Añade detalle no capturado todavía: genera fragmentos de basura espacial (posible mecánica adicional de reglas de expansión, pendiente de evaluar)."
+    }
+  ],
+
+  "tables": []
+}

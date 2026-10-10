@@ -1,0 +1,28 @@
+{
+  "page": 23,
+  "title": "Ataque Antibuque No Guiado — Intercepción Final",
+  "workflowRefs": ["antiship_unguided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 23 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "1) Intercepción final: puede disparar a la unidad atacante cuando tiene el icono de intercepción final",
+      "rows": [
+        { "condition": "Número de impactos de Intercepción (Alto/Bajo Consumo)", "effect": "Se resuelve sumando los valores AA de todos los buques del mismo tipo de consumo." },
+        { "condition": "Impactos Finales", "effect": "Impactos de Alto Consumo + Bajo Consumo" },
+        { "condition": "En un solo ataque", "effect": "No importa cuántas unidades de superficie disparen, solo se realiza una intercepción final." },
+        { "condition": "En un solo ataque", "effect": "La unidad de superficie usa su valor de combate después de completar la intercepción final." }
+      ],
+      "note": "Coincide con aa_low_total/aa_high_total ya transcritos en data/workflows/08_ataque_antibuque_no_guiado.json."
+    }
+  ],
+
+  "reusesTable": {
+    "id": "ground-unguided-final-interception",
+    "definedIn": "data/tables/page-07.json",
+    "note": "Tabla idéntica carácter a carácter a la de la página 7 (Intercepción Final terrestre)."
+  },
+
+  "tables": []
+}

@@ -1,0 +1,677 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/02_ataque_terrestre_guiado.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "ground_guided",
+  "title": "Ataque terrestre guiado",
+  "category": "terrestre",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "3-6"
+  },
+  "summary": "Preguntas secuenciales para defensa aérea, interceptación y modificadores de intensidad de un ataque terrestre guiado.",
+  "representativeIcon": "marker_cruise_missile",
+  "stages": [
+    {
+      "id": "area_air_defense",
+      "order": 1,
+      "title": "Defensa aérea de área",
+      "questions": [
+        {
+          "id": "munition_marked_cm_or_bm",
+          "type": "boolean",
+          "appliesTo": "area_air_defense",
+          "prompt": "¿La munición de este ataque está marcada CM (Misil de Crucero) o BM (Misil Balístico)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "area_air_defense",
+                  "value": "no_cm_bm_marker_no_reduction",
+                  "cutsStage": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "attacker_detected",
+          "type": "boolean",
+          "appliesTo": "area_air_defense_roll",
+          "prompt": "¿El atacante ha sido detectado por el defensor?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "near_space_trajectory",
+          "type": "boolean",
+          "appliesTo": "area_air_defense_roll",
+          "prompt": "¿La munición usa trayectoria de espacio cercano?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": -3
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "iconRefs": [
+            {
+              "ref": "munition_near_space",
+              "role": "representative"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "attacker_detected",
+          "near_space_trajectory"
+        ]
+      ],
+      "specialRules": "La trayectoria de espacio cercano tira 2d10 y elige el menor. Los sistemas marcados para balística solo pueden interceptar el tipo indicado.",
+      "tableReference": "Página 3: Defensa aérea de área.",
+      "iconRefs": [
+        {
+          "ref": "marker_cruise_missile",
+          "role": "munition_marker"
+        }
+      ]
+    },
+    {
+      "id": "munition_interception",
+      "order": 2,
+      "title": "Interceptación de munición",
+      "questions": [
+        {
+          "id": "same_hex_or_central_zone",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿Objetivo y atacante están en el mismo hex o Zona Central?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "no_interception",
+                  "cutsStage": true
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "interception_performance",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "Rendimiento del sistema que intercepta.",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "medium",
+              "label": "Medio",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "low",
+              "label": "Bajo",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "detection_state",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "¿Qué ha detectado el defensor?",
+          "options": [
+            {
+              "value": "attacker",
+              "label": "Atacante detectado",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "designator_only",
+              "label": "No atacante, sí guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "neither",
+              "label": "Ni atacante ni guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "short_range_restriction",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿La distancia de ataque es 1 (o 2 en Misión de Área)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "only_same_hex_defenders"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "same_hex_or_central_zone"
+        ],
+        [
+          "interception_performance",
+          "detection_state",
+          "short_range_restriction"
+        ]
+      ],
+      "specialRules": "Contra blancos subsónicos o supersónicos puede existir Interceptación Más Allá del Horizonte; si el objetivo no está en la Zona Central del AWACS no se usa la Zona Azul.",
+      "tableReference": "Página 4: Interceptación de Munición.",
+      "iconRefs": [
+        {
+          "ref": "marker_cruise_missile",
+          "role": "munition_marker"
+        }
+      ]
+    },
+    {
+      "id": "attack_intensity",
+      "order": 3,
+      "title": "Modificación de intensidad",
+      "questions": [
+        {
+          "id": "target_type",
+          "type": "select",
+          "appliesTo": "attack_intensity",
+          "prompt": "Tipo de objetivo.",
+          "options": [
+            {
+              "value": "mobile_main",
+              "label": "Unidad móvil principal"
+            },
+            {
+              "value": "technical",
+              "label": "Unidad técnica"
+            },
+            {
+              "value": "fixed",
+              "label": "Instalación fija"
+            }
+          ]
+        },
+        {
+          "id": "attack_distance_band",
+          "type": "select",
+          "appliesTo": "attack_intensity",
+          "prompt": "Para unidad móvil: distancia de ataque / equivalente de Misión de Área.",
+          "showIf": {
+            "questionId": "target_type",
+            "equals": "mobile_main"
+          },
+          "options": [
+            {
+              "value": "0",
+              "label": "0 / Área ≤1",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -2
+                }
+              ]
+            },
+            {
+              "value": "1",
+              "label": "1 / Área ≤2",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "value": "2plus",
+              "label": "≥2 / Área ≥3",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "high_penetration_supersonic",
+          "type": "boolean",
+          "appliesTo": "attack_intensity",
+          "prompt": "¿La munición es de alta penetración y supersónica?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "iconRefs": [
+            {
+              "ref": "attack_high_penetration",
+              "role": "representative"
+            },
+            {
+              "ref": "munition_supersonic",
+              "role": "representative"
+            }
+          ]
+        },
+        {
+          "id": "force_size_excess",
+          "type": "number",
+          "appliesTo": "attack_intensity",
+          "prompt": "¿Cuántos bloques completos de 5 puntos de Tamaño de Fuerza exceden el límite?",
+          "note": "Cada bloque de 5 puntos añade +2."
+        },
+        {
+          "id": "guidance_modifier",
+          "type": "number",
+          "appliesTo": "attack_intensity",
+          "prompt": "Introduce el modificador de guiado aplicable.",
+          "note": "La tabla lo muestra como +?; el valor debe venir del procedimiento de designación/guía."
+        },
+        {
+          "id": "technical_electronic",
+          "type": "select",
+          "appliesTo": "attack_intensity",
+          "prompt": "Si el objetivo es unidad técnica: Valor Electrónico.",
+          "showIf": {
+            "questionId": "target_type",
+            "equals": "technical"
+          },
+          "options": [
+            {
+              "value": "0",
+              "label": "0",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "1",
+              "label": "1",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -2
+                }
+              ]
+            },
+            {
+              "value": "2",
+              "label": "2",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -4
+                }
+              ]
+            },
+            {
+              "value": "3",
+              "label": "3",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -8
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fixed_electronic",
+          "type": "select",
+          "appliesTo": "attack_intensity",
+          "prompt": "Si el objetivo es instalación fija: Valor Electrónico.",
+          "showIf": {
+            "questionId": "target_type",
+            "equals": "fixed"
+          },
+          "options": [
+            {
+              "value": "0",
+              "label": "0",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "1",
+              "label": "1",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "2",
+              "label": "2",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "value": "3",
+              "label": "3",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "target_type",
+          "high_penetration_supersonic",
+          "force_size_excess",
+          "guidance_modifier"
+        ]
+      ],
+      "formula": "Suma los modificadores aplicables. Si la modificación total es ≥ 1, se considera 0. Los valores negativos desplazan columnas a la izquierda, saltando columnas '·'.",
+      "specialRules": "En la tirada de resolución, un 9 cancela las modificaciones de intensidad.",
+      "tableReference": "Página 5: Modificación de la Intensidad de Ataque.",
+      "modifierGroups": {
+        "note": "Qué modificaciones de Fuerza de Ataque se aplican según el tipo de objetivo (§5.12.9). Las claves son ids de pregunta de esta etapa; el modificador de cada una sale de los `effects` de su opción (distancia, alta penetración + supersónico, Valor Electrónico), de `forceSize` (densidad de tropas) o del valor introducido (corrección de designación). Las modificaciones positivas solo compensan negativas: la modificación neta máxima es 0 (§5.12.2).",
+        "byTargetType": {
+          "mobile_main": [
+            "attack_distance_band",
+            "high_penetration_supersonic",
+            "force_size_excess",
+            "guidance_modifier"
+          ],
+          "technical": [
+            "attack_distance_band",
+            "high_penetration_supersonic",
+            "force_size_excess",
+            "guidance_modifier",
+            "technical_electronic"
+          ],
+          "fixed": [
+            "fixed_electronic"
+          ]
+        },
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "5.12.9 Aplicación de Modificaciones de Fuerza de Ataque",
+            "pages": "76"
+          },
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "5.12.2 Ataque Terrestre Guiado: Modificaciones",
+            "pages": "75"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "section": "Qué grupos de modificadores se acumulan según el tipo de objetivo",
+            "pages": "5"
+          }
+        ]
+      },
+      "distanceRule": {
+        "text": "La distancia de ataque se cuenta siempre desde el hexágono que ocupas. Si la misión es de Área y el destino también tiene área, se puede contar hasta un hexágono adyacente al de la ficha de destino (un hexágono menos). Por eso la tabla de distancias tiene dos columnas: «distancia» y «Misión de Área».",
+        "sourceRefs": [
+          { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.12.3 Modificación por Objetivo Móvil: Distancia", "pages": "75" },
+          { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "7.4.5 Misión de Área", "pages": "123" }
+        ],
+        "confirmedBy": "Mantenedor, 2026-10-07"
+      },
+      "forceSize": {
+        "note": "Densidad de tropas (§5.12.5): si el tamaño de fuerza impreso de las unidades terrestres propias en el hexágono supera el límite, por cada bloque completo de 5 puntos que lo excede la Fuerza de Ataque aumenta +2; las fracciones menores de 5 se ignoran.",
+        "limit": 30,
+        "blockSize": 5,
+        "perBlock": 2,
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "5.12.5 Modificación por Objetivo Móvil: Densidad de Tropas",
+            "pages": "75"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "section": "Modificación de la Intensidad de Ataque",
+            "pages": "5"
+          }
+        ]
+      },
+      "designationNote": "Corrección de designación (§5.12.6): solo la de una unidad designadora por hexágono objetivo surte efecto; por cada ataque la Fuerza de Ataque aumenta en un valor equivalente a la corrección. El valor lo da la unidad designadora (la tabla lo muestra como +?)."
+    }
+  ],
+  "flowCuts": [
+    {
+      "stage": "munition_interception",
+      "question": "same_hex_or_central_zone",
+      "optionValue": "yes",
+      "effect": "no_interception",
+      "cutsStage": "munition_interception",
+      "haltsWorkflow": false,
+      "sourceText": "¿Objetivo y atacante están en el mismo hex o Zona Central? Sí -> no_interception."
+    }
+  ],
+  "diceRules": [
+    {
+      "stage": "area_air_defense",
+      "question": "near_space_trajectory",
+      "condition": "near_space_trajectory == 'yes'",
+      "dice": "roll_2d10_take_lowest",
+      "derivedFrom": "specialRules",
+      "sourceText": "La trayectoria de espacio cercano tira 2d10 y elige el menor."
+    }
+  ],
+  "rollDependentRules": [
+    {
+      "stage": "attack_intensity",
+      "condition": "finalRoll == 9",
+      "effect": "cancel_intensity_modifiers",
+      "sourceText": "En la tirada de resolución, un 9 cancela las modificaciones de intensidad."
+    }
+  ],
+  "finalTableReference": "Páginas 5-6: Ataque de precisión contra objetivos terrestres y aplicación de efectos.",
+  "finalResolution": {
+    "note": "Resolución final del Ataque Terrestre Guiado (§5.12.10, página 5): hay UNA cuadrícula de impactos y lo que cambia según el método es qué fila de etiquetas traduce el Valor de Ataque a columna. Dos tipos de ataque (Ligero [L] o no ligero) por dos tipos de munición (Normal o Persecución, la munición con el icono junto a \"Persecución\") dan 4 combinaciones. La fila de etiquetas \"0.5, 1, ·, 2…\" es una celda combinada que sirve a \"[L] Persecución\" y a \"Normal\". La fila de la cuadrícula la da la tirada de 1d10 según el objetivo sea Móvil o Fijo.",
+    "table": {
+      "file": "page-05.json",
+      "id": "ground-precision-attack-damage"
+    },
+    "valueCap": 13,
+    "methodRows": [
+      {
+        "lightPlan": true,
+        "pursuit": false,
+        "label": "[L] Normal (plan Ligero, munición Normal)",
+        "columnScheme": "normal_ataque"
+      },
+      {
+        "lightPlan": true,
+        "pursuit": true,
+        "label": "[L] Persecución (plan Ligero, munición Persecución)",
+        "columnScheme": "persecucion_ataque"
+      },
+      {
+        "lightPlan": false,
+        "pursuit": false,
+        "label": "Normal (plan no ligero, munición Normal)",
+        "columnScheme": "persecucion_ataque"
+      },
+      {
+        "lightPlan": false,
+        "pursuit": true,
+        "label": "Persecución (plan no ligero, munición Persecución)",
+        "columnScheme": "persecucion_objetivo"
+      }
+    ],
+    "rollRowScheme": {
+      "mobile": "movil",
+      "fixed": "fijo"
+    },
+    "nineCancelsModifiers": true,
+    "resolutionStatus": "Confirmado por el mantenedor (2026-10-05): 4 combinaciones (Ligero/no ligero × Normal/Persecución); el tipo de objetivo (Móvil/Fijo) y la tirada dan la fila. La lectura de la celda combinada de etiquetas la comprobó el análisis de la página a 300 DPI.",
+    "sourceRefs": [
+      {
+        "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+        "section": "5.12.10 Resolución de Ataque Terrestre Guiado",
+        "pages": "76-77"
+      },
+      {
+        "document": "Tablas-de-combate 5.pdf",
+        "section": "4) Ataque de precisión contra objetivos terrestres",
+        "pages": "5"
+      }
+    ]
+  }
+}

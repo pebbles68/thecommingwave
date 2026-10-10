@@ -1,0 +1,50 @@
+{
+  "id": "submarine-ambush",
+  "title": "Emboscada de submarino (Decision Book §9.16)",
+  "note": "Reglas y textos que consume public/js/submarine-ambush-engine.js y el wizard #/wizard/submarine-ambush. El motor decide si el submarino puede iniciar la Emboscada y por qué no; este archivo guarda los textos, la zona por tipo de submarino y la secuencia de resolución. No se modela el mapa: el jugador declara la posición relativa de la formación objetivo y qué hace.",
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "9.16 Emboscada, 9.16.1 Zona de Emboscada, 9.16.2 Resolución de la Emboscada", "pages": "219-220" },
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "9.1.7 Submarinos (lados Oculto y Expuesto, energía nuclear)", "pages": "194-196" }
+  ],
+  "intro": "Una Emboscada es una acción de reacción que ocurre durante la Fase de Acciones de Superficie: no consume el límite de ataques de la unidad submarina, pero cada submarino solo puede hacer una por Fase de Acciones de Superficie. Solo pueden iniciarla los submarinos en estado Oculto.",
+  "subStates": [
+    { "value": "hidden", "label": "Oculto" },
+    { "value": "exposed", "label": "Expuesto" }
+  ],
+  "subTypes": [
+    { "value": "conventional", "label": "Convencional", "zoneRange": 0, "zoneText": "Zona de Emboscada de 0 casillas: solo su propia casilla." },
+    { "value": "nuclear", "label": "Nuclear", "zoneRange": 1, "zoneText": "Zona de Emboscada de 1 casilla: su casilla y las adyacentes." }
+  ],
+  "relations": [
+    { "value": "same_hex", "label": "En la misma casilla que el submarino" },
+    { "value": "adjacent", "label": "En una casilla adyacente al submarino" },
+    { "value": "farther", "label": "A más de una casilla del submarino" }
+  ],
+  "events": [
+    { "value": "enters", "label": "Entra en la zona" },
+    { "value": "leaves", "label": "Sale de la zona" },
+    { "value": "moves_within", "label": "Se mueve dentro de la zona" },
+    { "value": "none", "label": "Ninguna de las anteriores" }
+  ],
+  "reasons": {
+    "not_hidden": "Solo un submarino en estado Oculto puede iniciar una Emboscada.",
+    "already_ambushed": "Este submarino ya realizó una Emboscada en esta Fase de Acciones de Superficie: solo puede hacer una por fase.",
+    "no_event": "Un submarino puede iniciar la Emboscada cuando una formación de superficie entra, sale o se mueve dentro de su Zona de Emboscada; sin ese suceso no hay Emboscada.",
+    "outside_zone_conventional": "La formación está fuera de la Zona de Emboscada: la de un submarino convencional es de 0 casillas (solo su propia casilla).",
+    "outside_zone_nuclear": "La formación está fuera de la Zona de Emboscada: la de un submarino nuclear es de 1 casilla (la suya y las adyacentes)."
+  },
+  "steps": [
+    { "id": "announce", "text": "El jugador anuncia que el submarino inicia la Emboscada. La iniciación siempre tiene éxito." },
+    { "id": "target_asw_before", "text": "Antes de que comience la resolución del ataque, el objetivo de la Emboscada puede realizar una Búsqueda ASW de inmediato. Esto se activa incluso si un submarino convencional embosca a una formación en su misma casilla.", "link": { "hash": "#/wizard/asw-signature-search", "label": "Búsqueda por Diferencia de Firma" } },
+    { "id": "move_to_target", "text": "El submarino se mueve inmediatamente a la casilla de la formación de superficie objetivo." },
+    { "id": "torpedo_attack", "text": "Realiza inmediatamente un Ataque con Torpedos, que se resuelve con el proceso estándar de Ataque con Torpedos a Unidades de Superficie (9.13.1).", "link": { "hash": "#/wizard/torpedo-surface", "label": "Torpedos contra superficie" } },
+    { "id": "target_asw_after", "text": "Cuando concluye la Emboscada, el objetivo del ataque puede realizar una Búsqueda ASW considerada «Después del Ataque», con las reglas normales de Búsqueda ASW. No se gira la ficha del submarino a su lado «En Movimiento».", "link": { "hash": "#/wizard/asw-air-search", "label": "Búsqueda Aérea ASW" } },
+    { "id": "final_searches", "text": "Tras completar la resolución, se realizan las Búsquedas por Diferencia de Firma y las Búsquedas Aéreas ASW como de costumbre, según los desencadenantes aplicables." }
+  ],
+  "noAmmoStep": { "id": "no_ammo", "text": "Sin munición correspondiente el submarino aún puede realizar la Emboscada, pero no puede realizar ataques que consuman munición (por ejemplo, misiles) durante su resolución." },
+  "afterRules": [
+    "La Emboscada es una acción de reacción de la Fase de Acciones de Superficie y no consume el límite de ataques del submarino.",
+    "El Ataque con Torpedos de la Emboscada sigue el procedimiento de la regla 9.13.1; el wizard de torpedos lo resuelve paso a paso."
+  ],
+  "notModeled": "El mapa no está modelado: el jugador declara dónde está la formación objetivo respecto del submarino y qué hace."
+}

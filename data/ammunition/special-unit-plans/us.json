@@ -1,0 +1,222 @@
+{
+  "country": "US",
+  "countryName": "Estados Unidos",
+  "status": "partial",
+  "transcribedSheets": ["EEUU 2 (seccion Aviones de rol especial)", "EEUU 4 (helicopteros y artilleria)"],
+  "pendingSheets": ["EEUU 1", "EEUU 3"],
+
+  "schemaNote": "Estas unidades declaran plan de ataque por municion (letra A, B, C...) como en data/ammunition/attack-plans/, pero NO tienen distincion de unidad completa/danada: una sola fila de valores. Los aviones de rol especial conservan la separacion antiShip/landAttack del esquema principal; los helicopteros y la artilleria de EEUU 4 solo muestran una cuadricula de letras compartida por ambos dominios (ver 'domainSplit': false).",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0.",
+    "dual": "Dos valores separados por barra + superindice opcional: heavy/light + range."
+  },
+
+  "sourceRefs": [
+    {
+      "document": "Tablas de Armamento/EEUU 2.pdf",
+      "page": 1,
+      "sheetTitle": "Aviones de rol especial",
+      "columns": "Sin division AsuW/LandAttack separada: cada unidad lista sus planes bajo una sola cabecera de letras.",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer."
+    },
+    {
+      "document": "Tablas de Armamento/EEUU 4.pdf",
+      "page": 1,
+      "sheetTitle": "Plataformas de baja altitud (helicopteros) y unidades de artilleria",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer."
+    }
+  ],
+
+  "units": [
+    {
+      "id": "us-ea-18g",
+      "name": "EA-18G",
+      "nameLocal": "咆哮者",
+      "class": "special-aircraft",
+      "role": "EW",
+      "sourceSheet": "EEUU 2",
+      "domainSplit": true,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": null, "icons": [], "loadFormat": "single", "full": { "damage": null, "range": 0 }, "note": "Columna A sin valor en la hoja (celda en blanco)." }
+        },
+        "landAttack": {
+          "A": { "munition": null, "icons": [], "loadFormat": "single", "full": { "damage": null, "range": 0 }, "note": "Columna A sin valor en la hoja (celda en blanco)." },
+          "B": { "munition": "AARGM-ER", "icons": ["attack_anti_radiation"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 4 } }
+        }
+      }
+    },
+    {
+      "id": "us-p-8a",
+      "name": "P-8A",
+      "nameLocal": "海神",
+      "class": "special-aircraft",
+      "role": "MPA",
+      "sourceSheet": "EEUU 2",
+      "domainSplit": true,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 4 } }
+        },
+        "landAttack": {
+          "A": { "munition": "SLAM-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 4 } }
+        }
+      }
+    },
+    {
+      "id": "us-mq-1c",
+      "name": "MQ-1C",
+      "nameLocal": "灰鹰",
+      "class": "special-aircraft",
+      "role": "ISR",
+      "sourceSheet": "EEUU 2",
+      "domainSplit": true,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 0 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 0 } },
+          "B": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 0 } }
+        }
+      },
+      "note": "Identificada como MQ-1C 'Grey Eagle' tras verificar el nombre local a 600 DPI; una lectura preliminar la habia confundido con el RQ-4 'Global Hawk' por la silueta similar del icono."
+    },
+    {
+      "id": "us-mq-9a",
+      "name": "MQ-9A",
+      "nameLocal": "死神",
+      "class": "special-aircraft",
+      "role": "ISR",
+      "sourceSheet": "EEUU 2",
+      "domainSplit": true,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 0 } },
+          "B": { "munition": "JDAM-ER", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 } },
+          "C": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 0 } }
+        }
+      }
+    },
+
+    {
+      "id": "us-ah-64d",
+      "name": "AH-64D",
+      "nameLocal": "阿帕奇",
+      "class": "attack-helicopter",
+      "sourceSheet": "EEUU 4",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "B": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      },
+      "note": "La hoja repite la columna A dos veces (dos cargas de cohetes) antes de la columna B; se transcriben como A1/A2 para no perder informacion, pendiente de confirmar la convencion de nombrado con el mantenedor."
+    },
+    {
+      "id": "us-ah-1z",
+      "name": "AH-1Z",
+      "nameLocal": "眼镜蛇",
+      "class": "attack-helicopter",
+      "sourceSheet": "EEUU 4",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "B": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "us-oh-58d",
+      "name": "OH-58D",
+      "nameLocal": "基奥瓦",
+      "class": "attack-helicopter",
+      "sourceSheet": "EEUU 4",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 2, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 2, "range": 0 } },
+        "B": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 5, "range": 0 } }
+      }
+    },
+    {
+      "id": "us-mq-8c",
+      "name": "MQ-8C",
+      "nameLocal": "火力侦察兵",
+      "class": "attack-helicopter",
+      "role": "unmanned",
+      "sourceSheet": "EEUU 4",
+      "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 1, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 1, "range": 0 } },
+        "B": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 2, "range": 0 } }
+      }
+    },
+
+    {
+      "id": "us-m109a7",
+      "name": "M109A7",
+      "nameLocal": "榴弹炮群",
+      "class": "artillery",
+      "sourceSheet": "EEUU 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad, antes de la cuadricula de planes", "note": "Pendiente de identificar contra data/counters/factor-map.json." , "resolvedFactor": "function_support" },
+      "restrictions": ["No puede ser interceptada por defensa antimisil ('无法被弹药拦截')."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "us-m142",
+      "name": "M142",
+      "nameLocal": "火箭炮群 (HIMARS)",
+      "class": "artillery",
+      "sourceSheet": "EEUU 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 6, "rawLabel": "numero junto al icono de unidad, antes de la cuadricula de planes", "note": "Pendiente de identificar contra data/counters/factor-map.json." , "resolvedFactor": "function_support" },
+      "plans": {
+        "A": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 0 } },
+        "B": { "munition": "PrSM", "icons": ["attack_ballistic", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 7 } },
+        "C1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 0 } },
+        "C2": { "munition": "XM404", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 6, "range": 2 } },
+        "C3": { "munition": "PrSM", "icons": ["attack_ballistic", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 7 } }
+      },
+      "note": "La hoja agrupa los planes bajo dos cabeceras 'A B' y 'A B C'; se numeraron C1-C3 para conservar el orden de lectura. Pendiente de confirmar con el mantenedor si corresponden a dos configuraciones de carga distintas del mismo vehiculo."
+    },
+    {
+      "id": "us-m270a1",
+      "name": "M270A1",
+      "nameLocal": "火箭炮群 (MLRS)",
+      "class": "artillery",
+      "sourceSheet": "EEUU 4",
+      "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad, antes de la cuadricula de planes", "note": "Pendiente de identificar contra data/counters/factor-map.json." , "resolvedFactor": "function_support" },
+      "plans": {
+        "A": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "B": { "munition": "PrSM", "icons": ["attack_ballistic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 7 } },
+        "C1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "C2": { "munition": "XM404", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 12, "range": 2 } },
+        "C3": { "munition": "PrSM", "icons": ["attack_ballistic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 7 } }
+      },
+      "note": "Mismo patron de doble cabecera que M142; ver su nota."
+    }
+  ]
+}

@@ -1,0 +1,3322 @@
+{
+  "schemaVersion": 1,
+  "kind": "counter-sheets",
+  "calibration": {
+    "tool": "opencv",
+    "toolVersion": "5.0.0",
+    "profile": "counter-sheet-v1",
+    "script": "scripts/image-hotspots/calibrate_counters.py",
+    "note": "Candidatos generados; ninguno es verified hasta su revisión humana con la imagen QA."
+  },
+  "images": {
+    "counters-aereos.jpg": {
+      "src": "data/counters/counters-aereos.jpg",
+      "width": 789,
+      "height": 855,
+      "sha256": "c5e549dfe0d72abdf45159e2a379d217e53ce63c14a2cceddbf029df88cd6d67"
+    },
+    "resto-counters.jpg": {
+      "src": "data/counters/resto-counters.jpg",
+      "width": 956,
+      "height": 1280,
+      "sha256": "bed4cd1c2148b1685bde7d46f5225ae2eedd5a31aa90441c483f8fd13a3ae352"
+    }
+  },
+  "instances": [
+    {
+      "id": "aircraft-combat-tactical",
+      "type": "counter-template",
+      "label": "Aviones tácticos — unidades de combate",
+      "imageId": "counters-aereos.jpg",
+      "rect": {
+        "x": 0.0,
+        "y": 0.10877,
+        "width": 0.49937,
+        "height": 0.26901
+      },
+      "detected": 10,
+      "expected": 12,
+      "hotspots": [
+        {
+          "id": "air_combat",
+          "conceptId": "air_combat",
+          "rect": {
+            "x": 0.19138,
+            "y": 0.18129,
+            "width": 0.03169,
+            "height": 0.02924
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.23194,
+            "y": 0.1848,
+            "width": 0.0545,
+            "height": 0.03275
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.26616,
+            "y": 0.21871,
+            "width": 0.03295,
+            "height": 0.05731
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.29531,
+            "y": 0.18363,
+            "width": 0.03295,
+            "height": 0.03041
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "air_search",
+          "conceptId": "air_search",
+          "rect": {
+            "x": 0.19392,
+            "y": 0.21754,
+            "width": 0.01901,
+            "height": 0.01754
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.19265,
+            "y": 0.2386,
+            "width": 0.02281,
+            "height": 0.02807
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "runway",
+          "conceptId": "runway",
+          "rect": {
+            "x": 0.30418,
+            "y": 0.2152,
+            "width": 0.01521,
+            "height": 0.01988
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.30545,
+            "y": 0.23626,
+            "width": 0.01394,
+            "height": 0.01988
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "no_refuel",
+          "conceptId": "no_refuel",
+          "rect": {
+            "x": 0.30292,
+            "y": 0.25965,
+            "width": 0.02155,
+            "height": 0.01988
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "combat_support",
+          "conceptId": "combat_support",
+          "rect": {
+            "x": 0.19138,
+            "y": 0.27836,
+            "width": 0.03169,
+            "height": 0.02924
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.26236,
+            "y": 0.28304,
+            "width": 0.01521,
+            "height": 0.02105
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.30038,
+            "y": 0.28187,
+            "width": 0.02281,
+            "height": 0.02339
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "aircraft-transport-tactical",
+      "type": "counter-template",
+      "label": "Aviones tácticos — unidades de transporte",
+      "imageId": "counters-aereos.jpg",
+      "rect": {
+        "x": 0.49937,
+        "y": 0.10877,
+        "width": 0.50063,
+        "height": 0.26901
+      },
+      "detected": 10,
+      "expected": 12,
+      "hotspots": [
+        {
+          "id": "air_combat",
+          "conceptId": "air_combat",
+          "rect": {
+            "x": 0.68441,
+            "y": 0.18246,
+            "width": 0.02915,
+            "height": 0.02807
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.72497,
+            "y": 0.1848,
+            "width": 0.05323,
+            "height": 0.03158
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.75919,
+            "y": 0.21754,
+            "width": 0.03169,
+            "height": 0.05848
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.78834,
+            "y": 0.18246,
+            "width": 0.03295,
+            "height": 0.02924
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "air_search",
+          "conceptId": "air_search",
+          "rect": {
+            "x": 0.68821,
+            "y": 0.21754,
+            "width": 0.01521,
+            "height": 0.01754
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.68441,
+            "y": 0.2386,
+            "width": 0.02281,
+            "height": 0.02807
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "runway",
+          "conceptId": "runway",
+          "rect": {
+            "x": 0.79848,
+            "y": 0.21404,
+            "width": 0.01521,
+            "height": 0.01988
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.79848,
+            "y": 0.23626,
+            "width": 0.01267,
+            "height": 0.02222
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "no_refuel",
+          "conceptId": "no_refuel",
+          "rect": {
+            "x": 0.79468,
+            "y": 0.25965,
+            "width": 0.02155,
+            "height": 0.01988
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "capacity",
+          "conceptId": "capacity",
+          "rect": {
+            "x": 0.68441,
+            "y": 0.27836,
+            "width": 0.02915,
+            "height": 0.02807
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.75285,
+            "y": 0.28187,
+            "width": 0.01521,
+            "height": 0.02222
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.79341,
+            "y": 0.2807,
+            "width": 0.02281,
+            "height": 0.02456
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "aircraft-special-awacs",
+      "type": "counter-template",
+      "label": "Aviones especiales (operando) — AWACS",
+      "imageId": "counters-aereos.jpg",
+      "rect": {
+        "x": 0.0,
+        "y": 0.43626,
+        "width": 0.49937,
+        "height": 0.22807
+      },
+      "detected": 4,
+      "expected": 5,
+      "hotspots": [
+        {
+          "id": "air_network",
+          "conceptId": "air_network",
+          "rect": {
+            "x": 0.24842,
+            "y": 0.50877,
+            "width": 0.03422,
+            "height": 0.02456
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.28771,
+            "y": 0.50994,
+            "width": 0.02662,
+            "height": 0.02456
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "air_detection",
+          "conceptId": "air_detection",
+          "rect": {
+            "x": 0.20152,
+            "y": 0.5076,
+            "width": 0.04183,
+            "height": 0.10175
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.28897,
+            "y": 0.53567,
+            "width": 0.02662,
+            "height": 0.04444
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "anti_jamming",
+          "conceptId": "anti_jamming",
+          "rect": {
+            "x": 0.24715,
+            "y": 0.55088,
+            "width": 0.01141,
+            "height": 0.01637
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "aircraft-special-other-operating",
+      "type": "counter-template",
+      "label": "Aviones especiales (operando) — otras (ISR/EW/ASW)",
+      "imageId": "counters-aereos.jpg",
+      "rect": {
+        "x": 0.49937,
+        "y": 0.43626,
+        "width": 0.50063,
+        "height": 0.22807
+      },
+      "detected": 7,
+      "expected": 8,
+      "hotspots": [
+        {
+          "id": "skill_1",
+          "conceptId": "skill_1",
+          "rect": {
+            "x": 0.69455,
+            "y": 0.5076,
+            "width": 0.03676,
+            "height": 0.03392
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "skill_2",
+          "conceptId": "skill_2",
+          "rect": {
+            "x": 0.73638,
+            "y": 0.5076,
+            "width": 0.03676,
+            "height": 0.03392
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.782,
+            "y": 0.50994,
+            "width": 0.02408,
+            "height": 0.02222
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.69708,
+            "y": 0.54854,
+            "width": 0.01774,
+            "height": 0.02222
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.782,
+            "y": 0.5345,
+            "width": 0.02535,
+            "height": 0.04444
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "type",
+          "conceptId": "type",
+          "rect": {
+            "x": 0.69455,
+            "y": 0.57427,
+            "width": 0.03169,
+            "height": 0.03275
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "asw",
+          "conceptId": "asw",
+          "rect": {
+            "x": 0.73131,
+            "y": 0.57427,
+            "width": 0.03042,
+            "height": 0.03275
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "operational_category",
+          "conceptId": "operational_category",
+          "rect": {
+            "x": 0.76553,
+            "y": 0.58246,
+            "width": 0.04056,
+            "height": 0.02573
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "aircraft-special-flying",
+      "type": "counter-template",
+      "label": "Aviones especiales (volando)",
+      "imageId": "counters-aereos.jpg",
+      "rect": {
+        "x": 0.0,
+        "y": 0.7076,
+        "width": 1.0,
+        "height": 0.23392
+      },
+      "detected": 9,
+      "expected": 11,
+      "hotspots": [
+        {
+          "id": "air_combat",
+          "conceptId": "air_combat",
+          "rect": {
+            "x": 0.44994,
+            "y": 0.7848,
+            "width": 0.02281,
+            "height": 0.02924
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.48289,
+            "y": 0.78596,
+            "width": 0.04563,
+            "height": 0.02573
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.51204,
+            "y": 0.81287,
+            "width": 0.02535,
+            "height": 0.04795
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.4512,
+            "y": 0.81404,
+            "width": 0.01267,
+            "height": 0.0152
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.4512,
+            "y": 0.81404,
+            "width": 0.01648,
+            "height": 0.03977
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "runway",
+          "conceptId": "runway",
+          "rect": {
+            "x": 0.54373,
+            "y": 0.80936,
+            "width": 0.01141,
+            "height": 0.01754
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.54246,
+            "y": 0.82807,
+            "width": 0.01394,
+            "height": 0.02573
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "no_refuel",
+          "conceptId": "no_refuel",
+          "rect": {
+            "x": 0.53992,
+            "y": 0.84912,
+            "width": 0.01648,
+            "height": 0.01404
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "operational_category",
+          "conceptId": "operational_category",
+          "rect": {
+            "x": 0.44994,
+            "y": 0.86667,
+            "width": 0.04689,
+            "height": 0.01754
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.50824,
+            "y": 0.8655,
+            "width": 0.01267,
+            "height": 0.01988
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.53866,
+            "y": 0.86316,
+            "width": 0.01774,
+            "height": 0.02222
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "ship-combat",
+      "type": "counter-template",
+      "label": "Unidades de superficie — unidades de combate",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.0,
+        "y": 0.03906,
+        "width": 0.33368,
+        "height": 0.18828
+      },
+      "detected": 9,
+      "expected": 12,
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.12552,
+            "y": 0.10312,
+            "width": 0.02929,
+            "height": 0.02187
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.16004,
+            "y": 0.10703,
+            "width": 0.03556,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "hull_number",
+          "conceptId": "hull_number",
+          "rect": {
+            "x": 0.19247,
+            "y": 0.12031,
+            "width": 0.01255,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.20293,
+            "y": 0.10625,
+            "width": 0.02301,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.12762,
+            "y": 0.12656,
+            "width": 0.02406,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.12866,
+            "y": 0.14062,
+            "width": 0.01778,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "port_level",
+          "conceptId": "port_level",
+          "rect": {
+            "x": 0.20921,
+            "y": 0.12578,
+            "width": 0.01255,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.21025,
+            "y": 0.14219,
+            "width": 0.01046,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "support",
+          "conceptId": "support",
+          "rect": {
+            "x": 0.12866,
+            "y": 0.16172,
+            "width": 0.02301,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "asw",
+          "conceptId": "asw",
+          "rect": {
+            "x": 0.159,
+            "y": 0.16172,
+            "width": 0.02301,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.18933,
+            "y": 0.16406,
+            "width": 0.01046,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.20711,
+            "y": 0.1625,
+            "width": 0.01674,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "ship-carrier",
+      "type": "counter-template",
+      "label": "Unidades de superficie — portaaviones",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.33368,
+        "y": 0.03906,
+        "width": 0.33368,
+        "height": 0.18828
+      },
+      "detected": 10,
+      "expected": 11,
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.45607,
+            "y": 0.10312,
+            "width": 0.02929,
+            "height": 0.02109
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.49059,
+            "y": 0.10703,
+            "width": 0.03452,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.53556,
+            "y": 0.10703,
+            "width": 0.02092,
+            "height": 0.01562
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.45816,
+            "y": 0.12656,
+            "width": 0.02406,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.45921,
+            "y": 0.14062,
+            "width": 0.01778,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "port_level",
+          "conceptId": "port_level",
+          "rect": {
+            "x": 0.53975,
+            "y": 0.12578,
+            "width": 0.01151,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.54079,
+            "y": 0.14219,
+            "width": 0.01046,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "runway",
+          "conceptId": "runway",
+          "rect": {
+            "x": 0.46025,
+            "y": 0.16172,
+            "width": 0.02092,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "asw",
+          "conceptId": "asw",
+          "rect": {
+            "x": 0.48849,
+            "y": 0.16172,
+            "width": 0.02301,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.51987,
+            "y": 0.16406,
+            "width": 0.01046,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.53766,
+            "y": 0.1625,
+            "width": 0.01778,
+            "height": 0.01484
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "submarine-hidden",
+      "type": "counter-template",
+      "label": "Unidades submarinas — oculto",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.66736,
+        "y": 0.03906,
+        "width": 0.33264,
+        "height": 0.18828
+      },
+      "detected": 4,
+      "expected": 6,
+      "hotspots": [
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.78975,
+            "y": 0.11406,
+            "width": 0.04707,
+            "height": 0.00937
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "ambush",
+          "conceptId": "ambush",
+          "rect": {
+            "x": 0.85251,
+            "y": 0.11406,
+            "width": 0.00941,
+            "height": 0.01016
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.85146,
+            "y": 0.14219,
+            "width": 0.01255,
+            "height": 0.00937
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "torpedoes",
+          "conceptId": "torpedoes",
+          "rect": {
+            "x": 0.7887,
+            "y": 0.15781,
+            "width": 0.01778,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "noise",
+          "conceptId": "noise",
+          "rect": {
+            "x": 0.82427,
+            "y": 0.13047,
+            "width": 0.03138,
+            "height": 0.02422
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.85146,
+            "y": 0.15859,
+            "width": 0.01151,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "submarine-exposed",
+      "type": "counter-template",
+      "label": "Unidades submarinas — expuestas",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.66736,
+        "y": 0.24609,
+        "width": 0.33264,
+        "height": 0.17969
+      },
+      "detected": 6,
+      "expected": 8,
+      "hotspots": [
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.79707,
+            "y": 0.30938,
+            "width": 0.04812,
+            "height": 0.01016
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "ambush",
+          "conceptId": "ambush",
+          "rect": {
+            "x": 0.86088,
+            "y": 0.30938,
+            "width": 0.00837,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.79603,
+            "y": 0.33516,
+            "width": 0.01255,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.85983,
+            "y": 0.3375,
+            "width": 0.01151,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "torpedoes",
+          "conceptId": "torpedoes",
+          "rect": {
+            "x": 0.79603,
+            "y": 0.35313,
+            "width": 0.01883,
+            "height": 0.01484
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "noise",
+          "conceptId": "noise",
+          "rect": {
+            "x": 0.82008,
+            "y": 0.35391,
+            "width": 0.01883,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.84519,
+            "y": 0.35625,
+            "width": 0.00941,
+            "height": 0.00937
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.85983,
+            "y": 0.35469,
+            "width": 0.01151,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "surface-transport-underway",
+      "type": "counter-template",
+      "label": "Unidades de superficie — transporte (navegando)",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.0,
+        "y": 0.24609,
+        "width": 0.33368,
+        "height": 0.17969
+      },
+      "detected": 9,
+      "expected": 12,
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.12552,
+            "y": 0.30156,
+            "width": 0.02929,
+            "height": 0.02109
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.16004,
+            "y": 0.30469,
+            "width": 0.03452,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "hull_number",
+          "conceptId": "hull_number",
+          "rect": {
+            "x": 0.19247,
+            "y": 0.31953,
+            "width": 0.01255,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.20502,
+            "y": 0.30547,
+            "width": 0.01987,
+            "height": 0.01484
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.12762,
+            "y": 0.32422,
+            "width": 0.02406,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.12866,
+            "y": 0.33828,
+            "width": 0.01778,
+            "height": 0.01797
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "port_level",
+          "conceptId": "port_level",
+          "rect": {
+            "x": 0.20921,
+            "y": 0.32344,
+            "width": 0.01151,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.20921,
+            "y": 0.33984,
+            "width": 0.01255,
+            "height": 0.01484
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "one_unit_capacity",
+          "conceptId": "one_unit_capacity",
+          "rect": {
+            "x": 0.12866,
+            "y": 0.36016,
+            "width": 0.02197,
+            "height": 0.01562
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "max_capacity",
+          "conceptId": "max_capacity",
+          "rect": {
+            "x": 0.159,
+            "y": 0.36016,
+            "width": 0.02092,
+            "height": 0.01562
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.18933,
+            "y": 0.3625,
+            "width": 0.01046,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.20711,
+            "y": 0.36094,
+            "width": 0.01778,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "surface-transport-loading",
+      "type": "counter-template",
+      "label": "Unidades de superficie — transporte (carga/descarga)",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.33368,
+        "y": 0.24609,
+        "width": 0.33368,
+        "height": 0.17969
+      },
+      "detected": 8,
+      "expected": 12,
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.45607,
+            "y": 0.29922,
+            "width": 0.02929,
+            "height": 0.02187
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.49059,
+            "y": 0.30312,
+            "width": 0.03452,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "hull_number",
+          "conceptId": "hull_number",
+          "rect": {
+            "x": 0.52197,
+            "y": 0.31641,
+            "width": 0.0136,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.53556,
+            "y": 0.30312,
+            "width": 0.02092,
+            "height": 0.01484
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.45816,
+            "y": 0.32109,
+            "width": 0.02406,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.45921,
+            "y": 0.33594,
+            "width": 0.01778,
+            "height": 0.01797
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "port_level",
+          "conceptId": "port_level",
+          "rect": {
+            "x": 0.53975,
+            "y": 0.32188,
+            "width": 0.01151,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.54079,
+            "y": 0.33828,
+            "width": 0.01046,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "one_unit_capacity",
+          "conceptId": "one_unit_capacity",
+          "rect": {
+            "x": 0.46025,
+            "y": 0.35781,
+            "width": 0.02197,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "max_capacity",
+          "conceptId": "max_capacity",
+          "rect": {
+            "x": 0.48954,
+            "y": 0.35781,
+            "width": 0.02197,
+            "height": 0.01562
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.51987,
+            "y": 0.35938,
+            "width": 0.01046,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "unload",
+          "conceptId": "unload",
+          "rect": {
+            "x": 0.49477,
+            "y": 0.31562,
+            "width": 0.02301,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "low-altitude-flying",
+      "type": "counter-template",
+      "label": "Unidades de baja altitud — volando",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.0,
+        "y": 0.44531,
+        "width": 0.33368,
+        "height": 0.14531
+      },
+      "detected": 6,
+      "expected": 8,
+      "hotspots": [
+        {
+          "id": "air_combat",
+          "conceptId": "air_combat",
+          "rect": {
+            "x": 0.13389,
+            "y": 0.49688,
+            "width": 0.01883,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.16527,
+            "y": 0.49688,
+            "width": 0.04498,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.13389,
+            "y": 0.52187,
+            "width": 0.0136,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.17573,
+            "y": 0.51484,
+            "width": 0.01778,
+            "height": 0.025
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.19979,
+            "y": 0.51953,
+            "width": 0.00837,
+            "height": 0.01016
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "type",
+          "conceptId": "type",
+          "rect": {
+            "x": 0.13389,
+            "y": 0.54219,
+            "width": 0.01987,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.16841,
+            "y": 0.54219,
+            "width": 0.01046,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.18619,
+            "y": 0.53984,
+            "width": 0.02092,
+            "height": 0.01484
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "low-altitude-operating",
+      "type": "counter-template",
+      "label": "Unidades de baja altitud — operando",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.33368,
+        "y": 0.44531,
+        "width": 0.33368,
+        "height": 0.14531
+      },
+      "detected": 4,
+      "expected": 6,
+      "hotspots": [
+        {
+          "id": "skill",
+          "conceptId": "skill",
+          "rect": {
+            "x": 0.46444,
+            "y": 0.49766,
+            "width": 0.0251,
+            "height": 0.01875
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.52406,
+            "y": 0.49766,
+            "width": 0.01883,
+            "height": 0.01328
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.46444,
+            "y": 0.52031,
+            "width": 0.0136,
+            "height": 0.01328
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.50941,
+            "y": 0.5125,
+            "width": 0.03243,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "type",
+          "conceptId": "type",
+          "rect": {
+            "x": 0.46444,
+            "y": 0.53828,
+            "width": 0.02197,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.52301,
+            "y": 0.52969,
+            "width": 0.01883,
+            "height": 0.02656
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "low-altitude-operating-transport",
+      "type": "counter-template",
+      "label": "Unidades de baja altitud — operando (transporte)",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.66736,
+        "y": 0.44531,
+        "width": 0.33264,
+        "height": 0.14531
+      },
+      "detected": 6,
+      "expected": 6,
+      "hotspots": [
+        {
+          "id": "skill",
+          "conceptId": "skill",
+          "rect": {
+            "x": 0.79498,
+            "y": 0.49766,
+            "width": 0.02615,
+            "height": 0.01875
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.8546,
+            "y": 0.49844,
+            "width": 0.01674,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.79603,
+            "y": 0.52031,
+            "width": 0.01255,
+            "height": 0.01328
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.84205,
+            "y": 0.5125,
+            "width": 0.03138,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "capacity",
+          "conceptId": "capacity",
+          "rect": {
+            "x": 0.79498,
+            "y": 0.53828,
+            "width": 0.02197,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.85356,
+            "y": 0.52891,
+            "width": 0.01778,
+            "height": 0.02656
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "ground-main",
+      "type": "counter-template",
+      "label": "Unidades terrestres — unidades principales",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.0,
+        "y": 0.60938,
+        "width": 0.33368,
+        "height": 0.17969
+      },
+      "detected": 8,
+      "expected": 10,
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.12552,
+            "y": 0.67734,
+            "width": 0.01464,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "skill",
+          "conceptId": "skill",
+          "rect": {
+            "x": 0.15795,
+            "y": 0.67734,
+            "width": 0.02197,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.1841,
+            "y": 0.67656,
+            "width": 0.03452,
+            "height": 0.02109
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "size",
+          "conceptId": "size",
+          "rect": {
+            "x": 0.1454,
+            "y": 0.69922,
+            "width": 0.01674,
+            "height": 0.025
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.12552,
+            "y": 0.70781,
+            "width": 0.01674,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.20711,
+            "y": 0.69922,
+            "width": 0.00941,
+            "height": 0.01328
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "attack",
+          "conceptId": "attack",
+          "rect": {
+            "x": 0.12448,
+            "y": 0.73359,
+            "width": 0.02406,
+            "height": 0.01719
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "defense",
+          "conceptId": "defense",
+          "rect": {
+            "x": 0.15481,
+            "y": 0.73281,
+            "width": 0.02406,
+            "height": 0.01797
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.18515,
+            "y": 0.73594,
+            "width": 0.01046,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "initiative",
+          "conceptId": "initiative",
+          "rect": {
+            "x": 0.20397,
+            "y": 0.73438,
+            "width": 0.01674,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "ground-tech-fire",
+      "type": "counter-template",
+      "label": "Unidades terrestres — técnicas: con capacidad de disparo",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.33368,
+        "y": 0.60938,
+        "width": 0.33368,
+        "height": 0.17969
+      },
+      "detected": 6,
+      "expected": 7,
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.4613,
+            "y": 0.68281,
+            "width": 0.01255,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.50523,
+            "y": 0.68281,
+            "width": 0.03452,
+            "height": 0.01562
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.46025,
+            "y": 0.70703,
+            "width": 0.0136,
+            "height": 0.01328
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.5272,
+            "y": 0.70156,
+            "width": 0.00732,
+            "height": 0.00859
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "function_support",
+          "conceptId": "function_support",
+          "rect": {
+            "x": 0.46025,
+            "y": 0.72656,
+            "width": 0.03033,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.50314,
+            "y": 0.72813,
+            "width": 0.00941,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "mobile_or_fixed",
+          "conceptId": "mobile_or_fixed",
+          "rect": {
+            "x": 0.5251,
+            "y": 0.72813,
+            "width": 0.00941,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "ground-tech-antisurface",
+      "type": "counter-template",
+      "label": "Unidades terrestres — técnicas: anti-superficie",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.66736,
+        "y": 0.60938,
+        "width": 0.33264,
+        "height": 0.17969
+      },
+      "detected": 7,
+      "expected": 8,
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.79184,
+            "y": 0.68281,
+            "width": 0.01255,
+            "height": 0.01641
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.81172,
+            "y": 0.68281,
+            "width": 0.03452,
+            "height": 0.01562
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.85251,
+            "y": 0.68359,
+            "width": 0.01778,
+            "height": 0.01328
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.79184,
+            "y": 0.70625,
+            "width": 0.0136,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.85879,
+            "y": 0.70156,
+            "width": 0.00732,
+            "height": 0.00859
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "function_type",
+          "conceptId": "function_type",
+          "rect": {
+            "x": 0.79184,
+            "y": 0.72656,
+            "width": 0.02929,
+            "height": 0.01406
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.83368,
+            "y": 0.72813,
+            "width": 0.00941,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "mobile_or_fixed",
+          "conceptId": "mobile_or_fixed",
+          "rect": {
+            "x": 0.85565,
+            "y": 0.72813,
+            "width": 0.00941,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "ground-tech-heliport",
+      "type": "counter-template",
+      "label": "Unidades terrestres — técnicas: helipuertos móviles",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.0,
+        "y": 0.80937,
+        "width": 0.33368,
+        "height": 0.16016
+      },
+      "detected": 4,
+      "expected": 4,
+      "hotspots": [
+        {
+          "id": "number",
+          "conceptId": "number",
+          "rect": {
+            "x": 0.17678,
+            "y": 0.89297,
+            "width": 0.02929,
+            "height": 0.01797
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.13494,
+            "y": 0.89687,
+            "width": 0.01151,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.17573,
+            "y": 0.91797,
+            "width": 0.00941,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "initiative",
+          "conceptId": "initiative",
+          "rect": {
+            "x": 0.19979,
+            "y": 0.91797,
+            "width": 0.00941,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "ground-tech-antiair",
+      "type": "counter-template",
+      "label": "Unidades terrestres — técnicas: antiaéreas",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.33368,
+        "y": 0.80937,
+        "width": 0.33368,
+        "height": 0.16016
+      },
+      "detected": 2,
+      "expected": 9,
+      "hotspots": [
+        {
+          "id": "air_detection",
+          "conceptId": "air_detection",
+          "rect": {
+            "x": 0.45607,
+            "y": 0.86953,
+            "width": 0.05753,
+            "height": 0.06094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.48954,
+            "y": 0.86953,
+            "width": 0.02301,
+            "height": 0.01797
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.48954,
+            "y": 0.88984,
+            "width": 0.01255,
+            "height": 0.01094
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "ballistic_defense",
+          "conceptId": "ballistic_defense",
+          "rect": {
+            "x": 0.50418,
+            "y": 0.89531,
+            "width": 0.01778,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "anti_jamming",
+          "conceptId": "anti_jamming",
+          "rect": {
+            "x": 0.49059,
+            "y": 0.90781,
+            "width": 0.00732,
+            "height": 0.00859
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.53138,
+            "y": 0.90156,
+            "width": 0.00628,
+            "height": 0.00937
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "low_altitude_detection",
+          "conceptId": "low_altitude_detection",
+          "rect": {
+            "x": 0.4864,
+            "y": 0.92109,
+            "width": 0.01464,
+            "height": 0.00937
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.50837,
+            "y": 0.91641,
+            "width": 0.00941,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "mobile_or_fixed",
+          "conceptId": "mobile_or_fixed",
+          "rect": {
+            "x": 0.5251,
+            "y": 0.91563,
+            "width": 0.00941,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    },
+    {
+      "id": "ground-tech-earlywarning",
+      "type": "counter-template",
+      "label": "Unidades terrestres — técnicas: alerta temprana",
+      "imageId": "resto-counters.jpg",
+      "rect": {
+        "x": 0.66736,
+        "y": 0.80937,
+        "width": 0.33264,
+        "height": 0.16016
+      },
+      "detected": 3,
+      "expected": 8,
+      "hotspots": [
+        {
+          "id": "air_detection",
+          "conceptId": "air_detection",
+          "rect": {
+            "x": 0.78766,
+            "y": 0.86953,
+            "width": 0.03138,
+            "height": 0.06172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "skill",
+          "conceptId": "skill",
+          "rect": {
+            "x": 0.82113,
+            "y": 0.87109,
+            "width": 0.01987,
+            "height": 0.01484
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.83054,
+            "y": 0.89766,
+            "width": 0.01151,
+            "height": 0.0125
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "anti_jamming",
+          "conceptId": "anti_jamming",
+          "rect": {
+            "x": 0.82113,
+            "y": 0.90781,
+            "width": 0.00732,
+            "height": 0.00781
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.86192,
+            "y": 0.90156,
+            "width": 0.00732,
+            "height": 0.00937
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "low_altitude_detection",
+          "conceptId": "low_altitude_detection",
+          "rect": {
+            "x": 0.81695,
+            "y": 0.92109,
+            "width": 0.0136,
+            "height": 0.00937
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.83891,
+            "y": 0.91641,
+            "width": 0.00837,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        },
+        {
+          "id": "mobile_or_fixed",
+          "conceptId": "mobile_or_fixed",
+          "rect": {
+            "x": 0.85565,
+            "y": 0.91563,
+            "width": 0.01046,
+            "height": 0.01172
+          },
+          "confidence": 1.0,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-10-07",
+          "reviewNote": "Posiciones dadas por buenas tras revisar las 20 fichas en el visor; los errores que aparezcan se corrigen en la beta.",
+          "method": "opencv-detection+manual-adjust",
+          "adjustNote": ""
+        }
+      ]
+    }
+  ]
+}

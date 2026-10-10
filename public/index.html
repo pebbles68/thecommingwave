@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TCW Assistant — The Coming Wave</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="bg-logo" class="bg-logo" aria-hidden="true"></div>
+
+  <!-- Contenido de fondo (COR-008): se marca `inert` mientras el panel de
+       ayuda está abierto, para que quede fuera del orden de tabulación y no
+       pueda activarse con teclado ni con toque mientras el diálogo modal
+       está encima — ver openHelpPanel/closeHelpPanel en public/js/app.js. -->
+  <div id="app-content">
+    <header class="app-header">
+      <button class="icon-btn" id="btn-home" aria-label="Inicio" type="button">☰</button>
+      <nav class="breadcrumb" id="breadcrumb" aria-live="polite"></nav>
+      <button class="help-btn" id="btn-help" type="button">? Ayuda rápida</button>
+    </header>
+
+    <main id="view-root" class="view-root" tabindex="-1"></main>
+
+    <button id="btn-scroll-top" class="scroll-top-btn" type="button" aria-label="Volver arriba" hidden>↑</button>
+  </div>
+
+  <aside id="help-panel" class="help-panel" hidden role="dialog" aria-modal="true" aria-labelledby="help-panel-title">
+    <div class="help-panel__header">
+      <h2 id="help-panel-title">Ayuda rápida</h2>
+      <button class="icon-btn" id="btn-help-close" aria-label="Cerrar ayuda" type="button">✕</button>
+    </div>
+    <div id="help-panel-body" class="help-panel__body"></div>
+  </aside>
+  <div id="help-backdrop" class="help-backdrop" hidden></div>
+
+  <script src="js/table-engine.js"></script>
+  <script src="js/table-routing-engine.js"></script>
+  <script src="js/combat-modifier-engine.js"></script>
+  <script src="js/combat-wizard-engine.js"></script>
+  <script src="js/detection-engine.js"></script>
+  <script src="js/turn-model.js"></script>
+  <script src="js/turn-progress-engine.js"></script>
+  <script src="js/visual-help-engine.js"></script>
+  <script src="js/ground-close-combat-engine.js"></script>
+  <script src="js/torpedo-attack-engine.js"></script>
+  <script src="js/asw-attack-engine.js"></script>
+  <script src="js/anti-radiation-attack-engine.js"></script>
+  <script src="js/ship-impact-effects-engine.js"></script>
+  <script src="js/asw-air-search-engine.js"></script>
+  <script src="js/asw-signature-search-engine.js"></script>
+  <script src="js/air-combat-bvr-engine.js"></script>
+  <script src="js/air-combat-wvr-engine.js"></script>
+  <script src="js/air-intercept-targets-engine.js"></script>
+  <script src="js/ew-escort-engine.js"></script>
+  <script src="js/army-resupply-engine.js"></script>
+  <script src="js/logistics-guarantee-engine.js"></script>
+  <script src="js/submarine-ambush-engine.js"></script>
+  <script src="js/port-logistics-engine.js"></script>
+  <script src="js/strategic-actions-engine.js"></script>
+  <script src="js/cyber-attack-engine.js"></script>
+  <script src="js/ground-reaction-engine.js"></script>
+  <script src="js/ground-guided-attack-engine.js"></script>
+  <script src="js/ground-attack-result-engine.js"></script>
+  <script src="js/wizard-drafts.js"></script>
+  <script src="js/mission-context-engine.js"></script>
+  <script src="js/stage-questions-engine.js"></script>
+  <script src="js/rule-profile-engine.js"></script>
+  <script src="js/air-mission-group.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/core-data.js"></script>
+  <script src="js/core-widgets.js"></script>
+  <script src="js/image-hotspot-viewer.js"></script>
+  <script src="js/core-visuals.js"></script>
+  <script src="js/core-wizard-steps.js"></script>
+  <script src="js/core-stage-questions.js"></script>
+  <script src="js/core-mission.js"></script>
+  <script src="js/core-visual-refs.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/views/turn.js"></script>
+  <script src="js/views/visual-help-panel.js"></script>
+  <script src="js/views/roster.js"></script>
+  <script src="js/views/history.js"></script>
+  <script src="js/views/rule-profile.js"></script>
+  <script src="js/views/help-index.js"></script>
+  <script src="js/views/help-counters.js"></script>
+  <script src="js/views/help-municion.js"></script>
+  <script src="js/views/help-combate.js"></script>
+  <script src="js/views/help-search.js"></script>
+  <script src="js/views/help-deteccion.js"></script>
+  <script src="js/views/help-secuencia.js"></script>
+  <script src="js/views/help-reglas.js"></script>
+  <script src="js/views/help-tablas.js"></script>
+  <script src="js/antiship-guided-model.js"></script>
+  <script src="js/views/antiship-guided-steps.js"></script>
+  <script src="js/views/antiship-guided-result.js"></script>
+  <script src="js/views/antiship-guided-wizard.js"></script>
+  <script src="js/views/antiship-unguided-wizard.js"></script>
+  <script src="js/views/ground-close-combat-wizard.js"></script>
+  <script src="js/views/torpedo-surface-wizard.js"></script>
+  <script src="js/views/asw-surface-air-wizard.js"></script>
+  <script src="js/views/asw-submarine-wizard.js"></script>
+  <script src="js/views/asw-air-search-wizard.js"></script>
+  <script src="js/views/asw-signature-search-wizard.js"></script>
+  <script src="js/views/army-resupply-wizard.js"></script>
+  <script src="js/views/logistics-guarantee-wizard.js"></script>
+  <script src="js/views/submarine-ambush-wizard.js"></script>
+  <script src="js/views/port-logistics-wizard.js"></script>
+  <script src="js/views/cyber-attack-wizard.js"></script>
+  <script src="js/views/space-war-wizard.js"></script>
+  <script src="js/views/air-mission-group-wizard.js"></script>
+  <script src="js/views/ground-reaction-wizard.js"></script>
+  <script src="js/views/ground-guided-wizard.js"></script>
+  <script src="js/views/ground-unguided-wizard.js"></script>
+  <script src="js/views/ground-attack-result-wizard.js"></script>
+  <script src="js/views/air-combat-bvr-wizard.js"></script>
+  <script src="js/views/air-combat-wvr-wizard.js"></script>
+  <script src="js/views/air-intercept-targets-wizard.js"></script>
+  <script src="js/views/anti-radiation-wizard.js"></script>
+  <script src="js/views/ship-impact-effects-wizard.js"></script>
+  <script src="js/player-text.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{
+  "country": "JP",
+  "countryName": "Japon",
+  "status": "complete",
+  "transcribedSheets": ["JP 1 (seccion Aviones de rol especial)", "JP 2 (helicopteros, artilleria, misiles de crucero)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/special-unit-plans/us.json.",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0."
+  },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/JP 1.pdf", "page": 1, "sheetTitle": "Aviones de rol especial",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer." },
+    { "document": "Tablas de Armamento/JP2.pdf", "page": 1, "sheetTitle": "Plataformas de baja altitud, artilleria y misiles de crucero costeros" }
+  ],
+
+  "units": [
+    {
+      "id": "jp-p-1", "name": "P-1", "nameLocal": "海鹫", "class": "special-aircraft", "role": "MPA",
+      "sourceSheet": "JP 1", "domainSplit": false,
+      "plans": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 4 } } }
+    },
+    {
+      "id": "jp-p-3c", "name": "P-3C", "nameLocal": "猎户座", "class": "special-aircraft", "role": "MPA",
+      "sourceSheet": "JP 1", "domainSplit": false,
+      "plans": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 4 } } }
+    },
+    {
+      "id": "jp-ah-64e", "name": "AH-64E", "nameLocal": "阿帕奇", "class": "attack-helicopter",
+      "sourceSheet": "JP 2", "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "B": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "jp-ah-1s", "name": "AH-1S", "nameLocal": "眼镜蛇", "class": "attack-helicopter",
+      "sourceSheet": "JP 2", "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "B": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "jp-m110", "name": "M110", "nameLocal": "榴弹炮群", "class": "artillery",
+      "sourceSheet": "JP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "jp-type99", "name": "Type 99", "nameLocal": "榴弹炮群", "class": "artillery",
+      "sourceSheet": "JP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "jp-m270", "name": "M270", "nameLocal": "火箭炮群", "class": "artillery",
+      "sourceSheet": "JP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "jp-type12-coastal", "name": "Type 12 (costero)", "nameLocal": "亚音巡航", "class": "coastal-missile",
+      "sourceSheet": "JP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "Type 12", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 6, "range": 3 } } },
+      "note": "Etiquetado 'CM' (misil de crucero subsonico) en la hoja, categoria coastal-missile igual que YJ-12B/DF-10A/DF-100 de China."
+    },
+    {
+      "id": "jp-type88-coastal", "name": "Type 88 (costero)", "nameLocal": "亚音巡航", "class": "coastal-missile",
+      "sourceSheet": "JP 2", "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "SSM-1", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 6, "range": 2 } } }
+    }
+  ]
+}

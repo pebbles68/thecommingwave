@@ -1,0 +1,30 @@
+{
+  "country": "KR",
+  "countryName": "Corea del Sur",
+  "status": "complete",
+  "transcribedSheets": ["KO 2"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/units/us.json.",
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/KO 2.pdf", "page": 1, "sheetTitle": "Unidades terrestres: formaciones y sistemas de apoyo" }
+  ],
+
+  "groundFormations": [
+    { "id": "kr-k2", "name": "K2", "nameLocal": "机甲师团A", "nameEn": "Armored Division A", "attack": 108, "defense": 12 },
+    { "id": "kr-k1a1", "name": "K1A1", "nameLocal": "机甲旅团B", "nameEn": "Armored Brigade B", "attack": 36, "defense": 12 },
+    { "id": "kr-k200", "name": "K200", "nameLocal": "步兵师团A", "nameEn": "Infantry Division A", "attack": 100, "defense": 10 },
+    { "id": "kr-m113", "name": "M113", "nameLocal": "步兵团B", "nameEn": "Infantry Regiment B", "attack": 100, "defense": 10 },
+    { "id": "kr-m48a5", "name": "M48A5", "nameLocal": "乡土师团", "nameEn": "Homeland Defense Division", "attack": 40, "defense": 4 },
+    { "id": "kr-aav-7", "name": "AAV-7", "nameLocal": "海兵队", "nameEn": "Marine Corps", "attack": 20, "defense": 10 }
+  ],
+
+  "supportSystems": [
+    { "id": "kr-mim-104", "name": "MIM-104", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "kr-cheongung2", "name": "Cheongung2", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "kr-an-tps-117", "name": "AN/TPS-117", "nameLocal": "预警雷达", "systemType": "EWR", "value": 2, "valueMeaning": "electronic" },
+    { "id": "kr-el-m-2080", "name": "EL/M-2080", "nameLocal": "预警雷达", "systemType": "EWR", "value": 2, "valueMeaning": "electronic" },
+    { "id": "kr-hlsc", "name": "HLSC", "nameLocal": "场站", "systemType": "HELIPORT", "value": 3, "valueMeaning": "electronic" }
+  ]
+}

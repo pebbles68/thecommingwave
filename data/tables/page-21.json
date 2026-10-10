@@ -1,0 +1,73 @@
+{
+  "page": 21,
+  "title": "Ataque Antibuque Guiado — Resistencia Electrónica de Buques y Método de Ataque",
+  "workflowRefs": ["antiship_guided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 21 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "3) Resistencia electrónica de buques",
+      "intro": "Al calcular la distancia de ataque, se comienza desde el counter del atacante. Valor Electrónico de la Flota (V.E.F.): Valor electrónico más alto de los buques + modificador.",
+      "rows": [
+        { "condition": "Distancia de ataque: 0~2 // Misión de Área 0~3", "effect": "+0" },
+        { "condition": "Distancia de ataque: 3~5 // Misión de Área 4~6", "effect": "+1" },
+        { "condition": "Distancia de ataque: +6 // Misión de Área +7", "effect": "+3" },
+        { "condition": "Atacante no detectado pero sí al guía/designador", "effect": "-1" },
+        { "condition": "Atacante y guía/designador no detectados", "effect": "-3" }
+      ],
+      "note": "Coincide con attack_distance/detection_state ya transcritos en data/workflows/07_ataque_antibuque_guiado.json (vertical slice del roadmap Fase 7)."
+    },
+    {
+      "topic": "Valor de Ataque",
+      "rows": [{ "condition": "Valor de Ataque", "effect": "Valor de ataque después de la reducción x multiplicador" }]
+    },
+    {
+      "topic": "Valor de Ataque Final",
+      "rows": [
+        { "condition": "Múltiples métodos de ataque iguales", "effect": "Usan el mismo multiplicador" },
+        { "condition": "Cada método de ataque", "effect": "Se calcula por separado" }
+      ]
+    },
+    {
+      "topic": "4) Ataque guiado contra buques de superficie — Método de ataque / Método de resolución",
+      "intro": "Cada tipo de ataque se resuelve por separado.",
+      "rows": [
+        { "condition": "Subsónico", "effect": "Tirar 2d10 y elegir el mayor" },
+        { "condition": "Supersónico", "effect": "Tirar 1d10" },
+        { "condition": "Trayectoria balística", "effect": "Tirar 1d10" },
+        { "condition": "Trayectoria de espacio cercano", "effect": "Tirar 1d10" }
+      ],
+      "note": "Coincide exactamente con roll_2d10_take_highest (subsonic) y roll_1d10 (supersonic/ballistic/near_space) ya transcritos en data/workflows/07_ataque_antibuque_guiado.json (diceRules)."
+    },
+    {
+      "topic": "Por cada impacto — Efecto del daño",
+      "rows": [
+        { "condition": "Subsónico", "effect": "1 daño" },
+        { "condition": "Supersónico", "effect": "2 daños" },
+        { "condition": "Balística / Espacio cercano", "effect": "Valor de Resistencia ?: 1 hundimiento" },
+        { "condition": "Balística / Espacio cercano", "effect": "Valor de Resistencia [?]: 6 daños" }
+      ],
+      "note": "El valor de Resistencia aparece impreso como '?'/'[?]' en la fuente (no ilegible por nuestra parte): mismo patrón de dato faltante ya visto en páginas 6/9/17/18 para Protección/Resistencia. needsReview / gap del documento original."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "antiship-guided-vef-modifier",
+      "title": "Mod. V.E.F. (Valor Electrónico de la Flota)",
+      "rowAxis": { "label": "Mod.", "values": ["<=-1", "0", "1~8", "9", "10+"] },
+      "columnAxis": { "label": "V.E.F.", "values": ["V.E.F."] },
+      "cells": [["+7"], ["+3"], ["-V.E.F."], ["-8"], ["-9"]],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 21, "section": "3) Resistencia electrónica de buques", "verifiedAtDpi": 300 }]
+    },
+    {
+      "id": "antiship-guided-attack-multiplier",
+      "title": "Mod. al Ataque — Multiplicador según V.E.F. final",
+      "rowAxis": { "label": "V.E.F. final (tras Mod. V.E.F.)", "values": ["<=0", "1~4", "5~6", "7", "8", "9+"] },
+      "columnAxis": { "label": "Mult.", "values": ["Mult."] },
+      "cells": [["x1"], ["x2"], ["x3"], ["x4"], ["x5"], ["x6"]],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 21, "section": "3) Resistencia electrónica de buques", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

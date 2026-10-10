@@ -1,0 +1,114 @@
+{
+  "country": "RU",
+  "countryName": "Rusia",
+  "status": "complete",
+  "transcribedSheets": ["RU 2 (seccion Unidades de superficie)", "RU 3 (seccion Plataformas submarinas)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/naval-plans/us.json. Los buques de esta hoja muestran el mismo valor en la fila completa y en la danada para casi todas las municiones (a diferencia de EEUU, donde suele haber degradacion); se transcribe tal cual, verificado visualmente.",
+
+  "valueFormat": { "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0." },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/RU 2.pdf", "page": 1, "sheetTitle": "Unidades de superficie",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer." },
+    { "document": "Tablas de Armamento/RU 3.pdf", "page": 1, "sheetTitle": "Plataformas submarinas" }
+  ],
+
+  "unmappedFactors": {
+    "shipBadge": { "note": "Valores vistos: 6, 2, 3, 4, '3/1'. Resuelto en posicion/etiqueta contra data/counters/factor-map.json#ship-combat: es el factor 'N.º'; su significado numerico sigue sin confirmar, igual que en los demas paises.", "resolvedFactor": "hull_number" }
+  },
+
+  "surfaceShips": [
+    { "id": "ru-bs-1164", "name": "BS-1164", "nameLocal": "光荣", "class": "cruiser", "hasFullDamagedRows": true, "shipBadge": 6,
+      "plans": { "antiShip": {
+        "A": { "munition": "P1000(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 3 }, "damaged": { "damage": 2, "range": 3 } },
+        "B": { "munition": "P1000", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 9 }, "damaged": { "damage": 2, "range": 9 } }
+      }, "landAttack": {} } },
+    { "id": "ru-bs-1155m", "name": "BS-1155M", "nameLocal": "无畏M", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "Kh-35", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 2, "range": 2 }, "damaged": { "damage": 2, "range": 2 } },
+          "B": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 3 }, "damaged": { "damage": 2, "range": 3 } },
+          "C": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 7 }, "damaged": { "damage": 2, "range": 7 } },
+          "D": { "munition": "P-800", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 8 }, "damaged": { "damage": 2, "range": 8 } },
+          "E": { "munition": "3M22", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 2, "range": 13 }, "damaged": { "damage": 2, "range": 13 } }
+        },
+        "landAttack": {
+          "A": { "munition": "3M22", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 2, "range": 13 }, "damaged": { "damage": 2, "range": 13 } },
+          "B": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 1, "range": 19 }, "damaged": { "damage": 1, "range": 19 } }
+        }
+      } },
+    { "id": "ru-bs-22350", "name": "BS-22350", "nameLocal": "戈尔什科夫", "class": "frigate", "hasFullDamagedRows": true, "shipBadge": 3,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } },
+          "B": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 7 }, "damaged": { "damage": 1, "range": 7 } },
+          "C": { "munition": "P-800", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 8 }, "damaged": { "damage": 1, "range": 8 } },
+          "D": { "munition": "3M22", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 13 }, "damaged": { "damage": 1, "range": 13 } }
+        },
+        "landAttack": {
+          "A": { "munition": "3M22", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 13 }, "damaged": { "damage": 1, "range": 13 } },
+          "B": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 1, "range": 19 }, "damaged": { "damage": 1, "range": 19 } }
+        }
+      } },
+    { "id": "ru-bs-20385", "name": "BS-20385", "nameLocal": "暹岛", "class": "corvette", "hasFullDamagedRows": true, "shipBadge": 4,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 0.5, "range": 3 }, "damaged": { "damage": 0.5, "range": 3 } },
+          "B": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 0.5, "range": 7 }, "damaged": { "damage": 0.5, "range": 7 } },
+          "C": { "munition": "P-800", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 0.5, "range": 8 }, "damaged": { "damage": 0.5, "range": 8 } },
+          "D": { "munition": "3M22", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 0.5, "range": 13 }, "damaged": { "damage": 0.5, "range": 13 } }
+        },
+        "landAttack": {
+          "A": { "munition": "3M22", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 0.5, "range": 13 }, "damaged": { "damage": 0.5, "range": 13 } },
+          "B": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 0.5, "range": 19 }, "damaged": { "damage": 0.5, "range": 19 } }
+        }
+      } },
+    { "id": "ru-bs-20381", "name": "BS-20381", "nameLocal": "机敏", "class": "corvette", "hasFullDamagedRows": true, "shipBadge": 4,
+      "plans": { "antiShip": { "A": { "munition": "Kh-35", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 2, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ru-bs-12341", "name": "BS-12341", "nameLocal": "纳努契卡", "class": "missile-boat", "hasFullDamagedRows": true, "shipBadge": "3/1",
+      "plans": { "antiShip": { "A": { "munition": "Kh-35", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 4, "range": 2 }, "damaged": { "damage": 2, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ru-bs-12411", "name": "BS-12411", "nameLocal": "毒蜘蛛", "class": "missile-boat", "hasFullDamagedRows": true, "shipBadge": "3/1",
+      "plans": { "antiShip": { "A": { "munition": "P-20", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 1 }, "damaged": { "damage": 0.5, "range": 1 } } }, "landAttack": {} } }
+  ],
+
+  "submarines": [
+    { "id": "ru-636-3", "name": "636.3", "nameLocal": "基洛", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": { "A": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 } }, "B": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 7 } } },
+        "landAttack": { "A": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 1, "range": 19 } } }
+      } },
+    { "id": "ru-677", "name": "677", "nameLocal": "拉达", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": { "A": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 } }, "B": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 7 } } },
+        "landAttack": { "A": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 1, "range": 19 } } }
+      } },
+    { "id": "ru-949a", "name": "949A", "nameLocal": "奥斯卡II", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "P-700", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 3, "range": 8 } } }, "landAttack": {} } },
+    { "id": "ru-971i", "name": "971I", "nameLocal": "阿库拉I", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": { "A": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 } }, "B": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 7 } } },
+        "landAttack": { "A": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 1, "range": 19 } } }
+      } },
+    { "id": "ru-971u", "name": "971U", "nameLocal": "阿库拉II", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": { "A": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 } }, "B": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 7 } } },
+        "landAttack": { "A": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 1, "range": 19 } } }
+      } },
+    { "id": "ru-971m", "name": "971M", "nameLocal": "阿库拉III", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": { "A": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 } }, "B": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 7 } } },
+        "landAttack": { "A": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 1, "range": 19 } } }
+      } },
+    { "id": "ru-885m", "name": "885M", "nameLocal": "北德文斯克", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "3M54T(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 3 } },
+          "B": { "munition": "3M54T", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 7 } },
+          "C": { "munition": "P-800", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 8 } }
+        },
+        "landAttack": { "A": { "munition": "3M14T", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 2, "range": 19 } } }
+      } }
+  ]
+}

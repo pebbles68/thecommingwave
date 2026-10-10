@@ -1,0 +1,28 @@
+{
+  "country": "KP",
+  "countryName": "Corea del Norte",
+  "status": "complete",
+  "transcribedSheets": ["KP 2"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/units/us.json.",
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/KP 2.pdf", "page": 1, "sheetTitle": "Unidades terrestres: formaciones y sistemas de apoyo" }
+  ],
+
+  "groundFormations": [
+    { "id": "kp-m2020", "name": "M2020", "nameLocal": "坦克师团A", "nameEn": "Tank Division A", "attack": 156, "defense": 12 },
+    { "id": "kp-cheon-ma", "name": "Cheon ma", "nameLocal": "坦克师团B", "nameEn": "Tank Division B", "attack": 156, "defense": 12 },
+    { "id": "kp-t-62", "name": "T-62", "nameLocal": "坦克师团C", "nameEn": "Tank Division C", "attack": 156, "defense": 12 },
+    { "id": "kp-vtt-323", "name": "VTT-323", "nameLocal": "机步师团", "nameEn": "Mechanized Infantry Division", "attack": 150, "defense": 10 },
+    { "id": "kp-btr-80", "name": "BTR-80", "nameLocal": "步兵师团A", "nameEn": "Infantry Division A", "attack": 80, "defense": 8 },
+    { "id": "kp-chun-ma", "name": "Chun ma", "nameLocal": "步兵师团B", "nameEn": "Infantry Division B", "attack": 80, "defense": 8 }
+  ],
+
+  "supportSystems": [
+    { "id": "kp-kn-06", "name": "KN-06", "nameLocal": "防空导弹", "systemType": "SAM", "value": 10, "valueMeaning": "electronic" },
+    { "id": "kp-5hb4a", "name": "5HB4A", "nameLocal": "预警雷达", "systemType": "EWR", "value": 8, "valueMeaning": "electronic" },
+    { "id": "kp-19zh6", "name": "19ZH6", "nameLocal": "预警雷达", "systemType": "EWR", "value": 2, "valueMeaning": "electronic" }
+  ]
+}

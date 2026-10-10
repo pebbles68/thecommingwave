@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "note": "Revisión humana de las posiciones de boards.json. calibrate_boards.py marca verified las tarjetas y zonas de las páginas listadas en pages (o todas con pages: \"*\") y registra quién y cuándo.",
+  "review": {
+    "by": "Mantenedor (Pablo)",
+    "at": "2026-10-07",
+    "note": "Validadas tras revisar el explorador de tarjetas; los errores que aparezcan se corrigen en la beta."
+  },
+  "pages": "*"
+}

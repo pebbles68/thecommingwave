@@ -1,0 +1,57 @@
+{
+  "page": 16,
+  "title": "Combate Aéreo — Combate BVR",
+  "workflowRefs": ["air_combat"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 16 }],
+  "transcriptionPass": "verified-2026-09-25",
+  "transcriptionStatus": "verified",
+  "ruleStatus": "resolved",
+  "blockingIssues": [],
+  "needsReview": false,
+
+  "referenceNotes": [
+    {
+      "topic": "2) Combate BVR",
+      "intro": "Las unidades se enfrentan de una en una. Modificador electrónico = Valor Electrónico del más alto - Valor Electrónico del más bajo.",
+      "rows": [
+        { "condition": "El bando con el valor electrónico más alto", "effect": "Valor de la tirada + Modificador Electrónico" },
+        { "condition": "Destruir a una unidad enemiga (después del ataque BVR)", "effect": "Es posible" },
+        { "condition": "La unidad enemiga se retira temporalmente del combate (después del ataque BVR)", "effect": "Es posible" }
+      ]
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "air-combat-bvr-damage",
+      "title": "Combate BVR — impactos según condición (Intercepción/DdE/CAPs, con o sin AWACS) y Valor de Combate Aéreo",
+      "needsReview": false,
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Combate Aéreo (columnas 1-16), etiquetado canónico = esquema 'Intercepción/DdE + AWACS'",
+        "values": [".", "2", "3", ".", ".", ".", ".", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        "alternateLabelSets": {
+          "intercepcion_dde": ["2", "3", ".", "4", ".", "5", "6", "7", "8", "9", "10", "11", "12", null, null, "."],
+          "caps_awacs": ["2", "3", ".", "4", ".", "5", "6", "7", "8", "9", "10", "11", "12", null, null, "."],
+          "caps": ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12", null, null, null, null, null, "."]
+        },
+        "note": "Verificado a 600 DPI (2026-09-25): la cabecera superpone 4 esquemas (Intercepción/DdE + AWACS; Intercepción/DdE*; CAPs + AWACS -comparte fila con Intercepción/DdE* en la fuente, confirmado visualmente, no es un artefacto de transcripción-; CAPs). Los 4 arrays de valores están confirmados carácter a carácter contra la imagen de la fuente. RESUELTO 2026-10-04 (Decision Book §7.16.3 Paso 2): la misión original de la unidad que ataca elige la fila — Intercepción/DdE + AWACS = esquema canónico (columnAxis.values); Intercepción/DdE sin AWACS = intercepcion_dde; CAPs + AWACS = caps_awacs (misma fila que intercepcion_dde, como se imprime); CAPs sin AWACS = caps. Cada opción de mission_condition del workflow 05 declara su `columnScheme`; ver known-ambiguities.md."
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", ".", ".", ".", ".", ".", "1", "2", "2", "3", "3", "4", "5", "7", "10"],
+        [".", ".", ".", ".", "1", "1", "1", "1", "2", "2", "3", "4", "5", "6", "8", "11"],
+        [".", ".", ".", ".", "1", "1", "1", "1", "2", "3", "4", "4", "5", "6", "9", "11"],
+        [".", ".", ".", "1", "1", "1", "2", "2", "3", "3", "4", "4", "5", "7", "10", "11"],
+        [".", ".", ".", "1", "1", "1", "2", "2", "3", "3", "4", "4", "6", "7", "10", "12"],
+        [".", ".", ".", "1", "1", "1", "2", "2", "3", "4", "4", "4", "6", "7", "11", "12"],
+        [".", ".", "1", "1", "1", "2", "2", "2", "3", "4", "4", "4", "6", "7", "11", "12"],
+        [".", ".", "1", "2", "2", "2", "2", "3", "4", "4", "4", "5", "7", "8", "11", "13"],
+        [".", "1", "1", "2", "2", "2", "2", "3", "4", "4", "4", "5", "7", "8", "11", "13"],
+        ["1", "1", "2", "2", "2", "2", "3", "3", "4", "4", "5", "6", "7", "9", "12", "14"]
+      ],
+      "notes": ["Corregido (2026-09-25, verificado a 600/1200 DPI y de forma independiente con pdftotext -layout): la fila tirada=2 tenía un punto ('.') de menos al principio y un valor null al final en la pasada rápida a 300 DPI. El valor real de la última columna es '11', no null; la fila completa es 4 puntos + 12 valores (antes: 3 puntos + 12 valores + null)."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 16, "section": "2) Combate BVR", "verifiedAtDpi": 1200 }]
+    }
+  ]
+}

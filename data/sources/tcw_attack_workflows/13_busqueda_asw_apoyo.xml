@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="asw_search_support" title="Búsqueda ASW (flujo de apoyo)" category="asw" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>28, 33-34</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Flujo auxiliar previo o posterior a ataques ASW. No es un ataque, pero condiciona varias resoluciones.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <workflow>
+    
+    
+    <stage id="search_type" order="1" title="Tipo de búsqueda ASW">
+      
+      
+      <questions>
+        
+        
+        <question id="search_type" type="select" appliesTo="asw_search">
+          
+          
+          <prompt>Tipo de búsqueda.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="signature" label="Diferencia de firma"/>
+            
+            
+            <option value="air" label="Búsqueda aérea"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="event" type="select" appliesTo="asw_search">
+          
+          
+          <prompt>Momento de la búsqueda.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="routine" label="Búsqueda de rutina"/>
+            
+            
+            <option value="movement" label="Movimiento submarino"/>
+            
+            
+            <option value="pre_ambush" label="Antes de emboscada"/>
+            
+            
+            <option value="post_attack" label="Después del ataque"/>
+            
+            
+            <option value="pre_evasion" label="Antes de evadir"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+    
+    </stage>
+    
+    
+    <stage id="search_modifiers" order="2" title="Modificadores y restricciones">
+      
+      
+      <questions>
+        
+        
+        <question id="high_speed_surface" type="boolean" appliesTo="eligibility">
+          
+          
+          <prompt>¿La flota de superficie está a alta velocidad?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="eligibility" value="signature_search_not_allowed"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="sub_maneuver_state" type="boolean" appliesTo="search_roll">
+          
+          
+          <prompt>¿El submarino está en estado de maniobra?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="modifier" target="search_roll" value="1"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No">
+              
+              
+              <effect type="modifier" target="search_roll" value="0"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="sub_moved_2plus" type="boolean" appliesTo="search_roll">
+          
+          
+          <prompt>¿El submarino ha movido 2 o más hex durante el proceso?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="modifier" target="search_roll" value="1"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No">
+              
+              
+              <effect type="modifier" target="search_roll" value="0"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <tableReference>Páginas 28, 33 y 34: Búsqueda Antisubmarina.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Páginas 33-34: tablas de búsqueda por diferencia de firma y búsqueda aérea.</finalTableReference>
+  
+
+</attackWorkflow>

@@ -1,0 +1,125 @@
+{
+  "country": "US",
+  "countryName": "Estados Unidos",
+  "status": "partial",
+  "transcribedSheets": ["EEUU 4"],
+  "pendingSheets": ["EEUU 1", "EEUU 2", "EEUU 3"],
+
+  "schemaNote": "Estos valores NO son planes de ataque con municion: son factores base de la ficha (counter) de la unidad, tal como aparecen en Resto de Counters.jpg / Counters Aereos.jpg. El significado de cada valor se etiqueta contra data/counters/factor-map.json (crossReferences); donde ese cruce no basta para confirmar el significado numerico exacto (p.ej. shipBadge), se deja constancia en docs/rules/known-ambiguities.md.",
+
+  "sourceRefs": [
+    {
+      "document": "Tablas de Armamento/EEUU 4.pdf",
+      "page": 1,
+      "sheetTitle": "Unidades terrestres: formaciones y sistemas de apoyo",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer."
+    }
+  ],
+
+  "groundFormations": [
+    {
+      "id": "us-m1a2",
+      "name": "M1A2",
+      "nameLocal": "装甲旅",
+      "nameEn": "Armored Brigade",
+      "attack": 72,
+      "defense": 12,
+      "note": "Formato de celda '72/12'; confirmado como Ataque/Defensa por data/counters/factor-map.json#ground-main (factores 'Ataque' y 'Defensa' en ese orden)."
+    },
+    {
+      "id": "us-m1127",
+      "name": "M1127",
+      "nameLocal": "斯崔克旅",
+      "nameEn": "Stryker Brigade",
+      "attack": 40,
+      "defense": 8
+    },
+    {
+      "id": "us-m1279",
+      "name": "M1279",
+      "nameLocal": "步兵旅",
+      "nameEn": "Infantry Brigade",
+      "attack": 20,
+      "defense": 4
+    },
+    {
+      "id": "us-aav-7",
+      "name": "AAV-7",
+      "nameLocal": "先遣队",
+      "nameEn": "Vanguard",
+      "attack": 20,
+      "defense": 10
+    },
+    {
+      "id": "us-lav-25",
+      "name": "LAV-25",
+      "nameLocal": "陆战队",
+      "nameEn": "Marine Corps",
+      "attack": 16,
+      "defense": 8
+    },
+    {
+      "id": "us-infantry",
+      "name": "INFANTRY",
+      "nameLocal": "机降步兵",
+      "nameEn": "Air-assault Infantry",
+      "attack": 4,
+      "defense": 2
+    }
+  ],
+
+  "supportSystems": [
+    {
+      "id": "us-mim-104",
+      "name": "MIM-104",
+      "nameLocal": "防空导弹",
+      "systemType": "SAM",
+      "value": 8,
+      "valueMeaning": "electronic",
+      "note": "Valor unico sin letra de plan ni municion asociada. Resuelto contra data/counters/factor-map.json#ground-tech-antiair: es el factor 'Electronica' de la ficha SAM, no el A.A."
+    },
+    {
+      "id": "us-thaad",
+      "name": "THAAD",
+      "nameLocal": "防空导弹",
+      "systemType": "SAM",
+      "value": 8,
+      "valueMeaning": "electronic"
+    },
+    {
+      "id": "us-an-tps-59",
+      "name": "AN/TPS-59(V)3",
+      "nameLocal": "预警雷达",
+      "systemType": "EWR",
+      "value": 2,
+      "valueMeaning": "electronic",
+      "note": "Resuelto contra data/counters/factor-map.json#ground-tech-earlywarning: es el factor 'Electronica' de la ficha EWR, no Deteccion aerea/baja altitud."
+    },
+    {
+      "id": "us-an-tps-2",
+      "name": "AN/TPS-2",
+      "nameLocal": "预警雷达",
+      "systemType": "EWR",
+      "value": 2,
+      "valueMeaning": "electronic"
+    },
+    {
+      "id": "us-hlsc",
+      "name": "HLSC",
+      "nameLocal": "场站",
+      "systemType": "HELIPORT",
+      "value": 3,
+      "valueMeaning": "electronic"
+    }
+  ],
+
+  "unmappedArtilleryFactors": {
+    "note": "Numero junto al icono de cada pieza de artilleria en EEUU 4, antes de su cuadricula de planes de municion. Resuelto contra data/counters/factor-map.json#ground-tech-fire: es el factor 'Funcion / Apoyo' de la ficha, no un alcance de fuego indirecto. El mismo valor por unidad tambien se etiqueta como 'unmappedFactor.resolvedFactor' en data/ammunition/special-unit-plans/us.json.",
+    "resolvedFactor": "function_support",
+    "values": [
+      { "unitId": "us-m109a7", "value": 10 },
+      { "unitId": "us-m142", "value": 6 },
+      { "unitId": "us-m270a1", "value": 8 }
+    ]
+  }
+}

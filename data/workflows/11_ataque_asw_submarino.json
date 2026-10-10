@@ -1,0 +1,194 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/11_ataque_asw_submarino.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "asw_submarine",
+  "title": "Ataque ASW por unidades submarinas",
+  "category": "asw",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "30"
+  },
+  "summary": "Preguntas para profundidad, Firma del objetivo, tipo de torpedo y valor de ataque con torpedos.",
+  "stages": [
+    {
+      "id": "attack_table",
+      "order": 1,
+      "title": "Ataque ASW submarino contra submarino",
+      "questions": [
+        {
+          "id": "water_depth",
+          "type": "select",
+          "appliesTo": "asw_sub_table",
+          "prompt": "Profundidad del océano en la casilla del submarino objetivo (posición P.4 / P.3 / P.2-1).",
+          "note": "Confirmado por el mantenedor (2026-10-04): la fila la determina la profundidad (Decision Book §9.13.2 Paso 1). La cabecera impresa \"Firma del atacante 5+/4/0~3\" corresponde a P.4/P.3/P.2-1 (no existe una \"firma del atacante\").",
+          "options": [
+            {
+              "value": "p4",
+              "label": "P.4 — Aguas profundas"
+            },
+            {
+              "value": "p3",
+              "label": "P.3 — Aguas semi-profundas"
+            },
+            {
+              "value": "p2_1",
+              "label": "P.2 / P.1 — Aguas poco profundas o muy poco profundas"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.13.2 Ataque con Torpedos a Unidades Submarinas, Paso 1",
+              "pages": "212"
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.14.2 Profundidad del Océano",
+              "pages": "214"
+            }
+          ]
+        },
+        {
+          "id": "target_signature",
+          "type": "number",
+          "appliesTo": "asw_sub_table",
+          "prompt": "Valor de Firma (SIG) impreso del submarino objetivo.",
+          "note": "Se compara con los rangos de Firma de la tabla según la profundidad (§9.13.2 Paso 1, §9.17.2 Pasos 1-2). El submarino objetivo debe estar Expuesto y en la misma casilla (§9.13.2).",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.17.2 Proceso de Ataque ASW, Pasos 1-2",
+              "pages": "221"
+            }
+          ]
+        },
+        {
+          "id": "target_moving",
+          "type": "boolean",
+          "appliesTo": "asw_sub_table",
+          "prompt": "¿El submarino objetivo está en su lado \"En Movimiento\"?",
+          "note": "Las unidades submarinas en su lado \"En Movimiento\" tienen su Valor de Firma aumentado en +1 (Decision Book §9.17.2 Paso 1; §9.17 incluye los ataques ASW de submarinos).",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "target_signature",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "target_signature",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.17.2 Proceso de Ataque ASW, Paso 1",
+              "pages": "221"
+            }
+          ]
+        },
+        {
+          "id": "torpedo_type",
+          "type": "select",
+          "appliesTo": "asw_sub_table",
+          "prompt": "Tipo de torpedo (símbolo junto al Valor de Ataque del Torpedo).",
+          "note": "Hexágono = modelo antiguo; círculo = moderno. Solo el hexágono tiene la restricción de la página 30 / §9.13.2 Paso 3: sin asterisco (*) el ataque no tiene efecto.",
+          "options": [
+            {
+              "value": "circle",
+              "label": "Círculo (torpedo moderno)"
+            },
+            {
+              "value": "hexagon",
+              "label": "Hexágono (torpedo antiguo)",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "asw_sub_table",
+                  "value": "hexagon_needs_asterisk"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.1.7 Submarinos (SS): Capacidad de Ataque con Torpedos (tipo de torpedo)",
+              "pages": "195"
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.13.2 Paso 3: Verificar el tipo de torpedo",
+              "pages": "212"
+            }
+          ]
+        },
+        {
+          "id": "torpedo_attack_value",
+          "type": "number",
+          "appliesTo": "asw_sub_table",
+          "prompt": "Valor de Ataque con Torpedos."
+        },
+        {
+          "id": "target_protection",
+          "type": "number",
+          "appliesTo": "asw_result",
+          "prompt": "Valor de Protección (PRO) del submarino objetivo (opcional, para saber si se hunde).",
+          "note": "Decision Book §9.13.2 Paso 4: si los Puntos de Impacto absorbidos por la unidad submarina son ≥ su Valor de Protección, la unidad es hundida inmediatamente.",
+          "optional": true,
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.13.2 Paso 4: Resolver el resultado del ataque con torpedos",
+              "pages": "212"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "water_depth",
+          "target_signature",
+          "target_moving",
+          "torpedo_type",
+          "torpedo_attack_value",
+          "target_protection"
+        ]
+      ],
+      "specialRules": "Con torpedo de hexágono (antiguo) el ataque solo tiene efecto cuando el resultado de la tabla contiene \"*\" (Tablas-de-combate 5.pdf p.30; §9.13.2 Paso 3); con torpedo de círculo el asterisco no tiene efecto especial. \"NO DISPARAR\" no provoca búsqueda posterior al ataque. Un ataque con torpedos solo puede hacer objetivo a unidades submarinas expuestas en la misma casilla y consume 1 punto de Munición de Torpedos (§9.13.2).",
+      "tableReference": "Página 30: Ataque Antisubmarino por Unidades Submarinas."
+    }
+  ],
+  "flowCuts": [],
+  "diceRules": [],
+  "rollDependentRules": [
+    {
+      "stage": "attack_table",
+      "condition": "torpedoType == 'hexagon' && tableResult does not contain '*'",
+      "effect": "attack_has_no_effect",
+      "sourceText": "Poder de ataque de los torpedos (icono hexágono): solo cuando hay *, el ataque tiene efecto. Decision Book §9.13.2 Paso 3: si el Valor de Ataque del Torpedo tiene un HEXÁGONO y los Puntos de Impacto no tienen asterisco, este ataque no tiene efecto."
+    },
+    {
+      "stage": "attack_table",
+      "condition": "tableResult == 'NO DISPARAR'",
+      "effect": "no_post_attack_search",
+      "sourceText": "'NO DISPARAR' no provoca búsqueda posterior al ataque."
+    }
+  ],
+  "finalTableReference": "Página 30: tabla de ataque submarino contra submarino.",
+  "resolutionNote": "Corrección 2026-10-04: la versión anterior de este workflow decía que \"el ataque solo tiene efecto cuando el resultado de tabla contiene *\" para todos los torpedos y pedía \"Firma del atacante\"; la regla del asterisco es solo del torpedo de hexágono y la fila la elige la profundidad (confirmado por el mantenedor)."
+}

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="ground_close_combat" title="Combate cercano terrestre" category="terrestre" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>2</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Flujo de preguntas para resolver combate terrestre cercano, guerra electrónica y bajas.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <workflow>
+    
+    
+    <stage id="eligibility" order="1" title="Comprobar elegibilidad">
+      
+      
+      <questions>
+        
+        
+        <question id="active_combat" type="boolean" appliesTo="eligibility">
+          
+          
+          <prompt>¿El bando está iniciando el combate de forma activa?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí"/>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="out_of_supply" type="boolean" appliesTo="eligibility">
+          
+          
+          <prompt>Si es combate activo: ¿alguna unidad principal que inicia el combate está fuera de suministro?</prompt>
+          
+          
+          <note>Una unidad principal fuera de suministro no puede iniciar combate de forma activa.</note>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="eligibility" value="combat_not_allowed"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+    
+    </stage>
+    
+    
+    <stage id="attack_value" order="2" title="Calcular fuerza de combate">
+      
+      
+      <questions>
+        
+        
+        <question id="base_attack" type="number" appliesTo="attack_value">
+          
+          
+          <prompt>Introduce el valor total de ataque de las unidades participantes.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="combat_support" type="number" appliesTo="attack_value">
+          
+          
+          <prompt>Introduce el apoyo de combate aplicable.</prompt>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <formula>Valor de combate = Valor de ataque + Apoyo de combate.</formula>
+      
+      
+      <tableReference>Página 2: Combate cercano del ejército.</tableReference>
+      
+    
+    </stage>
+    
+    
+    <stage id="electronic_warfare" order="3" title="Guerra electrónica">
+      
+      
+      <questions>
+        
+        
+        <question id="highest_electronic_a" type="number" appliesTo="ew_difference">
+          
+          
+          <prompt>Valor Electrónico más alto del bando A.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="highest_electronic_b" type="number" appliesTo="ew_difference">
+          
+          
+          <prompt>Valor Electrónico más alto del bando B.</prompt>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <formula>Diferencia electrónica = valor más alto - valor más bajo. Si son iguales no hay resolución EW.</formula>
+      
+      
+      <specialRules>Si la tabla concede ventaja EW, el bando favorecido duplica los impactos causados.</specialRules>
+      
+      
+      <tableReference>Página 2: DIF. ELECTRÓNICA.</tableReference>
+      
+    
+    </stage>
+    
+    
+    <stage id="casualties" order="4" title="Aplicar bajas">
+      
+      
+      <questions>
+        
+        
+        <question id="force_size_before" type="number" appliesTo="casualties">
+          
+          
+          <prompt>Tamaño de Fuerza antes del combate.</prompt>
+          
+        
+        </question>
+        
+        
+        <question id="reaction_level" type="select" appliesTo="casualties">
+          
+          
+          <prompt>Nivel de reacción de la unidad (A, B, C o D).</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="A" label="A"/>
+            
+            
+            <option value="B" label="B"/>
+            
+            
+            <option value="C" label="C"/>
+            
+            
+            <option value="D" label="D"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <specialRules>Al alcanzar o superar los umbrales de derrota se aplica el estado Derrotada; una unidad derrotada pasa a Brevemente Detectable.</specialRules>
+      
+      
+      <tableReference>Página 2: BAJAS EN COMBATE.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Página 2: tablas de Combate, Diferencia Electrónica y Bajas en Combate.</finalTableReference>
+  
+
+</attackWorkflow>

@@ -1,0 +1,36 @@
+{
+  "id": "ammunition-source-pages",
+  "description": "Imagenes de cada hoja original de 'Tablas de Armamento' (una por PDF, todos de una sola pagina), renderizadas a 150 DPI con pdftoppm (poppler) para poder verlas completas dentro de la ayuda de planes de ataque, tal como aparecen en el documento fuente (AGENTS.md §9, 'Ver en pantalla las imagenes completas de los planes de ataque de un pais'). No sustituyen a los datos ya transcritos en attack-plans/naval-plans/special-unit-plans: son apoyo visual (AGENTS.md §11).",
+  "regionNote": "Estas imagenes muestran la hoja completa, no un recorte por unidad concreta: el recorte por unidad (AGENTS.md §9, 'Recorte del plan de ataque... en la explicacion de cada plan concreto') queda pendiente porque exige calibrar y verificar la posicion de cada fila/unidad en cada una de las 17 hojas por separado (ver roadmap.md Fase 3.5).",
+  "byCountry": {
+    "us": [
+      { "image": "us-1.png", "sourceDocument": "Tablas de Armamento/EEUU 1.pdf" },
+      { "image": "us-2.png", "sourceDocument": "Tablas de Armamento/EEUU 2.pdf" },
+      { "image": "us-3.png", "sourceDocument": "Tablas de Armamento/EEUU 3.pdf" },
+      { "image": "us-4.png", "sourceDocument": "Tablas de Armamento/EEUU 4.pdf" }
+    ],
+    "ch": [
+      { "image": "ch-1.png", "sourceDocument": "Tablas de Armamento/CH 1.pdf" },
+      { "image": "ch-2.png", "sourceDocument": "Tablas de Armamento/CH 2.pdf" },
+      { "image": "ch-3.png", "sourceDocument": "Tablas de Armamento/CH 3.pdf" },
+      { "image": "ch-4.png", "sourceDocument": "Tablas de Armamento/CH 4.pdf" }
+    ],
+    "jp": [
+      { "image": "jp-1.png", "sourceDocument": "Tablas de Armamento/JP 1.pdf" },
+      { "image": "jp-2.png", "sourceDocument": "Tablas de Armamento/JP2.pdf" }
+    ],
+    "kr": [
+      { "image": "kr-1.png", "sourceDocument": "Tablas de Armamento/KO.pdf" },
+      { "image": "kr-2.png", "sourceDocument": "Tablas de Armamento/KO 2.pdf" }
+    ],
+    "kp": [
+      { "image": "kp-1.png", "sourceDocument": "Tablas de Armamento/KP 1.pdf" },
+      { "image": "kp-2.png", "sourceDocument": "Tablas de Armamento/KP 2.pdf" }
+    ],
+    "ru": [
+      { "image": "ru-1.png", "sourceDocument": "Tablas de Armamento/RU 1.pdf" },
+      { "image": "ru-2.png", "sourceDocument": "Tablas de Armamento/RU 2.pdf" },
+      { "image": "ru-3.png", "sourceDocument": "Tablas de Armamento/RU 3.pdf" }
+    ]
+  }
+}

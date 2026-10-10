@@ -1,0 +1,42 @@
+{
+  "page": 20,
+  "title": "Ataque Antibuque Guiado — Interceptación de Munición",
+  "workflowRefs": ["antiship_guided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 20 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "2) Interceptación de Munición: Reducción del Valor de Ataque",
+      "intro": "Cada buque o sistema de defensa aérea dispara de forma independiente; debe tener un alcance de defensa aérea ≥ 0; cada unidad solo puede interceptar un tipo de ataque.",
+      "rows": [
+        { "condition": "El objetivo y el atacante están en el mismo hex o Zona Central", "effect": "No se intercepta." },
+        { "condition": "Icono de interceptor de penetración (K)", "effect": "Si es un ataque marcado con el icono BM: tirar 2d10 y elegir el menor." },
+        { "condition": "Marcado con icono BM (misil balístico)", "effect": "Solo puede interceptar ataques BM." },
+        { "condition": "Distancia de ataque: 1 // Misión de Área: 2", "effect": "Solo las unidades en el mismo hex que el objetivo pueden realizar la interceptación de munición." }
+      ]
+    },
+    {
+      "topic": "Modificadores de la tirada de Interceptación de Munición",
+      "rows": [
+        { "condition": "Interceptación de rendimiento Medio", "effect": "-1" },
+        { "condition": "Interceptación de rendimiento Bajo", "effect": "-2" },
+        { "condition": "El defensor no ha detectado al atacante, pero sí al guía/designador", "effect": "-1" },
+        { "condition": "El defensor no ha detectado ni al atacante ni al guía/designador", "effect": "-2" }
+      ],
+      "note": "Coincide con interception_performance/detection_state ya transcritos en data/workflows/07_ataque_antibuque_guiado.json."
+    },
+    {
+      "topic": "Interceptación Más Allá del Horizonte",
+      "rows": [{ "condition": "El objetivo bajo ataque no está dentro de la Zona Central del AWACS", "effect": "No se puede usar la 'Zona Azul'" }]
+    }
+  ],
+
+  "reusesTable": {
+    "id": "munition-interception-standard",
+    "definedIn": "data/tables/page-04.json",
+    "note": "Tabla idéntica carácter a carácter a la de las páginas 4 y 12 (Convencional/Penetración/BM = consumo Bajo, Convencional = consumo Alto)."
+  },
+
+  "tables": []
+}

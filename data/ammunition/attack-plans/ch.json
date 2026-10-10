@@ -1,0 +1,326 @@
+{
+  "country": "CH",
+  "countryName": "China",
+  "status": "complete",
+  "transcribedSheets": ["CH 1 (completo)", "CH 2 (seccion Cazas tacticos 2)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/attack-plans/us.json. Dos notas de verificacion de esta hoja: (1) la municion antirradiacion (ARM) ocupa la columna D con la columna E en blanco en varias unidades, no la ultima columna visible como podria parecer a baja resolucion, verificado a 900 DPI con la cabecera de letras incluida en el recorte (J-15, J-15T, J-16, JH-7A); (2) una primera transcripcion leyo por error el patron 'X/Y' como damage/range en formato single -- es el formato dual (heavy/light) de la leyenda de Tablas de municiones.pdf, con el superindice como range; corregido antes de guardar.",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0.",
+    "dual": "Dos valores separados por barra + superindice opcional: heavy/light + range. Ausencia de superindice = range 0."
+  },
+
+  "sourceRefs": [
+    {
+      "document": "Tablas de Armamento/CH 1.pdf",
+      "page": 1,
+      "sheetTitle": "Cazas tacticos 1",
+      "columns": "A-E antibuque (AsuW) y A-E ataque terrestre (LAND ATTACK)",
+      "sheetNote": "SS: Sea-Skimming"
+    },
+    {
+      "document": "Tablas de Armamento/CH 2.pdf",
+      "page": 1,
+      "sheetTitle": "Cazas tacticos 2 (seccion superior de la pagina)",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer. La seccion inferior (Aviones de rol especial) esta en data/ammunition/special-unit-plans/ch.json."
+    }
+  ],
+
+  "units": [
+    {
+      "id": "ch-j-35",
+      "name": "J-35",
+      "nameLocal": "飞鲨",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 1",
+      "plans": {
+        "antiShip": {
+          "B": { "munition": "GB(?)", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 },
+                 "note": "La propia hoja marca el nombre de la municion como 'GB(?)': la incertidumbre es de la fuente, no de la transcripcion." }
+        },
+        "landAttack": {
+          "B": { "munition": "GB(?)", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } }
+        }
+      }
+    },
+    {
+      "id": "ch-j-10c",
+      "name": "J-10C",
+      "nameLocal": "猛龙",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 5, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "B": { "munition": "YJ-83K", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 3, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } },
+          "C": { "munition": "YJ-91A", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 3, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 5, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "B": { "munition": "LS-6", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 5, "range": 1 }, "damaged": { "heavy": 1, "light": 2, "range": 1 } },
+          "C": { "munition": "KD-88", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 3, "range": 3 }, "damaged": { "heavy": 1, "light": 2, "range": 3 } },
+          "D": { "munition": "YJ-91", "icons": ["attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 3, "range": 3 }, "damaged": { "heavy": 1, "light": 2, "range": 3 } }
+        }
+      }
+    },
+    {
+      "id": "ch-j-11b",
+      "name": "J-11B",
+      "nameLocal": "应龙",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } }
+        }
+      }
+    },
+    {
+      "id": "ch-j-11bg",
+      "name": "J-11BG",
+      "nameLocal": "应龙改",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } }
+        }
+      }
+    },
+    {
+      "id": "ch-j-15",
+      "name": "J-15",
+      "nameLocal": "飞鲨",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "B": { "munition": "YJ-83K", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } },
+          "C": { "munition": "YJ-91A", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "D": { "munition": "YJ-91", "icons": ["attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 3 }, "damaged": { "heavy": 1, "light": 2, "range": 3 },
+                 "note": "Verificado a 900 DPI con cabecera de letras: la munición ARM ocupa la columna D, no E." }
+        }
+      }
+    },
+    {
+      "id": "ch-j-15t",
+      "name": "J-15T",
+      "nameLocal": "飞鲨",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } },
+          "B": { "munition": "YJ-83K", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 4 }, "damaged": { "heavy": 2, "light": 4, "range": 4 } },
+          "C": { "munition": "YJ-91A", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 2 }, "damaged": { "heavy": 2, "light": 4, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } },
+          "D": { "munition": "YJ-91", "icons": ["attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 3 }, "damaged": { "heavy": 2, "light": 4, "range": 3 },
+                 "note": "Verificado a 900 DPI: columna D, no E." }
+        }
+      }
+    },
+    {
+      "id": "ch-j-16",
+      "name": "J-16",
+      "nameLocal": "潜龙",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } },
+          "B": { "munition": "YJ-83K", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 4 }, "damaged": { "heavy": 2, "light": 4, "range": 4 } },
+          "C": { "munition": "YJ-91A", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 2 }, "damaged": { "heavy": 2, "light": 4, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } },
+          "B": { "munition": "LS-6", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } },
+          "C": { "munition": "KD-88", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 3 }, "damaged": { "heavy": 2, "light": 4, "range": 3 } },
+          "D": { "munition": "YJ-91", "icons": ["attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 3 }, "damaged": { "heavy": 2, "light": 4, "range": 3 },
+                 "note": "Verificado a 900 DPI: columna D, no E." }
+        }
+      }
+    },
+    {
+      "id": "ch-jh-7a",
+      "name": "JH-7A",
+      "nameLocal": "飞豹",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "B": { "munition": "YJ-83K", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } },
+          "C": { "munition": "YJ-91A", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "B": { "munition": "KD-88", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 3 }, "damaged": { "heavy": 1, "light": 2, "range": 3 } },
+          "D": { "munition": "YJ-91", "icons": ["attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 8 }, "damaged": { "heavy": 1, "light": 2, "range": 8 },
+                 "note": "Verificado a 900 DPI: A y B seguidos, C en blanco, D ocupado por YJ-91." }
+        }
+      }
+    },
+    {
+      "id": "ch-gj-11",
+      "name": "GJ-11",
+      "nameLocal": "利剑",
+      "class": "unmanned-combat-air-vehicle",
+      "sourceSheet": "CH 2",
+      "plans": {
+        "antiShip": {
+          "B": { "munition": "LS-6", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 1 }, "damaged": { "damage": 1, "range": 1 } }
+        },
+        "landAttack": {
+          "B": { "munition": "LS-6", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 2, "range": 1 }, "damaged": { "damage": 1, "range": 1 } },
+          "C": { "munition": "FT-7", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 2 }, "damaged": { "damage": 4, "range": 2 } }
+        }
+      }
+    },
+    {
+      "id": "ch-su-30mk2",
+      "name": "Su-30MK2",
+      "nameLocal": "侧卫-C",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 2",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 8, "light": 14, "range": 0 }, "damaged": { "heavy": 4, "light": 7, "range": 0 } },
+          "B": { "munition": "Kh-59MK", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } },
+          "C": { "munition": "Kh-31A", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "C": { "munition": "Kh-59ME", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } },
+          "D": { "munition": "Kh-29T", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 4, "range": 0 } },
+          "E": { "munition": "Kh-31P", "icons": ["attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 2 }, "damaged": { "heavy": 2, "light": 4, "range": 2 } }
+        }
+      }
+    },
+    {
+      "id": "ch-su-35sk",
+      "name": "Su-35SK",
+      "nameLocal": "歼侧卫",
+      "class": "tactical-fighter",
+      "sourceSheet": "CH 2",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 8, "light": 14, "range": 0 }, "damaged": { "heavy": 4, "light": 7, "range": 0 } },
+          "B": { "munition": "Kh-59MK", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 4 }, "damaged": { "heavy": 2, "light": 4, "range": 4 } },
+          "C": { "munition": "Kh-31A", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 8, "light": 14, "range": 0 }, "damaged": { "heavy": 4, "light": 7, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } },
+          "C": { "munition": "Kh-59ME", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 2 }, "damaged": { "heavy": 2, "light": 3, "range": 2 } },
+          "D": { "munition": "Kh-29TE", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } },
+          "E": { "munition": "Kh-31P", "icons": ["attack_anti_radiation"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 2 }, "damaged": { "heavy": 2, "light": 4, "range": 2 } }
+        }
+      }
+    },
+    {
+      "id": "ch-h-6n",
+      "name": "H-6N",
+      "nameLocal": "轰-6N",
+      "class": "bomber",
+      "sourceSheet": "CH 2",
+      "restrictions": ["可通过打击发射WZ-8 (Puede lanzar el dron de reconocimiento WZ-8 mediante una accion de ataque)."],
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "B": { "munition": "YJ-83K", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 8, "range": 4 }, "damaged": { "heavy": 2, "light": 4, "range": 4 } },
+          "C": { "munition": "YJ-12(SS)", "icons": ["munition_supersonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 3 }, "damaged": { "heavy": 1, "light": 2, "range": 3 } },
+          "D": { "munition": "YJ-12", "icons": ["munition_supersonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 8 }, "damaged": { "heavy": 1, "light": 2, "range": 8 } },
+          "E": { "munition": "YJ-21", "icons": ["munition_parabolic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 19 }, "damaged": { "damage": 0.5, "range": 19 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "B": { "munition": "KD-63", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 2, "light": 4, "range": 3 }, "damaged": { "heavy": 1, "light": 2, "range": 3 } },
+          "C": { "munition": "YJ-21", "icons": ["munition_parabolic"], "loadFormat": "single",
+                 "full": { "damage": 1, "range": 19 }, "damaged": { "damage": 0.5, "range": 19 } },
+          "E": { "munition": "CJ-20", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM",
+                 "full": { "damage": 2, "range": 25 }, "damaged": { "damage": 1, "range": 25 } }
+        },
+        "special": {
+          "WZ-8": { "note": "Columna 'Especial' (N.S) distinta de un plan de municion: multiplicador x2 (unidad completa) / x1 (unidad danada) sobre el lanzamiento del dron WZ-8, no un valor de daño convencional.", "full": "x2", "damaged": "x1" }
+        }
+      }
+    }
+  ]
+}

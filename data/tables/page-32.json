@@ -1,0 +1,61 @@
+{
+  "page": 32,
+  "title": "Acciones Estratégicas (tabla final) y Reabastecimiento Logístico del Ejército",
+  "workflowRefs": ["strategic_actions"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 32 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "Reabastecimiento Logístico del Ejército",
+      "intro": "El reabastecimiento se resuelve de forma independiente para cada unidad principal.",
+      "rows": [
+        { "condition": "Condición previa 1", "effect": "No tener la Línea de Suministro cortada." },
+        { "condition": "Condición previa 2", "effect": "No estar en el mismo hex que una unidad enemiga principal." },
+        { "condition": "Al realizar el reabastecimiento (tenga éxito, o no)", "effect": "La unidad pasa a su lado 'Movida'." },
+        { "condition": "Resultado del Reabastecimiento — Éxito", "effect": "Esta unidad principal aumenta su fuerza en 1 pnt." },
+        { "condition": "Resultado del Reabastecimiento — Sin éxito ('·')", "effect": "No se produce aumento a su fuerza." }
+      ],
+      "note": "Este bloque (no una tabla de ataque) es el destino real de la hoja 'Estratégico > Logística' que aparece en data/routing/table-routing.json, la cual no tenía workflow asociado en data/workflows/ (los 13 XML no cubren logística). Pendiente: actualizar el gap de table-routing.json para apuntar aquí en vez de dejarlo como leaf:null."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "strategic-actions-outcome",
+      "title": "Acciones Estratégicas — resultado según tirada (Acción Activa / Reacción / Fase Espacial)",
+      "rowAxis": { "label": "Tirada (d10, o suma 3d10 normalizada — no especificado)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": { "label": "Contexto", "values": ["Guerra Cibernética", "Destrucción Espacial", "Fragmentos Espaciales (Reacción)", "Desaparición de Fragmentos (Fase Espacial)"] },
+      "cellLegend": { ".": "Sin efecto" },
+      "cells": [
+        ["Fallo", "Fallo", ".", "."],
+        ["Fallo", "Fallo", ".", "1"],
+        [".", "Fallo", ".", "2"],
+        [".", ".", ".", "3"],
+        [".", ".", ".", "4"],
+        [".", ".", ".", "5"],
+        ["Éxito", ".", ".", "6"],
+        ["Éxito", "Éxito", ".", "7"],
+        ["Éxito", "Éxito", "Impacto", "8"],
+        ["Éxito", "Éxito", "Impacto", "9"]
+      ],
+      "notes": ["needsReview: no queda claro en esta página con qué tirada exacta se entra en esta tabla (1d10, o el resultado normalizado de 3d10 de la Guerra Cibernética/Destrucción Espacial dura) — pendiente de aclarar contra el Decision Book."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 32, "section": "Acciones Estratégicas (tabla final)", "verifiedAtDpi": 300 }]
+    },
+    {
+      "id": "army-logistics-resupply",
+      "title": "Reabastecimiento Logístico del Ejército — éxito según Nivel de Iniciativa",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0~4", "5", "6", "7", "8~9"] },
+      "columnAxis": { "label": "Nivel de Iniciativa de la unidad principal", "values": ["A", "B", "C", "D"] },
+      "cellLegend": { ".": "Sin éxito (no aumenta fuerza)" },
+      "cells": [
+        [".", ".", ".", "."],
+        ["Éxito", ".", ".", "."],
+        ["Éxito", "Éxito", ".", "."],
+        ["Éxito", "Éxito", "Éxito", "."],
+        ["Éxito", "Éxito", "Éxito", "Éxito"]
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 32, "section": "Reabastecimiento Logístico del Ejército", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

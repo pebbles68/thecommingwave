@@ -1,0 +1,326 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/08_ataque_antibuque_no_guiado.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "antiship_unguided",
+  "title": "Ataque antibuque no guiado",
+  "category": "superficie",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "23-26"
+  },
+  "summary": "Flujo de intercepción y modificación de intensidad para ataques no guiados contra buques.",
+  "representativeIcon": "munition_unguided",
+  "stages": [
+    {
+      "id": "final_interception",
+      "order": 1,
+      "title": "Intercepción final",
+      "questions": [
+        {
+          "id": "aa_low_total",
+          "type": "number",
+          "appliesTo": "final_interception",
+          "prompt": "Valor AA total de los buques con consumo bajo."
+        },
+        {
+          "id": "aa_high_total",
+          "type": "number",
+          "appliesTo": "final_interception",
+          "prompt": "Valor AA total de los buques con consumo alto."
+        }
+      ],
+      "parallelGroups": [
+        [
+          "aa_low_total",
+          "aa_high_total"
+        ]
+      ],
+      "formula": "Resolver por tipo de consumo y sumar los impactos de Alto Consumo + Bajo Consumo.",
+      "tableReference": "Página 23: Intercepción final."
+    },
+    {
+      "id": "munition_interception",
+      "order": 2,
+      "title": "Interceptación de munición",
+      "questions": [
+        {
+          "id": "same_hex_or_central_zone",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿Objetivo y atacante están en el mismo hex o Zona Central?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "no_interception",
+                  "cutsStage": true
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "interception_performance",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "Rendimiento del sistema que intercepta.",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "medium",
+              "label": "Medio",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "low",
+              "label": "Bajo",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "detection_state",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "¿Qué ha detectado el defensor?",
+          "options": [
+            {
+              "value": "attacker",
+              "label": "Atacante detectado",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "designator_only",
+              "label": "No atacante, sí guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "neither",
+              "label": "Ni atacante ni guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "short_range_restriction",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿La distancia de ataque es 1 (o 2 en Misión de Área)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "only_same_hex_defenders"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "unguided_icon_type",
+          "type": "boolean",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "¿El plan de ataque está marcado como Munición Ligera (icono 'L')?",
+          "note": "Confirmado el 2026-09-27 contra Decision Book §6.5.3.D ('Ataque con Munición Ligera'): un plan de ataque no guiado marcado como 'Ligero (L)' recibe -3 a la tirada de interceptación. Corrección respecto a la transcripción original de Fase 0 (prompt/iconRefs apuntaban al icono genérico 'munición no guiada', que habría sido una condición tautológica en un workflow ya exclusivamente no guiado); el icono real es el de 'munición ligera' (munition_light).",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -3
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "iconRefs": [
+            {
+              "ref": "munition_light",
+              "role": "representative"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "same_hex_or_central_zone"
+        ],
+        [
+          "interception_performance",
+          "detection_state",
+          "short_range_restriction",
+          "unguided_icon_type"
+        ]
+      ],
+      "lowConsumptionOnlyCases": [
+        {
+          "id": "light_unguided",
+          "label": "un ataque ligero (L) no guiado",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "6.5.1 Capacidad de Interceptación de Munición",
+              "pages": "101"
+            }
+          ]
+        }
+      ],
+      "tableReference": "Página 24: Interceptación de Munición."
+    },
+    {
+      "id": "attack_intensity",
+      "order": 3,
+      "title": "Modificación de intensidad",
+      "questions": [
+        {
+          "id": "distance",
+          "type": "select",
+          "appliesTo": "attack_intensity",
+          "prompt": "Distancia de ataque / equivalente de Misión de Área.",
+          "options": [
+            {
+              "value": "0",
+              "label": "0 / Área ≤1",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "1",
+              "label": "1 / Área 2",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -3
+                }
+              ]
+            },
+            {
+              "value": "2plus",
+              "label": "≥2 / Área ≥3",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -8
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "distance"
+        ]
+      ],
+      "formula": "Los valores negativos desplazan columnas a la izquierda y se omite la columna '·'.",
+      "specialRules": "Si la tirada de resolución es 9, se cancela la modificación de intensidad.",
+      "tableReference": "Página 24: Modificación de la Intensidad del Ataque."
+    },
+    {
+      "id": "low_altitude_counterattack",
+      "order": 4,
+      "title": "Contraataque a Baja Altura",
+      "questions": [],
+      "note": "Reacción OPCIONAL de la flota superviviente, resuelta DESPUÉS de la asignación de daño (Decision Book §6.6-§6.6.2, pág. 104-105): si la formación de superficie objetivo tiene unidades supervivientes con Valor de Artillería Naval, pueden contraatacar conjuntamente, sumando sus valores de artillería naval como A.A. total del contraataque — un disparo (1d10) por cada unidad de vuelo bajo atacante. No consume munición antiaérea y no se omite aunque la munición antiaérea esté agotada. Correcciones03.md COR03-005: primer consumidor real de CombatWizardEngine.resolveLowAltitudeCounterattackShot (existía desde 2026-09-27 sin ningún consumidor).",
+      "tableReference": "Página 26: Contraataque a Baja Altura (reutiliza data/tables/page-22.json#surface-artillery-low-altitude-counterattack, ver data/tables/page-26.json#reusesTable)."
+    }
+  ],
+  "flowCuts": [
+    {
+      "stage": "munition_interception",
+      "question": "same_hex_or_central_zone",
+      "optionValue": "yes",
+      "effect": "no_interception",
+      "cutsStage": "munition_interception",
+      "haltsWorkflow": false,
+      "sourceText": "¿Objetivo y atacante están en el mismo hex o Zona Central? Sí -> no_interception."
+    }
+  ],
+  "diceRules": [],
+  "rollDependentRules": [
+    {
+      "stage": "attack_intensity",
+      "condition": "finalRoll == 9",
+      "effect": "cancel_intensity_modifiers",
+      "sourceText": "Si la tirada de resolución es 9, se cancela la modificación de intensidad."
+    }
+  ],
+  "finalTableReference": "Página 25: Daño de Ataque no Guiado / Combate Naval Cercano con Artillería."
+}

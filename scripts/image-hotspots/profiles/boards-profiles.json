@@ -1,0 +1,735 @@
+{
+  "schemaVersion": 1,
+  "note": "Perfiles de tarjeta para calibrate_boards.py. Cada tipo declara una tarjeta de referencia (imagen y rectángulo en píxeles de la página) y sus zonas en píxeles RELATIVOS a la esquina superior izquierda de esa tarjeta. El script localiza cada tarjeta de cada página con SIFT + RANSAC (transformación de similitud, que absorbe la inclinación del escáner) y proyecta las zonas. Para corregir una zona se edita aquí y se regenera; la semántica (qué significa cada zona) está en data/image-hotspots/board-concepts.json.",
+  "minInliers": 30,
+  "types": {
+    "airfield": {
+      "label": "Aeródromo",
+      "reference": {
+        "image": "aerodromos/page-01.png",
+        "rect": [
+          0,
+          0,
+          706,
+          472
+        ]
+      },
+      "zones": [
+        {
+          "id": "name",
+          "concept": "board-name-code",
+          "rect": [
+            14,
+            12,
+            120,
+            82
+          ]
+        },
+        {
+          "id": "location",
+          "concept": "board-location",
+          "rect": [
+            14,
+            96,
+            105,
+            96
+          ]
+        },
+        {
+          "id": "map",
+          "concept": "board-map",
+          "rect": [
+            122,
+            58,
+            115,
+            118
+          ]
+        },
+        {
+          "id": "emergency-scramble",
+          "concept": "airfield-emergency-scramble",
+          "rect": [
+            243,
+            24,
+            102,
+            150
+          ]
+        },
+        {
+          "id": "mission-air-superiority",
+          "concept": "airfield-mission-air-superiority",
+          "rect": [
+            360,
+            24,
+            112,
+            148
+          ]
+        },
+        {
+          "id": "mission-on-call",
+          "concept": "airfield-mission-on-call",
+          "rect": [
+            473,
+            24,
+            112,
+            148
+          ]
+        },
+        {
+          "id": "mission-air-strike",
+          "concept": "airfield-mission-air-strike",
+          "rect": [
+            586,
+            24,
+            112,
+            148
+          ]
+        },
+        {
+          "id": "mission-airdrops",
+          "concept": "airfield-mission-airdrops",
+          "rect": [
+            360,
+            178,
+            112,
+            152
+          ]
+        },
+        {
+          "id": "mission-air-transport",
+          "concept": "airfield-mission-air-transport",
+          "rect": [
+            473,
+            178,
+            112,
+            152
+          ]
+        },
+        {
+          "id": "mission-special",
+          "concept": "airfield-mission-special",
+          "rect": [
+            586,
+            178,
+            112,
+            152
+          ]
+        },
+        {
+          "id": "launch",
+          "concept": "airfield-launch",
+          "rect": [
+            10,
+            194,
+            92,
+            34
+          ]
+        },
+        {
+          "id": "level",
+          "concept": "airfield-level",
+          "rect": [
+            10,
+            228,
+            92,
+            34
+          ]
+        },
+        {
+          "id": "low-altitude",
+          "concept": "airfield-low-altitude",
+          "rect": [
+            10,
+            262,
+            92,
+            34
+          ]
+        },
+        {
+          "id": "reorganization",
+          "concept": "airfield-reorganization",
+          "rect": [
+            10,
+            296,
+            92,
+            34
+          ]
+        },
+        {
+          "id": "electronic",
+          "concept": "board-electronic",
+          "rect": [
+            10,
+            338,
+            92,
+            34
+          ]
+        },
+        {
+          "id": "protection",
+          "concept": "board-protection",
+          "rect": [
+            10,
+            372,
+            92,
+            28
+          ]
+        },
+        {
+          "id": "capacity",
+          "concept": "airfield-capacity",
+          "rect": [
+            10,
+            398,
+            92,
+            32
+          ]
+        },
+        {
+          "id": "repair",
+          "concept": "board-repair",
+          "rect": [
+            10,
+            430,
+            92,
+            30
+          ]
+        },
+        {
+          "id": "landing-damaged",
+          "concept": "airfield-landing-damaged",
+          "rect": [
+            116,
+            212,
+            238,
+            120
+          ]
+        },
+        {
+          "id": "landing-waiting",
+          "concept": "airfield-landing-waiting",
+          "rect": [
+            116,
+            340,
+            238,
+            116
+          ]
+        },
+        {
+          "id": "ready-to-launch",
+          "concept": "airfield-ready-to-launch",
+          "rect": [
+            358,
+            338,
+            342,
+            118
+          ]
+        }
+      ]
+    },
+    "port": {
+      "label": "Puerto",
+      "reference": {
+        "image": "puertos/page-01.png",
+        "rect": [
+          0,
+          0,
+          706,
+          472
+        ]
+      },
+      "zones": [
+        {
+          "id": "name",
+          "concept": "board-name-code",
+          "rect": [
+            12,
+            12,
+            120,
+            78
+          ]
+        },
+        {
+          "id": "location",
+          "concept": "board-location",
+          "rect": [
+            12,
+            96,
+            105,
+            96
+          ]
+        },
+        {
+          "id": "map",
+          "concept": "board-map",
+          "rect": [
+            6,
+            214,
+            100,
+            96
+          ]
+        },
+        {
+          "id": "ammunition",
+          "concept": "port-ammunition",
+          "rect": [
+            8,
+            310,
+            54,
+            38
+          ]
+        },
+        {
+          "id": "fuel",
+          "concept": "port-fuel",
+          "rect": [
+            62,
+            310,
+            54,
+            38
+          ]
+        },
+        {
+          "id": "level",
+          "concept": "port-level",
+          "rect": [
+            8,
+            350,
+            54,
+            38
+          ]
+        },
+        {
+          "id": "fleet-repair",
+          "concept": "port-fleet-repair",
+          "rect": [
+            62,
+            350,
+            54,
+            38
+          ]
+        },
+        {
+          "id": "dock-count",
+          "concept": "port-dock-count",
+          "rect": [
+            8,
+            390,
+            54,
+            38
+          ]
+        },
+        {
+          "id": "protection",
+          "concept": "board-protection",
+          "rect": [
+            62,
+            390,
+            54,
+            38
+          ]
+        },
+        {
+          "id": "electronic",
+          "concept": "board-electronic",
+          "rect": [
+            8,
+            428,
+            54,
+            36
+          ]
+        },
+        {
+          "id": "repair",
+          "concept": "board-repair",
+          "rect": [
+            62,
+            428,
+            54,
+            36
+          ]
+        },
+        {
+          "id": "fleet-waiting-orders",
+          "concept": "port-fleet-waiting-orders",
+          "rect": [
+            132,
+            24,
+            338,
+            262
+          ]
+        },
+        {
+          "id": "fleet-just-came-in",
+          "concept": "port-fleet-just-came-in",
+          "rect": [
+            470,
+            22,
+            228,
+            264
+          ]
+        },
+        {
+          "id": "dockyard",
+          "concept": "port-dockyard",
+          "rect": [
+            132,
+            292,
+            224,
+            164
+          ]
+        },
+        {
+          "id": "army-loading-area",
+          "concept": "port-army-loading-area",
+          "rect": [
+            357,
+            292,
+            340,
+            164
+          ]
+        }
+      ]
+    },
+    "command": {
+      "label": "Capacidad de Mando (C4I)",
+      "reference": {
+        "image": "aerodromos/page-01.png",
+        "rect": [
+          0,
+          1065,
+          706,
+          475
+        ]
+      },
+      "zones": [
+        {
+          "id": "command-capacity",
+          "concept": "command-capacity",
+          "rect": [
+            24,
+            90,
+            116,
+            110
+          ]
+        },
+        {
+          "id": "joint",
+          "concept": "command-joint",
+          "rect": [
+            246,
+            26,
+            212,
+            182
+          ]
+        },
+        {
+          "id": "air",
+          "concept": "command-air",
+          "rect": [
+            466,
+            26,
+            214,
+            450
+          ]
+        },
+        {
+          "id": "land",
+          "concept": "command-land",
+          "rect": [
+            20,
+            226,
+            220,
+            226
+          ]
+        },
+        {
+          "id": "surface",
+          "concept": "command-surface",
+          "rect": [
+            244,
+            226,
+            214,
+            226
+          ]
+        }
+      ],
+      "minInliers": 100
+    },
+    "heliport": {
+      "label": "Helipuerto",
+      "reference": {
+        "image": "puertos/page-08.png",
+        "rect": [
+          80,
+          15,
+          355,
+          495
+        ]
+      },
+      "zones": [
+        {
+          "id": "main-area",
+          "concept": "heliport-main-area",
+          "rect": [
+            60,
+            23,
+            285,
+            342
+          ]
+        },
+        {
+          "id": "platform-label",
+          "concept": "heliport-platform-label",
+          "rect": [
+            28,
+            103,
+            34,
+            202
+          ]
+        },
+        {
+          "id": "name",
+          "concept": "heliport-name",
+          "rect": [
+            28,
+            383,
+            52,
+            95
+          ]
+        },
+        {
+          "id": "marker",
+          "concept": "heliport-marker",
+          "rect": [
+            88,
+            390,
+            90,
+            90
+          ]
+        },
+        {
+          "id": "level",
+          "concept": "board-level-short",
+          "rect": [
+            197,
+            385,
+            32,
+            100
+          ]
+        },
+        {
+          "id": "low-altitude",
+          "concept": "board-low-altitude",
+          "rect": [
+            228,
+            385,
+            32,
+            100
+          ]
+        },
+        {
+          "id": "electronic",
+          "concept": "board-electronic",
+          "rect": [
+            260,
+            385,
+            30,
+            100
+          ]
+        },
+        {
+          "id": "protection",
+          "concept": "board-protection",
+          "rect": [
+            290,
+            385,
+            30,
+            100
+          ]
+        },
+        {
+          "id": "capacity",
+          "concept": "heliport-capacity",
+          "rect": [
+            320,
+            385,
+            32,
+            100
+          ]
+        }
+      ],
+      "minInliers": 12
+    },
+    "platform": {
+      "label": "Plataforma de combate de baja altitud",
+      "reference": {
+        "image": "puertos/page-10.png",
+        "rect": [
+          0,
+          0,
+          706,
+          472
+        ]
+      },
+      "zones": [
+        {
+          "id": "name",
+          "concept": "board-name-code",
+          "rect": [
+            14,
+            12,
+            120,
+            150
+          ]
+        },
+        {
+          "id": "marker",
+          "concept": "platform-marker",
+          "rect": [
+            16,
+            190,
+            106,
+            104
+          ]
+        },
+        {
+          "id": "level",
+          "concept": "board-level-short",
+          "rect": [
+            14,
+            308,
+            116,
+            34
+          ]
+        },
+        {
+          "id": "low-altitude",
+          "concept": "board-low-altitude",
+          "rect": [
+            14,
+            342,
+            116,
+            36
+          ]
+        },
+        {
+          "id": "reorganization",
+          "concept": "airfield-reorganization",
+          "rect": [
+            14,
+            378,
+            116,
+            36
+          ]
+        },
+        {
+          "id": "capacity",
+          "concept": "heliport-capacity",
+          "rect": [
+            14,
+            416,
+            116,
+            38
+          ]
+        },
+        {
+          "id": "platform-label",
+          "concept": "platform-label",
+          "rect": [
+            308,
+            18,
+            212,
+            36
+          ]
+        },
+        {
+          "id": "main-area",
+          "concept": "platform-main-area",
+          "rect": [
+            132,
+            52,
+            566,
+            404
+          ]
+        }
+      ],
+      "minInliers": 100
+    },
+    "strategy": {
+      "label": "Capacidad estratégica",
+      "reference": {
+        "image": "puertos/page-08.png",
+        "rect": [
+          62,
+          1022,
+          730,
+          505
+        ]
+      },
+      "zones": [
+        {
+          "id": "title",
+          "concept": "strategy-title",
+          "rect": [
+            30,
+            40,
+            200,
+            215
+          ]
+        },
+        {
+          "id": "space-used",
+          "concept": "strategy-space-used",
+          "rect": [
+            248,
+            48,
+            218,
+            175
+          ]
+        },
+        {
+          "id": "launch-used",
+          "concept": "strategy-launch-used",
+          "rect": [
+            471,
+            40,
+            217,
+            173
+          ]
+        },
+        {
+          "id": "cyber-attack",
+          "concept": "strategy-cyber-attack",
+          "rect": [
+            36,
+            256,
+            222,
+            222
+          ]
+        },
+        {
+          "id": "orbit",
+          "concept": "strategy-orbit",
+          "rect": [
+            258,
+            250,
+            215,
+            208
+          ]
+        },
+        {
+          "id": "launch",
+          "concept": "strategy-launch",
+          "rect": [
+            481,
+            233,
+            209,
+            220
+          ]
+        }
+      ],
+      "minInliers": 100
+    }
+  }
+}

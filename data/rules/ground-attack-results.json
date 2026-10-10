@@ -1,0 +1,47 @@
+{
+  "id": "ground-attack-results",
+  "title": "Resolución del resultado del ataque terrestre: unidades, puertos y aeródromos (Decision Book §5.15)",
+  "note": "Reglas y textos que consume public/js/ground-attack-result-engine.js y el wizard #/wizard/ground-attack-result. El motor hace la aritmética; el texto vive aquí (AGENTS.md §4.1). Se parte de los Puntos de Impacto finales ya obtenidos en la tabla de resolución (wizards de ataque terrestre guiado, no guiado, etc.). La Planificación Profunda (§5.15.4, opcional), las fortificaciones y los efectos sobre unidades concretas con ficha propia (qué ocurre al darse la vuelta, §5.9) no se modelan.",
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.15 Resolución del Resultado del Ataque Terrestre", "pages": "83-87" },
+    { "document": "Tablas-de-combate 5.pdf", "section": "Objetivo: Instalaciones fijas / Unidades terrestres móviles — Efecto de los impactos", "pages": "6, 9" }
+  ],
+  "targets": [
+    { "id": "ground_unit", "label": "Unidad terrestre (principal o técnica)" },
+    { "id": "port", "label": "Puerto (instalación fija)" },
+    { "id": "airfield", "label": "Aeródromo (instalación fija)" }
+  ],
+  "groundUnit": {
+    "attackKinds": [
+      { "id": "normal", "label": "Ataque normal", "terrainApplies": true },
+      { "id": "no_terrain", "label": "Interdicción Aérea o Ataque Anti-Radiación (sin protección del terreno)", "terrainApplies": false },
+      { "id": "air_pursuit", "label": "Persecución Aérea", "terrainApplies": false }
+    ],
+    "terrainRule": "Si el hexágono tiene un Valor de Terreno (marcadores de terreno), el Valor de Protección de la unidad aumenta en esa cantidad. Las unidades terrestres no reciben esa modificación contra Ataques Anti-Radiación, Interdicción Aérea y Persecución Aérea; los aeródromos y puertos nunca la reciben.",
+    "normalRule": "En un ataque normal: si la unidad sufre Puntos de Impacto ≥ (Valor de Protección + Valor de Terreno), sufre 1 punto de daño y reduce su tamaño de fuerza en 1. En un ataque normal una unidad pierde como máximo 1 punto de tamaño de fuerza por ataque.",
+    "airPursuitRule": "Durante una Persecución Aérea: los Puntos de Impacto se dividen por el Valor de Protección de la unidad (redondeando hacia abajo); el resultado es la cantidad de puntos de daño y de reducción de su escala de fuerza. Este daño no tiene límite máximo.",
+    "mobileUnitNote": "Pérdida de personal sobre unidades móviles (página 6/9): en Contrabatería / Contrafuego, con cobertura del terreno la pérdida máxima es 1; en Interdicción de Campo de Batalla, sin cobertura la pérdida máxima es 1 (+1 si elige seguir moviéndose); en Persecución Aérea, sin cobertura la pérdida no tiene límite. No se aplica automáticamente.",
+    "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.15.1 Atacar Objetivos Terrestres", "pages": "83" }]
+  },
+  "port": {
+    "assignRule": "El atacante puede asignar los Puntos de Impacto al puerto mismo y/o a las unidades de superficie o submarinas dentro del puerto, a la vez si quiere. Atacar las unidades del puerto no equivale a un ataque directo a una formación de superficie: no hacen falta planes antibuque ni detección.",
+    "portRule": "Atacar el puerto: los Puntos de Impacto se dividen por el Valor de Protección del puerto (sin añadir el Valor de Terreno); el resultado, redondeado hacia abajo, es la cantidad de efectos de \"Instalación Paralizada\". Un puerto con alguno no puede cargar ni descargar; no hay límite máximo; por cada punto el Valor de Munición y de Combustible del puerto baja 1.",
+    "repairRule": "Al final de la fase de Logística y Transporte de la Fase de Acción Naval, el puerto reduce sus efectos de \"Instalación Paralizada\" según su Valor de Reparación (1 por punto). Sin apoyo logístico no puede reducirlos.",
+    "shipsRule": "Atacar buques en el puerto: el defensor elige qué barco sufre el impacto y debe absorber al menos 1 Punto de Impacto. Unidad de superficie: por cada Punto de Impacto sufre 1 punto de daño y se resuelven los efectos de impacto (§5.9). Unidad submarina: por cada Punto de Impacto es destruida y eliminada. Si quedan Puntos de Impacto, el atacante sigue seleccionando barcos; el exceso, cuando todos están eliminados, se ignora.",
+    "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.15.2 Atacar Instalaciones Fijas: Puertos", "pages": "83-84" }]
+  },
+  "airfield": {
+    "assignRule": "El atacante puede asignar los Puntos de Impacto a la pista y/o a las áreas de estacionamiento (apron), a la vez si quiere. Si no quedan objetivos disponibles, los Puntos de Impacto sobrantes se ignoran.",
+    "runwayQuality": {
+      "letters": ["A", "B", "C", "D", "E"],
+      "note": "Cada aeródromo tiene una letra de calidad de pista, de A (la mejor) a E (la peor). Atacar la pista puede reducirla, pero no puede bajar de E; al repararla no puede superar la calidad impresa en la ficha del aeródromo.",
+      "source": "Confirmado por el mantenedor, 2026-10-07"
+    },
+    "runwayRule": "Atacar la pista: por cada 2 Puntos de Impacto asignados el nivel de la pista baja 1. El nivel mínimo es E; al llegar a E no se pueden asignar más Puntos de Impacto a la pista. Al final de la primera Fase Aérea de cada turno recupera niveles según su Valor de Reparación (sin superar la calidad impresa en la ficha; sin apoyo logístico no recupera).",
+    "apronRule": "Atacar las áreas de estacionamiento: todas las unidades aéreas y de baja altitud del aeródromo son objetivos. Si su número total es ≤ la Capacidad de Hangares, todas pueden usar el Valor de Protección del aeródromo como propio; si es mayor, el defensor elige qué unidades lo usan (como máximo la Capacidad de Hangares) y las demás tienen Protección 1. Una unidad aérea o de baja altitud no puede usar su propio Valor de Protección: si no usa el del aeródromo, su Protección es 1.",
+    "absorbRule": "Una vez fijado por el atacante el número de impactos del apron, el defensor los asigna a los aviones: puede asignarlos al avión que quiera. Si los impactos no alcanzan la Protección del avión (o su Protección efectiva), no pasa nada; si la igualan o superan, ese avión sufre 1 punto de daño (una unidad intacta se da la vuelta a su lado dañado; una ya dañada, o sin lado dañado, es eliminada directamente), se resta su Protección de los impactos y se busca el siguiente objetivo. No pueden quedar impactos sin efecto (asignados a un avión con más Protección) si con ellos se puede dañar a otro avión: solo se ignoran los restantes cuando son menores que la Protección de cualquier avión que siga sin dañar. Confirmado por el mantenedor, 2026-10-07.",
+    "logisticsRule": "Regla opcional — instalaciones logísticas: por cada 2 Puntos de Impacto asignados, el Valor de Preparación del aeródromo baja 1 (mínimo 0; con 0 no se pueden asignar más). Recupera en la fase de Recuperación de Paralización según su Valor de Reparación, sin superar el inicial; sin apoyo logístico no recupera.",
+    "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.15.3 Atacar Instalaciones Fijas: Aeródromos", "pages": "84-87" }]
+  },
+  "notModeled": "No se modelan: la Planificación Profunda (§5.15.4, regla opcional con un único objetivo por ataque y asignación según ISR), las fortificaciones, el orden exacto en que el defensor elige las unidades (se usa el orden de la lista) ni los efectos de las fichas al darse la vuelta (ver el wizard de Efectos del impacto antibuque para los buques)."
+}

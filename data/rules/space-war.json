@@ -1,0 +1,56 @@
+{
+  "id": "space-war",
+  "title": "Guerra espacial (Decision Book §14.5-§14.9, regla opcional)",
+  "note": "Textos, acciones y fuentes que consume public/js/strategic-actions-engine.js y el wizard #/wizard/space-war. La mecánica (orden de acciones, destrucción, escombros) vive en el motor; el resultado de cada d10 se lee de la tabla transcrita de la página 32 de Tablas-de-combate 5.pdf (columnas «Destrucción Espacial», «Fragmentos Espaciales» y «Desaparición de Fragmentos»).",
+  "optionalRule": true,
+  "table": { "file": "page-32.json", "id": "strategic-actions-outcome", "hash": "#/ayuda/tablas/page-32.json/strategic-actions-outcome" },
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "14.5 Guerra Espacial, 14.5.1 Recursos Espaciales, 14.5.3 Oportunidad para la Guerra Espacial", "pages": "246-247" },
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "14.6 Apoyo Espacial (14.6.1-14.6.4)", "pages": "247-248" },
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "14.7 Destrucción Espacial (14.7.1-14.7.3), 14.8 Garantía Espacial, 14.9 Escombros Espaciales", "pages": "249-251" },
+    { "document": "Tablas-de-combate 5.pdf", "section": "Acciones Estratégicas: Destrucción espacial y tabla de resultados", "pages": "31-32" }
+  ],
+  "intro": "Regla opcional. La Guerra Espacial usa Recursos Orbitales y Recursos de Lanzamiento: lo consumido vuelve al límite máximo al final de la Fase de Crisis de cada turno, pero lo destruido se pierde. Las acciones activas se hacen en la Fase Espacial al inicio del turno; las de respuesta, en cualquier momento.",
+  "operations": [
+    { "value": "order", "label": "Orden de las acciones activas", "summary": "Quién actúa primero en la Fase Espacial.", "section": "14.5.3" },
+    { "value": "support", "label": "Apoyo espacial", "summary": "Seguimiento de misiles, vigilancia, comunicaciones y datos de alta velocidad.", "section": "14.6" },
+    { "value": "destruction", "label": "Destrucción espacial", "summary": "Ataque duro, blando u orbital contra los Recursos Orbitales enemigos.", "section": "14.7" },
+    { "value": "guarantee", "label": "Garantía espacial", "summary": "Maniobra orbital y lanzamiento de emergencia.", "section": "14.8" },
+    { "value": "debris_storm", "label": "Tormenta de Escombros", "summary": "Tirada antes de una acción espacial de respuesta.", "section": "14.9" },
+    { "value": "debris_vanish", "label": "Desaparición de escombros", "summary": "Tirada al inicio de cada Fase Espacial.", "section": "14.9" }
+  ],
+  "support": [
+    { "value": "ballistic", "label": "Seguimiento de Misiles Balísticos", "section": "14.6.1", "kind": "Acción de Respuesta, Recurso Orbital", "effect": "Contra un ataque de misiles balísticos enemigo: todas sus trayectorias se consideran dentro del rango de un Sistema de Alerta Temprana de Misiles (regla 6.9.1), de modo que los misiles de defensa aérea propios pueden interceptar en fase media o terminal. Dura hasta que finalice ese ataque." },
+    { "value": "vigilance", "label": "Vigilancia de Área Crítica", "section": "14.6.2", "kind": "Acción de Respuesta, Recurso Orbital", "effect": "Para detectar una unidad terrestre o de superficie se despliegan activos espaciales que hacen una operación ISR (regla 7.9) centrada en un hexágono. Dura hasta el final del turno actual. La unidad guía se considera no detectada. Con las reglas opcionales de Enlace de Datos, es Enlace de Datos Avanzado y no permite calcular la distancia desde la unidad guía. Si el hexágono es de mar, suma 1 al Valor de Firma de los submarinos de ese hexágono." },
+    { "value": "comms", "label": "Soporte de Comunicaciones Satelitales", "section": "14.6.3", "kind": "Acción de Respuesta, Recurso Orbital", "effect": "Antes de resolver la ventaja del Valor de Electrónica de las unidades principales propias de un hexágono en un combate terrestre, sube temporalmente su Valor de Electrónica a 7. Dura hasta el final del turno actual." },
+    { "value": "datalink", "label": "Soporte de Datos de Alta Velocidad", "section": "14.6.4", "kind": "Acción de Respuesta, Recurso Orbital", "effect": "Requiere las reglas opcionales de Enlace de Datos (capítulo 13). Una unidad de Enlace de Datos Universal pasa a Avanzado durante un combate aéreo, ataque o fuego antiaéreo; una unidad submarina pasa a Enlace de Datos Universal durante un ataque. Dura hasta que termine ese combate, ataque o fuego." }
+  ],
+  "supportCommon": "El Apoyo Espacial no requiere tiradas: surte efecto con certeza salvo que sufra un ciberataque enemigo. Todas sus acciones consumen 1 Recurso Orbital.",
+  "destruction": [
+    { "value": "hard", "label": "Ataque Duro", "section": "14.7.1", "kind": "Acción Activa, Recurso de Lanzamiento", "cost": "Destruye 1 de tus Recursos de Lanzamiento.", "roll": "Tira 3d10.", "success": "Cada Éxito destruye 1 Recurso Orbital enemigo y genera 2 Escombros Espaciales.", "failure": "Cada Fallo genera 1 Escombro Espacial.", "none": "Un resultado sin efecto («·») no tiene ningún efecto." },
+    { "value": "soft", "label": "Ataque Blando", "section": "14.7.2", "kind": "Acción Activa, Recurso de Lanzamiento", "cost": "Consume 1 de tus Recursos de Lanzamiento.", "roll": "Tira 1d10.", "success": "Un Éxito consume 1 Recurso Orbital enemigo (reduce su cantidad disponible, no su límite máximo).", "failure": "Un Fallo o un resultado sin efecto no tiene ningún efecto.", "none": "El Ataque Blando no genera Escombros Espaciales." },
+    { "value": "orbital", "label": "Ataque Orbital", "section": "14.7.3", "kind": "Acción Activa, Recurso Orbital", "cost": "Destruye 1 de tus Recursos Orbitales (baja la cantidad disponible y el límite máximo).", "roll": "Tira 3d10.", "success": "Cada Éxito destruye 1 Recurso Orbital enemigo y genera 2 Escombros Espaciales.", "failure": "Cada Fallo genera 1 Escombro Espacial.", "none": "Un resultado sin efecto («·») no tiene ningún efecto." }
+  ],
+  "guarantee": [
+    { "value": "orbital_maneuver", "label": "Maniobra Orbital", "section": "14.8.1", "kind": "Acción de Respuesta, Recurso Orbital", "effect": "Cuando eres objeto de un Ataque Duro u Orbital enemigo, consume 1 Recurso Orbital propio para reducir en 2 las tiradas de d10 del enemigo. Sirve para generar menos Escombros Espaciales. Se aplica marcándola en el wizard de Destrucción espacial." },
+    { "value": "emergency_launch", "label": "Lanzamiento de Emergencia", "section": "14.8.2", "kind": "Acción Activa, Recurso de Lanzamiento", "effect": "Destruye 1 Recurso de Lanzamiento enemigo y obtienes 1 Recurso Orbital propio (sube tu límite máximo en 1; que también suba la cantidad disponible depende de las reglas de restablecimiento del escenario)." }
+  ],
+  "reasons": {
+    "wrong_dice_format": "Escribe solo cifras del 0 al 9 separadas por espacios.",
+    "wrong_roll_count": "Introduce exactamente un resultado de d10 por cada tirada.",
+    "tie_reroll": "Los dados han empatado: se vuelve a tirar hasta que uno saque más."
+  },
+  "texts": {
+    "resources_reset": "Los Recursos Espaciales consumidos se restablecen hasta su límite máximo al final de la Fase de Crisis de cada turno; los destruidos se retiran de forma permanente de la Ficha de Capacidad Estratégica.",
+    "active_when": "Las acciones activas se hacen en la Fase Espacial al inicio del turno, alternando los bandos; las de respuesta, en cualquier momento (pueden interrumpir al oponente).",
+    "cyber_cancels": "Un ciberataque a Activos Espaciales con éxito (14.4.5), declarado antes de que el enemigo actúe, cancela su acción espacial actual.",
+    "debris_shared": "Los Escombros Espaciales afectan por igual a ambos bandos: cualquier jugador coloca las fichas en el área de «Escombros Espaciales» del Tablero de Flujo de Turno.",
+    "storm_collision": "Colisión: la acción espacial actual falla, el bando que la hacía destruye 1 de sus Recursos Orbitales y se genera 1 Escombro Espacial nuevo.",
+    "storm_clear": "Sin efecto: la acción espacial actual puede continuar.",
+    "storm_clamped": "La suma supera 9 y se lee en la última fila de la tabla (extensión mínima, pendiente de revisar en docs/rules/known-ambiguities.md).",
+    "vanish_rule": "Al inicio de cada Fase Espacial, cualquier jugador tira 1d10 y desaparecen tantos escombros como indica la columna «Desaparición de Fragmentos» (0 = ninguno)."
+  },
+  "afterRules": [
+    "Las tiradas son físicas: escribe los resultados de tus d10 y la aplicación los clasifica con la tabla de la página 32."
+  ]
+}

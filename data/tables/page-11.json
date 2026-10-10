@@ -1,0 +1,27 @@
+{
+  "page": 11,
+  "title": "Ataque Antirradiación — Defensa Aérea de Área",
+  "workflowRefs": ["anti_radiation"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 11 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "1) Defensa aérea de área: reducir el valor de ataque del proyectil (contra marcadores de munición: CM…)",
+      "intro": "Varias unidades de superficie o unidades antiaéreas pueden disparar al unísono.",
+      "rows": [
+        { "condition": "Icono CM (misil de crucero) — Capacidad de ataque con proyectiles guiados: Todos CM", "effect": "Aplica contra unidades de vuelo a baja altura" },
+        { "condition": "Disparar contra objetivos de baja altura", "effect": "Solo contra aquellos detectados por la propia unidad" },
+        { "condition": "Atacante no detectado", "effect": "-2" }
+      ]
+    }
+  ],
+
+  "reusesTable": {
+    "id": "ground-guided-area-air-defense",
+    "definedIn": "data/tables/page-03.json",
+    "note": "La tabla completa (fila ≤-1 a 9, columnas 1/2~3/4~5/6~7/8~9/10~11/12~13/14~15/16~17/18+) es idéntica carácter a carácter a la de la página 3. Mismo gap: solo aparece la variante de consumo 'Bajo'."
+  },
+
+  "tables": []
+}

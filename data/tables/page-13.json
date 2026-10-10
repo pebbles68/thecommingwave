@@ -1,0 +1,69 @@
+{
+  "page": 13,
+  "title": "Ataque Antirradiación — Modificador y Objetivo del Ataque",
+  "workflowRefs": ["anti_radiation"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 13 }],
+  "transcriptionPass": "verified-2026-09-25",
+  "transcriptionStatus": "verified",
+  "ruleStatus": "resolved",
+  "blockingIssues": [],
+  "needsReview": false,
+
+  "referenceNotes": [
+    {
+      "topic": "3) Modificación del Valor del Ataque",
+      "intro": "Al calcular la distancia de ataque, comience desde la ficha del atacante.",
+      "rows": [
+        { "condition": "Sistema de detección activado (móvil, fijo: radar, misil AA, misil antibuque)", "effect": "-5" }
+      ],
+      "note": "Coincide con detection_system_active (yes=-5) ya transcrito en data/workflows/04_ataque_antirradiacion.json."
+    },
+    {
+      "topic": "Efecto del modificador",
+      "rows": [
+        { "condition": "Modificación de intensidad (regla general)", "effect": "Los valores negativos indican el número de columnas a ajustar a la izquierda." },
+        { "condition": "Paso 4: valor de ataque fijo = 9", "effect": "Se cancela la modificación de intensidad." }
+      ]
+    },
+    {
+      "topic": "4) Objetivo del ataque de antirradiación",
+      "intro": "Cada método de ataque se resuelve por separado, los impactos se suman para ejecutar el resultado; cuando el valor de ataque supera 13, se calcula como 13.",
+      "rows": [
+        { "condition": "Planes de ataque [L]", "effect": "Utilizan la fila [L] en la resolución" },
+        { "condition": "Objetivo del ataque de antirradiación", "effect": "El objetivo no recibe bonificación de protección por el terreno donde se encuentra." }
+      ]
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "anti-radiation-target-damage",
+      "title": "Objetivo del ataque de antirradiación — impactos según Valor de Ataque",
+      "needsReview": false,
+      "rowAxis": { "label": "ARM (tirada d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9*"] },
+      "columnAxis": {
+        "label": "Valor de Ataque (columnas 1-18), etiquetado canónico = esquema 'Normal'",
+        "values": ["0.5", "1", ".", "2", ".", "3", ".", "4", ".", "5", "6", "7", "8", "9", "10", "11", "12", "13+"],
+        "alternateLabelSets": {
+          "L_ligero": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11~12", "13+", ".", ".", ".", ".", ".", "."]
+        },
+        "note": "Verificado a 600 DPI (2026-09-25): a diferencia de las páginas 5 y 9, esta tabla solo superpone 2 esquemas (no 3), y la propia página ya declara la regla de selección en referenceNotes: 'Los planes de ataque [L] utilizan la fila [L] en la resolución' — si el plan de ataque está marcado [L], se lee con 'L_ligero'; en caso contrario, con el esquema canónico 'Normal'. Ambos arrays confirmados carácter a carácter contra la imagen de la fuente."
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+        [".", ".", "1", "1", "2", "3", "3", "4", "4", "5", "6", "7", "8", "9", "10", "12", "13", "15"],
+        [".", "1", "1", "2", "3", "4", "4", "5", "5", "6", "7", "8", "9", "11", "12", "13", "15", "16"],
+        [".", "1", "2", "3", "3", "4", "5", "5", "6", "7", "7", "9", "10", "12", "13", "14", "16", "17"],
+        ["1", "1", "2", "3", "4", "4", "5", "6", "6", "7", "8", "9", "11", "12", "14", "15", "16", "18"],
+        ["1", "2", "2", "3", "4", "5", "6", "7", "7", "8", "9", "10", "12", "13", "15", "16", "17", "19"],
+        ["1", "2", "3", "4", "5", "7", "8", "9", "11", "12", "13", "15", "18", "21", "24", "26", "28", "32"],
+        ["1", "3", "4", "5", "6", "8", "9", "11", "12", "13", "15", "17", "20", "23", "26", "28", "30", "34"],
+        ["2", "3", "4", "6", "7", "9", "10", "11", "13", "14", "16", "19", "21", "24", "28", "30", "32", "36"],
+        ["2", "4", "6", "8", "9", "12", "12", "14", "16", "17", "19", "21", "24", "28", "30", "32", "36", "40"]
+      ],
+      "notes": ["Las primeras 18 columnas de esta tabla coinciden exactamente con las de ground-precision-attack-damage (página 5) y ground-unguided-attack-damage/valores equivalentes — es la misma progresión base de daño reutilizada, truncada a 18 columnas en vez de 25/16. Confirmado a 600 DPI (2026-09-25): las 10 filas x 18 columnas coinciden exactamente con la imagen de la fuente."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 13, "section": "4) Objetivo del ataque de antirradiación", "verifiedAtDpi": 600 }]
+    }
+  ]
+}

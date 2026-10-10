@@ -1,0 +1,153 @@
+{
+  "page": 5,
+  "title": "Ataque Terrestre Guiado — Modificación de Intensidad y Ataque de Precisión",
+  "workflowRefs": ["ground_guided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 5 }],
+  "transcriptionStatus": "verified",
+  "ruleStatus": "resolved",
+  "blockingIssues": [],
+  "needsReview": false,
+
+  "referenceNotes": [
+    {
+      "topic": "3) Modificación de la Intensidad de Ataque — Objetivo: Unidades móviles (Básico)",
+      "intro": "Al calcular la distancia de ataque, se comienza desde el counter del atacante.",
+      "rows": [
+        { "condition": "Distancia de ataque: 0 // Misión de Área ≤1", "effect": "-2" },
+        { "condition": "Distancia de ataque: 1 // Misión de Área ≤2", "effect": "-5" },
+        { "condition": "Distancia de ataque: ≥2 // Misión de Área ≥3", "effect": "-10" },
+        { "condition": "Icono alta penetración + Supersónico", "effect": "+2" },
+        { "condition": "Por cada 5 pts. de Tamaño de Fuerza que exceda el límite", "effect": "+2" },
+        { "condition": "Modificador de guiado (icono)", "effect": "+?" }
+      ],
+      "note": "Coincide con attack_distance_band/high_penetration_supersonic/force_size_excess/guidance_modifier ya transcritos en data/workflows/02_ataque_terrestre_guiado.json."
+    },
+    {
+      "topic": "Unidades técnicas",
+      "rows": [
+        { "condition": "Valor Electrónico 0", "effect": "0" },
+        { "condition": "Valor Electrónico 1", "effect": "-2" },
+        { "condition": "Valor Electrónico 2", "effect": "-4" },
+        { "condition": "Valor Electrónico 3", "effect": "-8" }
+      ]
+    },
+    {
+      "topic": "Instalaciones fijas",
+      "rows": [
+        { "condition": "Valor Electrónico 0", "effect": "0" },
+        { "condition": "Valor Electrónico 1", "effect": "-1" },
+        { "condition": "Valor Electrónico 2", "effect": "-5" },
+        { "condition": "Valor Electrónico 3", "effect": "-10" }
+      ]
+    },
+    {
+      "topic": "Qué grupos de modificadores se acumulan según el tipo de objetivo",
+      "rows": [
+        { "condition": "Unidades principales", "effect": "Básico" },
+        { "condition": "Unidades técnicas", "effect": "Básico + Técnico" },
+        { "condition": "Instalaciones fijas", "effect": "Instalaciones" }
+      ],
+      "note": "Confirma que target_type=technical suma el bloque Básico Y el de Unidades técnicas; target_type=fixed usa solo el bloque de Instalaciones fijas (no el Básico). data/workflows/02_ataque_terrestre_guiado.json no modela todavía esta combinación explícita (needsReview)."
+    },
+    {
+      "topic": "Efecto de la modificación",
+      "rows": [
+        { "condition": "Modificación de intensidad ≥1", "effect": "Se considera 0" },
+        { "condition": "Modificación de Intensidad (regla general)", "effect": "Los números negativos indican el número de columnas a ajustar a la izquierda" },
+        { "condition": "Al ajustar la columna", "effect": "Se saltan las columnas de '·'" },
+        { "condition": "En el paso 4°, tirada = 9", "effect": "Se cancelan las modificaciones de intensidad" }
+      ]
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "ground-precision-attack-damage",
+      "title": "4) Ataque de precisión contra objetivos terrestres",
+      "intro": "Cada método de ataque se resuelve por separado. Los impactos se suman para ejecutar el resultado. Cuando el valor de ataque supera 13, se calcula como 13.",
+      "needsReview": false,
+      "rowAxis": {
+        "label": "Tirada (d10) — con doble lectura según el tipo de objetivo",
+        "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "alternateLabels": {
+          "movil": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9*"],
+          "fijo": [".", "0", "1", "2", "3", "4", "5", "6", "7", "8~9*"]
+        },
+        "note": "'Móvil' lee la tirada directamente; 'Fijo' la lee desplazada -1 (instalaciones fijas son más difíciles de dañar). El asterisco (*) en la fila 9 no está explicado en esta página."
+      },
+      "diceRowSchemeRule": {
+        "description": "Qué lectura de fila (tirada d10, 'movil'/'fijo' de rowAxis.alternateLabels) usar, según el tipo de objetivo.",
+        "cases": [
+          { "condition": "Objetivo = Instalación Fija", "scheme": "fijo" },
+          { "condition": "Objetivo = Unidad Móvil (Unidades Principales o Unidades Técnicas Móviles)", "scheme": "movil" }
+        ],
+        "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.12.10 Resolución de Ataque Terrestre Guiado", "pages": "76-77" }],
+        "status": "resolved"
+      },
+      "columnAxis": {
+        "label": "Valor de Ataque final (tras Modificación de Intensidad) — columnas 1 a 25, ver alternateLabelSets",
+        "values": ["c1","c2","c3","c4","c5","c6","c7","c8","c9","c10","c11","c12","c13","c14","c15","c16","c17","c18","c19","c20","c21","c22","c23","c24","c25"],
+        "alternateLabelSets": {
+          "normal_ataque": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11~12", "13+", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+          "persecucion_ataque": ["0.5", "1", ".", "2", ".", "3", ".", "4", ".", "5", "6", "7", "8", "9", "10", "11", "12", "13+", null, null, null, null, null, null, null],
+          "persecucion_objetivo": [".", "0.5", ".", "1", ".", ".", ".", "2", ".", ".", "3", ".", "4", ".", "5", ".", "6", ".", "7", "8", "9", "10", "11", "12", "13+"]
+        },
+        "note": "Reverificado a 600/1200 DPI (2026-09-25): confirmados carácter a carácter los 3 arrays de columna (normal_ataque/persecucion_ataque/persecucion_objetivo) contra la imagen de la fuente — sin errores de transcripción. Resuelto (2026-10-05): la fila 'Normal' no está en blanco, comparte la celda de etiquetas de '[L] Persecución' (ver attackRowGroupSchemeRule.sharedLabelCell); los 3 arrays de etiquetas sirven a las 4 combinaciones de método."
+      },
+      "attackRowGroupSchemeRule": {
+        "description": "Qué fila de etiquetas de columna (Valor de Ataque) usar según el método de ataque. 4 combinaciones: tipo de ataque (Ligero [L] / no ligero) × tipo de munición (Normal / Persecución, la munición con el icono junto a \"Persecución\").",
+        "cases": [
+          {
+            "condition": "Plan Ligero [L] y munición Normal (fila oscura \"[L] Normal\")",
+            "scheme": "normal_ataque"
+          },
+          {
+            "condition": "Plan Ligero [L] y munición Persecución (fila oscura \"[L] Persecución\")",
+            "scheme": "persecucion_ataque"
+          },
+          {
+            "condition": "Plan no ligero y munición Normal (fila blanca \"Normal\", que comparte la celda de etiquetas con \"[L] Persecución\")",
+            "scheme": "persecucion_ataque"
+          },
+          {
+            "condition": "Plan no ligero y munición Persecución (fila blanca \"Persecución\")",
+            "scheme": "persecucion_objetivo"
+          }
+        ],
+        "sharedLabelCell": "En la página impresa la fila de etiquetas \"0.5, 1, ·, 2, ·, 3…\" es una única celda vertical que abarca las filas \"[L] Persecución\" y \"Normal\" (la comprobación a 300 DPI muestra que no hay borde horizontal entre ambas y que las etiquetas están centradas en su frontera); por eso \"Normal\" no tiene números propios. La tabla ARM de la página 13 usa la misma progresión para sus planes no ligeros.",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "5.12.10 Resolución de Ataque Terrestre Guiado",
+            "pages": "76-77"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "section": "4) Ataque de precisión contra objetivos terrestres",
+            "pages": "5"
+          }
+        ],
+        "status": "resolved",
+        "resolvedBy": "Confirmado por el mantenedor el 2026-10-05 (las 4 combinaciones Ligero/no ligero × Normal/Persecución; la columna sale de la combinación y de los factores de ataque; la fila, de Móvil/Fijo y la tirada). Sustituye al estado anterior, en el que \"Normal\" se creía en blanco y \"persecucion_objetivo\" sin condición."
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+        [".", ".", "1", "1", "2", "3", "3", "4", "4", "5", "6", "7", "8", "9", "10", "12", "13", "15", "16", "18", "18", "20", "24", "26", "30"],
+        [".", "1", "1", "2", "3", "4", "4", "5", "5", "6", "7", "8", "9", "11", "12", "13", "15", "16", "18", "20", "21", "22", "26", "30", "32"],
+        [".", "1", "2", "3", "3", "4", "5", "5", "6", "7", "7", "9", "10", "12", "13", "14", "16", "17", "19", "21", "22", "23", "28", "32", "34"],
+        ["1", "1", "2", "3", "4", "4", "5", "6", "6", "7", "8", "9", "11", "12", "14", "15", "16", "18", "20", "22", "23", "24", "30", "32", "36"],
+        ["1", "2", "2", "3", "4", "5", "6", "7", "7", "8", "9", "10", "12", "13", "15", "16", "17", "19", "21", "23", "24", "26", "44", "34", "38"],
+        ["1", "2", "3", "4", "5", "7", "8", "9", "11", "12", "13", "15", "18", "21", "24", "26", "28", "32", "36", "40", "42", "44", "52", "54", "60"],
+        ["1", "3", "4", "5", "6", "8", "9", "11", "12", "13", "15", "17", "20", "23", "26", "28", "30", "34", "38", "42", "44", "46", "54", "60", "64"],
+        ["2", "3", "4", "6", "7", "9", "10", "11", "13", "14", "16", "19", "21", "24", "28", "30", "32", "36", "40", "44", "46", "52", "60", "64", "72"],
+        ["2", "4", "6", "8", "9", "12", "12", "14", "16", "17", "19", "21", "24", "28", "30", "32", "36", "40", "44", "46", "52", "54", "64", "72", "80"]
+      ],
+      "notes": [
+        "Anomalía verificada, no corregida: en la fila 'Móvil=5' (índice de fila 5), la celda c23 imprime '44' entre '26' (c22) y '34' (c24), rompiendo la progresión monótona de esa fila. Se verificó a 900 DPI y el valor es inequívocamente '44', no '24' ni otro valor cercano. Se transcribe tal cual (AGENTS.md: no corregir una fuente porque 'parece más lógica'); registrar en known-ambiguities.md si bloquea algún cálculo.",
+        "25 columnas verificadas en todas las filas de datos a 600-1200 DPI."
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 5, "section": "4) Ataque de precisión contra objetivos terrestres", "verifiedAtDpi": 1200, "reverifiedAt": "2026-09-25" }]
+    }
+  ]
+}

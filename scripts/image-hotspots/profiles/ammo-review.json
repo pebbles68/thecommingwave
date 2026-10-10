@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "note": "Revisión humana de las posiciones de ammo-plans.json. calibrate_ammo_plans.py marca verified las zonas de las filas listadas en rows (o todas con rows: \"*\") y registra quién y cuándo.",
+  "review": {
+    "by": "Mantenedor (Pablo)",
+    "at": "2026-10-07",
+    "note": "Validadas tras revisar el explorador de planes de ataque; los errores que aparezcan se corrigen en la beta."
+  },
+  "rows": "*"
+}

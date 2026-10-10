@@ -1,0 +1,60 @@
+{
+  "page": 29,
+  "title": "Ataque a Unidades Submarinas (ASW) — por Unidades de Superficie y Aéreas",
+  "workflowRefs": ["asw_surface_air"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 29 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "Ataque Antisubmarino por Unidades de Superficie y Aéreas",
+      "intro": "Cada unidad ataca al objetivo de forma independiente. Pueden atacar objetivos en su mismo hex y dentro de su zona central. Las unidades de superficie que cumplan ciertas condiciones pueden atacar objetivos en hex adyacentes.",
+      "rows": [
+        { "condition": "Unidades de superficie con valor de búsqueda aérea ASW ≥ 1", "effect": "Posee capacidad de ataque a objetivo adyacente." },
+        { "condition": "Unidades de superficie con portaaviones en la flota", "effect": "Posee capacidad de ataque a objetivo adyacente." },
+        { "condition": "Tanto el objetivo como la unidad atacante están fuera de la zona de patrulla aérea enemiga", "effect": "Puede atacar." },
+        { "condition": "Unidad Aérea", "effect": "No puede atacar objetivos que se encuentren dentro de una zona de patrulla aérea enemiga." }
+      ],
+      "note": "Coincide con adjacent_target ('requires_surface_adjacent_capability') y target_in_enemy_cap_zone ('air_attack_restricted') ya transcritos en data/workflows/10_ataque_asw_superficie_aereo.json. Los iconos de interrogación de la tabla de condiciones representan comparaciones de símbolos de ficha, no valores numéricos faltantes (needsReview, igual que en la página 28)."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "asw-surface-air-attack-damage",
+      "title": "Ataque Antisubmarino por Unidades de Superficie y Aéreas — impactos según posición/Firma del objetivo y Valor de Ataque ASW",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Ataque ASW",
+        "values": [".", "1~2", "3", "4", "5", "6", "7", "8+"],
+        "signatureBands": {
+          "P4": ["0~3", "4~6", "7+"],
+          "P3": ["0~1", "2~4", "5+"],
+          "P2_P1": ["0", "1~3", "4+"]
+        },
+        "alternateLabelSets": {
+          "band_1": ["1~4", "5", "6", "7", "8+", null, null, null],
+          "band_2": ["1", "2", "3~4", "5", "6", "7", "8+", null],
+          "band_3": [".", "1~2", "3", "4", "5", "6", "7", "8+"]
+        },
+        "note": "Lectura verificada contra Tablas-de-combate 5.pdf p.29 renderizada (2026-10-04). La cabecera tiene TRES filas de etiquetas de Valor de Ataque ASW, todas alineadas desde la primera columna de datos: banda 1 (1~4, 5, 6, 7, 8+), banda 2 (1, 2, 3~4, 5, 6, 7, 8+) y banda 3 (·, 1~2, 3, 4, 5, 6, 7, 8+ — el canónico de columnAxis.values). Cada fila de la tabla de firma por posición (P.4 / P.3 / P.2-1) da el rango de Firma del objetivo de cada banda: signatureBands[posición][i] -> alternateLabelSets.band_{i+1}. Una Firma baja usa una fila más 'dura' (necesita más Valor de Ataque ASW para la misma columna). Decision Book §9.17.2 Pasos 1-2: la profundidad del océano y el Valor de Firma (+1 si el submarino está 'En Movimiento') determinan la fila de la tabla. Esta nota sustituye a la anterior 'positionGrouping', que asociaba una sola fila de etiquetas a cada posición (mapeo incompleto, 'no resuelto' según la pasada rápida).",
+        "positionDepth": { "P4": "Aguas profundas", "P3": "Aguas semi-profundas", "P2_P1": "Aguas poco profundas / muy poco profundas" },
+        "positionDepthNote": "P.4=Aguas profundas, P.3=Aguas semi-profundas y P.2=Aguas poco profundas están definidas en las notas de página de page-33.json; 'P.2 / P.1' agrupa además las aguas muy poco profundas (el reglamento §9.14.2 las nombra en ese orden; la asignación del símbolo 'P.1' a ellas no está impresa en ninguna fuente y se toma por la agrupación impresa 'P. 2 / 1' de esta tabla)."
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", ".", ".", ".", ".", ".", "."],
+        [".", ".", ".", ".", ".", ".", ".", "1"],
+        [".", ".", ".", ".", ".", "1", "1", "1"],
+        [".", ".", ".", ".", ".", "1", "1", "1"],
+        [".", ".", ".", "1", "1", "1", "2", "2"],
+        [".", ".", "1", "1", "1", "2", "2", "3"],
+        [".", "1", "1", "2", "2", "2", "2", "3"],
+        ["1", "1", "2", "2", "3", "3", "3", "3"],
+        ["2", "2", "3", "3", "3", "3", "3", "3"],
+        ["3", "3", "3", "3", "3", "3", "3", "3"]
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 29, "section": "Ataque Antisubmarino por Unidades de Superficie y Aéreas", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

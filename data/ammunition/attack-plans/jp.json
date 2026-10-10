@@ -1,0 +1,90 @@
+{
+  "country": "JP",
+  "countryName": "Japon",
+  "status": "complete",
+  "transcribedSheets": ["JP 1 (seccion Cazas tacticos)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/attack-plans/us.json.",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0.",
+    "dual": "Dos valores separados por barra + superindice opcional: heavy/light + range."
+  },
+
+  "sourceRefs": [
+    {
+      "document": "Tablas de Armamento/JP 1.pdf",
+      "page": 1,
+      "sheetTitle": "Cazas tacticos",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer. Combina en una sola pagina cazas tacticos, aviones de rol especial, buques y submarinos."
+    }
+  ],
+
+  "units": [
+    {
+      "id": "jp-f-35a",
+      "name": "F-35A",
+      "nameLocal": "闪电II",
+      "class": "tactical-fighter",
+      "sourceSheet": "JP 1",
+      "plans": {
+        "antiShip": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "JSM", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 7 }, "damaged": { "damage": 2, "range": 7 } }
+        },
+        "landAttack": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } },
+          "C": { "munition": "SDB", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single",
+                 "full": { "damage": 8, "range": 2 }, "damaged": { "damage": 4, "range": 2 } }
+        }
+      }
+    },
+    {
+      "id": "jp-f-35b",
+      "name": "F-35B",
+      "nameLocal": "闪电II",
+      "class": "tactical-fighter",
+      "sourceSheet": "JP 1",
+      "plans": {
+        "antiShip": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } }
+        },
+        "landAttack": {
+          "B": { "munition": "JDAM", "icons": ["munition_subsonic"], "loadFormat": "single",
+                 "full": { "damage": 4, "range": 1 }, "damaged": { "damage": 2, "range": 1 } }
+        }
+      }
+    },
+    {
+      "id": "jp-f-2ab",
+      "name": "F-2A/B",
+      "nameLocal": "平成零战",
+      "class": "tactical-fighter",
+      "sourceSheet": "JP 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "B": { "munition": "Type 93", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 3 }, "damaged": { "heavy": 2, "light": 3, "range": 3 } },
+          "C": { "munition": "ASM-3A(SS)", "icons": ["munition_supersonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 3 }, "damaged": { "heavy": 2, "light": 3, "range": 3 } },
+          "D": { "munition": "ASM-3A", "icons": ["munition_supersonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 5 }, "damaged": { "heavy": 2, "light": 3, "range": 5 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "B": { "munition": "GCS-1", "icons": ["munition_subsonic"], "loadFormat": "dual",
+                 "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } }
+        }
+      },
+      "note": "GPB, Type 93 y ASM-3A(SS) comparten el mismo valor heavy/light (4/6) y solo difieren en rango; verificado visualmente, no es un error de copia."
+    }
+  ]
+}

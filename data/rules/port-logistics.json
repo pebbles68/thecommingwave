@@ -1,0 +1,97 @@
+{
+  "id": "port-logistics",
+  "title": "Logística de puerto y munición (Decision Book §9.9.4, §9.9.5, §11.6)",
+  "note": "Textos y operaciones que consume public/js/port-logistics-engine.js y el wizard #/wizard/port-logistics. El motor decide qué puede hacerse y con qué límite; este archivo guarda las preguntas, los textos y las fuentes. Los valores del puerto (munición, REP, DOCK, RR) los lee el jugador de la ficha del puerto: no hay datos de puertos transcritos.",
+  "sourceRefs": [
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "section": "9.9.4 Reparación de Buques (Opcional), 9.9.5 Reparaciones de Emergencia",
+      "pages": "206"
+    },
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "section": "11.6 Consumo de Munición, 11.6.1 Reabastecimiento de Munición, 11.6.2 Agotamiento de Munición",
+      "pages": "237-238"
+    },
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "section": "9.10.1 Flujo de Acciones de las Unidades Submarinas (Logística y Transporte)",
+      "pages": "207"
+    },
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "section": "11.2.2 Nodos de Suministro (descenso al final de la Fase de Logística), 11.4 Verificación de Garantía Logística",
+      "pages": "234-237"
+    }
+  ],
+  "intro": "Elige qué operación de puerto o de munición quieres comprobar. Los valores del puerto (Reabastecimiento de Munición, REP, DOCK y RR) se leen de la ficha del puerto.",
+  "operations": [
+    {
+      "value": "ammo_resupply",
+      "label": "Reabastecer munición en puerto",
+      "summary": "Cuántas unidades de superficie o submarinas puede reabastecer el puerto en el segmento."
+    },
+    {
+      "value": "ship_repair",
+      "optionalRule": true,
+      "label": "Reparar un buque dañado (opcional)",
+      "summary": "Intento de reparación de un buque dañado en el Dique Seco con 1d10."
+    },
+    {
+      "value": "emergency_repair",
+      "label": "Reparaciones de emergencia del puerto",
+      "summary": "Marcadores de «Instalaciones Inutilizadas» que se eliminan al final del segmento."
+    },
+    {
+      "value": "ammo_depletion",
+      "label": "Agotamiento de munición",
+      "summary": "Valor de ataque efectivo cuando queda menos munición que el valor del plan de ataque."
+    },
+    {
+      "value": "supply_node_decay",
+      "label": "Desgaste de un Nodo de Suministro Ordinario",
+      "summary": "Al final de la Fase de Logística del turno estratégico, cada Nodo Ordinario que dio garantía baja 1 nivel."
+    }
+  ],
+  "shipKinds": [
+    {
+      "value": "surface",
+      "label": "Unidades de superficie"
+    },
+    {
+      "value": "submarine",
+      "label": "Unidades submarinas"
+    }
+  ],
+  "reasons": {
+    "not_in_waiting_area": "Solo las unidades en el área de «Buques/Flota en Espera» pueden ser reabastecidas.",
+    "over_port_value": "El puerto no puede reabastecer más unidades que su valor de Reabastecimiento de Munición: el resto queda sin reabastecer en este segmento.",
+    "not_damaged": "Solo los buques en su lado Dañado pueden intentar repararse.",
+    "multi_ship": "Las unidades de superficie multi-barco (marca X2, X3, etc.) no pueden ser reparadas.",
+    "not_in_port": "El buque tiene que estar dentro de un puerto.",
+    "already_tried": "Cada buque solo puede hacer un intento de reparación por Fase de Logística.",
+    "no_dock": "El número de buques en el Dique Seco no puede exceder el número de Diques (DOCK) del puerto."
+  },
+  "texts": {
+    "ammo_resupply_effect": "Cada unidad reabastecida elimina todas las fichas del cuadro de munición de su Ficha de Buque.",
+    "ammo_resupply_where_surface": "Las unidades de superficie se reabastecen al volver a puerto durante la Fase de Operaciones de Carga Logística.",
+    "ammo_resupply_where_submarine": "Las unidades submarinas se reabastecen en el segmento de Logística y Transporte de la Fase de Acciones Submarinas, sin gastar Puntos de Mando.",
+    "ammo_resupply_optional": "Si no se usa la regla opcional de registro de munición, las unidades de superficie no necesitan deducir munición para ejecutar ataques especiales.",
+    "ammo_reset_new_turn": "Al inicio de un nuevo turno, las unidades de superficie y submarinas eliminan todas las fichas de consumo de munición (vuelven a tener dos ataques).",
+    "repair_success": "La reparación tiene éxito: el buque se gira a su lado Intacto y vuelve al área «Buques/Flota en Espera».",
+    "repair_failure": "La reparación falla: el buque permanece en el Dique Seco hasta que tenga éxito en una Fase de Logística posterior.",
+    "repair_cost": "Esta acción no cuesta Puntos de Mando y se hace durante la Fase de Logística del turno estratégico.",
+    "emergency_when": "Al final del segmento de Logística y Transporte, el puerto elimina marcadores de «Instalaciones Inutilizadas» igual a su Valor de Reparación Rápida (RR).",
+    "depletion_zero": "Una vez agotado por completo un tipo de munición, no se puede usar para atacar ni planificar misiones aéreas que lo requieran.",
+    "depletion_reduced": "El valor de ataque de ese plan se reduce a la munición restante.",
+    "node_decay_rule": "Al final de la Fase de Logística del Turno Estratégico, todos los Nodos de Suministro Ordinarios del mapa que hayan proporcionado garantía logística a al menos una unidad terrestre, puerto o aeródromo durante esa fase descienden 1 nivel.",
+    "node_decay_eliminated": "El Nodo llega a nivel 0 y se elimina de inmediato (un Nodo de nivel 1 da suministros durante un turno).",
+    "node_decay_unchanged": "Este Nodo no baja de nivel porque no ha dado garantía logística en esta fase.",
+    "node_decay_advanced": "Los Nodos de Suministro Avanzados tienen duración ilimitada: no descienden de nivel."
+  },
+  "afterRules": [
+    "Las unidades aéreas no necesitan ficha de consumo de munición; si su aeródromo no tiene garantía logística no pueden reacondicionarse ni planificar misiones de ataque.",
+    "Las unidades terrestres con garantía logística eliminan sus fichas de consumo de munición en la fase de Reorganización de la Fase de Acción Terrestre."
+  ],
+  "notModeled": "Los valores del puerto no están transcritos: se leen de la ficha física del puerto."
+}

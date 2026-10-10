@@ -1,0 +1,43 @@
+{
+  "page": 14,
+  "title": "Ataque Antirradiación — Contraataque a Baja Altura",
+  "workflowRefs": ["anti_radiation"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 14 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "5) Contraataque a Baja Altura",
+      "rows": [
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede disparar contra plataformas de baja altura." },
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede ser realizado por la unidad que está recibiendo el ataque." },
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede disparar contra el atacante que se encuentre en el mismo hex." },
+        { "condition": "Contraataque a Baja Altura", "effect": "No consume munición de defensa aérea." }
+      ]
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "anti-radiation-low-altitude-counterattack",
+      "title": "Contraataque a Baja Altura (esquema Sistema de Defensa Aérea, 1 / 2+)",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": { "label": "Valor de Defensa Aérea (Sistema de Defensa Aérea)", "values": ["1", "2+"] },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", "."],
+        [".", "."],
+        [".", "."],
+        [".", "1"],
+        [".", "1"],
+        [".", "1"],
+        ["1", "1"],
+        ["1", "2"],
+        ["1", "2"],
+        ["2", "3"]
+      ],
+      "notes": ["A diferencia de las páginas 6 y 10 (mismo título 'Contraataque a Baja Altura' pero esquema 'Unidad principal', 5 columnas), esta página usa el esquema de 2 columnas 'Sistema de Defensa Aérea' (1 / 2+); no son la misma tabla pese al nombre idéntico."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 14, "section": "5) Contraataque a Baja Altura", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "ship-impact-effects",
+  "title": "Efectos de impacto de ataques antibuque sobre una unidad de superficie (Decision Book §5.9)",
+  "note": "Texto de cada regla y de cada consecuencia que public/js/ship-impact-effects-engine.js identifica por `id`. El motor decide QUÉ regla aplica; el texto que se muestra al usuario vive aquí (AGENTS.md §4.1). Se parte de que la unidad ya ha absorbido y sufre 1 punto de daño; cómo se llega a ese punto (asignación de Puntos de Impacto, absorción por Escudo) es de §5.6.5/§5.8.2.",
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9 Efectos de Impacto de Ataques Antibuque", "pages": "72-73" }
+  ],
+  "hullTypes": [
+    { "id": "single", "label": "Buque único (sin marcador numérico)", "ruleId": "single_flips_and_critical_check" },
+    { "id": "double", "label": "Doble buque (marca x2 junto a la silueta)", "ruleId": "double_flips" },
+    { "id": "multi", "label": "Multi-buque (marcas x3, x4, x5 junto a la silueta)", "ruleId": "multi_reduces_fleet" }
+  ],
+  "rules": [
+    {
+      "id": "single_flips_and_critical_check",
+      "text": "Una unidad de buque único (sin marcador numérico) que sufre 1 punto de daño se da la vuelta (pasa a su lado dañado) y debe realizar una verificación por daño crítico.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9", "pages": "72" }]
+    },
+    {
+      "id": "amphibious_assault_sunk",
+      "text": "Un Buque de Asalto Anfibio que sufre 1 punto de daño es hundido inmediatamente.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9 (Nota)", "pages": "72" }]
+    },
+    {
+      "id": "double_flips",
+      "text": "Una unidad de doble buque (marca x2) que sufre 1 punto de daño se da la vuelta inmediatamente.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9", "pages": "72" }]
+    },
+    {
+      "id": "multi_reduces_fleet",
+      "text": "Una unidad con más barcos (marcas x3, x4, x5) que sufre 1 punto de daño reduce su tamaño de flota en 1 (se representa con el marcador de daño correspondiente).",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9", "pages": "72" }]
+    },
+    {
+      "id": "already_damaged_eliminated",
+      "text": "Si el operador de la unidad ya estaba en su lado dañado, o solo le quedaba 1 barco (unidad multi-buque), antes de resolver este efecto de impacto y sufre daño, es eliminado directamente, sin verificación por daño crítico.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9", "pages": "72" }]
+    },
+    {
+      "id": "no_damaged_side_eliminated",
+      "text": "Una unidad cuyo reverso no tiene contenido (no tiene lado dañado) es eliminada directamente al sufrir 1 punto de daño.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9", "pages": "72" }]
+    },
+    {
+      "id": "critical_check",
+      "text": "Verificación por daño crítico: las unidades de buque único SIN el símbolo de escudo en su Valor de Protección, al darse la vuelta, lanzan 1d10. Si el resultado es menor o igual que su Valor de Resistencia al Hundimiento, la unidad es hundida inmediatamente; de lo contrario permanece boca arriba en su lado dañado.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9.1 Verificación por Daño Crítico", "pages": "72" }]
+    },
+    {
+      "id": "shield_no_critical_check",
+      "text": "Las unidades con el símbolo de escudo en su Valor de Protección no realizan verificación por daño crítico: simplemente se dan la vuelta.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9.1 Verificación por Daño Crítico", "pages": "72" }]
+    },
+    {
+      "id": "carrier_damaged",
+      "text": "Unidad portaeronaves dañada (se da la vuelta): no puede continuar operando unidades aéreas (no puede lanzar ni recuperar). Las unidades aéreas o de baja altitud que transporta no se ven afectadas por este daño.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9.2 Daño y Hundimiento de Unidades Portaeronaves", "pages": "73" }]
+    },
+    {
+      "id": "carrier_sunk",
+      "text": "Unidad portaeronaves hundida: todas las unidades aéreas o de baja altitud de su Ficha de Aeródromo son eliminadas junto con ella.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9.2 Daño y Hundimiento de Unidades Portaeronaves", "pages": "73" }]
+    },
+    {
+      "id": "carrier_deployed_units",
+      "text": "Dañada o hundida, las unidades que ya estaban desplegadas (colocadas en el mapa) deberán usar otro aeródromo o base como destino para regresar/ser recuperadas.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9.2 Daño y Hundimiento de Unidades Portaeronaves", "pages": "73" }]
+    },
+    {
+      "id": "transport_capacity_loss",
+      "text": "Unidad de transporte (convoy de transporte, buque de asalto anfibio, flota de desembarco anfibio) dañada o hundida con una disminución de su capacidad total de transporte: hay que eliminar tropas (o suministros) equivalentes a la capacidad perdida, hasta que la carga restante cumpla su nuevo nivel de capacidad (regla 10.4 Pérdidas de Transporte).",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.9.3 Daño y Hundimiento de Unidades de Transporte", "pages": "73" }]
+    }
+  ],
+  "outcomes": [
+    { "id": "damaged", "label": "Dañada (se da la vuelta; sigue en juego)" },
+    { "id": "fleet_reduced", "label": "Tamaño de flota reducido en 1" },
+    { "id": "sunk", "label": "Hundida" },
+    { "id": "eliminated", "label": "Eliminada directamente" }
+  ]
+}

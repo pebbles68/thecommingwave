@@ -1,0 +1,115 @@
+{
+  "country": "KR",
+  "countryName": "Corea del Sur",
+  "status": "complete",
+  "transcribedSheets": ["KO (seccion Aviones de rol especial)", "KO 2 (helicopteros, artilleria, misiles balisticos)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/special-unit-plans/us.json.",
+
+  "valueFormat": { "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0." },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/KO.pdf", "page": 1, "sheetTitle": "Aviones de rol especial",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer." },
+    { "document": "Tablas de Armamento/KO 2.pdf", "page": 1, "sheetTitle": "Plataformas de baja altitud, artilleria y misiles balisticos" }
+  ],
+
+  "units": [
+    {
+      "id": "kr-p-8a", "name": "P-8A", "nameLocal": "海神", "class": "special-aircraft", "role": "MPA",
+      "sourceSheet": "KO", "domainSplit": true,
+      "plans": {
+        "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 4 } } },
+        "landAttack": { "A": { "munition": "SLAM-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 4 } } }
+      }
+    },
+    {
+      "id": "kr-p-3c", "name": "P-3C", "nameLocal": "猎户座", "class": "special-aircraft", "role": "MPA",
+      "sourceSheet": "KO", "domainSplit": true,
+      "plans": {
+        "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 4 } } },
+        "landAttack": { "A": { "munition": "SLAM-ER", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 4 } } }
+      }
+    },
+    {
+      "id": "kr-ah-64e", "name": "AH-64E", "nameLocal": "阿帕奇", "class": "attack-helicopter",
+      "sourceSheet": "KO 2", "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "B": { "munition": "HELLFIRE", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "kr-ah-1f", "name": "AH-1F", "nameLocal": "眼镜蛇", "class": "attack-helicopter",
+      "sourceSheet": "KO 2", "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "B": { "munition": "TOW2", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "kr-k55", "name": "K55", "nameLocal": "榴弹炮群", "class": "artillery",
+      "sourceSheet": "KO 2", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "kr-k9", "name": "K9", "nameLocal": "榴弹炮群", "class": "artillery",
+      "sourceSheet": "KO 2", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 1 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 1 } }
+      }
+    },
+    {
+      "id": "kr-k239", "name": "K239", "nameLocal": "火箭炮群", "class": "artillery",
+      "sourceSheet": "KO 2", "domainSplit": false,
+      "unmappedFactor": { "value": 6, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 1 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 1 } },
+        "B": { "munition": "M31", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 4, "range": 3 } },
+        "C": { "munition": "KTSSM", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 4, "range": 4 } }
+      }
+    },
+    {
+      "id": "kr-m270", "name": "M270", "nameLocal": "火箭炮群", "class": "artillery",
+      "sourceSheet": "KO 2", "domainSplit": true,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+          "B": { "munition": "ATACMS", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 4, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+          "B": { "munition": "XM404", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 12, "range": 2 } },
+          "C": { "munition": "ATACMS", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 4, "range": 2 } }
+        }
+      },
+      "note": "Unico M270 visto hasta ahora con separacion antiShip/landAttack explicita (EEUU y Japon lo muestran sin division de dominio)."
+    },
+    {
+      "id": "kr-hyunmoo-2b", "name": "Hyunmoo-2B", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "KO 2", "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "Hyunmoo2B", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 7 } } }
+    },
+    {
+      "id": "kr-hyunmoo-3c-bm", "name": "Hyunmoo-3C (balistico)", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "KO 2", "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "Hyunmoo3C", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 19 } } },
+      "note": "Nombre distinto de kr-hyunmoo3c-sub (naval-plans/kr.json), que es el mismo misil lanzado desde submarino KSS-III con el mismo nombre 'Hyunmoo3C'; se separan por ser plataformas distintas."
+    }
+  ]
+}

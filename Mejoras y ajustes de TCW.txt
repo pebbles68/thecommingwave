@@ -1,0 +1,13 @@
+General de la aplciación:
+- Cuando nos pida el sistema un dato asociado a un factor de alguna ficha, tenemos que tener una imagen de la ficha indicando con un recuadro rojo sobre la imagen el factor que hay que devolver.
+- En las tablas que tienen una cabecera mucho más grandes que los datos, formatear la cabecera para que ocupe dos o tres líneas y que quede más reducido.
+- Tener otro botón de volver arriba para no tener que bajar al final de la página
+- En Preparaciones aéreas ayudar visualmente con una imagen de un aeropuerto proporcionado en el proyecto como "Aeródromos y puertos 1.pdf" y "Aeródromos y puertos 2.pdf".
+- En la explicación de iconos, se tienen que ampliar si pasamos el ratón por encima.
+- Las ayudas de counters, tiene que aparecer la explicación en un Tooltip al posicionarse en la imagen en la zona de cada counter
+- Incluir como fondo de la web el logotipo de The Comming Wave registrado como thecomingwave.png difuminado para permitir la lectura. Al hacer scroll hacia abajo también se moverá el icono más abajo pero más lento el fondo.
+
+- En las municiones, En la explicación de cada plan de ataque, tiene que estar el recorte del plan de ataque del PDF de ese avión.
+- En las municiones de cada país, tenemos que poder mostrar en pantalla las imágenes de todos los planes de ataque tal y como está en el PDF
+- Para explicar cada valor que pide en el Wizard, es necesario tener un recorte de cómo podemos identificar cada valor o cómo saberlo.
+- En los Wizard tenemos que tener acceso a las páginas de las tablas relacionadas con ese tipo de ataque.

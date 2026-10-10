@@ -1,0 +1,68 @@
+{
+  "page": 17,
+  "title": "Combate Aéreo — Combate Aéreo Cercano (WVR)",
+  "workflowRefs": ["air_combat"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 17 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "3) Combate aéreo cercano (WVR)",
+      "intro": "Se enfrentan todas las unidades de los dos bandos.",
+      "rows": [
+        { "condition": "Patrulla en Red", "effect": "Los dos grupos de patrulla aérea que provengan del mismo nodo de red y estén dentro de 4 hex se unirán al combate aéreo cercano." },
+        { "condition": "Patrulla en Red", "effect": "Como máximo, solo un grupo de patrulla aérea puede unirse al combate." }
+      ],
+      "note": "Coincide con network_patrol_join ya transcrito en data/workflows/05_combate_aereo.json."
+    },
+    {
+      "topic": "Duelo de Patrullas Aéreas",
+      "rows": [
+        { "condition": "Si después del combate aéreo cercano ambas partes aún tienen unidades", "effect": "Puede realizarse otra ronda de combate aéreo cercano." },
+        { "condition": "Por cada ronda de combate aéreo cercano sin pérdidas", "effect": "La siguiente ronda de combate obtiene un modificador de +1, acumulativo." },
+        { "condition": "Después de cada ronda de combate aéreo cercano", "effect": "Las unidades restantes deciden si retirarse." },
+        { "condition": "Si se pierde el duelo", "effect": "Todas las unidades de ese bando se retiran, abandonan temporalmente el combate o son destruidas." },
+        { "condition": "El ganador del duelo", "effect": "Puede hacer que las unidades que abandonaron temporalmente el combate continúen con la patrulla aérea." }
+      ],
+      "note": "Coincide con previous_rounds_without_losses ('+1 acumulativo') ya transcrito en data/workflows/05_combate_aereo.json."
+    },
+    {
+      "topic": "Escolta Electrónica",
+      "rows": [
+        { "condition": "Escolta Electrónica: Valor de Protección [?] de un avión de combate presente", "effect": "(el valor de protección exacto aparece impreso como '?' en la fuente, no es un valor ilegible nuestro; mismo patrón de '?' ya visto en páginas 6/9 para Protección de barcos)" },
+        { "condition": "Aviones de patrulla en red enemigos", "effect": "Solo pueden unirse al combate cercano en la segunda ronda." }
+      ]
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "air-combat-wvr-damage",
+      "title": "Combate Aéreo Cercano (WVR) — impactos según condición (Intercepción/DdE vs CAPs) y Valor de Combate Aéreo",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Combate Aéreo",
+        "alternateLabelSets": {
+          "intercepcion_dde": [".", "1", "2~3", "4~6", "7~12", "13~18", "19~24", "25+"],
+          "caps": ["1", "2", "3~6", "7~12", "13~24", "25~36", "37~48", "49+"]
+        },
+        "values": [".", "1", "2~3", "4~6", "7~12", "13~18", "19~24", "25+"],
+        "note": "Canónico = esquema 'Intercepción/DdE'."
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", "1", "2", "3", "3", "4", "6"],
+        [".", ".", "2", "3", "3", "4", "4", "6"],
+        [".", "1", "2", "3", "4", "4", "5", "8"],
+        [".", "1", "2", "4", "4", "5", "5", "8"],
+        [".", "1", "3", "4", "4", "5", "6", "8"],
+        ["1", "1", "3", "4", "5", "6", "6", "9"],
+        ["1", "2", "3", "5", "5", "6", "7", "9"],
+        ["1", "2", "3", "5", "6", "7", "7", "10"],
+        ["2", "2", "4", "5", "6", "7", "8", "10"],
+        ["3", "3", "4", "6", "7", "8", "9", "11"]
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 17, "section": "3) Combate aéreo cercano (WVR)", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "country": "RU",
+  "countryName": "Rusia",
+  "status": "complete",
+  "transcribedSheets": ["RU 1 (completo)", "RU 2 (seccion Cazas tacticos 2)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/attack-plans/us.json. Tu-22M es el unico caso con 6 columnas (A-F) y formato 'single' en casi todas sus municiones (incluidas GPB/KAB, que en el resto de unidades siempre son 'dual'), salvo Kh-31PD en landAttack que si es 'dual'. Verificado a 900 DPI por la mezcla inusual de formatos en la misma fila.",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0.",
+    "dual": "Dos valores separados por barra + superindice opcional: heavy/light + range."
+  },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/RU 1.pdf", "page": 1, "sheetTitle": "Cazas tacticos 1", "sheetNote": "SS: Sea-Skimming" },
+    { "document": "Tablas de Armamento/RU 2.pdf", "page": 1, "sheetTitle": "Cazas tacticos 2 (seccion superior)",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer. La hoja indica explicitamente: 'Tu-95: incluye los modelos Tu-95MSM y Tu-95K22'." }
+  ],
+
+  "units": [
+    {
+      "id": "ru-su-57", "name": "Su-57", "nameLocal": "恶魔", "class": "tactical-fighter", "sourceSheet": "RU 1",
+      "plans": {
+        "antiShip": { "B": { "munition": "Kh-59MK2", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } } },
+        "landAttack": {}
+      },
+      "note": "Verificado a 900 DPI: la unica municion (Kh-59MK2) esta en antiShip-B; landAttack no tiene ninguna columna poblada."
+    },
+    {
+      "id": "ru-mig-29smt", "name": "MiG-29SMT", "nameLocal": "支点", "class": "tactical-fighter", "sourceSheet": "RU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "C": { "munition": "Kh-31AD", "icons": ["attack_high_penetration", "munition_supersonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 2 }, "damaged": { "heavy": 1, "light": 3, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "C": { "munition": "Kh-29T", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 0 }, "damaged": { "heavy": 1, "light": 3, "range": 0 } },
+          "D": { "munition": "Kh-31PD", "icons": ["attack_anti_radiation"], "loadFormat": "dual", "full": { "heavy": 2, "light": 6, "range": 4 }, "damaged": { "heavy": 1, "light": 3, "range": 4 } }
+        }
+      }
+    },
+    {
+      "id": "ru-mig-31bm", "name": "MiG-31BM", "nameLocal": "猛犬", "class": "tactical-fighter", "sourceSheet": "RU 1",
+      "plans": {
+        "antiShip": { "D": { "munition": "Kh-47M2", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 2, "range": 19 }, "damaged": { "damage": 1, "range": 19 } } },
+        "landAttack": { "D": { "munition": "Kh-47M2", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 2, "range": 19 }, "damaged": { "damage": 1, "range": 19 } } }
+      },
+      "note": "Verificado a 900 DPI con cabecera de letras: la columna es D en ambos dominios, no C."
+    },
+    {
+      "id": "ru-su-30sm", "name": "Su-30SM", "nameLocal": "侧卫-C", "class": "tactical-fighter", "sourceSheet": "RU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "FAB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 12, "range": 0 }, "damaged": { "heavy": 4, "light": 6, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "C": { "munition": "Kh-59MK", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 4 }, "damaged": { "heavy": 2, "light": 3, "range": 4 } },
+          "D": { "munition": "Kh-31AD", "icons": ["attack_high_penetration", "munition_supersonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 2 }, "damaged": { "heavy": 2, "light": 4, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "FAB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 12, "range": 0 }, "damaged": { "heavy": 4, "light": 6, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "C": { "munition": "Kh-59M", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } },
+          "D": { "munition": "Kh-29T", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "E": { "munition": "Kh-31PD", "icons": ["attack_anti_radiation"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 4 }, "damaged": { "heavy": 2, "light": 4, "range": 4 } }
+        }
+      }
+    },
+    {
+      "id": "ru-su-35s", "name": "Su-35S", "nameLocal": "歼侧卫", "class": "tactical-fighter", "sourceSheet": "RU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 12, "range": 0 }, "damaged": { "heavy": 4, "light": 6, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 6, "light": 12, "range": 0 }, "damaged": { "heavy": 3, "light": 6, "range": 0 } },
+          "C": { "munition": "Kh-59MK", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 4 }, "damaged": { "heavy": 2, "light": 4, "range": 4 } },
+          "D": { "munition": "Kh-31AD", "icons": ["attack_high_penetration", "munition_supersonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 2 }, "damaged": { "heavy": 2, "light": 4, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 12, "range": 0 }, "damaged": { "heavy": 4, "light": 6, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 3, "light": 4, "range": 0 } },
+          "C": { "munition": "Kh-59M", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 2 }, "damaged": { "heavy": 2, "light": 3, "range": 2 } },
+          "D": { "munition": "Kh-29TE", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 1 }, "damaged": { "heavy": 2, "light": 4, "range": 1 } },
+          "E": { "munition": "Kh-31PD", "icons": ["attack_anti_radiation"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 4 }, "damaged": { "heavy": 2, "light": 4, "range": 4 } }
+        }
+      }
+    },
+    {
+      "id": "ru-su-24m", "name": "Su-24M", "nameLocal": "击剑手", "class": "tactical-fighter", "sourceSheet": "RU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 12, "range": 0 }, "damaged": { "heavy": 4, "light": 6, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } },
+          "C": { "munition": "Kh-59MK", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } },
+          "D": { "munition": "Kh-31AD", "icons": ["attack_high_penetration", "munition_supersonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 12, "range": 0 }, "damaged": { "heavy": 4, "light": 6, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 6, "light": 10, "range": 0 }, "damaged": { "heavy": 3, "light": 5, "range": 0 } },
+          "C": { "munition": "Kh-59M", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } },
+          "D": { "munition": "Kh-29T", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 0 }, "damaged": { "heavy": 1, "light": 2, "range": 0 } },
+          "E": { "munition": "Kh-31PD", "icons": ["attack_anti_radiation"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 4 }, "damaged": { "heavy": 1, "light": 2, "range": 4 } }
+        }
+      }
+    },
+    {
+      "id": "ru-su-34", "name": "Su-34", "nameLocal": "后卫", "class": "tactical-fighter", "sourceSheet": "RU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "FAB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 16, "range": 0 }, "damaged": { "heavy": 4, "light": 8, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 6, "light": 8, "range": 0 }, "damaged": { "heavy": 3, "light": 4, "range": 0 } },
+          "C": { "munition": "Kh-59MK", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 4 }, "damaged": { "heavy": 2, "light": 3, "range": 4 } },
+          "D": { "munition": "Kh-31AD", "icons": ["attack_high_penetration", "munition_supersonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 2 }, "damaged": { "heavy": 2, "light": 4, "range": 2 } }
+        },
+        "landAttack": {
+          "A": { "munition": "FAB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "dual", "full": { "heavy": 8, "light": 16, "range": 0 }, "damaged": { "heavy": 4, "light": 8, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 3, "light": 4, "range": 0 } },
+          "C": { "munition": "Kh-59M", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 2, "light": 4, "range": 2 }, "damaged": { "heavy": 1, "light": 2, "range": 2 } },
+          "D": { "munition": "Kh-29T", "icons": ["munition_subsonic"], "loadFormat": "dual", "full": { "heavy": 4, "light": 8, "range": 0 }, "damaged": { "heavy": 2, "light": 3, "range": 0 } },
+          "E": { "munition": "Kh-31PD", "icons": ["attack_anti_radiation"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 4 }, "damaged": { "heavy": 2, "light": 3, "range": 4 } }
+        }
+      }
+    },
+    {
+      "id": "ru-tu-22m", "name": "Tu-22M", "nameLocal": "逆火", "class": "bomber", "sourceSheet": "RU 1",
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single", "full": { "damage": 10, "range": 0 }, "damaged": { "damage": 5, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 8, "range": 0 }, "damaged": { "damage": 4, "range": 0 } },
+          "C": { "munition": "Kh-35U", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 4, "range": 4 }, "damaged": { "damage": 2, "range": 4 } },
+          "D": { "munition": "Kh-31AD", "icons": ["attack_high_penetration", "munition_supersonic"], "loadFormat": "single", "full": { "damage": 4, "range": 2 }, "damaged": { "damage": 2, "range": 2 } },
+          "E": { "munition": "Kh-32", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 13 }, "damaged": { "damage": 0.5, "range": 13 } },
+          "F": { "munition": "Kh-47M2", "icons": ["marker_supersonic_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 19 }, "damaged": { "damage": 0.5, "range": 19 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single", "full": { "damage": 10, "range": 0 }, "damaged": { "damage": 5, "range": 0 } },
+          "B": { "munition": "KAB", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 8, "range": 0 }, "damaged": { "damage": 4, "range": 0 } },
+          "D": { "munition": "Kh-31PD", "icons": ["attack_anti_radiation"], "loadFormat": "dual", "full": { "heavy": 4, "light": 6, "range": 4 }, "damaged": { "heavy": 2, "light": 3, "range": 4 } },
+          "E": { "munition": "Kh-101", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM", "full": { "damage": 2, "range": 32 }, "damaged": { "damage": 1, "range": 32 } },
+          "F": { "munition": "Kh-555", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 4, "range": 32 }, "damaged": { "damage": 2, "range": 32 } }
+        }
+      },
+      "note": "Unica unidad de RU con 6 columnas (A-F) por dominio. Verificado a 900 DPI: casi todas las municiones son 'single' (incluidas GPB/KAB, que en el resto de aviones rusos son 'dual'); la excepcion es Kh-31PD en landAttack, que si es 'dual'. La columna C de landAttack esta en blanco (sin Kh-35U)."
+    },
+    {
+      "id": "ru-tu-95", "name": "Tu-95", "nameLocal": "轰炸", "class": "bomber", "sourceSheet": "RU 2",
+      "restrictions": ["Incluye los modelos Tu-95MSM y Tu-95K22 en una sola entrada, segun indica la propia hoja."],
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single", "full": { "damage": 10, "range": 0 }, "damaged": { "damage": 5, "range": 0 } },
+          "E": { "munition": "Kh-22M", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 8 }, "damaged": { "damage": 0.5, "range": 8 } }
+        },
+        "landAttack": {
+          "A": { "munition": "GPB", "icons": ["attack_low_altitude_bombing", "munition_unguided"], "loadFormat": "single", "full": { "damage": 10, "range": 0 }, "damaged": { "damage": 5, "range": 0 } },
+          "D": { "munition": "Kh-101", "icons": ["marker_low_flight_cruise_missile"], "loadFormat": "single", "cruiseMissile": "LF-CM", "full": { "damage": 2, "range": 32 }, "damaged": { "damage": 1, "range": 32 } },
+          "E": { "munition": "Kh-555", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 4, "range": 32 }, "damaged": { "damage": 2, "range": 32 } }
+        }
+      }
+    }
+  ]
+}

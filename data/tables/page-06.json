@@ -1,0 +1,72 @@
+{
+  "page": 6,
+  "title": "Ataque Terrestre Guiado — Aplicación de Efectos y Contraataque a Baja Altura",
+  "workflowRefs": ["ground_guided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 6 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "Objetivo: Instalaciones fijas — Efecto de los impactos",
+      "rows": [
+        { "condition": "Hangares / Aeródromos", "effect": "Cuando el núm. de impactos alcanza un múltiplo del Valor de Protección (descartando decimales), ese número se convierte en pérdida de personal para las unidades dentro de la capacidad del hangar." },
+        { "condition": "Hangares / Aeródromos (unidades que exceden capacidad)", "effect": "Para las unidades que excedan la capacidad del hangar, el número de impactos se convierte directamente en pérdida de personal de las unidades en la pista/área." },
+        { "condition": "Pista del aeródromo", "effect": "Cada 2 impactos reduce el nivel de pista en 1." },
+        { "condition": "Puerto", "effect": "Cuando el núm. de impactos alcanza un múltiplo del Valor de Protección (descartando decimales), se obtiene ese número de 'instalaciones paralizadas'." },
+        { "condition": "Barcos dentro del puerto (buque individual, caso 1)", "effect": "Cada impacto causa 1 'daño grave' a un barco con Protección ? (valor de protección ilegible/incierto en la fuente)" },
+        { "condition": "Barcos dentro del puerto (buque individual, caso 2)", "effect": "Cada impacto causa 2 de daño a un barco con Protección [?] (valor de protección ilegible/incierto en la fuente)" },
+        { "condition": "Barcos dentro del puerto (formación múltiple)", "effect": "Cada impacto hunde 1 barco." }
+      ],
+      "note": "needsReview: dos filas de 'Barcos dentro del puerto' citan un valor de Protección marcado como '?' / '[?]' en la propia fuente (no es una celda ilegible nuestra: el signo de interrogación está impreso en el documento). Pendiente de aclarar con el mantenedor o de localizar el valor exacto en el Decision Book."
+    },
+    {
+      "topic": "Objetivo: Unidades terrestres móviles — Efecto de los impactos",
+      "rows": [
+        { "condition": "Ataque / Operación de Contrabatería / Ataque de Contrafuego", "effect": "Con cobertura del terreno, la pérdida máxima de personal es 1." },
+        { "condition": "Interdicción de Campo de Batalla", "effect": "Sin cobertura del terreno, la pérdida máxima de personal es 1." },
+        { "condition": "Interdicción de Campo de Batalla: si se elige continuar moviéndose", "effect": "Pérdida de personal adicional de 1." },
+        { "condition": "Persecución Aérea", "effect": "Sin cobertura del terreno, la pérdida de personal no tiene límite." }
+      ]
+    },
+    {
+      "topic": "5) Contraataque a Baja Altura",
+      "intro": "Cuando hay icono de contraataque a baja altura, la unidad que ha recibido el ataque dispara.",
+      "rows": [
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede disparar contra plataformas de baja altura." },
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede ser realizado por la unidad que está recibiendo el ataque." },
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede disparar contra el atacante que se encuentre en el mismo hex." },
+        { "condition": "Contraataque a Baja Altura", "effect": "No consume munición de defensa aérea." }
+      ]
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "low-altitude-counterattack",
+      "title": "Contraataque a Baja Altura — impactos según Valor de Defensa Aérea",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Defensa Aérea (Unidad principal)",
+        "values": ["1", "2~3", "4~5", "6~7", "8+"]
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", ".", ".", "."],
+        [".", ".", "1", "1", "1"],
+        [".", ".", "1", "1", "2"],
+        [".", "1", "2", "2", "2"],
+        [".", "1", "2", "2", "3"],
+        [".", "1", "2", "2", "3"],
+        ["1", "1", "2", "3", "3"],
+        ["1", "2", "2", "3", "3"],
+        ["1", "2", "3", "3", "4"],
+        ["2", "3", "3", "3", "4"]
+      ],
+      "notes": [
+        "La cabecera original también rotula esta columna con el esquema 'Sistema de Defensa Aérea': 1, 2+ (2 buckets en vez de 5) — SÍ está transcrito, como tabla independiente, en data/tables/page-14.json#anti-radiation-low-altitude-counterattack (needsReview de esta nota resuelto el 2026-09-27: no faltaba transcribir nada, solo faltaba el enlace cruzado entre ambas páginas).",
+        "Verificado visualmente a 600 DPI el 2026-09-27 (Decision Book §6.4/§6.6, mecánica de Contraataque a Baja Altura): la cuadrícula de 'Unidad principal' coincide carácter a carácter con la imagen fuente. Consumida por combat-wizard-engine.js#resolveLowAltitudeCounterattackShot."
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 6, "section": "5) Contraataque a Baja Altura", "verifiedAtDpi": 600 }]
+    }
+  ]
+}

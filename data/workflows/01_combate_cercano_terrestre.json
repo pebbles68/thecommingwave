@@ -1,0 +1,186 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/01_combate_cercano_terrestre.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "ground_close_combat",
+  "title": "Combate cercano terrestre",
+  "category": "terrestre",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "2"
+  },
+  "summary": "Flujo de preguntas para resolver combate terrestre cercano, guerra electrónica y bajas.",
+  "stages": [
+    {
+      "id": "eligibility",
+      "order": 1,
+      "title": "Comprobar elegibilidad",
+      "questions": [
+        {
+          "id": "active_combat",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿El bando está iniciando el combate de forma activa?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "out_of_supply",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "Si es combate activo: ¿alguna unidad principal que inicia el combate está fuera de suministro?",
+          "note": "Una unidad principal fuera de suministro no puede iniciar combate de forma activa.",
+          "showIf": {
+            "questionId": "active_combat",
+            "equals": "yes"
+          },
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "combat_not_allowed",
+                  "haltsWorkflow": true
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "active_combat"
+        ]
+      ],
+      "tableReference": null
+    },
+    {
+      "id": "attack_value",
+      "order": 2,
+      "title": "Calcular fuerza de combate",
+      "questions": [
+        {
+          "id": "base_attack",
+          "type": "number",
+          "appliesTo": "attack_value",
+          "prompt": "Introduce el valor total de ataque de las unidades participantes."
+        },
+        {
+          "id": "combat_support",
+          "type": "number",
+          "appliesTo": "attack_value",
+          "prompt": "Introduce el apoyo de combate aplicable."
+        }
+      ],
+      "parallelGroups": [
+        [
+          "base_attack",
+          "combat_support"
+        ]
+      ],
+      "formula": "Valor de combate = Valor de ataque + Apoyo de combate.",
+      "tableReference": "Página 2: Combate cercano del ejército."
+    },
+    {
+      "id": "electronic_warfare",
+      "order": 3,
+      "title": "Guerra electrónica",
+      "questions": [
+        {
+          "id": "highest_electronic_a",
+          "type": "number",
+          "appliesTo": "ew_difference",
+          "prompt": "Valor Electrónico más alto del bando A."
+        },
+        {
+          "id": "highest_electronic_b",
+          "type": "number",
+          "appliesTo": "ew_difference",
+          "prompt": "Valor Electrónico más alto del bando B."
+        }
+      ],
+      "parallelGroups": [
+        [
+          "highest_electronic_a",
+          "highest_electronic_b"
+        ]
+      ],
+      "formula": "Diferencia electrónica = valor más alto - valor más bajo. Si son iguales no hay resolución EW.",
+      "specialRules": "Si la tabla concede ventaja EW, el bando favorecido duplica los impactos causados.",
+      "tableReference": "Página 2: DIF. ELECTRÓNICA."
+    },
+    {
+      "id": "casualties",
+      "order": 4,
+      "title": "Aplicar bajas",
+      "questions": [
+        {
+          "id": "force_size_before",
+          "type": "number",
+          "appliesTo": "casualties",
+          "prompt": "Tamaño de Fuerza antes del combate."
+        },
+        {
+          "id": "reaction_level",
+          "type": "select",
+          "appliesTo": "casualties",
+          "prompt": "Nivel de reacción de la unidad (A, B, C o D).",
+          "options": [
+            {
+              "value": "A",
+              "label": "A"
+            },
+            {
+              "value": "B",
+              "label": "B"
+            },
+            {
+              "value": "C",
+              "label": "C"
+            },
+            {
+              "value": "D",
+              "label": "D"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "force_size_before",
+          "reaction_level"
+        ]
+      ],
+      "specialRules": "Al alcanzar o superar los umbrales de derrota se aplica el estado Derrotada; una unidad derrotada pasa a Brevemente Detectable.",
+      "tableReference": "Página 2: BAJAS EN COMBATE."
+    }
+  ],
+  "flowCuts": [
+    {
+      "stage": "eligibility",
+      "question": "out_of_supply",
+      "optionValue": "yes",
+      "effect": "combat_not_allowed",
+      "haltsWorkflow": true,
+      "sourceText": "Una unidad principal fuera de suministro no puede iniciar combate de forma activa."
+    }
+  ],
+  "diceRules": [],
+  "rollDependentRules": [],
+  "finalTableReference": "Página 2: tablas de Combate, Diferencia Electrónica y Bajas en Combate."
+}

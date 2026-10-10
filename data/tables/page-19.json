@@ -1,0 +1,33 @@
+{
+  "page": 19,
+  "title": "Ataque Antibuque Guiado — Defensa Aérea de Área",
+  "workflowRefs": ["antiship_guided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 19 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "1) Defensa aérea de área: reducir el valor de ataque de la munición (contra marcadores de munición: CM, BM…)",
+      "rows": [
+        { "condition": "Icono CM (misil de crucero) — Todos CM", "effect": "Aplica contra unidades de vuelo a baja altura" },
+        { "condition": "Icono BM (misil balístico) — Todos BM", "effect": "Aplica contra objetivo Especial" },
+        { "condition": "Icono de trayectoria parabólica (Balística)", "effect": "Trayectoria recta" },
+        { "condition": "Icono de trayectoria de espacio cercano (Balística)", "effect": "Tirar 2d10 y elegir el resultado menor" },
+        { "condition": "Icono de sistema interceptor (cuadro rosa/negro)", "effect": "Puede interceptar ataques balísticos" },
+        { "condition": "Marcado con icono de misil antirradiación", "effect": "Solo puede interceptar ataques balísticos" },
+        { "condition": "Disparar contra objetivos a baja altura", "effect": "Solo contra aquellos detectados por uno mismo" },
+        { "condition": "Atacante no detectado", "effect": "-2" },
+        { "condition": "Trayectoria de espacio cercano (Balística)", "effect": "-3" }
+      ],
+      "note": "Coincide con attacker_detected/near_space_trajectory ya transcritos en data/workflows/07_ataque_antibuque_guiado.json. Es el vertical slice del roadmap Fase 7."
+    }
+  ],
+
+  "reusesTable": {
+    "id": "ground-guided-area-air-defense",
+    "definedIn": "data/tables/page-03.json",
+    "note": "Tabla idéntica carácter a carácter a la de las páginas 3 y 11 (mismo gap: solo variante de consumo 'Bajo')."
+  },
+
+  "tables": []
+}

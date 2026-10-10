@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "description": "Catálogo semántico de las zonas de las imágenes (ajuste_imagenes.md §6): nombre, resumen de utilización y fuente, separado de la geometría. Un concepto se reutiliza en todas las fichas donde aparece. Ninguno es verified hasta su revisión por el mantenedor.",
+  "statuses": [
+    "generated",
+    "needs_review",
+    "verified",
+    "rejected"
+  ],
+  "concepts": [
+    {
+      "id": "air_combat",
+      "label": "Combate aéreo",
+      "summary": "Valor de Combate Aéreo (CA): fuerza de la unidad en el combate aéreo BVR y WVR; da la columna de las tablas de daño de combate aéreo. Sin este valor no combate.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.16 Combate Aéreo",
+          "pages": "144-148"
+        },
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "section": "Combate BVR y WVR",
+          "pages": "16, 17"
+        }
+      ]
+    },
+    {
+      "id": "model",
+      "label": "Modelo",
+      "summary": "Nombre del equipamiento o modelo que representa la unidad, con su abreviatura en inglés y su designación en chino. Solo identifica la unidad; no interviene en ningún cálculo.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Aviones tácticos; 9.1.1 Buques de combate; 8.1.3 Unidades principales",
+          "pages": "110, 191, 158"
+        }
+      ]
+    },
+    {
+      "id": "signature",
+      "label": "Firma",
+      "summary": "Distancia máxima a la que la unidad puede ser detectada: cuanto mayor es la firma, desde más lejos la detecta el enemigo. En los aviones hay firma aérea (contra detección aérea) y firma superficial/terrestre; en los submarinos se indica con un número (SIG).",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Aviones tácticos; 4.1.1-4.1.2 Valor de Firma; 9.1.7 Submarinos",
+          "pages": "110, 42-43, 195"
+        }
+      ]
+    },
+    {
+      "id": "surface_detection",
+      "label": "Detección de superficie",
+      "summary": "Capacidad de detectar unidades de superficie enemigas: cuanto mayor es el valor, desde más distancia las detecta. En buques y submarinos se llama Valor de Detección Naval (SUW); en helicópteros y unidades antibuque, Detección Marítima.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Aviones tácticos; 9.1.1 Buques de combate; 8.1.8 Aviación del ejército",
+          "pages": "110, 191, 166"
+        }
+      ]
+    },
+    {
+      "id": "air_search",
+      "label": "Búsqueda aérea",
+      "summary": "Valor de Detección Aérea (DA): capacidad de detectar unidades aéreas enemigas a más o menos distancia. Pertenece a las reglas extendidas; en las reglas básicas no tiene efecto práctico.",
+      "status": "generated",
+      "basicOrExpansion": "expansion-in-some-templates",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Aviones tácticos; 9.1.1 Buques de combate",
+          "pages": "110, 189-190"
+        }
+      ]
+    },
+    {
+      "id": "electronic",
+      "label": "Electrónica",
+      "summary": "Valor Electrónico: mide la guerra electrónica de la unidad. El bando con el valor más alto suma la diferencia a su tirada (BVR) y condiciona el orden de selección de objetivos.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.16.1 y 7.16.3",
+          "pages": "144"
+        }
+      ]
+    },
+    {
+      "id": "runway",
+      "label": "Pista",
+      "summary": "En los aviones, el nivel mínimo de pista (A-D) o el tipo de pista (E, F...) que necesita el aeródromo para que despegue y aterrice. En los portaaviones indica el tipo de cubierta: Ct catapulta, St salto de esquí y Vt despegue vertical.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Requisito de Pista; 9.1.3 Portaaviones",
+          "pages": "111, 192"
+        }
+      ]
+    },
+    {
+      "id": "logistics",
+      "label": "Logística",
+      "summary": "Valor logístico (LOG), con distinto significado según la unidad. Aviones: combustible que debe gastar el nodriza para repostarla. Buques: turnos máximos en el mar sin reabastecerse. Submarinos: turnos que puede operar expuesto bajo el agua. Terrestres: suministros necesarios para actuar.",
+      "status": "generated",
+      "basicOrExpansion": "expansion-in-some-templates",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1; 9.1.1; 9.1.7; 8.1.3",
+          "pages": "111, 191, 195, 159"
+        }
+      ]
+    },
+    {
+      "id": "no_refuel",
+      "label": "No repostaje",
+      "summary": "Marcador de No Repostable: la unidad aérea que lo lleva no puede ser reabastecida en vuelo.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Aviones tácticos",
+          "pages": "111"
+        }
+      ]
+    },
+    {
+      "id": "combat_support",
+      "label": "Apoyo de combate",
+      "summary": "Valor de Apoyo al Combate (S): capacidad de apoyar las operaciones de las unidades terrestres. Cuanto mayor es, mayor es la bonificación de combate que da la unidad en un enfrentamiento terrestre.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Aviones tácticos; 9.1.1 Buques de combate (SUP)",
+          "pages": "111, 190"
+        }
+      ]
+    },
+    {
+      "id": "protection",
+      "label": "Protección",
+      "summary": "Puntos de impacto que absorbe la unidad antes de sufrir 1 punto de daño. Contra ataques terrestres se le suma el terreno, salvo en ARM, Interdicción Aérea y Persecución Aérea.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "6.3 y 5.15.1",
+          "pages": "98, 83"
+        }
+      ]
+    },
+    {
+      "id": "movement",
+      "label": "Movimiento",
+      "summary": "Capacidad de movimiento de la unidad. En buques y submarinos es el Valor de Velocidad (VEL), su movimiento en el océano.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.1 Buques de combate; 9.1.7 Submarinos; 7.1.1 Aviones tácticos",
+          "pages": "191, 195, 111"
+        }
+      ],
+      "note": "En los aviones el Decision Book describe el Valor de Alcance (ALC) como su capacidad de vuelo; la equivalencia exacta con este recuadro está pendiente de validar."
+    },
+    {
+      "id": "capacity",
+      "label": "Capacidad",
+      "summary": "Capacidad de transporte de la unidad: las unidades terrestres que puede llevar (aviones y helicópteros de transporte).",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Capacidad de Transporte; 8.1.8 Aviación del ejército",
+          "pages": "111, 166"
+        }
+      ]
+    },
+    {
+      "id": "air_network",
+      "label": "Red aérea",
+      "summary": "Rango de red (Networking) del AWACS: las unidades aéreas propias dentro de ese rango obtienen efectos beneficiosos en el combate aéreo.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.2 AWACS",
+          "pages": "113"
+        }
+      ]
+    },
+    {
+      "id": "air_detection",
+      "label": "Detección aérea",
+      "summary": "Modificador de Detección Aérea: el número de la izquierda es el valor de firma de la unidad enemiga y el de la derecha, la distancia máxima a la que puede detectarla. En el AWACS usa la Firma Aérea; en los radares terrestres, la Firma Terrestre.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.2 AWACS; 8.1.5 Unidades antiaéreas",
+          "pages": "112, 159"
+        }
+      ]
+    },
+    {
+      "id": "anti_jamming",
+      "label": "Anti-Jamming",
+      "summary": "Valor de Anti-Interferencia: capacidad de resistir la interferencia electrónica enemiga; cuanto mayor es, menos se reduce la eficacia de la unidad. Pertenece a las reglas extendidas y no tiene efecto práctico en las básicas.",
+      "status": "generated",
+      "basicOrExpansion": "expansion-in-some-templates",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.2 AWACS; 8.1.5 Unidades antiaéreas",
+          "pages": "113, 160"
+        }
+      ]
+    },
+    {
+      "id": "anti_jamming_air_search",
+      "label": "Anti-jamming / Búsqueda aérea",
+      "summary": "Recuadro que agrupa dos valores de reglas extendidas u opcionales: el anti-interferencia (resistir la interferencia electrónica enemiga) y el de detección aérea (detectar unidades aéreas enemigas). Sin efecto práctico en las reglas básicas.",
+      "status": "generated",
+      "basicOrExpansion": "expansion-in-some-templates",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1.1 Aviones tácticos; 9.1.1 Buques de combate",
+          "pages": "110, 189-190"
+        }
+      ]
+    },
+    {
+      "id": "skill_1",
+      "label": "Habilidad 1",
+      "summary": "A completar con las Expansiones futuras.",
+      "status": "needs_review",
+      "basicOrExpansion": "expansion",
+      "sourceRefs": [
+        {
+          "document": "Resumen counters - Español.pdf",
+          "section": "Leyenda: los valores y habilidades en rojo solo se usan en las reglas de expansión",
+          "pages": "1-2"
+        }
+      ]
+    },
+    {
+      "id": "skill_2",
+      "label": "Habilidad 2",
+      "summary": "A completar con las Expansiones futuras.",
+      "status": "needs_review",
+      "basicOrExpansion": "expansion",
+      "sourceRefs": [
+        {
+          "document": "Resumen counters - Español.pdf",
+          "section": "Leyenda: los valores y habilidades en rojo solo se usan en las reglas de expansión",
+          "pages": "1-2"
+        }
+      ]
+    },
+    {
+      "id": "skill",
+      "label": "Habilidad",
+      "summary": "A completar con las Expansiones futuras.",
+      "status": "needs_review",
+      "basicOrExpansion": "expansion",
+      "sourceRefs": [
+        {
+          "document": "Resumen counters - Español.pdf",
+          "section": "Leyenda: los valores y habilidades en rojo solo se usan en las reglas de expansión",
+          "pages": "1-2"
+        }
+      ]
+    },
+    {
+      "id": "type",
+      "label": "Tipo",
+      "summary": "Marca del tipo de unidad: en los helicópteros, UAV, AH (ataque), OH (reconocimiento) o CH (transporte); en los aviones especiales, el marcador de su función (ISR, EW, MPA, REFUEL...).",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.1.8 Aviación del ejército; 7.1.3-7.1.7 Aviones de funciones especiales",
+          "pages": "165, 113-116"
+        }
+      ]
+    },
+    {
+      "id": "asw",
+      "label": "ASW",
+      "summary": "Valor ASW de la unidad de superficie o aérea: su capacidad antisubmarina. En las unidades de superficie, la forma del marco que lo rodea indica la columna de la búsqueda por Firma.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.15.1",
+          "pages": "215"
+        }
+      ]
+    },
+    {
+      "id": "operational_category",
+      "label": "Categoría operativa",
+      "summary": "Función del avión especial: AWACS, ISR, guerra electrónica (EW), vigilancia de misiles (BMISR), patrulla marítima (MPA) o nodriza (REFUEL).",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "7.1 Unidades Aéreas (aviones de funciones especiales) y 7.1.2-7.1.7",
+          "pages": "109-116"
+        },
+        {
+          "document": "Resumen counters - Español.pdf",
+          "section": "Leyenda de los aviones especiales: Categoría operativa",
+          "pages": "1-2"
+        }
+      ]
+    },
+    {
+      "id": "aa",
+      "label": "A.A.",
+      "summary": "Valor de Defensa Aérea de la unidad: es la columna que se usa en sus disparos de defensa aérea (interceptación de munición y de aviones) contra los ataques.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "section": "Interceptación de munición y Defensa Aérea de Área",
+          "pages": "3, 4, 18"
+        }
+      ]
+    },
+    {
+      "id": "hull_number",
+      "label": "N.º",
+      "summary": "Número de identificación del buque, impreso en su ficha; no interviene en ninguna regla.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "Resumen counters - Español.pdf",
+          "section": "Leyenda de las fichas de buque: N.º",
+          "pages": "1-2"
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.1 Buques de Combate y 9.1.4 Grupos de Transporte (ninguna regla usa el número de casco)",
+          "pages": "189, 192"
+        }
+      ]
+    },
+    {
+      "id": "port_level",
+      "label": "Nivel de puerto",
+      "summary": "Clase de puerto que necesita el buque (A, B o C). Si el buque no lleva marca, su requisito es de Clase B.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.1 Buques de combate",
+          "pages": "191"
+        }
+      ],
+      "note": "El Decision Book lo llama «Requisito de Puerto»; que sea el mismo recuadro que «Nivel de puerto» del counter está pendiente de validar."
+    },
+    {
+      "id": "support",
+      "label": "Apoyo",
+      "summary": "Valor de Apoyo de Combate (SUP) del buque: bonificación que da a las unidades terrestres propias en un combate terrestre. Su marco indica el ataque: borde = capacidad antibuque; fondo = capacidad de ataque a tierra.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.1 Buques de combate (SUP e Indicador de Ataque)",
+          "pages": "190"
+        }
+      ]
+    },
+    {
+      "id": "one_unit_capacity",
+      "label": "Capacidad 1 unidad",
+      "summary": "Capacidad por barco: la capacidad de transporte de un solo barco del grupo de transporte.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.4 Grupos de transporte",
+          "pages": "193"
+        }
+      ]
+    },
+    {
+      "id": "max_capacity",
+      "label": "Máxima capacidad",
+      "summary": "Capacidad del grupo: la capacidad de transporte total de todos los barcos del grupo, antes de sufrir pérdidas. Cada punto de daño reduce en 1 el tamaño de la flota.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.4 Grupos de transporte",
+          "pages": "192-193"
+        }
+      ]
+    },
+    {
+      "id": "unload",
+      "label": "Descarga",
+      "summary": "Marca de caja del lado de Carga/Descarga: indica que el grupo de transporte está en un puerto cargando o descargando y no puede navegar.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.4 Grupos de transporte",
+          "pages": "192-193"
+        }
+      ]
+    },
+    {
+      "id": "ambush",
+      "label": "Emboscada",
+      "summary": "Emboscada del submarino: solo un submarino Oculto puede iniciarla, una vez por fase, contra una formación de superficie que entra, sale o se mueve en su zona. La zona es de 0 casillas en un convencional y de 1 en un nuclear.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.16 Emboscada; 9.1.7 Submarinos",
+          "pages": "219, 195"
+        }
+      ],
+      "note": "El Decision Book describe la regla; lo que muestra exactamente este recuadro del counter no está detallado en las fuentes y está pendiente de validar."
+    },
+    {
+      "id": "torpedoes",
+      "label": "Torpedos",
+      "summary": "Capacidad de ataque con torpedos: valor que usa el submarino al atacar con ellos. El símbolo junto al valor indica el tipo: hexágono = torpedo antiguo; círculo = moderno o avanzado.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.7 Submarinos",
+          "pages": "195"
+        }
+      ]
+    },
+    {
+      "id": "noise",
+      "label": "Ruido",
+      "summary": "Valor de firma acústica del submarino, impreso como un número. En el lado Oculto es menor que en el Expuesto.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.1.7 Submarinos: Valor de Firma (SIG)",
+          "pages": "195-196"
+        }
+      ],
+      "note": "El Decision Book no usa la palabra «Ruido»: lo describe como Valor de Firma (SIG). Esa equivalencia es probable pero está pendiente de validar."
+    },
+    {
+      "id": "size",
+      "label": "Tamaño",
+      "summary": "Tamaño de fuerza de la unidad terrestre: se reduce con el daño y con los resultados de combate; varios umbrales de combate y reabastecimiento dependen de él.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.7 Combate Terrestre",
+          "pages": "175-182"
+        }
+      ]
+    },
+    {
+      "id": "attack",
+      "label": "Ataque",
+      "summary": "Valor de Ataque de la unidad terrestre en el combate cercano: la suma de los valores de las unidades participantes, más el apoyo de combate, da la columna de resultado.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "section": "Combate cercano terrestre",
+          "pages": "2"
+        }
+      ]
+    },
+    {
+      "id": "defense",
+      "label": "Defensa",
+      "summary": "Valor de Defensa Cercana: el daño que la unidad principal puede soportar en combate cercano contra unidades principales enemigas.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.1.3 Unidades principales",
+          "pages": "158"
+        }
+      ]
+    },
+    {
+      "id": "initiative",
+      "label": "Iniciativa",
+      "summary": "Iniciativa, también llamada Nivel de Reacción: letra A-D de abajo a la derecha en las unidades terrestres de combate. La usa la tabla de Reabastecimiento de Campo del Ejército.",
+      "note": "Equivalencia Iniciativa = Nivel de Reacción confirmada por el mantenedor (2026-10-07).",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "section": "Reabastecimiento de Campo del Ejército",
+          "pages": "32"
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.11.3-8.11.4",
+          "pages": "186"
+        }
+      ]
+    },
+    {
+      "id": "function_support",
+      "label": "Función / Apoyo",
+      "summary": "Apoyo de la unidad de fuego: su Valor de Apoyo al Combate, que se usa para apoyar el combate terrestre. Estas unidades también pueden hacer ataques terrestres.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.1.4 Unidades Técnicas (Valor de Apoyo al Combate) y 8.1.7 Unidades de Fuego",
+          "pages": "159, 163"
+        },
+        {
+          "document": "Resumen counters - Español.pdf",
+          "section": "Leyenda de las unidades técnicas con capacidad de disparo: Función / Apoyo",
+          "pages": "1-2"
+        }
+      ]
+    },
+    {
+      "id": "mobile_or_fixed",
+      "label": "Móvil / Fijo",
+      "summary": "Indica si la unidad terrestre técnica es móvil o fija: una letra A-D es su Nivel de Reacción (móvil) y «-» indica una instalación fija sin movimiento terrestre.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.1.2 Unidades móviles; 8.1.5 Unidades antiaéreas",
+          "pages": "157, 160"
+        }
+      ]
+    },
+    {
+      "id": "function_type",
+      "label": "Tipo de función",
+      "summary": "Tipo de función de la unidad antisuperficie: indica su capacidad de ataque marítimo. Para ver el ataque hay que consultar el plan de ataque de esa unidad.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.1.6 Unidades Antibuque (detección marítima y ataques antibuque)",
+          "pages": "162"
+        },
+        {
+          "document": "Resumen counters - Español.pdf",
+          "section": "Leyenda de las unidades técnicas antisuperficie: Tipo de función",
+          "pages": "1-2"
+        }
+      ]
+    },
+    {
+      "id": "number",
+      "label": "Número",
+      "summary": "Código del helipuerto móvil: el número que lo identifica. No interviene en ninguna regla.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.1.11 Bases Móviles de Aviación del Ejército (cada una usa su carta de base)",
+          "pages": "168"
+        },
+        {
+          "document": "Resumen counters - Español.pdf",
+          "section": "Leyenda de las unidades técnicas: helipuertos móviles, Número",
+          "pages": "1-2"
+        }
+      ]
+    },
+    {
+      "id": "ballistic_defense",
+      "label": "Defensa balística",
+      "summary": "Capacidad de interceptar ataques balísticos, según el tipo de superíndice del valor antiaéreo. La marca «Defensa a Gran Altura» limita los disparos antiaéreos de la unidad a ataques balísticos.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.1.5 Unidades antiaéreas",
+          "pages": "160"
+        }
+      ]
+    },
+    {
+      "id": "low_altitude_detection",
+      "label": "Detección de baja altitud",
+      "summary": "Valor de Detección de Baja Altura: capacidad de detectar unidades enemigas de baja altitud; cuanto mayor es, desde más distancia las detecta.",
+      "status": "generated",
+      "basicOrExpansion": "basic",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "8.1.5 Unidades antiaéreas",
+          "pages": "160"
+        }
+      ]
+    }
+  ]
+}

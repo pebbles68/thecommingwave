@@ -1,0 +1,50 @@
+# Ejemplo de nginx para servir la web estática generada con `npm run build` (carpeta dist/).
+# Adaptar el dominio, la ruta de `root` y los certificados (Let's Encrypt, por ejemplo).
+
+server {
+    listen 80;
+    server_name tcw.ejemplo.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name tcw.ejemplo.com;
+
+    ssl_certificate     /etc/letsencrypt/live/tcw.ejemplo.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/tcw.ejemplo.com/privkey.pem;
+
+    # El contenido de dist/ va en la raíz del dominio: public/ en «/» y data/ en «/data/».
+    root /var/www/tcw;
+    index index.html;
+    charset utf-8;
+
+    # Compresión de texto; las imágenes PNG y JPG ya vienen comprimidas.
+    gzip on;
+    gzip_types text/css text/javascript application/javascript application/json image/svg+xml;
+    gzip_min_length 1024;
+
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy no-referrer always;
+    add_header X-Frame-Options DENY always;
+    # Con HTTPS ya funcionando, puede añadirse:
+    # add_header Strict-Transport-Security "max-age=31536000" always;
+
+    # Imágenes: una semana de caché.
+    location ~* \.(png|jpg|jpeg|svg|ico)$ {
+        expires 7d;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+
+    # HTML, JS, CSS y JSON: se revalidan siempre (nginx envía ETag).
+    location ~* \.(html|js|css|json)$ {
+        add_header Cache-Control "public, max-age=0, must-revalidate";
+        try_files $uri =404;
+    }
+
+    # La navegación usa «#/...»: no hacen falta redirecciones de rutas.
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

@@ -1,0 +1,81 @@
+{
+  "page": 27,
+  "title": "Ataque con Torpedos a Buques de Superficie",
+  "workflowRefs": ["torpedo_vs_surface"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 27 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "Emboscada",
+      "rows": [
+        { "condition": "Emboscada", "effect": "El submarino aparece inmediatamente en la casilla del objetivo y se prepara para atacar." },
+        { "condition": "Búsqueda previa a la emboscada", "effect": "La flota objetivo puede realizar una búsqueda." },
+        { "condition": "Alcance de la emboscada — Submarino convencional", "effect": "0" },
+        { "condition": "Alcance de la emboscada — Submarino nuclear", "effect": "1" }
+      ],
+      "note": "Confirma exactamente los valores 0/1 ya transcritos en data/workflows/09_ataque_torpedos_superficie.json y verificados contra el Decision Book §9.16 en una sesión anterior."
+    },
+    {
+      "topic": "Ataque Submarino con Torpedos",
+      "rows": [
+        { "condition": "Velocidad impresa de todos los buques ≤ 3", "effect": "Todos los valores fijados en 9" },
+        { "condition": "Por cada 1 impacto — Unidad de superficie con valor de resistencia '?'", "effect": "1 hundido" },
+        { "condition": "Por cada 1 impacto — Unidad de superficie con valor de resistencia '[?]'", "effect": "3 daños" }
+      ],
+      "note": "Confirma all_values_fixed_at_9 ya transcrito en data/workflows/09_ataque_torpedos_superficie.json. Mismo patrón de icono de interrogación sin valor impreso ya documentado en otras páginas."
+    },
+    {
+      "topic": "Poder de ataque del torpedo (icono círculo azul/blanco)",
+      "rows": [{ "condition": "Resultado del combate con *", "effect": "Tira un 1d10 para determinar cuántos buques pueden ser impactados. Los buques que pueden ser impactados no pueden exceder del número de impactos." }],
+      "note": "Resuelto 2026-10-04 con Decision Book §9.13.1 Paso 4 (círculo): si los Puntos de Impacto tienen asterisco (*), se tira 1d10 de nuevo y el resultado final de Puntos de Impacto es el MENOR entre el valor original y el nuevo dado (si son iguales, se mantiene). Implementado en public/js/torpedo-attack-engine.js."
+    },
+    {
+      "topic": "Poder de ataque del torpedo (icono hexágono azul/blanco)",
+      "rows": [
+        { "condition": "Valor general es 9", "effect": "Tira un 1d10 para determinar cuántos buques pueden ser impactados. Los buques que pueden ser impactados no pueden exceder del número de impactos." },
+        { "condition": "Resultado del combate con *", "effect": "Ataque fallido / Ineficaz" },
+        { "condition": "Otros resultados con valor numérico", "effect": "Máximo 1 buque impactado." }
+      ]
+    },
+    {
+      "topic": "Resultado especial",
+      "rows": [{ "condition": "No atacó", "effect": "No realiza búsqueda posterior al ataque, no se consume munición." }]
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "torpedo-vs-surface-damage",
+      "title": "Ataque con Torpedos a Buques de Superficie — impactos según contexto ASW/estado del atacante y Valor de Ataque del Torpedo",
+      "rowAxis": { "label": "Tirada (d10)", "values": ["0~1", "2", "3", "4", "5", "6", "7", "8", "9"] },
+      "columnAxis": {
+        "label": "Valor de Ataque del Torpedo",
+        "values": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"],
+        "attackerStateGrouping": {
+          "expuesto": ["1~5", "6~9", "10+"],
+          "oculto": ["1~3", "4~5", "6~7", "8~9", "10+"]
+        },
+        "alternateLabelSets": {
+          "exposed": ["1~5", "6~9", "10+", null, null, null, null, null, null, null],
+          "hidden": ["1~3", "4~5", "6~7", "8~9", "10+", null, null, null, null, null]
+        },
+        "alternateLabelNote": "Selección de lectura de columna según Decision Book §9.13.1 Paso 1: con una unidad de superficie capaz de búsqueda por diferencia de firma en la formación objetivo, o con el submarino en el área central de patrulla de un MPA, solo se usan las dos primeras filas del encabezado — Expuesto → 'exposed', Oculto → 'hidden'. En cualquier otro caso se usa la tercera fila (el esquema canónico 1..9, 10+, cualquiera sea el estado). alternateLabelSets.* es el mismo contenido que attackerStateGrouping en el formato que public/js/table-engine.js#pickAxisLabels reconoce (posicional sobre las 10 columnas de datos; null = sin equivalente)."
+      },
+      "cellLegend": { ".": "Sin impactos", "N*": "N impactos; el asterisco activa la regla de 'Poder de ataque del torpedo' (tirada adicional para repartir entre varios buques)", "NO_ATACO": "El submarino no atacó (fila completa fusionada en el original)" },
+      "cells": [
+        ["NO_ATACO", "NO_ATACO", "NO_ATACO", "NO_ATACO", "NO_ATACO", "NO_ATACO", "NO_ATACO", "NO_ATACO", "NO_ATACO", "NO_ATACO"],
+        [".", ".", ".", ".", ".", "1", "1", "2", "2", "2"],
+        [".", ".", ".", ".", "1*", "1*", "2*", "2*", "2*", "3*"],
+        [".", ".", ".", ".", "1", "1", "2", "2", "3", "3"],
+        [".", ".", "1*", "1*", "2*", "2*", "3*", "3*", "3*", "4*"],
+        [".", "1", "1", "2", "3", "3", "4", "4", "5", "5"],
+        ["1*", "1*", "2*", "3*", "3*", "4*", "5*", "5*", "6*", "6*"],
+        ["1*", "2*", "3*", "3*", "4*", "4*", "5*", "6*", "6*", "7*"],
+        ["1", "2", "3", "4", "4", "5", "6", "7", "7", "8"]
+      ],
+      "notes": ["La fila 'tirada 0~1' es 'NO ATACÓ' en el original (una única celda fusionada horizontalmente); se representa aquí repitiendo el token 'NO_ATACO' en las 10 columnas para mantener el array uniforme con el resto de tablas."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 27, "section": "Ataque con Torpedos a Buques de Superficie", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

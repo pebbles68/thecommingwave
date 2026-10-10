@@ -1,0 +1,140 @@
+{
+  "country": "RU",
+  "countryName": "Rusia",
+  "status": "complete",
+  "transcribedSheets": ["RU 2 (seccion Aviones de rol especial)", "RU 3 (helicopteros, artilleria, misiles de crucero y balisticos)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/special-unit-plans/us.json.",
+
+  "valueFormat": { "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0." },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/RU 2.pdf", "page": 1, "sheetTitle": "Aviones de rol especial",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer." },
+    { "document": "Tablas de Armamento/RU 3.pdf", "page": 1, "sheetTitle": "Plataformas de baja altitud, artilleria y misiles" }
+  ],
+
+  "units": [
+    {
+      "id": "ru-su-34m", "name": "Su-34M", "nameLocal": "震雷", "class": "special-aircraft", "role": "EW",
+      "sourceSheet": "RU 2", "domainSplit": true,
+      "plans": {
+        "antiShip": { "A": { "munition": null, "icons": [], "loadFormat": "single", "full": { "damage": null, "range": 0 }, "note": "Columna A sin valor en la hoja (celda en blanco)." } },
+        "landAttack": {
+          "A": { "munition": null, "icons": [], "loadFormat": "single", "full": { "damage": null, "range": 0 }, "note": "Columna A sin valor en la hoja (celda en blanco)." },
+          "B": { "munition": "Kh-31PD", "icons": ["attack_anti_radiation"], "loadFormat": "single", "full": { "damage": 4, "range": 4 } }
+        }
+      }
+    },
+    {
+      "id": "ru-mi-24", "name": "Mi-24", "nameLocal": "雄鹿", "class": "attack-helicopter",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 6, "range": 0 } },
+        "B": { "munition": "AT", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 4, "range": 0 } }
+      }
+    },
+    {
+      "id": "ru-mi-35", "name": "Mi-35", "nameLocal": "雌鹿", "class": "attack-helicopter",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "B": { "munition": "AT", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "ru-ka-52a", "name": "Ka-52A", "nameLocal": "短吻鳄", "class": "attack-helicopter",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "B": { "munition": "AT", "icons": ["munition_subsonic", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } }
+      }
+    },
+    {
+      "id": "ru-2s3", "name": "2S3", "nameLocal": "榴弹炮群", "class": "artillery",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "ru-2s19", "name": "2S19", "nameLocal": "榴弹炮群", "class": "artillery",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "restrictions": ["无法被弹药拦截 (No puede ser interceptada por defensa antimisil)."],
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 8, "range": 0 } }
+      }
+    },
+    {
+      "id": "ru-2s7m", "name": "2S7M", "nameLocal": "榴弹炮群", "class": "artillery",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 12, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A1": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "SHELL", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } }
+      },
+      "note": "A diferencia de 2S3/2S19, esta hoja no muestra la restriccion 'no puede ser interceptada' para 2S7M."
+    },
+    {
+      "id": "ru-bm-21", "name": "BM-21", "nameLocal": "火箭炮群", "class": "artillery",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 6, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 12, "range": 0 } }
+      }
+    },
+    {
+      "id": "ru-bm-30", "name": "BM-30", "nameLocal": "火箭炮群", "class": "artillery",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A1": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 17, "range": 0 } },
+        "A2": { "munition": "ROCKET", "icons": ["munition_unguided", "munition_light"], "loadFormat": "single", "full": { "damage": 17, "range": 0 } },
+        "B": { "munition": "Precision", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 12, "range": 2 } }
+      }
+    },
+    {
+      "id": "ru-4k51-coastal", "name": "4K51 (costero)", "nameLocal": "亚音巡航", "class": "coastal-missile",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "P-21", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 4, "range": 1 } } }
+    },
+    {
+      "id": "ru-3k60-coastal", "name": "3K60 (costero)", "nameLocal": "亚音巡航", "class": "coastal-missile",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "Kh-35", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 8, "range": 2 } } }
+    },
+    {
+      "id": "ru-3k55-bastion", "name": "3K55 (Bastion)", "nameLocal": "超音巡航", "class": "coastal-missile",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": {
+        "A": { "munition": "P-800(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 4, "range": 3 } },
+        "B": { "munition": "P-800", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 4, "range": 8 } }
+      }
+    },
+    {
+      "id": "ru-9k79", "name": "9K79", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 8, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "9M79F", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 2, "range": 1 } } }
+    },
+    {
+      "id": "ru-9k720", "name": "9K720", "nameLocal": "弹道导弹", "class": "ballistic-missile",
+      "sourceSheet": "RU 3", "domainSplit": false,
+      "unmappedFactor": { "value": 10, "rawLabel": "numero junto al icono de unidad" , "resolvedFactor": "function_support" },
+      "plans": { "A": { "munition": "9M723", "icons": ["attack_ballistic"], "loadFormat": "single", "full": { "damage": 4, "range": 7 } } }
+    }
+  ]
+}

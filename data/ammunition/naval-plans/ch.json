@@ -1,0 +1,145 @@
+{
+  "country": "CH",
+  "countryName": "China",
+  "status": "complete",
+  "transcribedSheets": ["CH 3"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/naval-plans/us.json. A diferencia de EEUU, varias fragatas/corbetas chinas (BS-056A, BS-053H1G, BS-053H3, BS-22) no llevan la celda '≤4' inicial en absoluto, solo la columna de plan.",
+
+  "valueFormat": {
+    "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0."
+  },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/CH 3.pdf", "page": 1, "sheetTitle": "Unidades de superficie", "sheetNote": "SS: Sea-Skimming" },
+    { "document": "Tablas de Armamento/CH 3.pdf", "page": 1, "sheetTitle": "Plataformas submarinas (seccion inferior de la misma pagina)" }
+  ],
+
+  "unmappedFactors": {
+    "shipBadge": {
+      "note": "A diferencia de EEUU (donde el badge es siempre un entero simple: 1, 2, 16), varias fragatas/corbetas chinas muestran un badge en formato fraccion (2/1, 10/5, 6/3). Se transcribe tal cual, sin interpretar. Resuelto en posicion/etiqueta contra data/counters/factor-map.json#ship-combat: es el factor 'N.º'; su significado numerico sigue sin confirmar, igual que en EEUU.",
+      "resolvedFactor": "hull_number"
+    }
+  },
+
+  "surfaceShips": [
+    {
+      "id": "ch-bs-052", "name": "BS-052", "nameLocal": "052", "class": "destroyer",
+      "hasFullDamagedRows": true, "shipBadge": 3,
+      "plans": { "antiShip": { "A": { "munition": "YJ-83", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } }, "landAttack": {} }
+    },
+    {
+      "id": "ch-bs-052b", "name": "BS-052B", "nameLocal": "052B", "class": "destroyer",
+      "hasFullDamagedRows": true, "shipBadge": 1,
+      "plans": {
+        "antiShip": { "A": { "munition": "YJ-12A(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } },
+        "landAttack": { "A": { "munition": "YJ-12A", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 6 }, "damaged": { "damage": 1, "range": 6 } } }
+      }
+    },
+    {
+      "id": "ch-bs-052c", "name": "BS-052C", "nameLocal": "052C", "class": "destroyer",
+      "hasFullDamagedRows": true, "shipBadge": 1,
+      "plans": {
+        "antiShip": { "A": { "munition": "YJ-62(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } },
+        "landAttack": { "A": { "munition": "YJ-62", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 5 }, "damaged": { "damage": 1, "range": 5 } } }
+      }
+    },
+    {
+      "id": "ch-bs-052d", "name": "BS-052D", "nameLocal": "052D", "class": "destroyer",
+      "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": {
+        "antiShip": { "A": { "munition": "YJ-18(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } },
+        "landAttack": { "A": { "munition": "YJ-18", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 8 }, "damaged": { "damage": 1, "range": 8 } } }
+      }
+    },
+    {
+      "id": "ch-bs-052dg", "name": "BS-052DG", "nameLocal": "052DG", "class": "destroyer",
+      "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": {
+        "antiShip": { "A": { "munition": "YJ-18(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } },
+        "landAttack": { "A": { "munition": "YJ-18", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 8 }, "damaged": { "damage": 1, "range": 8 } } }
+      }
+    },
+    {
+      "id": "ch-bs-054a", "name": "BS-054A", "nameLocal": "054A", "class": "frigate",
+      "hasFullDamagedRows": true, "shipBadge": 1,
+      "plans": { "antiShip": { "A": { "munition": "YJ-83", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } }, "landAttack": {} }
+    },
+    {
+      "id": "ch-bs-055", "name": "BS-055", "nameLocal": "055", "class": "cruiser",
+      "hasFullDamagedRows": true, "shipBadge": 3,
+      "plans": {
+        "antiShip": {
+          "A": { "munition": "YJ-18(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 3 }, "damaged": { "damage": 2, "range": 3 } },
+          "B": { "munition": "YJ-18", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 2, "range": 8 }, "damaged": { "damage": 2, "range": 8 } },
+          "C": { "munition": "YJ-21", "icons": ["munition_parabolic"], "loadFormat": "single", "full": { "damage": 2, "range": 13 }, "damaged": { "damage": 2, "range": 13 } }
+        },
+        "landAttack": {
+          "A": { "munition": "YJ-21", "icons": ["munition_parabolic"], "loadFormat": "single", "full": { "damage": 2, "range": 13 }, "damaged": { "damage": 2, "range": 13 } },
+          "B": { "munition": "CJ", "icons": ["marker_cruise_missile"], "loadFormat": "single", "cruiseMissile": "CM", "full": { "damage": 3, "range": 19 }, "damaged": { "damage": 2, "range": 19 } }
+        }
+      }
+    },
+    {
+      "id": "ch-bs-95ge", "name": "BS-95GE", "nameLocal": "现代E", "class": "destroyer",
+      "hasFullDamagedRows": true, "shipBadge": 6,
+      "plans": {
+        "antiShip": { "A": { "munition": "YJ-12A(SS)", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } },
+        "landAttack": { "A": { "munition": "YJ-12A", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 6 }, "damaged": { "damage": 1, "range": 6 } } }
+      }
+    },
+    {
+      "id": "ch-bs-956em", "name": "BS-956EM", "nameLocal": "现代EM", "class": "destroyer",
+      "hasFullDamagedRows": true, "shipBadge": 3,
+      "plans": { "antiShip": { "A": { "munition": "P-270", "icons": ["munition_supersonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} }
+    },
+    {
+      "id": "ch-bs-056a", "name": "BS-056A", "nameLocal": "056A", "class": "corvette",
+      "hasFullDamagedRows": true, "shipBadge": "2/1",
+      "plans": { "antiShip": { "A": { "munition": "YJ-83", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 0.5, "range": 3 } } }, "landAttack": {} },
+      "note": "Sin celda '≤4' inicial (a diferencia de los destructores/fragatas mayores de esta hoja)."
+    },
+    {
+      "id": "ch-bs-053h1g", "name": "BS-053H1G", "nameLocal": "053H1G", "class": "frigate",
+      "hasFullDamagedRows": true, "shipBadge": "10/5",
+      "plans": { "antiShip": { "A": { "munition": "YJ-83", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 2, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } }, "landAttack": {} },
+      "note": "Sin celda '≤4' inicial."
+    },
+    {
+      "id": "ch-bs-053h3", "name": "BS-053H3", "nameLocal": "053H3", "class": "frigate",
+      "hasFullDamagedRows": true, "shipBadge": "6/3",
+      "plans": { "antiShip": { "A": { "munition": "YJ-83", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 2, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } }, "landAttack": {} },
+      "note": "Sin celda '≤4' inicial."
+    },
+    {
+      "id": "ch-bs-22", "name": "BS-22", "nameLocal": "022", "class": "missile-boat",
+      "hasFullDamagedRows": true,
+      "plans": { "antiShip": { "A": { "munition": "YJ-83", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 2, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } }, "landAttack": {} },
+      "note": "Sin celda '≤4' inicial ni shipBadge visible en la hoja."
+    }
+  ],
+
+  "submarines": [
+    { "id": "ch-039g", "name": "039G", "nameLocal": "宋级改壹", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ch-039a", "name": "039A", "nameLocal": "元级", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ch-039b", "name": "039B", "nameLocal": "元级改壹", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ch-039c", "name": "039C", "nameLocal": "元级改贰", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ch-636m", "name": "636M", "nameLocal": "基洛", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "3M54E1", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 4 } } }, "landAttack": {} } },
+    { "id": "ch-093", "name": "093", "nameLocal": "夏级", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ch-093a", "name": "093A", "nameLocal": "夏级改壹", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ch-093b", "name": "093B", "nameLocal": "夏级改贰", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ch-093b1", "name": "093B1", "nameLocal": "夏级改叁", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "ch-093b2", "name": "093B2", "nameLocal": "夏级改肆", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "YJ-82", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } }
+  ]
+}

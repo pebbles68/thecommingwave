@@ -1,0 +1,27 @@
+{
+  "id": "dice-formulas",
+  "title": "Fórmulas de tirada declaradas por los workflows de combate",
+  "note": "Vocabulario compartido de IDs de tirada (`diceRule`/`effects[].value` de data/workflows/*.json, p.ej. workflow 02 stage `area_air_defense`, workflow 07 stage `attack_method`, workflow 12 stage `crisis`) a su formato ejecutable (cuántos dados, qué valor elegir). Correcciones03.md COR03-002: antes incrustado como `DICE_FORMULAS` en public/js/combat-wizard-engine.js — un mismo ID podía usarse desde varios workflows sin que ninguno de ellos declarase su propio significado.",
+  "formulas": {
+    "roll_1d10": {
+      "label": "1d10",
+      "rollCount": 1,
+      "pick": "single",
+      "sourceRefs": [{ "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "page": 7 }]
+    },
+    "roll_2d10_take_highest": {
+      "label": "2d10 (elegir el mayor)",
+      "rollCount": 2,
+      "pick": "highest",
+      "sourceRefs": [{ "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "page": 7 }],
+      "note": "Confirmado contra el golden test del método Subsónico (data/scenarios/golden-antiship-guided.json#steps[3])."
+    },
+    "roll_2d10_take_lowest": {
+      "label": "2d10 (elegir el menor)",
+      "rollCount": 2,
+      "pick": "lowest",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "6.3.3", "pages": "95-98" }],
+      "note": "\"se lanza 1d10 (o 2d10 tomando el resultado menor si el objetivo de interceptación es un ataque balístico de espacio cercano)\" — citado también en data/workflows/02_ataque_terrestre_guiado.json#diceRules."
+    }
+  }
+}

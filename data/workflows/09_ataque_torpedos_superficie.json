@@ -1,0 +1,247 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/09_ataque_torpedos_superficie.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "torpedo_vs_surface",
+  "title": "Ataque con torpedos a buques de superficie",
+  "category": "asw",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "27"
+  },
+  "summary": "Preguntas para emboscada, contexto de búsqueda y valor de ataque del torpedo.",
+  "stages": [
+    {
+      "id": "ambush",
+      "order": 1,
+      "title": "Emboscada y búsqueda previa",
+      "questions": [
+        {
+          "id": "ambush",
+          "type": "boolean",
+          "appliesTo": "attack_setup",
+          "prompt": "¿El ataque es una emboscada?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "attack_setup",
+                  "value": "target_may_search_before_ambush"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "submarine_type",
+          "type": "select",
+          "appliesTo": "ambush_range",
+          "prompt": "Tipo de submarino para alcance de emboscada.",
+          "options": [
+            {
+              "value": "conventional",
+              "label": "Convencional",
+              "effects": [
+                {
+                  "type": "range",
+                  "target": "ambush_range",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "nuclear",
+              "label": "Nuclear",
+              "effects": [
+                {
+                  "type": "range",
+                  "target": "ambush_range",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "ambush",
+          "submarine_type"
+        ]
+      ],
+      "specialRules": "Confirmado contra TCW_Decision_Book §9.16-9.16.2 (páginas 219-220): la Emboscada es una acción de reacción durante la Fase de Acciones de Superficie que no consume el límite de ataques del submarino, pero cada submarino solo puede emboscar una vez por esa fase. Solo un submarino en estado Oculto puede iniciarla, cuando una formación de superficie entra, sale o se mueve dentro de su Zona de Emboscada (0 casillas si es convencional, 1 casilla -propia + adyacentes- si es nuclear; coincide con los valores 0/1 de submarine_type.effects). La iniciación siempre tiene éxito (sin munición no puede atacar, pero igual embosca). El objetivo puede realizar una Búsqueda ASW inmediatamente antes de la resolución del ataque, y otra 'Después del Ataque' al concluir. Requisito adicional no preguntado por este workflow (§9.12, página 208): un submarino que se movió en la Fase de Acciones Submarinas anterior queda en su lado 'En Movimiento' (Firma +1) y NO puede emboscar hasta que su ficha se gire a 'Acechando' al inicio del siguiente Segmento de Acciones Submarinas; es una condición de elegibilidad real que falta como pregunta explícita en esta tabla de origen (Tablas de combate, página 27) y queda pendiente de añadir cuando se construya el wizard. Regla opcional (§9.19 Señuelos/Falsos Objetivos, página 222, no activa en el juego básico): un señuelo submarino puede declarar e iniciar una Emboscada, pero queda expuesto y se retira del juego en cuanto comparte casilla con la formación objetivo o es detectado por una Búsqueda ASW enemiga.",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "sections": "9.16-9.16.2",
+          "pages": "219-220"
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "sections": "9.12 (estado Acechando/En Movimiento)",
+          "pages": "208"
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "sections": "9.19 Señuelos (Opcional)",
+          "pages": "222"
+        }
+      ]
+    },
+    {
+      "id": "target_speed",
+      "order": 2,
+      "title": "Velocidad de la flota objetivo",
+      "questions": [
+        {
+          "id": "all_target_speed_le3",
+          "type": "boolean",
+          "appliesTo": "torpedo_attack",
+          "prompt": "¿La velocidad impresa de todos los buques objetivo es ≤ 3?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "torpedo_attack",
+                  "value": "all_values_fixed_at_9"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "all_target_speed_le3"
+        ]
+      ]
+    },
+    {
+      "id": "detection_context",
+      "order": 3,
+      "title": "Contexto ASW del hex objetivo",
+      "questions": [
+        {
+          "id": "target_hex_asw_context",
+          "type": "select",
+          "appliesTo": "torpedo_table",
+          "prompt": "Situación ASW en el hex objetivo.",
+          "options": [
+            {
+              "value": "surface_search_or_mpa",
+              "label": "Hay unidad de superficie capaz de búsqueda por diferencia de firma o Zona Central de MPA"
+            },
+            {
+              "value": "none",
+              "label": "Ninguna de las anteriores"
+            }
+          ]
+        },
+        {
+          "id": "attacker_state",
+          "type": "select",
+          "appliesTo": "torpedo_table",
+          "prompt": "Estado del submarino atacante.",
+          "options": [
+            {
+              "value": "exposed",
+              "label": "Expuesto"
+            },
+            {
+              "value": "hidden",
+              "label": "Oculto"
+            }
+          ]
+        },
+        {
+          "id": "torpedo_type",
+          "type": "select",
+          "appliesTo": "torpedo_resolution",
+          "prompt": "Tipo de torpedo (símbolo junto al Valor de Ataque del Torpedo).",
+          "note": "Decision Book §9.1.7 Submarinos (SS), Capacidad de Ataque con Torpedos: el hexágono es un modelo antiguo; el círculo, un modelo moderno/avanzado. Cada tipo sigue un proceso de resolución distinto (§9.13.1 Paso 4).",
+          "options": [
+            {
+              "value": "circle",
+              "label": "Círculo (torpedo moderno)",
+              "effects": [{ "type": "rule", "target": "torpedo_resolution", "value": "circle_star_rerolls_and_keeps_lower" }]
+            },
+            {
+              "value": "hexagon",
+              "label": "Hexágono (torpedo antiguo)",
+              "effects": [{ "type": "rule", "target": "torpedo_resolution", "value": "hexagon_roll_9_rerolls_star_fails" }]
+            }
+          ],
+          "sourceRefs": [
+            { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "9.1.7 Submarinos (SS): Capacidad de Ataque con Torpedos (tipo de torpedo)", "pages": "195" },
+            { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "9.13.1 Paso 4: Verificar el tipo de torpedo", "pages": "211" }
+          ]
+        },
+        {
+          "id": "torpedo_attack_value",
+          "type": "number",
+          "appliesTo": "torpedo_table",
+          "prompt": "Valor de ataque del torpedo."
+        }
+      ],
+      "parallelGroups": [
+        [
+          "target_hex_asw_context",
+          "attacker_state",
+          "torpedo_type",
+          "torpedo_attack_value"
+        ]
+      ],
+      "tableReference": "Página 27: Ataque Submarino con Torpedos."
+    }
+  ],
+  "flowCuts": [],
+  "diceRules": [],
+  "rollDependentRules": [],
+  "shortcuts": [
+    {
+      "stage": "target_speed",
+      "question": "all_target_speed_le3",
+      "optionValue": "yes",
+      "effect": "all_values_fixed_at_9",
+      "note": "Cuando aplica, el DADO se ignora y el resultado de la tirada se considera automáticamente 9 (Decision Book §9.13.1 Paso 2); el Valor de Ataque del Torpedo SÍ sigue siendo necesario para elegir la columna. Corrección 2026-10-04: la versión anterior de esta nota decía que se fijaba el valor de ataque en 9, lo que contradice el Decision Book — la \"9\" de la hoja de tablas ya aparece en azul como los resultados de tirada (ver docs/rules/known-ambiguities.md).",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "9.13.1 Paso 2: Tirar 1d10", "pages": "211" }]
+    }
+  ],
+  "impactResolution": {
+    "title": "Resolver el resultado del ataque con torpedos (Decision Book §9.13.1 Paso 5)",
+    "rules": [
+      {
+        "id": "no_shield",
+        "label": "Unidad de superficie SIN marca de Escudo en su Valor de Resistencia: por cada Punto de Impacto absorbido, una unidad de un solo barco se hunde inmediatamente y una unidad multi-barco reduce su tamaño de flota en 1. No se realiza prueba de avería crítica."
+      },
+      {
+        "id": "shield",
+        "label": "Unidad de superficie CON marca de Escudo en su Valor de Resistencia (HR): absorbe 3 puntos de daño por cada Punto de Impacto y sigue absorbiendo hasta que el daño total causado alcance su Valor de Resistencia; después sufre 1 punto de daño estructural y se resuelven los efectos del impacto (regla 5.9)."
+      }
+    ],
+    "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "9.13.1 Paso 5: Resolver el resultado del ataque con torpedos", "pages": "211-212" }]
+  },
+  "hexagonGeneralUnitsOnly": {
+    "label": "Torpedo de hexágono sin tirada inicial 9 ni asterisco: los Puntos de Impacto solo pueden ser absorbidos por unidades de superficie generales (no unidades especiales/protegidas).",
+    "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "9.13.1 Paso 4: Verificar el tipo de torpedo", "pages": "211" }]
+  },
+  "hexagonSingleShipOnly": {
+    "label": "En ese mismo caso (torpedo de hexágono sin 9 ni asterisco) solo puede ser impactado un buque, aunque el resultado de la tabla sea otro número.",
+    "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 27, "note": "«Otros resultados con valor numérico: máximo 1 buque impactado»; confirmado por el mantenedor, 2026-10-07 (se aplican las dos reglas)." }]
+  },
+  "finalTableReference": "Página 27: tabla Ataque Submarino con Torpedos."
+}

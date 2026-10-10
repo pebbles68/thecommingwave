@@ -1,0 +1,226 @@
+{
+  "id": "table-routing",
+  "description": "Arbol de decision para seleccionar el workflow/tabla de combate correcto segun objetivo, origen del ataque y tipo de ataque (roadmap Fase 6, router de combate). Transcrito de 'Mapa de uso de tablas.txt' (63 lineas, texto plano ya legible; se corrigieron erratas de mecanografiado del propio archivo -'Contrataue'->'Contraataque', 'Atauqe'->'Ataque', 'Ultraterestre'->'Ultraterrestre'- sin cambiar su significado). Cada hoja del arbol referencia el workflow ya convertido en data/workflows/.",
+  "sourceRefs": [
+    { "document": "Mapa de uso de tablas.txt", "description": "Mapa de decision completo (63 líneas)." }
+  ],
+  "root": {
+    "question": "¿A qué atacamos?",
+    "options": [
+      {
+        "value": "tierra",
+        "label": "Tierra",
+        "next": {
+          "question": "Origen del ataque",
+          "options": [
+            {
+              "value": "cercano",
+              "label": "Cercano (Tierra)",
+              "leaf": {
+                "workflowId": "ground_close_combat",
+                "workflowFile": "data/workflows/01_combate_cercano_terrestre.json",
+                "tableReference": "Página 2: Ataque Cercano."
+              }
+            },
+            {
+              "value": "lejano",
+              "label": "Lejano",
+              "next": {
+                "question": "Tipo de ataque",
+                "options": [
+                  {
+                    "value": "guiado",
+                    "label": "Ataque Guiado",
+                    "leaf": {
+                      "workflowId": "ground_guided",
+                      "workflowFile": "data/workflows/02_ataque_terrestre_guiado.json",
+                      "tableReference": "Páginas 3-6: Defensa de Área / Interceptación de Munición / Daño.",
+                      "note": "Según el mapa, la etapa 'area_air_defense' (página 3, 'Defensa de Área') solo se resuelve si la munición es de ataque Balístico o de Baja altitud (BM o CM); si no lo es, se salta directamente a 'munition_interception' (página 4, 'Interceptación de Munición'). En ambos casos continúa con 'attack_intensity' (páginas 5-6, Daño). El workflow ya modela las 3 etapas en orden; este salto condicional de la primera etapa no está representado todavía como 'showIf'/'skipIf' explícito en data/workflows/02_ataque_terrestre_guiado.json."
+                    }
+                  },
+                  {
+                    "value": "no_guiado",
+                    "label": "Ataque No Guiado",
+                    "leaf": {
+                      "workflowId": "ground_unguided",
+                      "workflowFile": "data/workflows/03_ataque_terrestre_no_guiado.json",
+                      "tableReference": "Páginas 7-10: Intercepción Final / Interceptación de Munición / Daño / Contraataque a Baja Altura."
+                    }
+                  },
+                  {
+                    "value": "antirradiacion",
+                    "label": "Ataque Antirradiación",
+                    "leaf": {
+                      "workflowId": "anti_radiation",
+                      "workflowFile": "data/workflows/04_ataque_antirradiacion.json",
+                      "tableReference": "Páginas 11-14: Defensa de Área / Interceptación de Munición / Daño / Contraataque a Baja Altura.",
+                      "note": "Mismo salto condicional de 'Defensa de Área' según BM/CM que en Ataque Guiado terrestre (ver nota de esa hoja)."
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "value": "aire_baja_altura",
+        "label": "Aire (o baja altura)",
+        "next": {
+          "question": "Origen del ataque",
+          "options": [
+            {
+              "value": "aire",
+              "label": "Aire",
+              "leaf": {
+                "workflowId": "air_combat",
+                "workflowFile": "data/workflows/05_combate_aereo.json",
+                "tableReference": "Página 15: Interceptación (Penetración/BVR) — Página 16: Combate BVR (lejano) — Página 17: Combate WVR (cercano).",
+                "note": "Las 3 páginas son las 3 etapas secuenciales del mismo workflow (initiative, bvr, wvr), no ramas alternativas."
+              }
+            },
+            {
+              "value": "tierra_o_mar",
+              "label": "Tierra o Mar",
+              "leaf": {
+                "workflowId": "area_air_defense",
+                "workflowFile": "data/workflows/06_defensa_aerea_area.json",
+                "tableReference": "Página 18: Defensa Aérea."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "value": "mar",
+        "label": "Mar",
+        "next": {
+          "question": "Origen del ataque",
+          "options": [
+            {
+              "value": "lejano",
+              "label": "Lejano",
+              "next": {
+                "question": "Guiado / No Guiado",
+                "options": [
+                  {
+                    "value": "guiado",
+                    "label": "Ataque Guiado",
+                    "leaf": {
+                      "workflowId": "antiship_guided",
+                      "workflowFile": "data/workflows/07_ataque_antibuque_guiado.json",
+                      "tableReference": "Páginas 19-22: Defensa de Área / Interceptación de Munición / Daño / Contraataque a Baja Altura.",
+                      "note": "Mismo salto condicional de 'Defensa de Área' según BM/CM que en los ataques terrestres guiados."
+                    }
+                  },
+                  {
+                    "value": "no_guiado",
+                    "label": "Ataque No Guiado",
+                    "leaf": {
+                      "workflowId": "antiship_unguided",
+                      "workflowFile": "data/workflows/08_ataque_antibuque_no_guiado.json",
+                      "tableReference": "Páginas 23-26: Intercepción Final / Interceptación de Munición / Daño / Contraataque a Baja Altura."
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "value": "torpedos",
+              "label": "Torpedos",
+              "leaf": {
+                "workflowId": "torpedo_vs_surface",
+                "workflowFile": "data/workflows/09_ataque_torpedos_superficie.json",
+                "tableReference": "Página 27: Ataque con Torpedos a Buques de Superficie."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "value": "submarino",
+        "label": "Submarino",
+        "next": {
+          "question": "Origen del ataque",
+          "options": [
+            {
+              "value": "aereo",
+              "label": "Aéreo (ASW Aérea)",
+              "leaf": {
+                "workflowId": "asw_search_support",
+                "attackWorkflowId": "asw_surface_air",
+                "workflowFile": "data/workflows/13_busqueda_asw_apoyo.json",
+                "attackWorkflowFile": "data/workflows/10_ataque_asw_superficie_aereo.json",
+                "tableReference": "Localización: páginas 28 y 34 — Ataque: página 29.",
+                "note": "Localización usa 13_busqueda_asw_apoyo.json con search_type='air'; el ataque en sí usa 10_ataque_asw_superficie_aereo.json con attacker_type='air' (la misma tabla de ataque que ASW de superficie)."
+              }
+            },
+            {
+              "value": "superficie",
+              "label": "Superficie (ASW Superficie)",
+              "leaf": {
+                "workflowId": "asw_search_support",
+                "attackWorkflowId": "asw_surface_air",
+                "workflowFile": "data/workflows/13_busqueda_asw_apoyo.json",
+                "attackWorkflowFile": "data/workflows/10_ataque_asw_superficie_aereo.json",
+                "tableReference": "Localización: páginas 28 y 33 — Ataque: página 29.",
+                "note": "Localización usa 13_busqueda_asw_apoyo.json con search_type='signature'; el ataque usa 10_ataque_asw_superficie_aereo.json con attacker_type='surface'."
+              }
+            },
+            {
+              "value": "submarino",
+              "label": "Submarino (Ataque Antisubmarino por Unidades Submarinas)",
+              "leaf": {
+                "workflowId": "asw_search_support",
+                "attackWorkflowId": "asw_submarine",
+                "workflowFile": "data/workflows/13_busqueda_asw_apoyo.json",
+                "attackWorkflowFile": "data/workflows/11_ataque_asw_submarino.json",
+                "tableReference": "Localización: página 33 — Ataque: página 30.",
+                "note": "Único caso ASW cuyo ataque es un workflow propio (11_ataque_asw_submarino.json, submarino contra submarino) en vez de compartir 10_ataque_asw_superficie_aereo.json."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "value": "estrategico",
+        "label": "Estratégico",
+        "next": {
+          "question": "Tipo de movimiento estratégico",
+          "options": [
+            {
+              "value": "guerra_espacial_ultraterrestre",
+              "label": "Guerra Espacial y Ultraterrestre",
+              "leaf": {
+                "workflowId": "strategic_actions",
+                "workflowFile": "data/workflows/12_acciones_estrategicas.json",
+                "tableReference": "Páginas 31-32.",
+                "note": "Corresponde a la etapa 'space_destruction' de 12_acciones_estrategicas.json (no a 'cyber'); la guerra cibernética de ese mismo archivo no tiene entrada propia en este mapa de 'a qué atacamos'."
+              }
+            },
+            {
+              "value": "logistica",
+              "label": "Logística",
+              "leaf": {
+                "workflowId": null,
+                "tableFile": "data/tables/page-32.json#army-logistics-resupply",
+          "wizardHash": "#/wizard/army-resupply",
+                "tableReference": "Página 32: Reabastecimiento Logístico del Ejército.",
+                "note": "Ninguno de los 13 workflows transcritos (data/workflows/) cubre esta tabla (12_acciones_estrategicas.json solo tiene 'cyber' y 'space_destruction'), pero sí se transcribió su contenido en data/tables/page-32.json al procesar las 34 páginas de Tablas-de-combate 5.pdf (roadmap Fase 0/5). No es un workflow de ataque/combate sino de reabastecimiento logístico; se resuelve con el wizard #/wizard/army-resupply (campo `wizardHash`, 2026-10-05), sin workflow propio en data/workflows/."
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "gaps": [],
+
+  "crossReferences": [
+    {
+      "note": "El salto condicional de la etapa 'area_air_defense' según si la munición es Balística/Baja altitud (BM/CM) aparece en 3 hojas (ground_guided, anti_radiation, antiship_guided) y no está modelado todavía como showIf/skipIf en sus JSON de data/workflows/; queda como tarea pendiente para cuando se implemente el motor de resolución (roadmap Fase 5/7).",
+      "affectedWorkflows": ["ground_guided", "anti_radiation", "antiship_guided"]
+    }
+  ]
+}

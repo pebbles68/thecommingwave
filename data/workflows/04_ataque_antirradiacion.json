@@ -1,0 +1,343 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/04_ataque_antirradiacion.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "anti_radiation",
+  "title": "Ataque antirradiación (ARM)",
+  "category": "terrestre",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "11-14"
+  },
+  "summary": "Preguntas para establecer defensa aérea, interceptación y el modificador antirradiación.",
+  "representativeIcon": "attack_anti_radiation",
+  "stages": [
+    {
+      "id": "area_air_defense",
+      "order": 1,
+      "title": "Defensa aérea de área",
+      "questions": [
+        {
+          "id": "munition_marked_cm_or_bm",
+          "type": "boolean",
+          "appliesTo": "area_air_defense",
+          "prompt": "¿La munición de este ataque está marcada CM (Misil de Crucero) o BM (Misil Balístico)?",
+          "options": [
+            { "value": "yes", "label": "Sí" },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "area_air_defense",
+                  "value": "no_cm_bm_marker_no_reduction",
+                  "cutsStage": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "attacker_detected",
+          "type": "boolean",
+          "appliesTo": "area_air_defense_roll",
+          "prompt": "¿El atacante ha sido detectado?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "area_air_defense_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "attacker_detected"
+        ]
+      ],
+      "tableReference": "Página 11: Defensa aérea de área."
+    },
+    {
+      "id": "munition_interception",
+      "order": 2,
+      "title": "Interceptación de munición",
+      "questions": [
+        {
+          "id": "same_hex_or_central_zone",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿Objetivo y atacante están en el mismo hex o Zona Central?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "no_interception",
+                  "cutsStage": true
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "interception_performance",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "Rendimiento del sistema que intercepta.",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "medium",
+              "label": "Medio",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "low",
+              "label": "Bajo",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "detection_state",
+          "type": "select",
+          "appliesTo": "munition_interception_roll",
+          "prompt": "¿Qué ha detectado el defensor?",
+          "options": [
+            {
+              "value": "attacker",
+              "label": "Atacante detectado",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "value": "designator_only",
+              "label": "No atacante, sí guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "value": "neither",
+              "label": "Ni atacante ni guía/designador",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "munition_interception_roll",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "short_range_restriction",
+          "type": "boolean",
+          "appliesTo": "munition_interception",
+          "prompt": "¿La distancia de ataque es 1 (o 2 en Misión de Área)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "munition_interception",
+                  "value": "only_same_hex_defenders"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "same_hex_or_central_zone"
+        ],
+        [
+          "interception_performance",
+          "detection_state",
+          "short_range_restriction"
+        ]
+      ],
+      "lowConsumptionOnlyCases": [
+        {
+          "id": "strong_penetration",
+          "label": "un plan de ataque de penetración fuerte (marcado con el indicador de penetración fuerte; Decision Book §5.12.4 señala que la mayoría de los planes ARM lo son); además solo interceptan las unidades en el mismo hexágono que el objetivo",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "6.5.1 Capacidad de Interceptación de Munición",
+              "pages": "101"
+            }
+          ]
+        }
+      ],
+      "tableReference": "Página 12: Interceptación de Munición."
+    },
+    {
+      "id": "anti_radiation_modifier",
+      "order": 3,
+      "title": "Modificador antirradiación",
+      "questions": [
+        {
+          "id": "detection_system_active",
+          "type": "boolean",
+          "appliesTo": "attack_intensity",
+          "prompt": "¿El sistema de detección del objetivo está activado (radar, misil AA o misil antibuque móvil/fijo)?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "attack_intensity",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "iconRefs": [
+            {
+              "ref": "attack_anti_radiation",
+              "role": "representative"
+            }
+          ]
+        },
+        {
+          "id": "light_plan",
+          "type": "boolean",
+          "appliesTo": "attack_row_scheme",
+          "prompt": "¿El plan de ataque está marcado como Ligero [L]?",
+          "note": "Tablas-de-combate 5.pdf p.13: \"Los planes de ataque [L] utilizan la fila [L] en la resolución\" — la tabla tiene dos filas de cabecera de Valor de Ataque, [L] Ligero (1…13+) y Normal (0.5, 1, ·, 2…13+). Decision Book §5.14.3 no distingue ambas filas por escrito; la regla de selección es la impresa en la hoja.",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí (fila [L] Ligero)"
+            },
+            {
+              "value": "no",
+              "label": "No (fila Normal)"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "Tablas-de-combate 5.pdf",
+              "section": "4) Objetivo del ataque de antirradiación",
+              "pages": "13"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "detection_system_active",
+          "light_plan"
+        ]
+      ],
+      "formula": "Los valores negativos desplazan columnas a la izquierda.",
+      "specialRules": "Cuando el valor fijo de la tirada de ataque es 9, se cancela la modificación de intensidad.",
+      "tableReference": "Página 13: Modificación del Valor del Ataque.",
+      "iconRefs": [
+        {
+          "ref": "attack_anti_radiation",
+          "role": "representative"
+        }
+      ]
+    }
+  ],
+  "flowCuts": [
+    {
+      "stage": "munition_interception",
+      "question": "same_hex_or_central_zone",
+      "optionValue": "yes",
+      "effect": "no_interception",
+      "cutsStage": "munition_interception",
+      "haltsWorkflow": false,
+      "sourceText": "¿Objetivo y atacante están en el mismo hex o Zona Central? Sí -> no_interception."
+    }
+  ],
+  "diceRules": [],
+  "rollDependentRules": [
+    {
+      "stage": "anti_radiation_modifier",
+      "condition": "finalRoll == 9",
+      "effect": "cancel_intensity_modifiers",
+      "sourceText": "Cuando el valor fijo de la tirada de ataque es 9, se cancela la modificación de intensidad."
+    }
+  ],
+  "finalTableReference": "Página 13: Objetivo del ataque de antirradiación; página 14: Contraataque a Baja Altura."
+}

@@ -1,0 +1,29 @@
+{
+  "country": "JP",
+  "countryName": "Japon",
+  "status": "complete",
+  "transcribedSheets": ["JP 2"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/units/us.json. Esta hoja no tiene EWR (radar de alerta temprana): solo SAM y HLSC.",
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/JP2.pdf", "page": 1, "sheetTitle": "Unidades terrestres: formaciones y sistemas de apoyo" }
+  ],
+
+  "groundFormations": [
+    { "id": "jp-type90-div", "name": "Type 90", "nameLocal": "战车团", "nameEn": "Tank Regiment", "attack": 60, "defense": 12 },
+    { "id": "jp-type10-div", "name": "Type 10", "nameLocal": "机甲师团", "nameEn": "Armored Division", "attack": 48, "defense": 12 },
+    { "id": "jp-type96-div", "name": "Type 96", "nameLocal": "普通师团", "nameEn": "Regular Division", "attack": 40, "defense": 8 },
+    { "id": "jp-hayate", "name": "Hayate", "nameLocal": "预备师团", "nameEn": "Reserve Division", "attack": 16, "defense": 4 },
+    { "id": "jp-type16", "name": "Type 16", "nameLocal": "机动旅团", "nameEn": "Mobile Brigade", "attack": 16, "defense": 8 },
+    { "id": "jp-lav", "name": "JP-LAV", "nameLocal": "水陆机动团", "nameEn": "Amphibious Rapid Deployment Regiment", "attack": 8, "defense": 4 },
+    { "id": "jp-jgcrf", "name": "JGCRF", "nameLocal": "快反连队", "nameEn": "Rapid Reaction Regiment", "attack": 2, "defense": 2 }
+  ],
+
+  "supportSystems": [
+    { "id": "jp-mim-104", "name": "MIM-104", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "jp-type03", "name": "Type 03", "nameLocal": "防空导弹", "systemType": "SAM", "value": 8, "valueMeaning": "electronic" },
+    { "id": "jp-hlsc", "name": "HLSC", "nameLocal": "场站", "systemType": "HELIPORT", "value": 3, "valueMeaning": "electronic" }
+  ]
+}

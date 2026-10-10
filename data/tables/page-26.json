@@ -1,0 +1,26 @@
+{
+  "page": 26,
+  "title": "Ataque Antibuque No Guiado — Contraataque a Baja Altura",
+  "workflowRefs": ["antiship_unguided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 26 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "5) Contraataque a Baja Altura",
+      "intro": "La flota bajo ataque dispara, cada unidad de superficie por separado.",
+      "rows": [
+        { "condition": "Contraataque a Baja Altura", "effect": "Solo puede disparar a plataformas de baja altura." },
+        { "condition": "Buques con icono de daño/avería", "effect": "No pueden contraatacar." }
+      ]
+    }
+  ],
+
+  "reusesTable": {
+    "id": "surface-artillery-low-altitude-counterattack",
+    "definedIn": "data/tables/page-22.json",
+    "note": "Tabla idéntica carácter a carácter a la de la página 22 (Contraataque a Baja Altura, Artillería Naval)."
+  },
+
+  "tables": []
+}

@@ -1,0 +1,109 @@
+{
+  "page": 9,
+  "title": "Ataque No Guiado contra Objetivos Terrestres",
+  "workflowRefs": ["ground_unguided"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 9 }],
+  "transcriptionPass": "verified-2026-09-25",
+  "transcriptionStatus": "verified",
+  "ruleStatus": "resolved",
+  "blockingIssues": [],
+  "needsReview": false,
+
+  "referenceNotes": [
+    {
+      "topic": "Objetivo: Instalaciones fijas — Efecto de los impactos",
+      "note": "Idéntico al bloque ya transcrito en data/tables/page-06.json (mismas 6 filas, incluida la ambigüedad '?'/'[?]' de Protección de barcos). No se repite aquí; ver esa página."
+    },
+    {
+      "topic": "Objetivo: Unidades terrestres móviles — Efecto de los impactos",
+      "note": "Idéntico al bloque ya transcrito en data/tables/page-06.json. No se repite aquí; ver esa página."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "ground-unguided-attack-damage",
+      "title": "4) Ataque no guiado contra objetivos terrestres",
+      "intro": "Cada método de ataque se resuelve por separado.",
+      "needsReview": false,
+      "rowAxis": {
+        "label": "Tirada (d10) — con doble lectura según el tipo de objetivo",
+        "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "alternateLabels": {
+          "movil": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9*"],
+          "fijo": [".", "0", "1", "2", "3", "4", "5", "6", "7", "8~9*"]
+        }
+      },
+      "diceRowSchemeRule": {
+        "description": "Qué lectura de fila (tirada d10, 'movil'/'fijo' de rowAxis.alternateLabels) usar, según el tipo de objetivo.",
+        "cases": [
+          { "condition": "Objetivo = Instalación Fija", "scheme": "fijo" },
+          { "condition": "Objetivo = Unidad Móvil (Unidades Principales o Unidades Técnicas Móviles)", "scheme": "movil" }
+        ],
+        "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "5.13.6 Resolución de Ataque Terrestre No Guiado", "pages": "79-80" }],
+        "status": "resolved"
+      },
+      "columnAxis": {
+        "label": "Valor de Ataque final (columnas 1-16), etiquetado canónico = esquema 'Persecución (objetivo)'",
+        "values": [".", "1", ".", "2", "3~5", "6~8", "9~10", "11~15", "16~20", "21~25", "26~30", "31~35", "36~40", "41~50", "51~65", "66+"],
+        "alternateLabelSets": {
+          "normal_ataque": ["3~5", "6~8", "9~11", "12~16", "17~20", "21~30", "31~40", "41~50", "51~65", "66+", ".", ".", ".", ".", ".", "."],
+          "persecucion_ataque": ["1~2", "3~4", "5~6", "7~8", "9~10", "11~15", "16~20", "21~25", "26~35", "36~45", "46~55", "56~65", "66+", null, null, null]
+        },
+        "note": "Verificado a 600 DPI (2026-09-25): mismo patrón que page-05.json (tabla ground-precision-attack-damage), Resuelto (2026-10-05): la fila 'Normal' no está en blanco, comparte la celda de etiquetas de '[L] Persecución' (ver attackRowGroupSchemeRule.sharedLabelCell); los 3 arrays de etiquetas (normal_ataque, persecucion_ataque y los `values` canónicos) sirven a las 4 combinaciones de método."
+      },
+      "attackRowGroupSchemeRule": {
+        "description": "Qué fila de etiquetas de columna (Valor de Ataque) usar según el método de ataque. 4 combinaciones: tipo de ataque (Ligero [L] / no ligero) × tipo de munición (Normal / Persecución, la munición con el icono junto a \"Persecución\"). Misma estructura que la página 5.",
+        "cases": [
+          {
+            "condition": "Plan Ligero [L] y munición Normal (fila oscura \"[L] Normal\")",
+            "scheme": "normal_ataque"
+          },
+          {
+            "condition": "Plan Ligero [L] y munición Persecución (fila oscura \"[L] Persecución\")",
+            "scheme": "persecucion_ataque"
+          },
+          {
+            "condition": "Plan no ligero y munición Normal (fila blanca \"Normal\", que comparte la celda de etiquetas con \"[L] Persecución\")",
+            "scheme": "persecucion_ataque"
+          },
+          {
+            "condition": "Plan no ligero y munición Persecución (fila blanca \"Persecución\")",
+            "scheme": null,
+            "note": "Etiquetas canónicas: `columnAxis.values`."
+          }
+        ],
+        "sharedLabelCell": "En la página impresa la fila de etiquetas \"1~2, 3~4, 5~6…\" es una única celda vertical que abarca las filas \"[L] Persecución\" y \"Normal\" (las etiquetas están centradas en la frontera entre ambas); por eso \"Normal\" no tiene números propios. Es la misma estructura que la página 5 (ver known-ambiguities.md).",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "5.13.6 Resolución de Ataque Terrestre No Guiado",
+            "pages": "80-81"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "section": "4) Ataque no guiado contra objetivos terrestres",
+            "pages": "9"
+          }
+        ],
+        "status": "resolved",
+        "resolvedBy": "Confirmado por el mantenedor el 2026-10-05 (la página 9 tiene la misma estructura que la 5). Sustituye al estado anterior, en el que \"Normal\" se creía en blanco y el esquema canónico sin condición de activación."
+      },
+      "cellLegend": { ".": "Sin impactos" },
+      "cells": [
+        [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+        [".", ".", ".", ".", "1", "2", "2", "3", "3", "5", "6", "7", "8", "10", "12", "14"],
+        [".", ".", ".", "1", "1", "2", "3", "3", "4", "5", "7", "8", "9", "11", "14", "16"],
+        [".", ".", ".", "1", "1", "3", "3", "4", "5", "7", "8", "9", "10", "14", "16", "18"],
+        [".", ".", "1", "1", "1", "3", "3", "4", "6", "8", "10", "12", "13", "16", "20", "24"],
+        [".", ".", "1", "2", "2", "3", "4", "6", "6", "8", "10", "13", "14", "18", "22", "26"],
+        [".", "1", "1", "2", "2", "3", "4", "7", "7", "10", "12", "15", "17", "20", "24", "30"],
+        [".", "1", "1", "2", "3", "4", "5", "7", "9", "11", "14", "17", "19", "22", "28", "34"],
+        ["1", "2", "2", "3", "3", "5", "6", "8", "10", "14", "16", "19", "21", "28", "32", "38"],
+        ["1", "3", "3", "4", "5", "7", "9", "11", "13", "17", "20", "24", "25", "34", "40", "48"]
+      ],
+      "notes": ["16 columnas x 10 filas reverificadas a 600 DPI (2026-09-25), sin discrepancias respecto a la transcripción original."],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 9, "section": "4) Ataque no guiado contra objetivos terrestres", "verifiedAtDpi": 600 }]
+    }
+  ]
+}

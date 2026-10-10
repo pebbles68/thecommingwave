@@ -1,0 +1,142 @@
+{
+  "id": "golden-antiship-guided",
+  "title": "Golden test: Ataque Guiado contra Superficie (vertical slice, roadmap Fase 7)",
+  "sourceRefs": [
+    { "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "pages": "1-8", "description": "Ejemplo oficial completo, transcrito íntegro el 2026-09-24 (8 páginas, rasterizadas a 300 DPI para el texto y las tablas, con recortes puntuales para leer los counters)." }
+  ],
+  "description": "Transcripción estructurada del único ejemplo paso a paso oficial de un ataque guiado contra unidades de superficie. Sirve de golden test para public/js/combat-wizard-engine.js: cada 'step' de abajo declara el valor esperado y, cuando aplica, si coincide con la mecánica ya modelada en data/workflows/07_ataque_antibuque_guiado.json o si reveló una discrepancia (ver 'matchesWorkflow' y 'note'). Todas las tiradas de dados de la hoja son deliberadamente fijas para el ejemplo (\"de cara al ejemplo, siempre tomaremos un resultado de 4 en las tiradas\", salvo donde se indica explícitamente un valor distinto), no aleatorias.",
+
+  "setup": {
+    "attacker": {
+      "unit": "Escuadrón F-2A/B (Japón), aeródromo Chitose (JP:14)",
+      "attackPlan": "Perfil B — Tipo 93 (munición guiada subsónica), carga ligera 4 / carga pesada 6, alcance 3",
+      "attackValueUsed": 6,
+      "attackValueNote": "Se dispara con la carga pesada (6 puntos), no la ligera (4).",
+      "attackerLoadLabelCaveat": "El texto de esta hoja de ayuda (transcrito literalmente arriba, sin corregir) llama 'carga pesada' al valor 6 y 'carga ligera' al 4 para este mismo plan. La Leyenda oficial de 'Tablas de municiones.pdf' (recuadro 'Plan de ataque') dice lo contrario: en el formato impreso 'X/Y', el PRIMER número es la carga pesada y el SEGUNDO la ligera — para el '4/6' de este plan, eso da pesada=4/ligera=6. Resuelto en docs/rules/known-ambiguities.md (2026-09-27): se mantiene la Leyenda como fuente de notación/formato (mismo precedente que el caso F-15E), consistente con data/ammunition/attack-plans/jp.json (heavy:4, light:6) y con public/js/app.js#formatPlanValue. El valor realmente disparado (6) no cambia bajo ninguna interpretación — la propia hoja lo confirma más adelante ('Disparando con \"6\" puntos de ataque'); solo difiere qué etiqueta (pesada/ligera) se le da.",
+      "method": "subsonic",
+      "attackDistanceBucket": "0_2",
+      "attackDistanceNote": "La hoja no fija la distancia exacta en hexágonos, pero confirma explícitamente en el paso 3 que 'al realizar el ataque desde tan cerca, la Flota no recibe ninguna ventaja [por distancia]' — banda 0-2 del workflow (+0 al V.E.F.). El propio documento señala en nota al pie que el movimiento realizado NO es el óptimo (que habría sido atacar desde 2 hex., fuera del alcance antiaéreo ruso de 1 hex.), a propósito para poder ejemplificar todos los pasos.",
+      "protection": 4,
+      "protectionSourceNote": "Factor 'Protección' (bottom-center, plantilla aircraft-combat-tactical de data/counters/factor-map.json) leído del counter F-2A/B en la página 1 de la hoja."
+    },
+    "targetFleet": {
+      "name": "Ft.1 (HIGH, velocidad ≥2)",
+      "ships": [
+        { "id": "BS-1155", "name": "Panteleev", "aa": 4, "electronic": 2, "note": "Sin capacidad antiaérea según el texto de la hoja pese al valor de A.A. impreso; no participa en ningún disparo antiaéreo de este ejemplo." },
+        { "id": "BS-20381", "name": "Rezkiy", "aa": 2, "electronic": 3, "protection": 2 },
+        { "id": "BS-1164", "name": "Variag", "aa": 4, "electronic": 3, "protection": 3 }
+      ],
+      "highestElectronic": 3,
+      "groupedAaForAircraftFire": 6,
+      "groupedAaNote": "BS-20381 (A.A.=2) + BS-1164 (A.A.=4) = 6; BS-1155 no aporta por carecer de capacidad antiaérea."
+    },
+    "diceConvention": "Todas las tiradas de la hoja se fijan en '4' salvo donde se indica lo contrario (paso 4: 2d10 = 4 y 6)."
+  },
+
+  "steps": [
+    {
+      "id": "step1_area_air_defense_reaction",
+      "title": "1. Disparo en Área (disparo de la Flota contra el avión atacante)",
+      "sourceRefs": [{ "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "pages": "3-4" }],
+      "inputs": { "groupedAa": 6, "roll": 4, "ammoConsumption": "high" },
+      "table": "data/tables/page-18.json#area-air-defense-concentrated-damage",
+      "expected": { "damagePoints": 3, "comparedTo": "Protección del atacante (4)", "result": "sin daño (3 < 4)" },
+      "matchesWorkflow": false,
+      "automatedInWizard": true,
+      "note": "Esta etapa NO es la etapa 'area_air_defense' de data/workflows/07_ataque_antibuque_guiado.json (que reduce el Valor de Ataque de la munición, tabla page-03/19). Es el workflow independiente 'area_air_defense' (data/workflows/06_defensa_aerea_area.json, tabla page-18.json), un disparo contra el propio avión atacante que ocurre antes y fuera de la secuencia de ataque antibuque. Implementado (2026-09-25) como paso 1/6 del wizard (renderWizardStepAreaAirDefense), verificado con estos mismos valores tanto en test/golden-antiship-guided.test.js como manualmente en el navegador. Ver docs/rules/known-ambiguities.md."
+    },
+    {
+      "id": "step2_munition_interception",
+      "title": "2. Interceptación de Munición (reduce el Valor de Ataque de la munición)",
+      "sourceRefs": [{ "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "pages": "5-6" }],
+      "workflowStage": "munition_interception",
+      "sharedModifiers": { "interceptionPerformance": "low", "detectionState": "attacker", "modifierTotal": -2 },
+      "shots": [
+        { "ship": "BS-20381", "aa": 2, "roll": 4, "modifiedRoll": 2, "reduction": -1 },
+        { "ship": "BS-1164", "aa": 4, "roll": 4, "modifiedRoll": 2, "reduction": -2 }
+      ],
+      "table": "data/tables/page-04.json#munition-interception-standard",
+      "expected": { "totalReduction": -3, "attackValueAfterStep": 3 },
+      "matchesWorkflow": true,
+      "note": "Coincide con la etapa 'munition_interception' del workflow, pero solo tras corregir el significado del eje de fila de la tabla (ver data/tables/page-04.json#tables[0].rowAxis.correctedLabel): la fila es la tirada de cada interceptor ya modificada por rendimiento/detección, no un 'Valor del marcador de munición'; la columna es el A.A. propio de cada buque, no el valor agrupado de la flota (ese agrupado solo se usa en el paso 1, contra el avión)."
+    },
+    {
+      "id": "step3_fleet_electronic_resistance",
+      "title": "3. Defensa Electrónica de la Flota (V.E.F. -> multiplicador de ataque)",
+      "sourceRefs": [{ "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "page": 6 }],
+      "workflowStage": "fleet_electronic_resistance",
+      "inputs": { "highestFleetElectronic": 3, "attackDistanceModifier": 0, "detectionModifier": 0, "rawVef": 3 },
+      "vefModifierTable": "data/tables/page-21.json#antiship-guided-vef-modifier",
+      "vefModifierLookup": { "rowBucket": "1~8", "cell": "-V.E.F.", "rollModifier": -3 },
+      "vefRoll": { "dice": "1d10 (siempre, no depende del método de ataque)", "roll": 4, "modifiedRoll": 1 },
+      "attackMultiplierTable": "data/tables/page-21.json#antiship-guided-attack-multiplier",
+      "attackMultiplierLookup": { "rowBucket": "1~4", "cell": "x2", "multiplier": 2 },
+      "matchesWorkflow": true,
+      "note": "CORRECCIÓN respecto a la primera versión del wizard (commit e8faf83): la tabla 'Mod. V.E.F.' no ajusta el V.E.F. mismo, ajusta la TIRADA que hace el atacante en esta etapa. Esa tirada modificada es la que se cruza con la tabla de multiplicador, cuyo eje de fila dice 'V.E.F. final (tras Mod. V.E.F.)' pero en la práctica es la tirada modificada. public/js/combat-wizard-engine.js#resolveVefRollModifier/resolveAttackMultiplier ya implementan esto correctamente."
+    },
+    {
+      "id": "step4_impact_calculation",
+      "title": "4. Cálculo del número de impactos a la Flota",
+      "sourceRefs": [{ "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "page": 7 }],
+      "workflowStage": "attack_method",
+      "inputs": {
+        "method": "subsonic",
+        "diceFormula": "roll_2d10_take_highest",
+        "rolls": [4, 6],
+        "finalRoll": 6,
+        "attackValueAfterDefenses": 3,
+        "multiplier": 2,
+        "finalAttackValue": 6
+      },
+      "finalTable": "data/tables/page-22.json#antiship-guided-final-damage",
+      "rowScheme": "sub_sup",
+      "rowSchemeNote": "El eje de fila de esta tabla tiene doble lectura ('par_ec' vs 'sub_sup'); un ataque subsónico usa la lectura 'sub_sup'. No verificado directamente contra un ataque balístico/espacio cercano ('par_ec'), esa asociación es por analogía de nombre — ver known-ambiguities.md.",
+      "expected": { "impacts": 3 },
+      "matchesWorkflow": true
+    },
+    {
+      "id": "step5_impact_assignment",
+      "title": "5. ¿A qué unidad de superficie de la Flota impacta el ataque japonés?",
+      "sourceRefs": [{ "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "pages": "7-8" }],
+      "inputs": {
+        "impacts": 3,
+        "assignmentRoll": 4,
+        "fleet": [
+          { "id": "BS-1155", "protection": 5, "note": "Protección real desconocida en la hoja; no participa en esta resolución. Se usa un valor alto arbitrario en el golden test para no interferir." },
+          { "id": "BS-20381", "protection": 2, "sinkingThreshold": 4 },
+          { "id": "BS-1164", "protection": 3 }
+        ],
+        "sinkingRoll": 4
+      },
+      "expected": {
+        "targetShip": "BS-20381",
+        "targetIndex": 1,
+        "protectionAbsorbed": 2,
+        "shipStatus": "dañada",
+        "sinkingCheckRoll": 4,
+        "sinkingThreshold": 4,
+        "sinkingResult": "se hunde y se retira de la hoja de flota",
+        "remainingImpacts": 1,
+        "remainingImpactsOutcome": "insuficiente para dañar a BS-1155 (protección desconocida) o BS-1164 (protección 3); se desprecia"
+      },
+      "automatedInWizard": true,
+      "note": "Implementado (2026-09-25) en public/js/combat-wizard-engine.js#assignImpactTarget/applyImpactsToShip/checkSinking y en el wizard (sección 'Asignación de impactos y daño' del paso Resultado). La asignación de objetivo sigue la convención impresa en la hoja de flota del tablero ('0-9 de izquierda a derecha, reiniciando el conteo si se supera el número de buques'): tirada 4 sobre 3 buques -> 4 % 3 = 1 -> BS-20381 (segundo de la lista), coincidiendo exactamente. Verificado con estos mismos valores en test/golden-antiship-guided.test.js y manualmente en el navegador."
+    },
+    {
+      "id": "step6_return",
+      "title": "6. Regreso",
+      "sourceRefs": [{ "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf", "page": 8 }],
+      "note": "El escuadrón japonés vuelve a un aeródromo propio y queda expuesto de nuevo a fuego antiaéreo (misión distinta a la principal); en este ejemplo el único buque superviviente con capacidad antiaérea (BS-1164) ya agotó su munición, así que no dispara. Fuera del alcance de este wizard (no modelado)."
+    }
+  ],
+
+  "expectedFinalResult": {
+    "impacts": 3,
+    "shipSunk": "BS-20381"
+  },
+
+  "verification": {
+    "engineTest": "test/golden-antiship-guided.test.js",
+    "note": "El test carga este archivo y reproduce los pasos 1-4 llamando directamente a public/js/combat-wizard-engine.js y public/js/table-engine.js, comprobando que cada valor intermedio y el resultado final ('3' impactos) coinciden exactamente con lo transcrito arriba."
+  }
+}

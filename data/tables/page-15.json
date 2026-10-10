@@ -1,0 +1,62 @@
+{
+  "page": 15,
+  "title": "Combate Aéreo - Interceptación (Penetración / BVR)",
+  "workflowRefs": ["air_combat"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 15 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "Definiciones generales",
+      "rows": [
+        { "condition": "Unidades sigilosas", "effect": "Características de detección: Firma Aérea de 1." },
+        { "condition": "Duelo: unidades sigilosas", "effect": "Combate aéreo entre una unidad sigilosa y otra unidad sigilosa." },
+        { "condition": "Duelo: Patrullas Aéreas", "effect": "Combate aéreo entre una patrulla aérea y una unidad de patrulla aérea." },
+        { "condition": "Patrulla Aérea", "effect": "Después de recibir una vez daño, se retira temporalmente del combate y no recibe más daño." }
+      ]
+    },
+    {
+      "topic": "1) Penetración / Combate aéreo: más allá del alcance Visual (BVR)",
+      "intro": "Las unidades se enfrentan de una en una. Diferencia de Iniciativa = Valor de Iniciativa más alta - Valor de Iniciativa más baja.",
+      "rows": [
+        { "condition": "AWACS detecta al objetivo", "effect": "Iniciativa +1" },
+        { "condition": "El bando con el valor de iniciativa más alto", "effect": "Bando con ventaja" },
+        { "condition": "Cuando los valores de Iniciativa son iguales", "effect": "La diferencia es 0" }
+      ]
+    },
+    {
+      "topic": "Resultado del combate — Explicación",
+      "rows": [
+        { "condition": "Sin combate BVR", "effect": "Ninguno de los bandos ataca en BVR" },
+        { "condition": "Combate BVR simultáneo", "effect": "Ambos bandos atacan simultáneamente" },
+        { "condition": "Combate con ventaja BVR", "effect": "El bando con ventaja ataca unilateralmente / se retira activamente" },
+        { "condition": "Penetración exitosa", "effect": "Cuando el bando con ventaja penetra, la interceptación falla" },
+        { "condition": "Penetración sigilosa", "effect": "Una unidad sigilosa* obtiene 'Penetración Exitosa'" }
+      ],
+      "note": "*Unidad aérea con una firma aérea de 1, y los LF-CM."
+    }
+  ],
+
+  "tables": [
+    {
+      "id": "air-combat-initiative-drm",
+      "title": "Diferencia de Iniciativa — DRM",
+      "rowAxis": { "label": "Diferencia de Iniciativa", "values": ["1", "2", "3~4", "5~7", "8+"] },
+      "columnAxis": { "label": "DRM", "values": ["DRM"] },
+      "cells": [["+3"], ["+5"], ["+6"], ["+7"], ["+8"]],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 15, "section": "Dif. IN. / DRM", "verifiedAtDpi": 300 }]
+    },
+    {
+      "id": "air-combat-bvr-outcome",
+      "title": "Resultado según el total (1d10 + DRM de Iniciativa) — Interceptación de Penetración / Combate Aéreo",
+      "rowAxis": { "label": "Total (1d10 + DRM de la Diferencia de Iniciativa)", "values": ["0~5", "6~9", "10+"], "labelCorrection": "La etiqueta impresa de esta columna de la hoja es 'Diferencia de Iniciativa', pero el Decision Book §7.16.2 punto 4 dice 'suma el resultado del dado (1d10) y el modificador. El total determina el tipo de combate BVR': las filas 0~5 / 6~9 / 10+ son el TOTAL (tirada + DRM), no la diferencia (la diferencia entra solo por la tabla de DRM). Con 8+ de diferencia y +8 el total puede llegar a 17." },
+      "columnAxis": { "label": "Contexto", "values": ["Interceptación de Penetración", "(Interceptación de) Combate Aéreo"] },
+      "cells": [
+        ["Sin combate BVR", "Sin combate BVR"],
+        ["Penetración sigilosa / BVR simultánea", "Combate BVR simultáneo"],
+        ["Penetración exitosa / Interceptación con ventaja BVR", "Combate con ventaja BVR"]
+      ],
+      "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 15, "section": "1) Penetración / Combate aéreo BVR", "verifiedAtDpi": 300 }]
+    }
+  ]
+}

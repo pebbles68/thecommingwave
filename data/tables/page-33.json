@@ -1,0 +1,436 @@
+{
+  "page": 33,
+  "title": "Búsqueda por Diferencia de Firma y Rango de Detección",
+  "workflowRefs": [
+    "asw_search_support"
+  ],
+  "sourceRefs": [
+    {
+      "document": "Tablas-de-combate 5.pdf",
+      "page": 33
+    }
+  ],
+  "transcriptionPass": "verified-600dpi-2026-09-25",
+  "transcriptionStatus": "verified",
+  "ruleStatus": "needs_review",
+  "blockingIssues": ["Si cada icono de la tabla representa a la vez el marco cerrado y el abierto de su forma.","Redacción discrepante entre §9.15.3 (Tipo de Firma del objetivo) y §9.15.1 (marco del buscador).","Modificadores de Firma de la página 28 sin equivalente en §9.15.3/§9.15.4."],
+  "needsReview": true,
+  "referenceNotes": [
+    {
+      "topic": "Búsqueda por Diferencia de Firma",
+      "note": "Página en formato apaisado (landscape) con una tabla muy ancha (22 columnas agrupadas: Unidades Submarinas, 3 tipos de Unidades de Superficie identificados solo por icono de silueta -forma del marco del Valor ASW, ver surfaceFrames-, y Rango de Detección). Las notas al pie definen P.4=Aguas profundas, P.3=Aguas semi-profundas, P.2=Aguas poco profundas. Coincide con search_type='signature' de data/workflows/13_busqueda_asw_apoyo.json.",
+      "rows": [
+        {
+          "condition": "P. 4",
+          "effect": "Aguas profundas."
+        },
+        {
+          "condition": "P. 3",
+          "effect": "Aguas semi-profundas."
+        },
+        {
+          "condition": "P. 2",
+          "effect": "Aguas poco profundas."
+        }
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "id": "asw-signature-difference-search",
+      "title": "Búsqueda por Diferencia de Firma — umbral de detección según tipo de plataforma y profundidad",
+      "needsReview": true,
+      "rowAxis": {
+        "label": "Fila de la tabla (sin etiqueta impresa): se elige buscando el Valor de Firma del objetivo en la columna del buscador (Decision Book §9.15.3 Pasos 3-4)",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ]
+      },
+      "columnAxis": {
+        "label": "Grupos de columna (22 en total)",
+        "values": [
+          "sub-8+",
+          "sub-7",
+          "sub-6",
+          "sub-5",
+          "sub-4",
+          "sub-3",
+          "sub-2",
+          "sub-1",
+          "sub-0",
+          "sup1-p4",
+          "sup1-p3",
+          "sup1-p2",
+          "sup2-p4",
+          "sup2-p3",
+          "sup2-p2",
+          "sup3-p4",
+          "sup3-p3",
+          "sup3-p2",
+          "rango1-hex",
+          "rango1-adyac",
+          "rango2-hex",
+          "rango2-adyac"
+        ],
+        "groups": [
+          {
+            "label": "Unidades Submarinas (valor de Firma del submarino)",
+            "values": [
+              "8+",
+              "7",
+              "6",
+              "5",
+              "4",
+              "3",
+              "2",
+              "1",
+              "0"
+            ]
+          },
+          {
+            "label": "Unidades de superficie — marco 1 del Valor ASW (hexagonal)",
+            "values": [
+              "P.4",
+              "P.3",
+              "P.2"
+            ]
+          },
+          {
+            "label": "Unidades de superficie — marco 2 del Valor ASW (rectangular / cuadrado)",
+            "values": [
+              "P.4",
+              "P.3",
+              "P.2"
+            ]
+          },
+          {
+            "label": "Unidades de superficie — marco 3 del Valor ASW (rombo)",
+            "values": [
+              "P.4",
+              "P.3",
+              "P.2"
+            ]
+          },
+          {
+            "label": "Rango de Detección — Rutina/Movimiento/Emboscada",
+            "values": [
+              "HEX",
+              "ADYAC"
+            ]
+          },
+          {
+            "label": "Rango de Detección — Después del ataque/Antes de evadir",
+            "values": [
+              "HEX",
+              "ADYAC"
+            ]
+          }
+        ],
+        "note": "Los 3 grupos de unidades de superficie corresponden a la forma del marco del Valor ASW de la ficha (Decision Book §9.15.1); ver `surfaceFrames` de esta página. Cada fila es un nivel de la tabla: el Valor de Firma del objetivo se busca en la columna del buscador y el rango de descubrimiento se lee a la derecha en esa misma fila (§9.15.3 Paso 4)."
+      },
+      "cellLegend": {
+        ".": "Sin posibilidad de detección en esa combinación"
+      },
+      "cells": [
+        [
+          "0~6",
+          "0~5",
+          "0~4",
+          "0~3",
+          "0~1",
+          ".",
+          ".",
+          ".",
+          ".",
+          "0~1",
+          "0",
+          ".",
+          "0",
+          ".",
+          ".",
+          "0~5",
+          "0~4",
+          "0~3",
+          ".",
+          ".",
+          "9",
+          "."
+        ],
+        [
+          "7",
+          "6",
+          "5",
+          "4",
+          "2",
+          "0",
+          ".",
+          ".",
+          ".",
+          "2",
+          "1",
+          "0",
+          "1",
+          "0",
+          ".",
+          "6",
+          "5",
+          "4",
+          ".",
+          ".",
+          "8+",
+          "."
+        ],
+        [
+          "8",
+          "7",
+          "6",
+          "5",
+          "3",
+          "1",
+          "0",
+          ".",
+          ".",
+          "3",
+          "2",
+          "1",
+          "2",
+          "1",
+          "0",
+          "7",
+          "6",
+          "5",
+          ".",
+          ".",
+          "8+",
+          "."
+        ],
+        [
+          "9+",
+          "8",
+          "7",
+          "6",
+          "4",
+          "2",
+          "1",
+          "0",
+          ".",
+          "4",
+          "3",
+          "2",
+          "3",
+          "2",
+          "1",
+          "8",
+          "7",
+          "6",
+          ".",
+          ".",
+          "6+",
+          "."
+        ],
+        [
+          ".",
+          "9+",
+          "8",
+          "7",
+          "5",
+          "3",
+          "2",
+          "1",
+          "0",
+          "5",
+          "4",
+          "3",
+          "4",
+          "3",
+          "2",
+          "9+",
+          "8",
+          "7",
+          "9",
+          ".",
+          "5+",
+          "."
+        ],
+        [
+          ".",
+          ".",
+          "9+",
+          "8",
+          "6",
+          "4",
+          "3",
+          "2",
+          "1",
+          "6",
+          "5",
+          "4",
+          "5",
+          "4",
+          "3",
+          ".",
+          "9+",
+          "8",
+          "8+",
+          ".",
+          "3+",
+          "."
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          "9+",
+          "7",
+          "5",
+          "4",
+          "3",
+          "2",
+          "7",
+          "6",
+          "5",
+          "6",
+          "5",
+          "4",
+          ".",
+          ".",
+          "9+",
+          "5+",
+          ".",
+          "1+",
+          "6+"
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          ".",
+          "8",
+          "6",
+          "5",
+          "4",
+          "3",
+          "8",
+          "7",
+          "6",
+          "7",
+          "6",
+          "5",
+          ".",
+          ".",
+          ".",
+          "5+",
+          "9",
+          "1+",
+          "5+"
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          ".",
+          "9+",
+          "7",
+          "6",
+          "5",
+          "4",
+          "9+",
+          "8",
+          "7",
+          "8",
+          "7",
+          "6",
+          ".",
+          ".",
+          ".",
+          "5+",
+          "8+",
+          "1+",
+          "3+"
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "8+",
+          "7+",
+          "6+",
+          "5+",
+          ".",
+          "9+",
+          "8+",
+          "9+",
+          "8+",
+          "7+",
+          ".",
+          ".",
+          ".",
+          "5+",
+          "5+",
+          "1+",
+          "1+"
+        ]
+      ],
+      "notes": [
+        "Datos reverificados a 600 DPI (2026-09-25) y de forma independiente con pdftotext -layout: las 10 filas x 22 columnas coinciden exactamente con la transcripción original, sin errores.",
+        "Hallazgo: la celda [fila índice 9, columna 'sub-4'] está genuinamente en blanco en el original (ni '.' ni número impreso), a diferencia de las demás celdas 'sin detección' que sí llevan un '.' explícito. Se mantiene transcrita como '.' (mismo significado funcional, coherente con el patrón diagonal de la tabla) pero se documenta la diferencia en vez de asumir que es idéntica a una celda con '.' impreso.",
+        "Resuelto parcialmente (2026-10-05, ver surfaceFramesNote): los 3 tipos de unidad de superficie son formas de marco del Valor ASW; la fila se elige buscando la Firma del objetivo en la columna del buscador (§9.15.3). Sigue abierto qué clase de buque lleva cada marco (ninguna fuente aportada lo dice)."
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "page": 33,
+          "section": "Búsqueda por Diferencia de Firma / Rango de Detección",
+          "verifiedAtDpi": 600
+        }
+      ]
+    }
+  ],
+  "surfaceFrames": [
+    {
+      "id": "1",
+      "label": "Marco hexagonal",
+      "image": "page-33-icons/frame-1.png",
+      "columns": [
+        "sup1-p4",
+        "sup1-p3",
+        "sup1-p2"
+      ],
+      "description": "Icono 1 de la cabecera \"Unidades de superficie\" (hexágono cerrado + hexágono abierto)."
+    },
+    {
+      "id": "2",
+      "label": "Marco rectangular / cuadrado",
+      "image": "page-33-icons/frame-2.png",
+      "columns": [
+        "sup2-p4",
+        "sup2-p3",
+        "sup2-p2"
+      ],
+      "description": "Icono 2 (rectángulo cerrado + rectángulo abierto)."
+    },
+    {
+      "id": "3",
+      "label": "Marco en rombo",
+      "image": "page-33-icons/frame-3.png",
+      "columns": [
+        "sup3-p4",
+        "sup3-p3",
+        "sup3-p2"
+      ],
+      "description": "Icono 3 (rombo cerrado + rombo abierto)."
+    }
+  ],
+  "surfaceFramesNote": "Identificación (2026-10-05): los 3 iconos de la cabecera \"Unidades de superficie\" son las formas del marco que rodea el Valor ASW en las fichas de superficie. Decision Book §9.15.1 (p. 215): \"Estas unidades tienen su Valor ASW encerrado en un marco. Diferentes tipos de unidades tienen marcos de forma diferente, lo que significa que usan columnas diferentes en la tabla de búsqueda ASW\" y, si el marco es cerrado (ej.: cuadrado sólido), la unidad solo puede buscar en su propia casilla y no puede hacer Búsqueda Aérea ASW. Ninguna fuente aportada dice qué clase de buque lleva cada marco ni confirma que el icono represente a la vez el marco cerrado y el abierto de cada forma: el jugador elige la forma que ve en su ficha. Las imágenes son recortes de la página 33 (apoyo visual, no fuente de cálculo)."
+}

@@ -1,0 +1,94 @@
+{
+  "id": "decision-book-excerpts",
+  "title": "Reglas y extractos",
+  "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf" }],
+  "note": "El Decision Book tiene 260 páginas; transcribirlo entero no es el alcance de este incremento. Esta categoría consolida en un solo sitio los extractos que YA se habían verificado y citado en otras partes del proyecto (docs/rules/known-ambiguities.md y los `specialRules` de data/workflows/) — no se ha leído ni transcrito ninguna sección nueva del libro para construir esta pantalla. Ver `pendingSections` para lo que sigue sin tocar.",
+  "pendingSections": "Capítulos 1-6 completos (cap. 6 §6.1-6.10 íntegro desde 2026-09-27, ver 'defensa-antiaerea' abajo); cap. 8 (salvo 8.4, auditado no transcrito), cap. 9 (salvo 9.1.1-9.1.3/9.12/9.16/9.19, ver abajo), 10-14+ (detección, combate terrestre detallado, logística, escenarios). Ver data/sources/sources.json#decision-book.pendingSections.",
+
+  "verifiedExcerpts": [
+    {
+      "id": "emboscada-submarina",
+      "title": "Emboscada (submarinos)",
+      "sections": "§9.16, §9.16.1 Zona de Emboscada, §9.16.2 Resolución de la Emboscada",
+      "pages": "219-220",
+      "points": [
+        "Es una acción de reacción durante la Fase de Acciones de Superficie; no consume el límite de ataques de la unidad submarina, pero cada submarino solo puede emboscar una vez por esa fase.",
+        "Solo los submarinos en estado Oculto pueden iniciar una Emboscada.",
+        "Zona de Emboscada: convencional = 0 casillas (solo la propia); nuclear = 1 casilla (propia + adyacentes).",
+        "Se puede iniciar cuando una formación de superficie entra, sale o se mueve dentro de esa Zona de Emboscada. La iniciación siempre tiene éxito (aunque sin munición no puede atacar).",
+        "El objetivo puede realizar una Búsqueda ASW inmediatamente antes de la resolución del ataque, y otra 'Después del Ataque' al concluir."
+      ],
+      "relatedWorkflow": { "id": "torpedo_vs_surface", "file": "09_ataque_torpedos_superficie.json" },
+      "relatedAmbiguity": "docs/rules/known-ambiguities.md#aplicabilidad-del-atributo-emboscada-de-los-submarinos"
+    },
+    {
+      "id": "movimiento-submarino",
+      "title": "Movimiento de Unidades Submarinas (elegibilidad de Emboscada)",
+      "sections": "§9.12",
+      "pages": "208",
+      "points": [
+        "Al moverse, la ficha del submarino gira a su lado 'En Movimiento' (Firma +1) y no vuelve a girarse a 'Acechando' hasta el inicio del siguiente Segmento de Acciones Submarinas."
+      ],
+      "quotes": ["una unidad submarina que se ha movido no podrá realizar una emboscada en el siguiente Segmento de Acciones de Superficie"],
+      "note": "Esta condición de elegibilidad NO aparece como pregunta en el workflow 09 (data/sources/tcw_attack_workflows/09_ataque_torpedos_superficie.xml, que viene de Tablas de combate página 27, no del Decision Book) — es una laguna real del workflow de origen, pendiente de añadir como pregunta cuando se construya un wizard para este ataque.",
+      "relatedWorkflow": { "id": "torpedo_vs_surface", "file": "09_ataque_torpedos_superficie.json" }
+    },
+    {
+      "id": "senuelos",
+      "title": "Señuelos (Falsos Objetivos)",
+      "sections": "§9.19",
+      "pages": "222",
+      "optionalRule": true,
+      "points": [
+        "Regla opcional (no activa en el juego básico).",
+        "Un señuelo submarino puede declarar e iniciar una Emboscada, para mantener el engaño.",
+        "Se retira del juego en cuanto comparte casilla con la formación objetivo enemiga, o cuando es expuesto por una Búsqueda ASW enemiga (dos condiciones distintas, no una sola)."
+      ],
+      "relatedWorkflow": { "id": "torpedo_vs_surface", "file": "09_ataque_torpedos_superficie.json" }
+    },
+    {
+      "id": "ataques-reaccion-puntos-mando",
+      "title": "Ataques de Reacción — coste en Puntos de Mando (unidades aéreas)",
+      "sections": "§5.16",
+      "auditedOnly": true,
+      "points": [
+        "Las unidades aéreas/de baja altitud que ya pagaron Puntos de Mando al despegar NO gastan Puntos de Mando adicionales al ejecutar un ataque de reacción."
+      ],
+      "quotes": ["las unidades aéreas/de baja altitud ya pagaron puntos de mando cuando despegaron, por lo tanto ejecutar un ataque de reacción no requiere gastar puntos de mando adicionales"],
+      "note": "Auditado solo para confirmar el patrón de reacciones aéreas de data/missions/air-missions.json; no se ha transcrito §5.16 completo. No confirmado si el mismo principio (sin coste adicional) aplica a reacciones de otros dominios (terrestre, naval, submarino) — no asumir sin verificar."
+    },
+    {
+      "id": "defensa-antiaerea",
+      "title": "Defensa Antiaérea — unidades, munición y los 4 tipos de disparo",
+      "sections": "§6.1 Unidades Antiaéreas, §6.1.1-6.1.3 Rendimiento, §6.2 Disparo Antiaéreo, §6.2.1 Munición, §6.3 Defensa Aérea de Área, §6.4 Interceptación Final, §6.5 Interceptación de Munición, §6.5.1-6.5.4, §6.6 Contraataque a Baja Altura, §6.6.1-6.6.2, §6.7 Ataque de Reacción Contrafuego, §6.8 Interceptación de Misiles de Crucero por Unidades Aéreas, §6.9 Interceptación de Misiles Balísticos, §6.9.1-6.9.2, §6.10 Ventana de Disparo (opcional)",
+      "pages": "93-107",
+      "points": [
+        "Existen 4 tipos de disparo antiaéreo: Defensa Aérea de Área, Interceptación Final, Interceptación de Munición y Contraataque a Baja Altura. Una unidad con valor antiaéreo pero SIN alcance antiaéreo (o alcance '-') solo puede realizar Interceptación Final y Contraataque a Baja Altura — no Defensa de Área ni Interceptación de Munición.",
+        "Rendimiento: las unidades de rendimiento Bajo NO pueden interceptar ataques balísticos; algunas de rendimiento Medio y Alto sí pueden. Bajo/Medio sufren modificadores desfavorables al disparar (confirmado exacto en §6.5.3 con los valores ya transcritos en los workflows: Bajo -2, Medio -1).",
+        "Munición antiaérea: cada unidad antiaérea tiene 4 puntos. Consumo Bajo gasta 1 punto (marcador '-1'); Alto gasta 2 (marcador '-2'). Las unidades de superficie no colocan marcador, solo lo anotan en su Ficha de Flota. Se repone al inicio de Planificación de Misiones (terrestres con apoyo logístico) o regresando a puerto (superficie).",
+        "Defensa Aérea de Área (§6.3): contra unidades aéreas puede usar consumo Bajo o Alto; contra cualquier otro objetivo (el caso de la reducción de Valor de Ataque de munición CM/BM ya modelada en data/tables/page-03.json) solo consumo Bajo. 1d10, o 2d10-menor si el objetivo tiene trayectoria de espacio cercano (modificador fijo -3 en ese caso); -2 si la propia unidad antiaérea no detectó al atacante. Límite máximo de valor antiaéreo según la tabla; si se excede, se usa el límite.",
+        "Interceptación Final (§6.4): CUALQUIER unidad con valor antiaéreo puede realizarla (incluso sin alcance antiaéreo). Motor puro ya construido y verificado a 600 DPI (2026-09-27): public/js/combat-wizard-engine.js#resolveFinalInterceptionShot. Sin wizard propio todavía.",
+        "Interceptación de Munición (§6.5, ya modelada y verificada con el golden test — public/js/combat-wizard-engine.js#resolveInterceptionShot): cada unidad antiaérea intercepta por separado, 1d10 cada una. Distancia de ataque 0 bloquea toda interceptación; distancia 1 (o 2 en Misión de Área) restringe a unidades en el mismo hexágono; lo mismo para munición de penetración fuerte y ataques balísticos (estos últimos además solo consumo Bajo y 2d10-menor). Munición Ligera [L] no guiada: modificador -3, ya transcrito (2026-09-27) en los workflows 03/08 como `unguided_icon_type` — estaba presente desde Fase 0 pero con un iconRef incorrecto (`munition_unguided` en vez de `munition_light`), ya corregido.",
+        "Interceptación Más Allá del Horizonte (§6.5.2, ya reflejada en data/tables/page-04.json#columnAxis.lowConsumptionGrouping/beyondHorizonColumns, y conectada al wizard de antiship_guided el 2026-09-27 — combat-wizard-engine.js#applyBeyondHorizonCap): solo se puede usar la sección 'Zona Azul' de la tabla si hay efecto de alerta temprana — unidad AEW en el mismo hexágono/zona central, O automáticamente contra cualquier ataque balístico.",
+        "Contraataque a Baja Altura (§6.6, motor puro construido y verificado a 600 DPI el 2026-09-27 — combat-wizard-engine.js#resolveLowAltitudeCounterattackShot): aplica cuando una unidad de vuelo bajo usa un plan marcado 'asalto a corta distancia' contra una unidad/formación que sobrevive y tiene valor antiaéreo. El defensor confirma su A.A. total UNA vez (sumando artillería naval de todas las unidades de superficie supervivientes si aplica) y lanza 1d10 POR CADA atacante; impactos ≥ Protección del atacante lo destruye directamente. No consume munición de defensa aérea. Excepción: una unidad perseguida en el aire no puede iniciarlo.",
+        "Ataque de Reacción: Contrafuego / AS (§6.7): tras cualquier disparo antiaéreo, la unidad queda brevemente detectable; si se expone, puede sufrir un contrafuego (regla 5.16.2, ya cubierta en el extracto 'Ataques de Reacción' de este mismo archivo). No añade una mecánica de disparo antiaéreo nueva por sí sola.",
+        "Interceptación de Misiles de Crucero por Unidades Aéreas (§6.8): los CM expuestos también pueden ser interceptados por unidades aéreas en misión de CAP/despegue de emergencia si el misil cruza su zona de patrulla (regla 7.15, no transcrita todavía — pertenece a Operaciones Aéreas, capítulo 7, fuera del alcance de este extracto de Defensa Antiaérea).",
+        "Interceptación de Misiles Balísticos (§6.9): solo unidades de rendimiento Medio/Alto marcadas con un símbolo especial pueden interceptar ataques balísticos, y solo si la trayectoria está dentro del alcance de un sistema de alerta de misiles (BMISR o radar con alcance antimisiles) con el que la unidad puede conectarse en red; las unidades marcadas 'Defensa de Gran Altura' SOLO pueden interceptar ataques balísticos (nada más). Dos tipos, cada uno reutilizando una mecánica YA CONSTRUIDA en vez de necesitar una tabla nueva: **Fase Media** (§6.9.2) es un tipo de Defensa Aérea de Área — no exige estar en el mismo hex, y usa 2d10-menor solo si el objetivo es espacio cercano (idéntico al parámetro `near_space_trajectory` ya modelado en `resolveAreaAirDefenseAttackReduction`); **Terminal** (§6.9.2) es un tipo de Interceptación de Munición — exige estar en el mismo hex, y usa 2d10-menor SIEMPRE, no solo en espacio cercano (a diferencia de Fase Media). Cada punto de impacto antimisil intercepta 1 punto de Valor de Ataque (mismo significado de celda ya usado por ambas mecánicas, no un multiplicador nuevo). **Interceptación de Alta Velocidad** (§6.9.2, única regla genuinamente nueva de esta sección): si la tirada, ANTES de aplicar modificadores, es 0, la interceptación falla automáticamente — sin excepciones. Nueva función pura `combat-wizard-engine.js#checkHighSpeedInterceptionFailure` (2026-09-27).",
+        "Ventana de Disparo (§6.10, regla opcional): si el marcador de munición ya llegó al hexágono objetivo, no se puede iniciar Defensa Aérea de Área contra él; un CM que llega al hexágono objetivo con Valor de Ataque restante ignora CAP/despegue de emergencia/Defensa de Área en ese hexágono y continúa directamente a Interceptación de Munición. Con la regla opcional de enlace de datos, una unidad con radar apagado SÍ puede interceptar munición si tanto ella como otra unidad en el hexágono objetivo tienen enlace de datos avanzado."
+      ],
+      "quotes": [
+        "se reduce su valor de ataque en una cantidad equivalente a los puntos de impacto obtenidos",
+        "realizar la interceptación de munición contra un ataque balístico implica que la unidad antiaérea ya cuenta con el apoyo de un sistema de alerta de misiles",
+        "En la interceptación de misiles balísticos, si el resultado del lanzamiento de dados, antes de aplicar modificadores, es 0, la interceptación falla"
+      ],
+      "relatedWorkflow": { "id": "antiship_guided", "file": "07_ataque_antibuque_guiado.json" },
+      "relatedAmbiguity": "docs/rules/known-ambiguities.md (entradas resueltas 2026-09-27: selección de fila/columna en páginas 5/9, y mecánica de area_air_defense en página 3)",
+      "note": "Capítulo 6 completo (§6.0-§6.10, páginas 93-107) ya leído y consolidado (2026-09-27). Motores puros construidos para los 4 tipos de disparo antiaéreo (Defensa de Área, Interceptación Final, Interceptación de Munición, Contraataque a Baja Altura) más la excepción de Alta Velocidad de Interceptación de Misiles Balísticos — pero SOLO el wizard de antiship_guided (Fase 7) consume alguno de ellos. Sigue sin cumplirse el criterio de salida de roadmap Fase 8 (módulo compartido reutilizado por MÚLTIPLES ataques): construir un wizard de verdad para ground_unguided/antiship_unguided/ground_guided, o un flujo dedicado de Interceptación de Misiles Balísticos con sus condiciones de elegibilidad (símbolo especial, red de alerta de misiles), sigue pendiente y sin golden test propio."
+    }
+  ],
+
+  "airMissionsRef": {
+    "note": "Las 14 misiones aéreas (§7.3-7.10, páginas 118-135 aprox.) ya están completamente transcritas en data/missions/air-missions.json, con descripción, tipo de duración/alcance y sourceRefs por misión — no se duplican aquí. Esta pantalla las lista como resumen enlazado a esa fuente.",
+    "file": "data/missions/air-missions.json"
+  }
+}

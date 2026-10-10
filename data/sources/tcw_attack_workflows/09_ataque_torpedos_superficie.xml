@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="torpedo_vs_surface" title="Ataque con torpedos a buques de superficie" category="asw" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>27</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Preguntas para emboscada, contexto de búsqueda y valor de ataque del torpedo.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <workflow>
+    
+    
+    <stage id="ambush" order="1" title="Emboscada y búsqueda previa">
+      
+      
+      <questions>
+        
+        
+        <question id="ambush" type="boolean" appliesTo="attack_setup">
+          
+          
+          <prompt>¿El ataque es una emboscada?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="attack_setup" value="target_may_search_before_ambush"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="submarine_type" type="select" appliesTo="ambush_range">
+          
+          
+          <prompt>Tipo de submarino para alcance de emboscada.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="conventional" label="Convencional">
+              
+              
+              <effect type="range" target="ambush_range" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="nuclear" label="Nuclear">
+              
+              
+              <effect type="range" target="ambush_range" value="1"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+    
+    </stage>
+    
+    
+    <stage id="target_speed" order="2" title="Velocidad de la flota objetivo">
+      
+      
+      <questions>
+        
+        
+        <question id="all_target_speed_le3" type="boolean" appliesTo="torpedo_attack">
+          
+          
+          <prompt>¿La velocidad impresa de todos los buques objetivo es ≤ 3?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="torpedo_attack" value="all_values_fixed_at_9"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+    
+    </stage>
+    
+    
+    <stage id="detection_context" order="3" title="Contexto ASW del hex objetivo">
+      
+      
+      <questions>
+        
+        
+        <question id="target_hex_asw_context" type="select" appliesTo="torpedo_table">
+          
+          
+          <prompt>Situación ASW en el hex objetivo.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="surface_search_or_mpa" label="Hay unidad de superficie capaz de búsqueda por diferencia de firma o Zona Central de MPA"/>
+            
+            
+            <option value="none" label="Ninguna de las anteriores"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="attacker_state" type="select" appliesTo="torpedo_table">
+          
+          
+          <prompt>Estado del submarino atacante.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="exposed" label="Expuesto"/>
+            
+            
+            <option value="hidden" label="Oculto"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="torpedo_attack_value" type="number" appliesTo="torpedo_table">
+          
+          
+          <prompt>Valor de ataque del torpedo.</prompt>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <tableReference>Página 27: Ataque Submarino con Torpedos.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Página 27: tabla Ataque Submarino con Torpedos.</finalTableReference>
+  
+
+</attackWorkflow>

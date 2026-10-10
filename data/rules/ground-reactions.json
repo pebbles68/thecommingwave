@@ -1,0 +1,135 @@
+{
+  "id": "ground-reactions",
+  "note": "Reglas y textos que consumen public/js/ground-reaction-engine.js y el wizard #/wizard/ground-reaction (roadmap Fase 10). Ataques de Reacción terrestres: Decision Book §5.16 (pp. 88-91), §8.5.6 (pp. 175-176) y §8.7.8 (pp. 181-182). Los textos son los del reglamento traducido; no se añade ninguna regla. El mapa no está modelado: el jugador declara quién cumple cada condición.",
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "sections": "5.16, 5.16.1-5.16.4, 8.5.6, 8.7.8", "pages": "88-91, 175-176, 181-182" }
+  ],
+  "intro": "Algunas acciones dejan a una unidad «Brevemente Detectable». Si las unidades de detección la detectan, pueden guiar a unidades aéreas, de baja altitud o de fuego para ejecutar un Ataque de Reacción contra ella. El estado dura muy poco: se decide todo antes de resolver el primer ataque.",
+  "generalRules": [
+    { "id": "who", "text": "Salvo las Operaciones de Contrabatería, solo pueden realizar un Ataque de Reacción las unidades aéreas que ejecutan un Ataque Dinámico (ON CALL) y las unidades de baja altitud en estado Operativo.", "sourceRef": { "section": "5.16", "page": 88 } },
+    { "id": "joint", "text": "Si unidades de distintos dominios quieren atacar juntas, solo pueden iniciar un Ataque Conjunto (regla 12.1).", "sourceRef": { "section": "5.16", "page": 88 } },
+    { "id": "multiple", "text": "Cada objetivo en estado de detección breve puede recibir varios ataques de reacción por la misma razón que causó su detección breve.", "sourceRef": { "section": "5.16", "page": 89 } },
+    { "id": "plan-first", "text": "El atacante elige y organiza libremente unidades de ataque, objetivos y orden de resolución, pero debe decidirlos todos antes de resolver el primer ataque. Aunque un objetivo caiga en el primer ataque, los demás atacantes no pueden cambiar de objetivo.", "sourceRef": { "section": "5.16", "page": 89 } },
+    { "id": "one-dynamic", "text": "Cualquier atacante, aunque detecte varias baterías de artillería a la vez, solo puede realizar un ataque dinámico por fase (aviación del ejército) o por salida de ON CALL (aviación). Los ataques dinámicos son: Apoyo Aéreo Cercano (CAS), Contrabatería (CF), Interdicción de Batalla (BAI), Persecución Aérea (KB) y Contrafuegos (AS).", "sourceRef": { "section": "5.16 y 8.4.3", "page": "89 y 171" } },
+    { "id": "terrain", "text": "En los ataques a tierra siempre se tiene en cuenta el terreno, salvo que la regla lo quite expresamente (Interdicción de Batalla y Persecución Aérea).", "sourceRef": { "section": "8.5.6 y 8.7.8; confirmado por el mantenedor, 2026-10-07", "page": "175 y 181" } },
+    { "id": "no-command", "text": "Las unidades aéreas y de baja altitud ya pagaron sus Puntos de Mando al despegar: ejecutar un ataque de reacción no cuesta Puntos de Mando adicionales.", "sourceRef": { "section": "5.16", "page": 89 } },
+    { "id": "cas", "text": "Las unidades en Ataque Dinámico (ON CALL), además de estos cuatro modos, pueden ejecutar Apoyo de Fuego Cercano (CAS, regla 8.8). El CAS es también un ataque dinámico (§8.4.3): una unidad que ya hizo CAS no puede hacer una reacción, ni al revés.", "sourceRef": { "section": "5.16 y 8.4.3", "page": "89 y 171" } }
+  ],
+  "attackerKinds": [
+    { "id": "air_on_call", "label": "Unidad aérea en Ataque Dinámico (ON CALL)" },
+    { "id": "low_altitude_operational", "label": "Unidad de baja altitud en estado Operativo" },
+    { "id": "artillery_fire", "label": "Unidad de artillería (fuego)" }
+  ],
+  "reactions": [
+    {
+      "id": "cf",
+      "resultKind": "normal",
+      "name": "Operaciones de Contrabatería (CF)",
+      "triggerId": "artillery_assigned_cas",
+      "triggerLabel": "Una unidad de artillería (fuego) con Valor de Apoyo de Combate lo asigna al combate cercano, antes de resolverlo",
+      "targetDescription": "La unidad de artillería que asignó su Apoyo de Combate (cae en estado Brevemente Detectable) y que ha sido detectada.",
+      "attackerKinds": ["air_on_call", "low_altitude_operational", "artillery_fire"],
+      "attackerConditions": {
+        "air_on_call": "El objetivo está dentro del alcance de su plan de ataque terrestre; el alcance aumenta en +1.",
+        "low_altitude_operational": "El objetivo está en su mismo hexágono.",
+        "artillery_fire": "El objetivo está en su mismo hexágono, no está realizando Apoyo de Fuego Cercano (CAS) y tiene al menos 1 punto de munición."
+      },
+      "limits": "En un mismo enfrentamiento terrestre, cada unidad de artillería solo puede realizar una Operación de Contrabatería.",
+      "pursuitRow": false,
+      "terrainBonus": true,
+      "targetCanLowAltitudeCounterattack": true,
+      "aftermath": {
+        "air_on_call": "Las unidades aéreas que la ejecutaron regresan inmediatamente.",
+        "low_altitude_operational": "Las unidades de baja altitud permanecen en ese hexágono hasta ser recuperadas.",
+        "artillery_fire": "La artillería que realizó la operación coloca un marcador de consumo de munición «-1». Además cae en estado de detección breve y puede ser objeto de un Ataque de Contrafuegos (AS); solo podrá realizar un ataque en las fases de ataque posteriores."
+      },
+      "sourceRef": { "section": "5.16.1", "page": 89 }
+    },
+    {
+      "id": "as",
+      "resultKind": "normal",
+      "name": "Ataque de Contrafuegos (AS)",
+      "triggerId": "artillery_attacked_or_aa_fired",
+      "triggerLabel": "Una unidad de artillería ejecuta un ataque, o una unidad de defensa aérea realiza un disparo de defensa aérea, y se completa la resolución",
+      "targetDescription": "La unidad de artillería o de defensa aérea que acaba de disparar (cae en estado de Detección Breve) y que ha sido detectada.",
+      "attackerKinds": ["air_on_call", "low_altitude_operational"],
+      "attackerConditions": {
+        "air_on_call": "El objetivo está dentro del alcance de su plan de ataque terrestre; el alcance aumenta en +1.",
+        "low_altitude_operational": "El objetivo está en su mismo hexágono."
+      },
+      "limits": "",
+      "pursuitRow": false,
+      "terrainBonus": true,
+      "targetCanLowAltitudeCounterattack": true,
+      "aftermath": {
+        "air_on_call": "Las unidades aéreas que lo ejecutaron regresan inmediatamente.",
+        "low_altitude_operational": "Las unidades de baja altitud permanecen en ese hexágono hasta ser recuperadas."
+      },
+      "sourceRef": { "section": "5.16.2", "page": 90 }
+    },
+    {
+      "id": "kb",
+      "resultKind": "air_pursuit",
+      "name": "Persecución Aérea (KB)",
+      "triggerId": "main_unit_defeated",
+      "triggerLabel": "Una unidad principal queda «Derrotada» en un enfrentamiento terrestre (entra en estado Brevemente Detectable)",
+      "targetDescription": "Las unidades principales «Derrotadas» del enfrentamiento terrestre, una vez identificadas todas.",
+      "attackerKinds": ["air_on_call", "low_altitude_operational"],
+      "attackerConditions": {
+        "air_on_call": "El hexágono del combate terrestre está dentro de su hexágono o Zona Central.",
+        "low_altitude_operational": "El hexágono del combate terrestre es su mismo hexágono (en cara de Operaciones)."
+      },
+      "limits": "",
+      "pursuitRow": true,
+      "terrainBonus": false,
+      "targetCanLowAltitudeCounterattack": false,
+      "aftermath": {
+        "air_on_call": "Las unidades aéreas que ejecutaron la persecución regresan inmediatamente.",
+        "low_altitude_operational": "Las unidades de aviación del ejército permanecen en el hexágono hasta ser recuperadas."
+      },
+      "specialRules": [
+        "Se usa la fila «Persecución» de la tabla de resolución.",
+        "El objetivo no recibe la bonificación de Valor de Protección del terreno.",
+        "Las unidades objeto de persecución aérea no pueden iniciar un Contraataque a Baja Altura."
+      ],
+      "sourceRef": { "section": "8.7.8", "page": 181 }
+    },
+    {
+      "id": "bai",
+      "resultKind": "no_terrain",
+      "name": "Interdicción de Batalla (BAI)",
+      "triggerId": "unit_moving",
+      "triggerLabel": "Una unidad terrestre se mueve (las unidades son Brevemente Detectables mientras se mueven) hacia el hexágono o Zona Central de una unidad aérea en Ataque Dinámico, o al hexágono de una unidad de baja altitud Operativa",
+      "targetDescription": "La unidad terrestre en movimiento, en el hexágono donde empieza a moverse o en uno al que acaba de entrar.",
+      "attackerKinds": ["air_on_call", "low_altitude_operational"],
+      "attackerConditions": {
+        "air_on_call": "La unidad se mueve a su hexágono o Zona Central.",
+        "low_altitude_operational": "La unidad se mueve a su hexágono (en cara de Operaciones)."
+      },
+      "limits": "",
+      "pursuitRow": false,
+      "terrainBonus": false,
+      "targetCanLowAltitudeCounterattack": true,
+      "aftermath": {
+        "air_on_call": "Las unidades aéreas que ejecutaron la interdicción regresan inmediatamente.",
+        "low_altitude_operational": "Las unidades de aviación del ejército permanecen en el hexágono hasta ser recuperadas."
+      },
+      "specialRules": [
+        "Puede lanzarse contra el hexágono donde la unidad empieza a moverse o contra un hexágono después de que entre en él; una vez realizada, la unidad se detiene en el hexágono donde esté.",
+        "Los objetivos no reciben la bonificación de Valor de Protección del terreno.",
+        "Atacante aéreo: tras resolver el ataque, la unidad atacada decide si sigue moviéndose; si se queda, la interdicción termina y se da la vuelta a «Acción Realizada»; si continúa, pierde 1 punto de tamaño de fuerza y reanuda el movimiento.",
+        "Atacante de aviación del ejército: tras el ataque, las unidades atacadas que sobrevivan realizan un Contraataque a Baja Altura. Si la unidad de baja altitud es destruida, la terrestre reanuda el movimiento; si no, decide si continúa (pierde 1 punto de tamaño de fuerza) o se queda («Acción Realizada»)."
+      ],
+      "sourceRef": { "section": "8.5.6", "page": 175 }
+    }
+  ],
+  "questions": {
+    "targetDetected": "¿Las unidades de detección han detectado al objetivo mientras está Brevemente Detectable?",
+    "attackerInPosition": "¿Se cumple la condición de posición de esta unidad?",
+    "usesCas": "¿Esta artillería está realizando Apoyo de Fuego Cercano (CAS)?",
+    "hasAmmo": "¿Tiene al menos 1 punto de munición?",
+    "alreadyDidCf": "¿Ya ha realizado una Operación de Contrabatería en este enfrentamiento terrestre?",
+    "alreadyDynamic": "¿Ya ha ejecutado un ataque dinámico (CAS, Contrabatería, Interdicción de Batalla, Persecución Aérea o Contrafuegos) en esta salida o fase?"
+  },
+  "notModeled": "No se modela el mapa, las distancias ni el estado «Brevemente Detectable» de cada ficha: el jugador indica qué ocurrió y quién cumple cada condición. Tampoco se modela el Ataque Conjunto (regla 12.1) ni el Apoyo de Fuego Cercano (CAS)."
+}

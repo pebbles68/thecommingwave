@@ -1,0 +1,53 @@
+{
+  "country": "JP",
+  "countryName": "Japon",
+  "status": "complete",
+  "transcribedSheets": ["JP 1 (secciones Unidades de superficie y Plataformas submarinas)"],
+  "pendingSheets": [],
+
+  "schemaNote": "Mismo esquema que data/ammunition/naval-plans/us.json. Verificado a 900 DPI que los buques llevan dos filas (completa/danada) y los submarinos una sola, igual que en EEUU y China.",
+
+  "valueFormat": { "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0." },
+
+  "sourceRefs": [
+    { "document": "Tablas de Armamento/JP 1.pdf", "page": 1, "sheetTitle": "Unidades de superficie",
+      "note": "La pagina completa esta rotada 180 grados en el PDF original; se corrigio antes de leer." },
+    { "document": "Tablas de Armamento/JP 1.pdf", "page": 1, "sheetTitle": "Plataformas submarinas (misma pagina)" }
+  ],
+
+  "unmappedFactors": {
+    "shipBadge": { "note": "Todos los buques de esta hoja muestran el mismo badge '2'. Resuelto en posicion/etiqueta contra data/counters/factor-map.json#ship-combat: es el factor 'N.º'; su significado numerico sigue sin confirmar, igual que en EEUU/China.", "resolvedFactor": "hull_number" }
+  },
+
+  "surfaceShips": [
+    { "id": "jp-bs-mg", "name": "BS-MG", "nameLocal": "最上", "class": "frigate", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Type 17", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } } }, "landAttack": {} } },
+    { "id": "jp-bs-kg", "name": "BS-KG", "nameLocal": "金刚", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-bs-at", "name": "BS-AT", "nameLocal": "爱宕", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Type 90", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-bs-my", "name": "BS-MY", "nameLocal": "摩耶", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Type 90", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-bs-hy", "name": "BS-HY", "nameLocal": "初雪", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-bs-ac", "name": "BS-AC", "nameLocal": "朝雾", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-bs-ms", "name": "BS-MS", "nameLocal": "村雨", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Type 90", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-bs-tn", "name": "BS-TN", "nameLocal": "高波", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Type 90", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-bs-ak", "name": "BS-AK", "nameLocal": "秋月", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Type 90", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-bs-ah", "name": "BS-AH", "nameLocal": "朝日", "class": "destroyer", "hasFullDamagedRows": true, "shipBadge": 2,
+      "plans": { "antiShip": { "A": { "munition": "Type 90", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } } }, "landAttack": {} } }
+  ],
+
+  "submarines": [
+    { "id": "jp-29ss", "name": "29SS", "nameLocal": "大鲸", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-16ss", "name": "16SS", "nameLocal": "苍龙", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } },
+    { "id": "jp-05ss", "name": "05SS", "nameLocal": "亲潮", "class": "attack-submarine", "hasFullDamagedRows": false,
+      "plans": { "antiShip": { "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } } }, "landAttack": {} } }
+  ]
+}

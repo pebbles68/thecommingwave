@@ -1,0 +1,179 @@
+{
+  "id": "detection-help-sheet",
+  "title": "Hojas de Ayuda - Detección",
+  "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "pages": "1-6" }],
+
+  "footnotes": [
+    {
+      "id": "expuesta-detectada",
+      "text": "La traducción v1.2 usa indistintamente los términos de unidad \"expuesta\" y \"detectada\".",
+      "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "page": 1 }]
+    }
+  ],
+
+  "unitStates": {
+    "title": "1.1 Estados de las unidades",
+    "intro": "Las unidades pueden estar en tres estados distintos:",
+    "states": [
+      { "id": "detectable", "title": "Detectable", "description": "Una aeronave haciendo CAP será detectable." },
+      { "id": "hidden", "title": "Oculta", "description": "Debido al terreno, la unidad está oculta y no podrá ser expuesta." },
+      { "id": "briefly-detectable", "title": "Brevemente detectable", "description": "Las unidades ocultas pueden realizar alguna acción que las coloque temporalmente en un estado detectable." }
+    ],
+    "note": "Por tanto, solo las unidades detectables (o en situación de brevemente detectable) podrán ser expuestas.",
+    "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "page": 1 }]
+  },
+
+  "exposureStates": {
+    "intro": "Así, estas unidades podrán estar:",
+    "states": [
+      { "id": "not-exposed", "title": "No expuestas", "description": "Fuera del alcance de detección de unidades enemigas." },
+      { "id": "exposed", "title": "Expuestas", "description": "Dentro del alcance de detección enemigo." },
+      { "id": "exposed-electronically", "title": "Expuestas electrónicamente", "description": "Por EW." },
+      { "id": "continuously-exposed", "title": "Expuesta continuamente", "description": "Instalaciones fijas." }
+    ],
+    "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "page": 1 }]
+  },
+
+  "airDetection": {
+    "title": "1.2 Detección de unidades aéreas",
+    "intro": "Las unidades aéreas cuando están en el mapa son siempre detectables, pero para determinar si han sido expuestas debemos observar la firma de cada aeronave.",
+    "signatureValues": {
+      "intro": "Los valores destacados en el counter indican la firma de la aeronave:",
+      "superior": "SUPERIOR: valor contra detección aérea. Se toma como referencia cuando la unidad que lo quiere detectar es aérea.",
+      "inferior": "INFERIOR: valor contra detección terrestre. Se toma como referencia cuando la unidad que lo quiere detectar es terrestre."
+    },
+    "lowAltitudeNote": "Las unidades de vuelo de baja altitud solo tienen un valor (el superior), porque su detección terrestre depende de las unidades con capacidad de detección de baja altitud (misiles antiaéreos o radares de alerta temprana).",
+    "lowAltitudeFixedRangeHex": 1,
+    "radarModifierNote": "Todas las unidades que dispongan de radar, ya sean aéreas o terrestres, tienen en su propio counter una tabla modificadora que altera el rango de detección en función de la firma de la unidad que quieran exponer: 1) según si quien detecta es aéreo o terrestre, se toma el valor de firma aérea/terrestre correspondiente de la unidad objetivo; 2) se busca ese valor de firma en la primera columna de la tabla impresa en el counter del radar; 3) el número de la segunda columna de esa fila es la distancia a la que la unidad de detección puede exponer a la unidad enemiga.",
+    "radarModifierCaveat": "needs_review (dato de ficha, no de regla general): esa tabla modificadora es específica de cada counter de radar (ejemplo ilustrativo en la hoja: EL/M-2080, con filas '1▶0 / 3▶3 / 4▶4 / 5▶5 / 6▶4'). No se transcribe como tabla genérica del motor porque cada radar imprime la suya propia; se transcribirá counter a counter si se llega a modelar el catálogo de unidades con capacidad de radar.",
+    "airToAirProcedure": "Para determinar la exposición de una unidad aérea enemiga por una unidad aérea aliada: se observa primero la firma aérea de la enemiga, y se cuentan tantos hexágonos como esa firma desde la unidad guía (la que trata de detectarla). Si se llega hasta el counter enemigo, o su Zona Central (en caso de que la tuviese por la misión que desempeña), la unidad queda expuesta.",
+    "workedExample": {
+      "title": "Ejemplos de detección entre CAPs enemigas",
+      "units": [
+        { "id": "kf-16c-d", "label": "KF-16C/D (Corea del Sur)", "airSignature": 3 },
+        { "id": "j-16", "label": "J-16 (China)", "airSignature": 5 }
+      ],
+      "cases": [
+        { "id": "mutual", "result": "Los dos se exponen mutuamente al estar dentro del rango de la firma aérea." },
+        { "id": "one-way", "result": "El KF-16C/D surcoreano expone al J-16 chino, pero no al contrario." },
+        { "id": "none", "result": "Ninguno de los dos expone al otro." }
+      ],
+      "note": "Los 3 casos comparan las mismas dos unidades (firma aérea 3 vs firma aérea 5) a distancias crecientes; la distancia exacta en hexágonos de cada caso no se transcribe por no ser medible con precisión en las fotografías del tablero de la hoja de ayuda, pero el principio general (a mayor distancia, menos exposición mutua, acotada por la propia firma de cada unidad) queda claro con los 3 casos.",
+      "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "pages": "2-3" }]
+    },
+    "detectedByOthers": {
+      "intro": "¿Quién más puede exponer a una unidad aérea?",
+      "rows": [
+        { "detector": "Unidades aéreas", "rule": "CAPs con valor de combate y AWACS podrán exponer a otras unidades aéreas." },
+        { "detector": "Unidades terrestres", "rule": "Unidades de radar." },
+        { "detector": "Unidades navales", "rule": "Todas las unidades de superficie detectan a unidades aéreas según su valor de firma terrestre, y a las unidades de baja altitud a 1 hex." }
+      ]
+    },
+    "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "pages": "2-4" }]
+  },
+
+  "navalDetection": {
+    "title": "Detección de unidades navales",
+    "detectedBy": [
+      { "id": "air", "detector": "Unidades aéreas", "rule": "Misión aérea especial o ISR.", "conditionLabel": "Misión aérea especial o ISR", "alwaysCapable": false },
+      { "id": "ground", "detector": "Unidades terrestres", "rule": "Hex. costero.", "conditionLabel": "Unidad en hexágono costero", "alwaysCapable": false },
+      { "id": "low-altitude", "detector": "Unidades de baja altitud", "rule": "Lado operativo.", "conditionLabel": "Unidad en el lado operativo", "alwaysCapable": false },
+      { "id": "surface", "detector": "Unidades de superficie", "rule": "Cualquier unidad.", "conditionLabel": null, "alwaysCapable": true }
+    ],
+    "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "page": 4 }]
+  },
+
+  "groundDetection": {
+    "title": "Detección de unidades terrestres",
+    "whoCanDetect": {
+      "question": "¿Quién puede exponer a las unidades terrestres?",
+      "rule": "Solo poseen capacidad de detección terrestre algunas unidades aéreas y de baja altitud (misiones de ISR de unidades aéreas tácticas).",
+      "capableTypes": [
+        { "id": "air-isr", "label": "Unidad aérea en misión ISR" },
+        { "id": "low-altitude-isr", "label": "Unidad de baja altitud en ISR" }
+      ],
+      "cannotDetect": [
+        { "id": "ground", "label": "Unidades terrestres" },
+        { "id": "naval", "label": "Unidades navales" },
+        { "id": "submarine", "label": "Unidades submarinas" }
+      ]
+    },
+    "fixedInstallations": {
+      "question": "¿Cuándo son detectables las instalaciones fijas?",
+      "rule": "Se consideran objetivos siempre expuestos."
+    },
+    "mobileUnitDetectability": {
+      "question": "¿Cómo determinar la detectabilidad de las unidades terrestres móviles?",
+      "terrainMultiplier": 4,
+      "rules": [
+        { "id": "main", "unitType": "Unidades principales", "condition": "Terreno x4 < Fuerza de la unidad" },
+        { "id": "technical", "unitType": "Unidades técnicas", "condition": "Terreno x4 < Número de unidades técnicas" }
+      ],
+      "note": "El valor de 'Terreno' se lee del hexágono ocupado por la unidad; no se transcribe aquí de forma genérica porque depende del tipo de terreno del mapa (dato de escenario/mapa, no una tabla fija de reglas)."
+    },
+    "brieflyDetectableTriggers": {
+      "question": "¿Cuándo una unidad oculta pasa a ser brevemente detectable?",
+      "rule": "Por sus acciones: es una detección temporal.",
+      "actions": [
+        { "id": "movement", "label": "Movimiento" },
+        { "id": "fire", "label": "Disparo" },
+        { "id": "support", "label": "Apoyo" },
+        { "id": "retreat", "label": "Retirada" }
+      ],
+      "consequence": "Una unidad brevemente detectable, dentro del alcance de detección, puede sufrir ataques de reacción. El estado de brevemente detectable termina después de que el atacante declare y resuelva todos los ataques de reacción."
+    },
+    "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "pages": "4-5" }]
+  },
+
+  "electronicDetection": {
+    "title": "Detección electrónica",
+    "rule": "Unidades de EW, con capacidad de detección electrónica, contra unidades de radar.",
+    "consequence": "Una unidad de radar expuesta electrónicamente puede ser objetivo de ataques ARM.",
+    "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "page": 6 }],
+    "detectorTypes": {
+      "note": "COR03-004 (correcciones03.md, 2026-09-28): ampliación transcrita de Deteección Electrónica.jpg, confirmada contra Decision Book §7.1.4 (ver docs/rules/known-ambiguities.md). Ambos tipos de avión de Guerra Electrónica (EW) tienen capacidad de Reconocimiento Electrónico (ESM) por igual — la distinción RADCM/CCD afecta a sus otras capacidades (interferencia de radar vs. de comunicaciones/escolta electrónica), no a si pueden detectar electrónicamente.",
+      "types": [
+        { "id": "radcm", "label": "Avión de Contramedidas de Radar (RADCM)", "capability": "Reconocimiento Electrónico (ESM) + Contramedidas de Detección (interferencia de radar) + Escolta Electrónica." },
+        { "id": "ccd", "label": "Avión de Contramedidas de Comunicaciones (CCD)", "capability": "Reconocimiento Electrónico (ESM) + Contramedidas de Comunicaciones (interferencia de comunicaciones)." }
+      ],
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "7.1.4 Aviones de Funciones Especiales - Avión de Guerra Electrónica (EW)", "pages": "113-114" }]
+    },
+    "targetTypes": {
+      "note": "'Unidad de radar' (§4.4.1): unidades terrestres/de superficie con un modificador de detección aérea o un valor de búsqueda naval. Bajo las reglas básicas, todas las unidades de radar están siempre en estado de radar activado.",
+      "types": [
+        { "id": "early-warning-radar", "label": "Radar de alerta temprana" },
+        { "id": "anti-air-missile-on", "label": "Misil antiaéreo (con el radar encendido)" },
+        { "id": "anti-ship-missile-on", "label": "Misil antibuque (con el radar encendido)", "needsReview": true, "needsReviewNote": "No se ha localizado una cita textual específica que confirme este tipo como 'unidad de radar' además de los sistemas antiaéreos — transcrito desde la imagen, sin verificación directa contra el texto del Decision Book (AGENTS.md §14)." },
+        { "id": "surface-ship", "label": "Buque de superficie", "alwaysRadarOn": true, "note": "Las unidades de superficie no pueden apagar su radar bajo ninguna regla — ver armException." }
+      ],
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "4.4.1 Unidades de Radar", "pages": "49-50" }]
+    },
+    "armException": {
+      "rule": "Las unidades de superficie son un tipo de unidad de radar, pero no pueden ser objetivo de ataques antirradiación, aunque estén expuestas electrónicamente.",
+      "note": "COR03-004: discrepancia real entre la imagen (que no menciona esta excepción) y el texto del Decision Book — se resuelve a favor del texto (AGENTS.md §2). Ver docs/rules/known-ambiguities.md.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "4.4.1 Unidades de Radar", "pages": "49-50" }]
+    },
+    "realTimeNote": {
+      "text": "La exposición electrónica es inmediata: en cuanto el objetivo entra dentro del alcance de detección del detector, queda expuesto, sin retraso de turno.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "4.0.1 Alcance de detección", "pages": "41" }]
+    },
+    "distanceNote": {
+      "text": "La distancia de detección electrónica se calcula siempre desde la casilla donde está el marcador del propio detector (casilla 0), nunca desde el objetivo.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "4.0.1 Alcance de detección", "pages": "41" }]
+    }
+  },
+
+  "summaryMatrix": {
+    "title": "Resumen - Detección",
+    "rowAxis": { "label": "Objetivo", "values": ["aereo", "naval", "terrestre"] },
+    "columnAxis": { "label": "Guía", "values": ["aereo", "naval", "terrestre"] },
+    "labels": { "aereo": "Aéreo", "naval": "Naval", "terrestre": "Terrestre" },
+    "cells": [
+      ["CAPs, AWACS", "Valor de firma terrestre; U. Baja altitud a 1 hex", "Unidades de radar"],
+      ["Misión aérea especial, ISR", "Cualquier unidad (valor detección superficie)", "U. en hex. costero (valor detección superficie)"],
+      ["ISR, U. Baja Altitud", "-", "-"]
+    ],
+    "cellLegend": { "-": "Sin capacidad de detección declarada en esta combinación" },
+    "sourceRefs": [{ "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf", "page": 6 }]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "page": 28,
+  "title": "Búsqueda Antisubmarina (ASW)",
+  "workflowRefs": ["asw_search_support"],
+  "sourceRefs": [{ "document": "Tablas-de-combate 5.pdf", "page": 28 }],
+  "transcriptionPass": "fast-300dpi",
+
+  "referenceNotes": [
+    {
+      "topic": "1) Búsqueda Antisubmarina",
+      "intro": "Cada buque de superficie y unidad submarina realiza de forma independiente una búsqueda por diferencia de firma contra el objetivo. En búsqueda aérea, los valores de búsqueda aérea dentro de la casilla se suman para una única búsqueda.",
+      "rows": [
+        { "condition": "Flota de Alta Velocidad (buques de superficie) — Búsqueda por Diferencia de Firma", "effect": "No puede realizar Búsqueda de Rutina." },
+        { "condition": "Flota de Alta Velocidad (buques de superficie) — Búsqueda Aérea", "effect": "No puede realizar Búsqueda por Rutina, Movimiento, Emboscada." }
+      ],
+      "note": "Coincide con high_speed_surface ('signature_search_not_allowed') ya transcrito en data/workflows/13_busqueda_asw_apoyo.json, aunque la fuente distingue también restricciones sobre Búsqueda Aérea no capturadas todavía en ese workflow."
+    },
+    {
+      "topic": "Objetivo y detector ambos en aguas profundas",
+      "rows": [{ "condition": "Objetivo y detector ambos en aguas profundas", "effect": "La Búsqueda por Diferencia de Firma puede detectar objetivos en casillas adyacentes." }]
+    },
+    {
+      "topic": "Búsqueda de Rutina — Submarino Expuesto",
+      "rows": [
+        { "condition": "Distancia al buque enemigo susceptible de búsqueda ASW ≥ 2 casillas", "effect": "Si se cumplen todas las condiciones, se oculta automáticamente." },
+        { "condition": "Fuera de la zona central del avión enemigo susceptible de búsqueda ASW", "effect": "Si se cumplen todas las condiciones, se oculta automáticamente." }
+      ]
+    },
+    {
+      "topic": "Búsqueda aérea — Efecto",
+      "rows": [
+        { "condition": "Contra objetivos ocultos en aguas profundas", "effect": "No se puede realizar Búsqueda de Rutina." },
+        { "condition": "Contra objetivos dentro de la zona de patrulla aérea enemiga", "effect": "No se puede realizar Búsqueda Aérea." },
+        { "condition": "Buques de superficie dentro de la zona de patrulla aérea enemiga", "effect": "No se puede realizar Búsqueda Aérea." },
+        { "condition": "Unidad de superficie (icono de interrogación) cuando la flota no tiene portaaviones", "effect": "No se puede realizar Búsqueda Aérea." },
+        { "condition": "Unidad de superficie (icono de interrogación) cuando la flota sí tiene portaaviones", "effect": "Valor de Búsqueda Aérea es igual al del portaaviones." }
+      ],
+      "note": "El icono de interrogación en 'cuando [icono] = [icono]' representa una comparación de dos símbolos de la ficha, no un valor numérico faltante; no se ha podido transcribir con precisión en esta pasada rápida (needsReview)."
+    },
+    {
+      "topic": "Evasión y ruptura de contacto (Duck tracking) — Efecto",
+      "rows": [
+        { "condition": "Cuando está en aguas poco profundas o semiprofundas", "effect": "No se puede realizar." },
+        { "condition": "Antes de Evasión y ruptura de contacto, la búsqueda se determina como 'Detectado'", "effect": "No se puede realizar." }
+      ],
+      "note": "Coincide con la regla de Evasión y Ruptura de Contacto del Decision Book §9.12.2, ya citada en known-ambiguities.md."
+    },
+    {
+      "topic": "Unidad submarina — Características",
+      "rows": [
+        { "condition": "Estado de maniobra", "effect": "+1" },
+        { "condition": "Movimiento ≥ 2 hex", "effect": "+1 durante el proceso" }
+      ],
+      "note": "Coincide con sub_maneuver_state y sub_moved_2plus (+1/+1) ya transcritos en data/workflows/13_busqueda_asw_apoyo.json."
+    },
+    {
+      "topic": "Búsqueda por Diferencia de Firma: Después de un ataque",
+      "rows": [
+        { "condition": "Después de un ataque", "effect": "Solo la flota que fue atacada puede realizar la búsqueda." },
+        { "condition": "Después de un ataque", "effect": "Búsqueda por buques tras 3 determinaciones de posición." }
+      ]
+    }
+  ],
+
+  "tables": []
+}

@@ -1,0 +1,921 @@
+:root {
+  --bg: #0f1a26;
+  --panel: #162536;
+  --panel-alt: #1c2f45;
+  --border: #2a3d54;
+  --text: #eef3f8;
+  --text-muted: #93a6bb;
+  --accent: #1f6fc2;
+  --accent-hover: #4a92e0;
+  --danger: #e0693f;
+  --radius: 10px;
+  --touch-min: 48px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+  font-size: 112.5%;
+  line-height: 1.5;
+}
+html {
+  /* Red de seguridad (roadmap Fase 17, responsive de móvil): el fondo
+     decorativo (.bg-logo) es intencionadamente más ancho que el viewport
+     para el efecto de paralaje, y no debe generar scroll horizontal de
+     página en pantallas estrechas. Solo en <html> (AJ-001): con
+     overflow-x también en <body> y height:100%, <body> pasaba a ser un
+     scroller propio y window.scrollY se quedaba en 0, de modo que ni
+     «Volver arriba» ni el paralaje reaccionaban. El scroll de la página es
+     siempre el del documento. */
+  overflow-x: hidden;
+}
+body { min-height: 100%; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.icon-btn {
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 1.1rem;
+}
+.icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.breadcrumb {
+  flex: 1;
+  font-size: 1rem;
+  color: var(--text-muted);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.help-btn {
+  min-height: var(--touch-min);
+  padding: 0 16px;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  color: #fff;
+  font-weight: 600;
+}
+.help-btn:hover, .help-btn:focus-visible { background: var(--accent-hover); color: var(--bg); }
+
+.view-root {
+  position: relative;
+  z-index: 1;
+  padding: 24px 20px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+/* El router mueve el foco aquí tras cada navegación (roadmap Fase 17,
+   navegación por teclado) para que un usuario de teclado no tenga que
+   recorrer otra vez el encabezado; no es un control interactivo propio, así
+   que se omite el anillo de foco del contenedor entero. */
+.view-root:focus { outline: none; }
+
+/* Fondo con el logotipo difuminado y scroll paralaje (AGENTS.md §4) */
+.bg-logo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/img/thecomingwave.png');
+  background-repeat: no-repeat;
+  background-position: center 15%;
+  background-size: min(65vw, 820px);
+  opacity: 0.05;
+  filter: blur(1px);
+  will-change: transform;
+}
+
+/* Botón "volver arriba" (AGENTS.md §4) */
+.scroll-top-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 20;
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+.scroll-top-btn:hover, .scroll-top-btn:focus-visible { background: var(--accent-hover); color: var(--bg); }
+.scroll-top-btn[hidden] { display: none; }
+
+/* Home */
+.home { text-align: center; padding-top: 24px; }
+.home__title { font-size: 2.4rem; letter-spacing: 0.08em; margin: 0; }
+.home__subtitle { color: var(--text-muted); margin: 8px 0 32px; }
+.home__actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.action-card, .phase-card, .subphase-card, .help-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  text-align: left;
+  min-height: var(--touch-min);
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+}
+.action-card:hover, .phase-card:hover, .subphase-card:hover, .help-card:hover,
+.action-card:focus-visible, .phase-card:focus-visible, .subphase-card:focus-visible, .help-card:focus-visible {
+  border-color: var(--accent);
+  background: var(--panel-alt);
+}
+
+.action-card__title, .phase-card__title, .subphase-card__title, .help-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.action-card__desc, .phase-card__count, .help-card__source {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Listados */
+.phase-list, .subphase-list, .help-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.turn-view__title, .phase-view__title, .subphase-view__title, .help-view__title, .help-detail__title {
+  margin: 0 0 6px;
+}
+.turn-view__desc, .phase-view__desc, .subphase-view__desc {
+  color: var(--text-muted);
+  margin: 0;
+}
+.turn-view__desc + .turn-view__desc { margin-top: 8px; }
+
+.phase-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.phase-card-wrapper .phase-card__main { width: 100%; }
+.phase-card__skip {
+  align-self: flex-start;
+  padding: 0 14px;
+  min-height: 40px;
+}
+
+.actions-list {
+  margin: 20px 0 0;
+  padding-left: 20px;
+  color: var(--text-muted);
+}
+.actions-list__item { margin-bottom: 6px; }
+
+.pending-note {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--panel-alt);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+}
+
+.source-refs {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  min-height: var(--touch-min);
+  padding: 0 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-hover); color: var(--bg); }
+.btn--secondary { background: transparent; color: var(--text); }
+.btn--danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+
+/* Navegación por teclado (roadmap Fase 17): anillo de foco visible y
+   consistente para cualquier control que no tenga ya su propio estilo de
+   :focus-visible más específico (tarjetas, hotspots de counters...). Cubre
+   .btn (y por tanto .wizard-option, que hereda de .btn .btn--secondary),
+   los selects/inputs de formulario y las miniaturas de galería. */
+.btn:focus-visible,
+.table-viewer__select:focus-visible,
+.source-page-gallery__item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.not-found, .error-note, .loading { color: var(--text-muted); padding-top: 40px; text-align: center; }
+
+/* Panel de ayuda flotante */
+.help-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(360px, 90vw);
+  background: var(--panel);
+  border-left: 1px solid var(--border);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+}
+.help-panel[hidden] { display: none; }
+.help-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.help-panel__header h2 { margin: 0; font-size: 1.1rem; }
+.help-panel__body {
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.help-panel__item {
+  min-height: var(--touch-min);
+  text-align: left;
+  padding: 0 14px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+}
+.help-panel__item:hover, .help-panel__item:focus-visible { border-color: var(--accent); }
+
+.help-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 20;
+}
+
+/* Visor de imagen a pantalla completa (planes de ataque, hojas originales) */
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.82);
+}
+.image-lightbox[hidden] { display: none; }
+.image-lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+.image-lightbox__close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Recorte del plan de ataque de una unidad concreta (armamento) */
+.ammo-unit-crop {
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: var(--crop-ratio, 16 / 2);
+  background-repeat: no-repeat;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 12px 0;
+  cursor: pointer;
+}
+
+/* Galería de hojas originales (armamento) */
+.source-page-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin: 12px 0 20px;
+}
+.source-page-gallery__item {
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel-alt);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.source-page-gallery__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Wizard de combate (roadmap Fase 7) */
+.wizard-question {
+  margin: 16px 0;
+}
+/* Ficha de una unidad dentro de un wizard (p.ej. fuerzas del WVR). */
+.wizard-unit {
+  margin: 16px 0;
+  padding: 8px 12px;
+  border-left: 3px solid var(--accent);
+}
+.wizard-question__prompt {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.wizard-question__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.wizard-option.is-active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.wizard-modifier-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 12px 0 20px;
+  padding: 12px 14px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.wizard-modifier-summary__total {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+/* Router de combate (roadmap Fase 6) */
+.help-card--highlight {
+  border-color: var(--accent);
+  background: var(--panel-alt);
+}
+.table-viewer__section-title {
+  margin-top: 24px;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+.router-trail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 20px;
+}
+.router-trail__item.help-card--highlight {
+  border-color: var(--accent);
+  color: var(--text);
+  font-weight: 600;
+}
+.router-trail__item {
+  padding: 4px 10px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Visor de tablas de combate (motor genérico, roadmap Fase 5) */
+.table-viewer__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 16px 0;
+  align-items: flex-end;
+}
+.table-viewer__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.table-viewer__select {
+  min-height: var(--touch-min);
+  padding: 0 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--panel-alt);
+  color: var(--text);
+  font-size: 1rem;
+}
+.table-viewer__result {
+  margin-bottom: 16px;
+}
+.table-viewer__value {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.table-viewer__grid-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.table-viewer__grid {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+}
+.table-viewer__grid th, .table-viewer__grid td {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  text-align: center;
+  white-space: nowrap;
+}
+.table-viewer__grid thead th {
+  background: var(--panel-alt);
+  position: sticky;
+  top: 0;
+  /* AGENTS.md §9.3: cabeceras mucho más grandes que sus datos se reformatean
+     a 2-3 líneas en vez de forzar una columna muy ancha con texto en una
+     sola línea (que sí conviene para las celdas de datos, siempre cortas). */
+  white-space: normal;
+  max-width: 230px;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  vertical-align: bottom;
+}
+.table-viewer__grid thead tr:first-child th:first-child {
+  /* La celda de la esquina (etiqueta del eje de fila) suele ser la más
+     larga de toda la cabecera; se le da algo más de ancho que al resto,
+     y se fija un ancho mínimo para que el texto no se comprima a la
+     anchura mínima de las celdas de datos cortas de su misma columna. */
+  max-width: 320px;
+  min-width: 220px;
+}
+.table-viewer__grid tbody th {
+  background: var(--panel-alt);
+  text-align: left;
+}
+.table-viewer__grid .is-selected {
+  background: var(--accent);
+  color: #fff;
+}
+.table-viewer__grid .is-selected-cell {
+  background: var(--danger);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Leyenda de counters / fichas (roadmap Fase 3) */
+.counter-sheet-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 12px 0 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel-alt);
+}
+.counter-factor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0 20px;
+}
+.counter-factor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 10px 14px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+/* Esta clase también la reutiliza renderExcerptCard (Ayuda rápida > Reglas y
+   extractos) para párrafos largos (puntos, citas, notas), no solo para el
+   par corto label/posición de la leyenda de counters. Sin esto, un <p> como
+   hijo flex no se encoge por debajo del ancho de su contenido y desborda en
+   pantallas estrechas — cada párrafo pasa a ocupar su propia línea. */
+.counter-factor > p { flex: 1 1 100%; min-width: 0; }
+.counter-factor__label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.counter-factor__position {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.counter-factor__badge {
+  padding: 2px 8px;
+  background: var(--danger);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+.counter-viewer {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 12px 0 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel-alt);
+}
+.counter-viewer__crop {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--counter-viewer-ratio, 16 / 10);
+  background-repeat: no-repeat;
+}
+.counter-viewer__hotspot {
+  position: absolute;
+  /* Área activable mínima de 48×48 px centrada en el factor (AJ-009); el
+     recuadro rojo visible es el hijo .counter-viewer__mark, del tamaño exacto
+     del factor. */
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  transform: translate(-50%, -50%);
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.counter-viewer__hotspot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.counter-viewer__mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid transparent;
+  border-radius: 4px;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .counter-viewer__hotspot:hover .counter-viewer__mark {
+    border-color: var(--danger);
+    background: rgba(220, 38, 38, 0.12);
+  }
+}
+.counter-viewer__hotspot.is-active { z-index: 2; }
+.counter-viewer__hotspot.is-active .counter-viewer__mark {
+  border-color: var(--danger);
+  background: rgba(220, 38, 38, 0.16);
+}
+.counter-viewer__tooltip {
+  position: absolute;
+  z-index: 3;
+  max-width: 220px;
+  padding: 8px 10px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.82rem;
+  line-height: 1.3;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+.counter-factor-list--interactive .counter-factor {
+  cursor: pointer;
+}
+.counter-factor.is-active {
+  border-color: var(--danger);
+  background: rgba(220, 38, 38, 0.08);
+}
+.counter-rolebands {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Planes de ataque y munición (roadmap Fase 3) */
+.ammo-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  margin: 12px 0 20px;
+}
+.ammo-icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  /* Necesario para que el icono ampliado (position:relative + transform
+     scale) se dibuje por encima de las tarjetas vecinas sin recortarse. */
+  position: relative;
+  z-index: 1;
+}
+/* El icono es un botón de 48×48 px como mínimo (AJ-009); el gráfico interior
+   puede ser más pequeño. */
+.ammo-icon-card__btn {
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  padding: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.ammo-icon-card__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ammo-icon-card__img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  transition: transform 0.15s ease;
+}
+.ammo-icon-card__label { font-size: 0.85rem; color: var(--text); }
+
+/* Ampliar icono al pasar el ratón (dispositivos con puntero) o al tocar
+   (pantallas táctiles, clase .is-zoomed alternada por JS) — AGENTS.md §9.5,
+   siguiendo el principio de hover como mejora progresiva de §4. */
+@media (hover: hover) {
+  .ammo-icon-card__btn:hover .ammo-icon-card__img { transform: scale(3); }
+  .ammo-icon-card:has(.ammo-icon-card__btn:hover) { z-index: 5; }
+}
+.ammo-icon-card__btn.is-zoomed .ammo-icon-card__img { transform: scale(3); }
+.ammo-icon-card:has(.ammo-icon-card__btn.is-zoomed) { z-index: 5; }
+
+.ammo-icon-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0;
+}
+.ammo-icon-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px 3px 4px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.ammo-icon-chip__img { width: 18px; height: 18px; object-fit: contain; }
+
+.ammo-plan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0 20px;
+}
+.ammo-plan-card {
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.ammo-plan-card__letter {
+  flex: 0 0 auto;
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: var(--panel);
+  border-radius: var(--radius);
+}
+.ammo-plan-card__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ammo-plan-card__munition { font-weight: 600; }
+.ammo-plan-card__values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Tablet horizontal: aprovechar ancho, evitar scroll innecesario */
+@media (min-width: 900px) and (orientation: landscape) {
+  .view-root { padding: 32px 40px 56px; }
+  .phase-list, .subphase-list, .help-list { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .counter-sheet-image { max-width: 480px; }
+}
+
+/* Marcos del Valor ASW (página 33): recortes de apoyo visual en el wizard de
+   Búsqueda por Diferencia de Firma. */
+.frame-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 12px 0;
+}
+.frame-gallery__item {
+  margin: 0;
+  text-align: center;
+}
+.frame-gallery__img {
+  display: block;
+  height: 56px;
+  width: auto;
+  margin: 0 auto 4px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+/* Ayuda visual declarativa de campos de wizard (AJ-008) */
+.visual-ref { margin: 4px 0 14px; font-size: 0.9rem; color: var(--text-muted); }
+.visual-ref summary { cursor: pointer; min-height: var(--touch-min); display: flex; align-items: center; }
+.visual-ref__body { padding: 6px 0; }
+
+/* Inicio en tres entradas + bloque plegable de trazabilidad (AJ-006) */
+.home__group-title { margin: 28px 0 8px; font-size: 1.15rem; color: var(--text-muted); }
+.home__combat[hidden] { display: none; }
+.trace-note { margin: 6px 0 12px; font-size: 0.9rem; color: var(--text-muted); }
+.trace-note summary { cursor: pointer; min-height: var(--touch-min); display: flex; align-items: center; }
+
+/* ---------- Ayudas sobre imágenes con hotspots (ajuste_imagenes.md, IMG-007/IMG-008) ---------- */
+:root {
+  --hotspot-color: #ff4d4f;
+  --hotspot-fill: rgba(255, 77, 79, 0.12);
+  --hotspot-fill-active: rgba(255, 77, 79, 0.2);
+  --hotspot-review-color: #f5a524;
+  --hotspot-border-width: 3px;
+  --hotspot-active-width: 4px;
+  --hotspot-radius: 10px;
+  --hotspot-focus: #7dd3fc;
+}
+.ihv { position: relative; }
+.ihv__stage { position: relative; width: 100%; max-width: 720px; }
+.ihv__svg { display: block; width: 100%; height: auto; aspect-ratio: var(--ihv-ratio, auto); background: var(--panel-alt); border-radius: var(--radius); touch-action: manipulation; }
+.ihv__zone .ihv__mark {
+  fill: transparent;
+  stroke: var(--hotspot-color);
+  stroke-width: var(--hotspot-border-width);
+  vector-effect: non-scaling-stroke;
+  opacity: 0.85;
+  pointer-events: none;
+}
+.ihv__zone.is-needs_review .ihv__mark { stroke: var(--hotspot-review-color); stroke-dasharray: 6 4; }
+.ihv__zone.is-generated .ihv__mark { stroke-dasharray: none; }
+.ihv__zone .ihv__hit { fill: transparent; stroke: none; cursor: pointer; outline: none; }
+.ihv__zone:hover .ihv__mark, .ihv__zone:focus-within .ihv__mark { fill: var(--hotspot-fill); }
+.ihv__zone.is-active .ihv__mark {
+  fill: var(--hotspot-fill-active);
+  stroke-width: var(--hotspot-active-width);
+  opacity: 1;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.45));
+}
+.ihv__zone .ihv__hit:focus-visible { stroke: var(--hotspot-focus); stroke-width: 3px; vector-effect: non-scaling-stroke; }
+.ihv__popover {
+  position: absolute;
+  z-index: 6;
+  max-width: min(320px, calc(100% - 8px));
+  padding: 10px 12px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+.ihv__popover[hidden] { display: none; }
+.ihv__popover.is-docked { position: static; max-width: none; margin-top: 8px; box-shadow: none; }
+.ihv__title { margin: 0 0 4px; font-weight: 700; font-size: 1rem; }
+.ihv__summary { margin: 0 0 6px; }
+.ihv__badges { margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 6px; }
+.ihv__badge { padding: 2px 8px; border-radius: 999px; font-size: 0.78rem; border: 1px solid var(--border); }
+.ihv__badge--review { border-color: var(--hotspot-review-color); color: var(--hotspot-review-color); }
+.ihv__badge--expansion { border-color: var(--accent-hover); color: var(--accent-hover); }
+.ihv__note { margin: 0 0 6px; color: var(--text-muted); font-size: 0.82rem; }
+.ihv__source { color: var(--text-muted); font-size: 0.82rem; }
+.ihv__source summary { cursor: pointer; min-height: var(--touch-min); display: flex; align-items: center; }
+.ihv__list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.ihv__list-btn {
+  min-height: var(--touch-min);
+  padding: 0 12px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+.ihv__list-btn.is-active, .ihv__list-btn[aria-pressed="true"] { border-color: var(--hotspot-color); background: var(--hotspot-fill); }
+.ihv__list-btn:focus-visible { outline: 2px solid var(--hotspot-focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ihv__zone .ihv__mark { transition: fill 0.12s ease, stroke-width 0.12s ease; }
+}
+
+/* Explorador de tarjetas de aeródromos y puertos (IMG-003/IMG-004) */
+.board-explorer { margin-top: 18px; }
+.board-explorer__pager { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.board-explorer__page-btn { min-height: 48px; min-width: 64px; padding: 0 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); color: var(--text); font: inherit; cursor: pointer; }
+.board-explorer__page-btn.is-active { border-color: var(--hotspot-color); box-shadow: inset 0 0 0 1px var(--hotspot-color); font-weight: 700; }
+.board-explorer__card-title { margin: 16px 0 8px; font-size: 1.05rem; }
+.ihv__list-wrap { margin-top: 8px; }
+.ihv__list-wrap > summary { min-height: 48px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+
+/* Panel lateral de ayuda visual (TUR-011) y menciones a entidades (TUR-009) */
+.vh-ref { display: inline-flex; align-items: center; min-height: var(--touch-min, 48px); min-width: var(--touch-min, 48px); padding: 0 6px; margin: 0 2px; border: 0; border-bottom: 2px solid var(--hotspot-color, #4aa3ff); background: transparent; color: inherit; font: inherit; font-weight: 600; cursor: pointer; vertical-align: middle; }
+.vh-ref:focus-visible { outline: 3px solid var(--hotspot-focus, #ffd24a); outline-offset: 2px; }
+.vh-panel { position: fixed; z-index: 25; background: var(--panel); border: 1px solid var(--border); display: flex; flex-direction: column; box-shadow: 0 0 24px rgba(0, 0, 0, 0.5); right: 0; top: 0; height: 100%; width: min(440px, 44vw); border-width: 0 0 0 1px; }
+.vh-panel[hidden] { display: none; }
+.vh-panel__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.vh-panel__title { margin: 0; font-size: 1.1rem; }
+.vh-panel__title:focus { outline: none; }
+.vh-panel__note { margin: 0; padding: 8px 12px 0; color: var(--text-dim, #aab); font-size: 0.9rem; }
+.vh-panel__tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 12px 0; }
+.vh-panel__tab { min-height: var(--touch-min, 48px); padding: 0 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel-alt); color: var(--text); font: inherit; cursor: pointer; }
+.vh-panel__tab.is-active { border-color: var(--hotspot-color, #4aa3ff); box-shadow: inset 0 0 0 1px var(--hotspot-color, #4aa3ff); font-weight: 700; }
+.vh-panel__body { flex: 1; overflow: auto; padding: 8px 12px; }
+.vh-panel__template-title { margin: 4px 0; font-size: 1rem; }
+.vh-panel__foot { padding: 8px 12px 12px; border-top: 1px solid var(--border); }
+@media (min-width: 900px) { html.has-vh-panel #app-content { margin-right: min(440px, 44vw); } }
+@media (max-width: 899px) {
+  .vh-panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 62vh; border-width: 1px 0 0 0; }
+  html.has-vh-panel #app-content { padding-bottom: 62vh; }
+}
+.turn-origin { margin: 4px 0 8px; font-size: 0.9rem; color: var(--text-dim, #aab); }
+.source-details { margin: 10px 0; font-size: 0.9rem; color: var(--text-dim, #aab); }
+.source-details > summary { min-height: var(--touch-min, 48px); display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.source-details__list { margin: 4px 0 0; padding-left: 1.1rem; }
+.source-details__list li { margin: 6px 0; }
+.source-details__status.is-verified { color: #6fcf97; }
+.source-details__status.is-needs_review { color: var(--hotspot-review-color, #ffb84a); }
+.source-details__note { margin: 2px 0 0; }

@@ -1,0 +1,288 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/06_defensa_aerea_area.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "area_air_defense",
+  "title": "Defensa aérea de área contra aeronaves",
+  "category": "aereo",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "18"
+  },
+  "summary": "Resolución concentrada de sistemas de defensa aérea contra aviones, helicópteros, UAV y objetivos de espacio cercano.",
+  "stages": [
+    {
+      "id": "area_defense",
+      "order": 1,
+      "title": "Defensa aérea de área contra aeronaves",
+      "questions": [
+        {
+          "id": "target_type",
+          "type": "select",
+          "appliesTo": "area_air_defense",
+          "prompt": "Tipo de objetivo.",
+          "options": [
+            {
+              "value": "conventional",
+              "label": "Convencional"
+            },
+            {
+              "value": "low_altitude",
+              "label": "Baja altitud",
+              "iconRefs": [
+                {
+                  "ref": "attack_low_altitude_bombing",
+                  "role": "representative"
+                }
+              ]
+            },
+            {
+              "value": "near_space",
+              "label": "Espacio cercano",
+              "iconRefs": [
+                {
+                  "ref": "munition_near_space",
+                  "role": "representative"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "self_detected_low_altitude",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "Si el objetivo es de baja altitud: ¿el sistema que dispara lo ha detectado por sí mismo?",
+          "showIf": {
+            "questionId": "target_type",
+            "equals": "low_altitude"
+          },
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "cannot_fire",
+                  "haltsWorkflow": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "high_altitude_only_system",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿El sistema está marcado como defensa de Gran Altitud exclusivamente?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "only_near_space_target"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "ballistic_missile_interception",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿El objetivo es un ataque balístico (Interceptación de Misiles Balísticos)?",
+          "note": "Correcciones03.md COR03-005: gatea las 2 preguntas de elegibilidad siguientes y la comprobación de Interceptación de Alta Velocidad. `target_type` no distingue un 'ataque balístico parabólico' de una unidad aérea convencional (ambos usan la opción 'Convencional'; solo 'Espacio cercano' es inequívocamente balístico en este workflow) — se pregunta aparte en vez de inventar un 4º valor de `target_type` que ninguna fuente transcrita confirma.",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "missile_defense_symbol",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿La unidad antiaérea (rendimiento Medio o Alto) tiene el símbolo especial de capacidad de Interceptación de Misiles Balísticos?",
+          "showIf": {
+            "questionId": "ballistic_missile_interception",
+            "equals": "yes"
+          },
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "cannot_intercept_ballistic_no_symbol",
+                  "haltsWorkflow": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "missile_alert_network",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿La trayectoria del ataque está dentro del alcance de alerta de un sistema de alerta de misiles (BMISR o radar con alcance antimisiles), y la unidad puede conectarse en red con él?",
+          "showIf": {
+            "questionId": "ballistic_missile_interception",
+            "equals": "yes"
+          },
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "cannot_intercept_ballistic_no_alert_network",
+                  "haltsWorkflow": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ammo_consumption",
+          "type": "select",
+          "appliesTo": "area_air_defense_table",
+          "prompt": "Consumo AA.",
+          "options": [
+            {
+              "value": "low",
+              "label": "Bajo"
+            },
+            {
+              "value": "high",
+              "label": "Alto"
+            }
+          ]
+        },
+        {
+          "id": "aa_value",
+          "type": "number",
+          "appliesTo": "area_air_defense_table",
+          "prompt": "Valor total de Defensa Aérea / Combate Aéreo concentrado."
+        },
+        {
+          "id": "ew_escort",
+          "type": "boolean",
+          "appliesTo": "damage_application",
+          "prompt": "¿El grupo objetivo incluye escolta electrónica con protección prioritaria?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "damage_application",
+                  "value": "ew_escort_absorbs_first"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "target_type",
+          "high_altitude_only_system",
+          "ballistic_missile_interception",
+          "missile_defense_symbol",
+          "missile_alert_network",
+          "ammo_consumption",
+          "aa_value",
+          "ew_escort"
+        ]
+      ],
+      "tableReference": "Página 18: Defensa Aérea de Área.",
+      "ballisticMissileInterceptionRefs": {
+        "note": "Correcciones03.md COR03-005: elegibilidad de Interceptación de Misiles Balísticos (Decision Book §6.9/§6.9.1). 'Interceptación en Fase Media' (§6.9.2) es un tipo de esta misma Defensa Antiaérea de Área — una vez elegible, se resuelve con el mismo `resolveAreaAirDefenseShot`/tabla de esta etapa, sin mecánica nueva. 'Interceptación Terminal' (tipo de Interceptación de Munición, fila 'Terminal') y el modificador de tirada 2d10-menor de §6.3.2 para objetivos de espacio cercano NO están cubiertos todavía — ver docs/rules/known-ambiguities.md.",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "6.9 Interceptación de misiles Balísticos",
+            "pages": "106"
+          },
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "6.9.1 Sistema de Alerta de Misiles",
+            "pages": "106"
+          },
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "6.9.2 Tipos de Interceptación de Misiles Balísticos",
+            "pages": "106-107"
+          }
+        ]
+      },
+      "ewEscortAbsorption": {
+        "rule": "Si un grupo de misión aérea incluye un avión de guerra electrónica con escolta, cuando ese grupo necesita absorber puntos de impacto como resultado de un disparo de defensa aérea, el avión de guerra electrónica absorbe el combate prioritariamente. Solo cuando ya no puede absorber más puntos de impacto, las demás unidades del grupo absorben los puntos de impacto.",
+        "noEffect": "Si los puntos de impacto son menores que el Valor de Protección del avión de guerra electrónica, el ataque no tiene efecto.",
+        "escortNotCounted": "El avión de escolta electrónica forma parte del grupo de misión pero no cuenta para su límite de unidades.",
+        "sequence": "Contra las unidades aéreas afectadas por la defensa antiaérea de área, la facción elige qué unidad absorbe los impactos; esa unidad debe absorber tantos puntos de impacto como sea posible hasta sufrir 1 punto de daño. Si aún quedan puntos de impacto, debe elegir otra unidad aérea para que continúe absorbiendo. La defensa antiaérea de área termina cuando todos los puntos han sido absorbidos o los restantes son menores que la Protección de cualquier unidad objetivo posible.",
+        "readingNote": "Confirmado por el mantenedor (2026-10-07): el avión EW absorbe impactos hasta sufrir 1 punto de daño; un punto de daño equivale a tantos puntos de impacto como su Protección, y los restantes los reciben los aviones escoltados (ver docs/rules/known-ambiguities.md).",
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "7.10.4 Escolta Electrónica Aérea (EEA)",
+            "pages": "135-136"
+          },
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "6.3 Defensa Antiaérea de Área (absorción de impactos contra unidades aéreas)",
+            "pages": "98"
+          }
+        ]
+      }
+    }
+  ],
+  "flowCuts": [
+    {
+      "stage": "area_defense",
+      "question": "self_detected_low_altitude",
+      "optionValue": "no",
+      "effect": "cannot_fire",
+      "haltsWorkflow": true,
+      "sourceText": "Si el objetivo es de baja altitud: ¿el sistema que dispara lo ha detectado por sí mismo? No -> cannot_fire."
+    }
+  ],
+  "diceRules": [],
+  "rollDependentRules": [],
+  "finalTableReference": "Página 18: tabla de Defensa Aérea de Área."
+}

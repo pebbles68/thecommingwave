@@ -1,0 +1,43 @@
+{
+  "id": "army-resupply",
+  "title": "Reabastecimiento de Campo / Reabastecimiento Logístico del Ejército (Decision Book §8.11.3; Tablas-de-combate 5.pdf, página 32)",
+  "note": "Reglas y textos que consume public/js/army-resupply-engine.js y el wizard #/wizard/army-resupply. El motor decide QUÉ condición bloquea y lee la tabla `army-logistics-resupply` de data/tables/page-32.json; el texto que se muestra vive aquí (AGENTS.md §4.1). La Línea de Suministro y 'poder recibir apoyo logístico' (capítulo 11) no están modelados: los declara el jugador.",
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "8.11.3 Reabastecimiento de Campo", "pages": "186" },
+    { "document": "Tablas-de-combate 5.pdf", "section": "Reabastecimiento Logístico del Ejército", "pages": "32" }
+  ],
+  "table": { "file": "page-32.json", "id": "army-logistics-resupply", "successCell": "Éxito" },
+  "intro": "El reabastecimiento se resuelve de forma independiente para cada unidad principal. Cuesta 1 punto de mando de acción terrestre y se hace durante el segmento de Reorganización Terrestre del Segmento de Tiempo 4.",
+  "conditions": [
+    {
+      "id": "not_acted",
+      "question": "¿La unidad principal está en su cara de \"No Actuada\"?",
+      "blockedText": "Solo una unidad principal en su cara de \"No Actuada\" puede realizar un Reabastecimiento de Campo.",
+      "sourceRefs": [{ "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "8.11.3 Reabastecimiento de Campo", "pages": "186" }]
+    },
+    {
+      "id": "supply_line_intact",
+      "question": "¿La unidad tiene la Línea de Suministro sin cortar (puede recibir apoyo logístico)?",
+      "blockedText": "La unidad debe poder recibir apoyo logístico: la condición previa 1 de la tabla es no tener la Línea de Suministro cortada.",
+      "sourceRefs": [
+        { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "8.11.3 Reabastecimiento de Campo", "pages": "186" },
+        { "document": "Tablas-de-combate 5.pdf", "section": "Reabastecimiento Logístico del Ejército, condición previa 1", "pages": "32" }
+      ]
+    },
+    {
+      "id": "no_enemy_main_in_hex",
+      "question": "¿La unidad comparte hexágono con una unidad principal enemiga?",
+      "blockedText": "No se puede reabastecer una unidad que comparte hexágono con unidades principales enemigas (condición previa 2 de la tabla).",
+      "blocksWhen": "yes",
+      "sourceRefs": [
+        { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "section": "8.11.3 Reabastecimiento de Campo", "pages": "186" },
+        { "document": "Tablas-de-combate 5.pdf", "section": "Reabastecimiento Logístico del Ejército, condición previa 2", "pages": "32" }
+      ]
+    }
+  ],
+  "rollRule": "La unidad lanza 1d10 y consulta la tabla según el Nivel de Iniciativa de la unidad principal (A, B, C o D).",
+  "successRule": "Éxito: la unidad principal aumenta su fuerza en 1 punto, como máximo hasta su límite impreso original. \".\": no se produce aumento.",
+  "afterRule": "Tenga éxito o no, la unidad debe voltearse a su cara de \"Acción Realizada\".",
+  "terminologyNote": "La página 32 dice que la unidad pasa a su lado \"Movida\"; el Decision Book §8.11.3 dice \"Acción Realizada\". Se trata del mismo estado de la unidad (ya ha actuado en este segmento); se conserva la redacción del Decision Book y se anota la de la página.",
+  "sourceTermNote": "El Decision Book §8.11.4 habla del \"Nivel de Reacción\" y la tabla de la página 32 del \"Nivel de Iniciativa\": es lo mismo, confirmado por el mantenedor (2026-10-07). Es la letra A-D que aparece abajo a la derecha en las unidades de combate terrestre (factor Iniciativa de la plantilla ground-main de data/counters/factor-map.json)."
+}

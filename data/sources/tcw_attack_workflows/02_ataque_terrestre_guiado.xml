@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<attackWorkflow id="ground_guided" title="Ataque terrestre guiado" category="terrestre" language="es" version="1.0">
+  
+  
+  <source>
+    
+    
+    <document>TCW - TABLAS DE COMBATE</document>
+    
+    
+    <pages>3-6</pages>
+    
+  
+  </source>
+  
+  
+  <summary>Preguntas secuenciales para defensa aérea, interceptación y modificadores de intensidad de un ataque terrestre guiado.</summary>
+  
+  
+  <iconCatalog>
+    <icon id="munition_unguided" src="icons/munition_unguided.png" alt="Munición no guiada" source="Tipos de munición"/>
+    <icon id="munition_subsonic" src="icons/munition_subsonic.png" alt="Munición subsónica" source="Tipos de munición"/>
+    <icon id="munition_supersonic" src="icons/munition_supersonic.png" alt="Munición supersónica" source="Tipos de munición"/>
+    <icon id="munition_parabolic" src="icons/munition_parabolic.png" alt="Trayectoria parabólica" source="Tipos de munición"/>
+    <icon id="munition_near_space" src="icons/munition_near_space.png" alt="Trayectoria de espacio cercano" source="Tipos de munición"/>
+    <icon id="munition_light" src="icons/munition_light.png" alt="Munición ligera" source="Tipos de munición"/>
+    <icon id="attack_high_penetration" src="icons/attack_high_penetration.png" alt="Alta penetración" source="Plan de ataque - leyenda"/>
+    <icon id="attack_ballistic" src="icons/attack_ballistic.png" alt="Ataque balístico" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_bombing" src="icons/attack_low_altitude_bombing.png" alt="Bombardeo a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_low_altitude_counterattack" src="icons/attack_low_altitude_counterattack.png" alt="Contraataque a baja altura" source="Plan de ataque - leyenda"/>
+    <icon id="attack_anti_radiation" src="icons/attack_anti_radiation.png" alt="Ataque antirradiación (ARM)" source="Plan de ataque - leyenda"/>
+    <icon id="attack_reinforced_installation" src="icons/attack_reinforced_installation.png" alt="Ataque reforzado a instalaciones" source="Plan de ataque - leyenda"/>
+    <icon id="marker_cruise_missile" src="icons/marker_cruise_missile.png" alt="Misil de crucero (CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_low_flight_cruise_missile" src="icons/marker_low_flight_cruise_missile.png" alt="Misil de crucero de baja firma (LF-CM)" source="Plan de ataque - leyenda"/>
+    <icon id="marker_supersonic_cruise_missile" src="icons/marker_supersonic_cruise_missile.png" alt="Misil de crucero supersónico (SUP.CM)" source="Plan de ataque - leyenda"/>
+  </iconCatalog>
+  <representativeIcons>
+    <iconRef ref="marker_cruise_missile"/>
+  </representativeIcons>
+  <workflow>
+    
+    
+    <stage id="area_air_defense" order="1" title="Defensa aérea de área">
+      
+      
+      <questions>
+        
+        
+        <question id="attacker_detected" type="boolean" appliesTo="area_air_defense_roll">
+          
+          
+          <prompt>¿El atacante ha sido detectado por el defensor?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="modifier" target="area_air_defense_roll" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No">
+              
+              
+              <effect type="modifier" target="area_air_defense_roll" value="-2"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="near_space_trajectory" type="boolean" appliesTo="area_air_defense_roll">
+          
+          
+          <prompt>¿La munición usa trayectoria de espacio cercano?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="modifier" target="area_air_defense_roll" value="-3"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No">
+              
+              
+              <effect type="modifier" target="area_air_defense_roll" value="0"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+          <iconRef ref="munition_near_space" role="representative"/>
+        </question>
+        
+      
+      </questions>
+      
+      
+      <specialRules>La trayectoria de espacio cercano tira 2d10 y elige el menor. Los sistemas marcados para balística solo pueden interceptar el tipo indicado.</specialRules>
+      
+      
+      <tableReference>Página 3: Defensa aérea de área.</tableReference>
+      
+    
+      <iconRef ref="marker_cruise_missile" role="munition_marker"/>
+    </stage>
+    
+    
+    <stage id="munition_interception" order="2" title="Interceptación de munición">
+      
+      
+      <questions>
+        
+        
+        <question id="same_hex_or_central_zone" type="boolean" appliesTo="munition_interception">
+          
+          
+          <prompt>¿Objetivo y atacante están en el mismo hex o Zona Central?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="munition_interception" value="no_interception"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="interception_performance" type="select" appliesTo="munition_interception_roll">
+          
+          
+          <prompt>Rendimiento del sistema que intercepta.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="high" label="Alto">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="medium" label="Medio">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-1"/>
+              
+            
+            </option>
+            
+            
+            <option value="low" label="Bajo">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-2"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="detection_state" type="select" appliesTo="munition_interception_roll">
+          
+          
+          <prompt>¿Qué ha detectado el defensor?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="attacker" label="Atacante detectado">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="designator_only" label="No atacante, sí guía/designador">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-1"/>
+              
+            
+            </option>
+            
+            
+            <option value="neither" label="Ni atacante ni guía/designador">
+              
+              
+              <effect type="modifier" target="munition_interception_roll" value="-2"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="short_range_restriction" type="boolean" appliesTo="munition_interception">
+          
+          
+          <prompt>¿La distancia de ataque es 1 (o 2 en Misión de Área)?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="rule" target="munition_interception" value="only_same_hex_defenders"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <specialRules>Contra blancos subsónicos o supersónicos puede existir Interceptación Más Allá del Horizonte; si el objetivo no está en la Zona Central del AWACS no se usa la Zona Azul.</specialRules>
+      
+      
+      <tableReference>Página 4: Interceptación de Munición.</tableReference>
+      
+    
+      <iconRef ref="marker_cruise_missile" role="munition_marker"/>
+    </stage>
+    
+    
+    <stage id="attack_intensity" order="3" title="Modificación de intensidad">
+      
+      
+      <questions>
+        
+        
+        <question id="target_type" type="select" appliesTo="attack_intensity">
+          
+          
+          <prompt>Tipo de objetivo.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="mobile_main" label="Unidad móvil principal"/>
+            
+            
+            <option value="technical" label="Unidad técnica"/>
+            
+            
+            <option value="fixed" label="Instalación fija"/>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="attack_distance_band" type="select" appliesTo="attack_intensity">
+          
+          
+          <prompt>Para unidad móvil: distancia de ataque / equivalente de Misión de Área.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="0" label="0 / Área ≤1">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-2"/>
+              
+            
+            </option>
+            
+            
+            <option value="1" label="1 / Área ≤2">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-5"/>
+              
+            
+            </option>
+            
+            
+            <option value="2plus" label="≥2 / Área ≥3">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-10"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="high_penetration_supersonic" type="boolean" appliesTo="attack_intensity">
+          
+          
+          <prompt>¿La munición es de alta penetración y supersónica?</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="yes" label="Sí">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="2"/>
+              
+            
+            </option>
+            
+            
+            <option value="no" label="No">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="0"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+          <iconRef ref="attack_high_penetration" role="representative"/>
+          <iconRef ref="munition_supersonic" role="representative"/>
+        </question>
+        
+        
+        <question id="force_size_excess" type="number" appliesTo="attack_intensity">
+          
+          
+          <prompt>¿Cuántos bloques completos de 5 puntos de Tamaño de Fuerza exceden el límite?</prompt>
+          
+          
+          <note>Cada bloque de 5 puntos añade +2.</note>
+          
+        
+        </question>
+        
+        
+        <question id="guidance_modifier" type="number" appliesTo="attack_intensity">
+          
+          
+          <prompt>Introduce el modificador de guiado aplicable.</prompt>
+          
+          
+          <note>La tabla lo muestra como +?; el valor debe venir del procedimiento de designación/guía.</note>
+          
+        
+        </question>
+        
+        
+        <question id="technical_electronic" type="select" appliesTo="attack_intensity">
+          
+          
+          <prompt>Si el objetivo es unidad técnica: Valor Electrónico.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="0" label="0">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="1" label="1">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-2"/>
+              
+            
+            </option>
+            
+            
+            <option value="2" label="2">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-4"/>
+              
+            
+            </option>
+            
+            
+            <option value="3" label="3">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-8"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+        
+        <question id="fixed_electronic" type="select" appliesTo="attack_intensity">
+          
+          
+          <prompt>Si el objetivo es instalación fija: Valor Electrónico.</prompt>
+          
+          
+          <options>
+            
+            
+            <option value="0" label="0">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="0"/>
+              
+            
+            </option>
+            
+            
+            <option value="1" label="1">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-1"/>
+              
+            
+            </option>
+            
+            
+            <option value="2" label="2">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-5"/>
+              
+            
+            </option>
+            
+            
+            <option value="3" label="3">
+              
+              
+              <effect type="modifier" target="attack_intensity" value="-10"/>
+              
+            
+            </option>
+            
+          
+          </options>
+          
+        
+        </question>
+        
+      
+      </questions>
+      
+      
+      <formula>Suma los modificadores aplicables. Si la modificación total es ≥ 1, se considera 0. Los valores negativos desplazan columnas a la izquierda, saltando columnas '·'.</formula>
+      
+      
+      <specialRules>En la tirada de resolución, un 9 cancela las modificaciones de intensidad.</specialRules>
+      
+      
+      <tableReference>Página 5: Modificación de la Intensidad de Ataque.</tableReference>
+      
+    
+    </stage>
+    
+  
+  </workflow>
+  
+  
+  <finalTableReference>Páginas 5-6: Ataque de precisión contra objetivos terrestres y aplicación de efectos.</finalTableReference>
+  
+
+</attackWorkflow>

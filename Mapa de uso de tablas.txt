@@ -1,0 +1,63 @@
+
+A qué atacamos:
+- Tierra
+	Origen del ataque
+	- Cercano Tierra: Ataque Cercano página 2
+	- Lejano
+		Ataque Guiado / No  Guiado / Antirradiación:
+		- Ataque Guiado
+			Ataque Balístico o de Baja altitud (BM o CM)
+			- Sí: Defensa de Área Página 3
+			- No: Interceptación de Munición página 4
+			En ambos casos Daño: página 5 y 6
+		- Ataque No Guiado
+			Interceptación Final: página 7
+			Interceptación de Munición: página 8
+			Ataque no Guiado contra objetivos terrestres: página 9 y 10
+			Contrataue a Baja Altura: página 10
+		- Ataque Antirradiación
+			Ataque Balístico o de Baja altitud (BM o CM)
+			- Sí: Defensa de Área Página 11
+			- No: Interceptación de Munición página 12
+			En ambos casos Daño: página 13
+			Contrataque a Baja Altura: página 14
+- Aire (o baja altura)
+	Origen del ataque
+	- Aire
+		Interceptación: página 15
+		Combate BVR (lejano): Página 16
+		Combate WVR (cercano): página 17
+	- Tierra o Mar
+		Defensa Aérea: página 18
+- Mar
+	Origen del Ataque
+	- Lejano
+		Guiado / No Guiado
+		- Ataque Guiado
+			Ataque Balístico o de Baja altitud (BM o CM)
+			- Sí: Defensa de Área Página 19
+			- No: Interceptación de Munición página 20
+			En ambos casos Daño: página 21 y 22
+			Contrataue a Baja Altura: página 22
+		- Ataque No Guiado
+			Interceptación Final: página 23
+			Interceptación de Munición: página 24
+			Ataque no Guiado contra objetivos terrestres: página 24 y 25
+			Contrataue a Baja Altura: página 26
+	- Torpedos: 
+		Atauqe con Torpedos a Buques de Superficis: página 27
+- Submarino
+	Origen del Ataque:
+		- Aéreo: ASW Aérea
+			Localización: página 28 y 34
+			Ataque: página 29
+		- Superficie: ASW Superfcie
+			Localización: página 28 y 33
+			Ataque: página 29
+		- Submarino: Ataque Antisubmarino por Unidades Submarinas
+			Localización: página 33
+			Ataque: página 30
+- Estratégico
+	Tipo de movimiento estratégico
+	- Guerra Espacial y Ultraterestre página 31 y 32
+	- Logística página 32

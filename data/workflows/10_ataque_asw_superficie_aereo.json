@@ -1,0 +1,288 @@
+{
+  "sourceXml": "data/sources/tcw_attack_workflows/10_ataque_asw_superficie_aereo.xml",
+  "iconCatalogRef": "data/sources/tcw_attack_workflows/index.xml#assets/icons",
+  "id": "asw_surface_air",
+  "title": "Ataque ASW por unidades de superficie y aéreas",
+  "category": "asw",
+  "source": {
+    "sourceId": "tablas-combate",
+    "document": "Tablas-de-combate 5.pdf",
+    "pages": "29"
+  },
+  "summary": "Preguntas para elegibilidad, posición/firma del objetivo y valor de ataque ASW.",
+  "stages": [
+    {
+      "id": "eligibility",
+      "order": 1,
+      "title": "Elegibilidad y alcance",
+      "questions": [
+        {
+          "id": "attacker_type",
+          "type": "select",
+          "appliesTo": "eligibility",
+          "prompt": "Tipo de atacante.",
+          "options": [
+            {
+              "value": "surface",
+              "label": "Unidad de superficie"
+            },
+            {
+              "value": "air",
+              "label": "Unidad aérea"
+            }
+          ]
+        },
+        {
+          "id": "target_in_enemy_cap_zone",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿El objetivo está dentro de una zona de patrulla aérea enemiga?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "air_attack_restricted"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "adjacent_target",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿El objetivo está en un hex adyacente?",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "rule",
+                  "target": "eligibility",
+                  "value": "requires_surface_adjacent_capability"
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "adjacent_capability",
+          "type": "select",
+          "appliesTo": "eligibility",
+          "prompt": "Capacidad de ataque ASW a objetivo adyacente de la unidad de superficie.",
+          "note": "Decision Book §9.17.1: la unidad de superficie debe tener Valor de Detección Aérea (ASW) ≥ 1, o tenerlo en \"-\" pero pertenecer a una formación con un Portaaviones (CV).",
+          "showIf": {
+            "questionId": "adjacent_target",
+            "equals": "yes"
+          },
+          "options": [
+            {
+              "value": "air_search",
+              "label": "Valor de Detección Aérea (ASW) ≥ 1"
+            },
+            {
+              "value": "carrier",
+              "label": "Valor de Detección Aérea \"-\" y la formación contiene un Portaaviones"
+            },
+            {
+              "value": "none",
+              "label": "Ninguna de las dos"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.17.1 Alcance del Ataque ASW",
+              "pages": "220"
+            }
+          ]
+        },
+        {
+          "id": "attacker_in_enemy_cap_zone",
+          "type": "boolean",
+          "appliesTo": "eligibility",
+          "prompt": "¿La unidad atacante está dentro de una zona de patrulla aérea enemiga?",
+          "note": "Decision Book §9.17.1: tanto la casilla de la unidad de superficie como la del objetivo deben estar fuera de una Zona de Patrulla Aérea enemiga para atacar a un objetivo adyacente.",
+          "showIf": {
+            "questionId": "adjacent_target",
+            "equals": "yes"
+          },
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.17.1 Alcance del Ataque ASW",
+              "pages": "220"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "attacker_type",
+          "target_in_enemy_cap_zone",
+          "adjacent_target",
+          "adjacent_capability",
+          "attacker_in_enemy_cap_zone"
+        ]
+      ],
+      "specialRules": "Alcance (Decision Book §9.17.1): una Aeronave de Patrulla Marítima (MPA) ataca submarinos en su propia casilla y en su Zona Central y regresa a su base inmediatamente tras el ataque; una unidad aérea no puede atacar objetivos dentro de una zona de patrulla aérea enemiga. Una unidad de superficie ataca normalmente en su misma casilla; solo si cumple AMBAS condiciones (capacidad de detección aérea ASW y ambas casillas fuera de zona de patrulla aérea enemiga) llega también a las casillas adyacentes. Cada unidad ASW ataca de forma independiente a un único submarino y las unidades de superficie consumen 1 punto de Munición ASW (§9.17).",
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "section": "9.17 Ataque Antisubmarino (ASW) / 9.17.1 Alcance del Ataque ASW",
+          "pages": "220"
+        }
+      ]
+    },
+    {
+      "id": "attack_table",
+      "order": 2,
+      "title": "Resolver ataque ASW",
+      "questions": [
+        {
+          "id": "water_depth",
+          "type": "select",
+          "appliesTo": "asw_table",
+          "prompt": "Profundidad del océano en la casilla del submarino objetivo (posición P.4 / P.3 / P.2-1).",
+          "options": [
+            {
+              "value": "p4",
+              "label": "P.4 — Aguas profundas"
+            },
+            {
+              "value": "p3",
+              "label": "P.3 — Aguas semi-profundas"
+            },
+            {
+              "value": "p2_1",
+              "label": "P.2 / P.1 — Aguas poco profundas o muy poco profundas"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.14.2 Profundidad del Océano",
+              "pages": "214"
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.17.2 Proceso de Ataque ASW, Paso 2",
+              "pages": "221"
+            }
+          ]
+        },
+        {
+          "id": "target_signature",
+          "type": "number",
+          "appliesTo": "asw_table",
+          "prompt": "Valor de Firma (SIG) impreso del submarino objetivo.",
+          "note": "Se compara con los rangos de Firma de la tabla según la profundidad (Decision Book §9.17.2 Pasos 1-2). El valor es el número impreso en la ficha del submarino.",
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.17.2 Proceso de Ataque ASW, Pasos 1-2",
+              "pages": "221"
+            }
+          ]
+        },
+        {
+          "id": "target_moving",
+          "type": "boolean",
+          "appliesTo": "asw_table",
+          "prompt": "¿El submarino objetivo está en su lado \"En Movimiento\"?",
+          "note": "Las unidades submarinas en su lado \"En Movimiento\" tienen su Valor de Firma aumentado en +1 (Decision Book §9.17.2 Paso 1).",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "target_signature",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "value": "no",
+              "label": "No",
+              "effects": [
+                {
+                  "type": "modifier",
+                  "target": "target_signature",
+                  "value": 0
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.17.2 Proceso de Ataque ASW, Paso 1",
+              "pages": "221"
+            }
+          ]
+        },
+        {
+          "id": "asw_attack_value",
+          "type": "number",
+          "appliesTo": "asw_table",
+          "prompt": "Valor de Ataque ASW."
+        },
+        {
+          "id": "target_protection",
+          "type": "number",
+          "appliesTo": "asw_result",
+          "prompt": "Valor de Protección (PRO) del submarino objetivo (opcional, para saber si se hunde).",
+          "note": "Decision Book §9.17.2 Paso 4: si los Puntos de Impacto absorbidos por la unidad submarina son ≥ su Valor de Protección, la unidad es hundida inmediatamente.",
+          "optional": true,
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "9.17.2 Proceso de Ataque ASW, Paso 4",
+              "pages": "221"
+            }
+          ]
+        }
+      ],
+      "parallelGroups": [
+        [
+          "water_depth",
+          "target_signature",
+          "target_moving",
+          "asw_attack_value",
+          "target_protection"
+        ]
+      ],
+      "tableReference": "Página 29: Ataque Antisubmarino por Unidades de Superficie y Aéreas.",
+      "specialRules": "La profundidad y el Valor de Firma (+1 si \"En Movimiento\") eligen una de las TRES filas de etiquetas de Valor de Ataque ASW (bandas 1-3); la tirada 1d10 cruza esa columna (Decision Book §9.17.2 Pasos 1-3)."
+    }
+  ],
+  "flowCuts": [],
+  "diceRules": [],
+  "rollDependentRules": [],
+  "finalTableReference": "Página 29: tabla ASW de unidades de superficie y aéreas."
+}

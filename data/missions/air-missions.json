@@ -1,0 +1,344 @@
+{
+  "id": "air-missions",
+  "description": "Ficha de misiones aereas de TCW: planificacion, clasificacion (duracion/alcance) y cada tipo de mision aire-aire, aire-superficie, especial y 'otras'. Es el paso 0 del wizard de combate: antes de resolver un ataque hay que saber que mision ejecuta el grupo, su alcance permitido (x1/x2/x5 el Alcance del avion) y si genera Zona Central.",
+  "sourceRefs": [
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "sections": "7.3-7.10", "pages": "120-134" }
+  ],
+  "scopeNote": "Este archivo cubre unicamente las misiones de aviones tacticos y de funciones especiales operados desde aerodromo (capitulo 7, Fase de Acciones Aereas). Confirmado (2026-09-24) auditando el resto del Decision Book que el concepto de 'mision' NO se generaliza sin cambios a las demas fases: las unidades navales de superficie/submarinas (SS9.2-9.13) se mueven y combaten como formaciones directamente en el mapa, sin marcador de mision ni Zona Central; la aviacion del ejercito (helicopteros, unidades de baja altitud) tiene su PROPIO sistema de mision en SS8.4 (Recuperacion/Salida/Ataque Dinamico -mismos 5 subtipos CAS/CF/BAI/KB/AS que on-call aqui-/Mision de Traslado), similar en espiritu pero con sus propias reglas de alcance y aerodromo, y no esta transcrito en este archivo.",
+
+  "phaseRestrictions": [
+    {
+      "id": "on-call-outside-air-phase",
+      "phaseIds": ["acciones_superficie", "acciones_terrestres"],
+      "onlyMissionIds": ["on-call"],
+      "note": "La misión se declara en la subfase «Salidas de combate» de la Fase de acciones aéreas, donde se resuelven todos los combates aéreos. En las fases de superficie y terrestre la única misión aérea que se resuelve es el Ataque Dinámico (ON CALL) contra objetivos marítimos o terrestres.",
+      "source": "Confirmado por el mantenedor, 2026-10-06"
+    },
+    {
+      "id": "mpa-in-submarine-phase",
+      "phaseIds": ["acciones_submarinas"],
+      "onlyMissionIds": ["mpa"],
+      "note": "En la Fase de acciones submarinas la única misión aérea que se resuelve es el ataque de los aviones de patrulla marítima (MPA) contra submarinos.",
+      "source": "Confirmado por el mantenedor, 2026-10-06 (corrige una primera lectura «AW»)"
+    }
+  ],
+  "definitions": {
+    "categories": {
+      "air-air": { "label": "Aire-aire", "canAttackSurfaceAndGround": false, "note": "Las misiones aire-aire no realizan ataques contra objetivos terrestres (confirmado por el mantenedor, 2026-10-06)." },
+      "air-surface": { "label": "Aire-superficie" },
+      "air-special": { "label": "Funciones especiales" },
+      "air-other": { "label": "Otras" }
+    },
+    "durationTypes": {
+      "short": {
+        "label": "Misión Corta",
+        "note": "Regresa en el segmento de Recuperación de Misiones Cortas de la Fase de Operaciones Aéreas.",
+        "sourceRef": { "section": "7.4.1", "page": 122 }
+      },
+      "long": {
+        "label": "Misión Larga",
+        "note": "Regresa en el segmento de Recuperación de Misiones Largas. Como las salidas ocurren después de ese segmento, una misión larga iniciada en una Fase de Operaciones Aéreas en realidad regresa en la siguiente Fase de Operaciones Aéreas.",
+        "sourceRef": { "section": "7.4.2", "page": 122 }
+      },
+      "sustainable": {
+        "label": "Misión Sostenible",
+        "note": "Puede optar por no regresar en el segmento de recuperación correspondiente, gastando combustible propio (o repostaje aéreo, regla 7.12) para seguir ejecutando la misión original.",
+        "sourceRef": { "section": "7.4.3", "page": 122 }
+      }
+    },
+    "missionTypes": {
+      "point": {
+        "label": "Misión de Punto",
+        "note": "La unidad se considera ubicada únicamente en el hexágono donde está el marcador del grupo de misión. No genera Zona Central.",
+        "sourceRef": { "section": "7.4.4", "page": 123 }
+      },
+      "area": {
+        "label": "Misión de Área",
+        "note": "Tras llegar a la ubicación objetivo, el grupo de misión obtiene una Zona Central: los 6 hexágonos adyacentes al hexágono objetivo. Antes de llegar, se considera ubicado solo en el hexágono de su marcador. Las distancias propias siempre se calculan desde el hexágono del marcador; la distancia contra un grupo de misión de área ENEMIGO puede tomar su Zona Central como punto final.",
+        "sourceRef": { "section": "7.4.5", "page": 123 }
+      }
+    },
+    "rangeMultiplier": {
+      "description": "El alcance de salida de un grupo de mision es 'x N el Alcance (ALC)' de la unidad con menor ALC del grupo. N depende del tipo de mision, no del avion.",
+      "values": [1, 2, 5],
+      "sourceRef": { "section": "7.5.1", "page": 124 }
+    },
+    "launchValue": {
+      "label": "Valor de Lanzamiento",
+      "note": "Cada operador/ficha de avión táctico o de avión de funciones especiales SIN combustible adicional ocupa 1 punto de Valor de Lanzamiento del aeródromo al planificar una misión; uno CON combustible adicional (>=1) ocupa 1/2 punto. La suma no puede superar el Valor de Lanzamiento del aeródromo.",
+      "sourceRef": { "section": "7.3.2", "page": 120 }
+    },
+    "commandCost": {
+      "label": "Puntos de Mando de Operaciones Aéreas",
+      "note": "Salvo excepción indicada en la misión, cada salida (despegue de un grupo de misión) consume 1 Punto de Mando de Operaciones Aéreas.",
+      "sourceRef": { "section": "7.7-7.10", "page": "127-133" }
+    }
+  },
+
+  "missions": [
+    {
+      "id": "ink",
+      "name": "Intercepción Aérea",
+      "abbreviation": "INK",
+      "category": "air-air",
+      "durationType": "short",
+      "missionType": "point",
+      "rangeMultiplier": 2,
+      "maxUnits": 1,
+      "unitCondition": "1 unidad, dañada o intacta",
+      "requirements": ["Solo aviones tácticos con Valor de Combate Aéreo (CA)", "Unidad colocada en 'Superioridad Aérea' o 'Despegue de Emergencia' de la Ficha de Aeródromo"],
+      "commandCost": 1,
+      "returnRequired": true,
+      "description": "Envía un grupo de misión a atacar un hexágono donde haya un grupo de misión enemigo expuesto (o su Zona Central), dentro de un alcance de x2 ALC. Se coloca en un hexágono adyacente al objetivo. Puede ser interceptada en ruta por otros grupos de misión enemigos.",
+      "note": "La Intercepción de Emergencia es un tipo de intercepción aérea con operación distinta (regla 7.14.3).",
+      "sourceRefs": [{ "section": "7.7.1", "page": 127 }]
+    },
+    {
+      "id": "caps",
+      "name": "Patrulla Aérea",
+      "abbreviation": "CAPs",
+      "category": "air-air",
+      "missionType": "area",
+      "maxUnits": 2,
+      "unitCondition": "hasta 2 unidades, dañadas o intactas",
+      "requirements": ["Solo aviones tácticos con Valor de Combate Aéreo (CA)", "Unidad colocada en 'Superioridad Aérea' o 'Despegue de Emergencia' de la Ficha de Aeródromo"],
+      "commandCost": 1,
+      "returnRequired": true,
+      "description": "Genera una Zona de Patrulla Aérea (CAPS), simultánea con su Zona Central. Si aparece un grupo de misión enemigo expuesto dentro de la Zona de Patrulla propia, puede estallar combate aéreo (regla 7.13).",
+      "note": "Los grupos de CAP que no combatieron durante la salida conservan capacidad de combate aéreo durante el Regreso; si son interceptados, se desencadena igualmente combate aéreo ('Estar preparados', regla 7.5.3).",
+      "variants": [
+        {
+          "id": "caps-air-block",
+          "name": "Bloqueo Aéreo",
+          "durationType": "short",
+          "rangeMultiplier": 2,
+          "description": "Envía el grupo de misión a una ubicación dentro de x2 ALC para desplegar la Zona de Patrulla Aérea."
+        },
+        {
+          "id": "caps-air-alert",
+          "name": "Alerta Aérea",
+          "durationType": "long",
+          "rangeMultiplier": 1,
+          "description": "Envía el grupo de misión a una ubicación dentro de x1 ALC para desplegar la Zona de Patrulla Aérea."
+        }
+      ],
+      "sourceRefs": [{ "section": "7.7.2", "page": 128 }]
+    },
+    {
+      "id": "cap-maintenance",
+      "name": "Mantenimiento de Alerta Aérea",
+      "abbreviation": "CAP maintenance",
+      "category": "air-air",
+      "isProcedure": true,
+      "rangeMultiplier": 1,
+      "commandCost": 0,
+      "description": "Durante el segmento de Mantenimiento de Alerta Aérea, se puede enviar un grupo de misión de Patrulla Aérea a despegar y volar (dentro de x1 ALC) al hexágono de un grupo de misión de 'Alerta Aérea' propio para reemplazarlo; el reemplazado ejecuta 'Regreso' de inmediato. No consume Puntos de Mando de Operaciones Aéreas ni participa en la Recuperación de Misiones Largas de esta fase.",
+      "note": "No es un tipo de misión nuevo: es un procedimiento especial de salida que sustituye a un grupo de misión 'Alerta Aérea' (variante caps-air-alert) ya desplegado.",
+      "sourceRefs": [{ "section": "7.7.3", "page": 128 }]
+    },
+    {
+      "id": "airdrop",
+      "name": "Lanzamiento de Suministros / Asalto Aéreo",
+      "abbreviation": "Airdrop",
+      "category": "air-surface",
+      "durationType": "short",
+      "missionType": "point",
+      "rangeMultiplier": 2,
+      "maxUnits": null,
+      "unitCondition": "sin límite de unidades",
+      "combatValue": 0,
+      "commandCost": 1,
+      "extraCommandCost": { "type": "joint-ops", "value": 1, "note": "Para ejecutar el lanzamiento en sí, además del coste de la salida." },
+      "returnRequired": true,
+      "description": "Las unidades/suministros que comparten hexágono con el aeródromo se cargan en los aviones de transporte colocados en el área 'Lanzamiento de Suministros / Asalto Aéreo' y despegan juntos. Se envía el grupo a una ubicación dentro de x2 ALC; gastando 1 Punto de Mando de Operaciones Conjuntas se lanzan de inmediato las tropas/suministros cargados en ese hexágono, y el grupo de misión regresa inmediatamente.",
+      "sourceRefs": [{ "section": "7.8.1", "page": 129 }]
+    },
+    {
+      "id": "air-strike",
+      "name": "Ataque Aéreo",
+      "abbreviation": "Air Strike",
+      "category": "air-surface",
+      "durationType": "short",
+      "missionType": "point",
+      "rangeMultiplier": 1,
+      "maxUnits": 2,
+      "unitCondition": "1 unidad intacta, o 2 unidades dañadas",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": true,
+      "description": "Envía el grupo de misión a una ubicación dentro de x1 ALC y ejecuta el ataque (regla 7.18) o permanece en el lugar. Con la Opción de Ataque de x2 Alcance (regla 5.4.1) puede atacar a más de x1 ALC, pero reduce la intensidad del ataque.",
+      "sourceRefs": [{ "section": "7.8.2", "page": 129 }]
+    },
+    {
+      "id": "on-call",
+      "name": "Ataque Dinámico",
+      "abbreviation": "ON CALL",
+      "category": "air-surface",
+      "durationType": "long",
+      "missionType": "area",
+      "rangeMultiplier": 1,
+      "maxUnits": 2,
+      "unitCondition": "1 unidad intacta, o hasta 2 unidades dañadas",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": true,
+      "description": "Envía el grupo de misión a una ubicación dentro de x1 ALC; al llegar y comenzar a ejecutar la misión, obtiene Zona Central. El tipo específico de ataque de reacción se decide durante la Fase de Acción Terrestre (regla 5.16 Ataques de Reacción).",
+      "note": "Corresponde a las reacciones terrestres de AGENTS.md §7.3: los 4 subtipos listados aquí son Guerra Contrabatería (CF), Interdicción de Batalla (BAI), Persecución Aérea (KB) y Ataque de Contrafuegos (AS, sin sigla explícita en el Decision Book pero equivalente a 'Anti-Fire Strike'); el Apoyo Aéreo Cercano (CAS) no es una reacción, apoya el combate cercano propio.",
+      "subtypes": [
+        { "id": "cas", "name": "Apoyo Aéreo Cercano", "abbreviation": "CAS", "isReaction": false, "description": "Apoya el combate cercano del ejército." },
+        { "id": "cf", "name": "Guerra Contrabatería", "abbreviation": "CF", "isReaction": true, "description": "Ataca unidades terrestres que están realizando apoyo de fuego cercano." },
+        { "id": "bai", "name": "Interdicción de Batalla", "abbreviation": "BAI", "isReaction": true, "description": "Ataca unidades terrestres que se están moviendo." },
+        { "id": "kb", "name": "Persecución Aérea", "abbreviation": "KB", "isReaction": true, "description": "Ataca unidades terrestres que se están retirando." },
+        { "id": "as", "name": "Ataque de Contrafuegos", "abbreviation": "AS", "isReaction": true, "description": "Ataca defensas aéreas que están disparando, o unidades terrestres que ejecutan ataques de largo alcance." }
+      ],
+      "sourceRefs": [{ "section": "7.8.3", "page": 129 }]
+    },
+    {
+      "id": "isr-tactical",
+      "name": "ISR — Aviones Tácticos",
+      "abbreviation": "ISR",
+      "category": "air-special",
+      "durationType": "long",
+      "missionType": "area",
+      "rangeMultiplier": 1,
+      "maxUnits": 1,
+      "unitCondition": "1 unidad de avión táctico, dañada o intacta",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": true,
+      "sustainableFuelCost": 1,
+      "description": "Sin capacidad de combate aéreo ni de ataque. Realiza ISR sobre objetivos terrestres enemigos dentro de su Zona Central y objetivos de superficie enemigos dentro del alcance de su Valor de Detección de Superficie (DS).",
+      "sourceRefs": [{ "section": "7.9.1", "page": 130 }]
+    },
+    {
+      "id": "isr-specialized",
+      "name": "ISR — Avión de Reconocimiento Especializado",
+      "abbreviation": "ISR/BMISR",
+      "category": "air-special",
+      "durationType": "long",
+      "missionType": "area",
+      "rangeMultiplier": 1,
+      "maxUnits": 1,
+      "unitCondition": "1 unidad ISR o 1 unidad BMISR (Avión de Vigilancia de Misiles)",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": true,
+      "sustainableFuelCost": 1,
+      "description": "Se despliega en estado Operativo al llegar. ISR (avión de reconocimiento): vigilancia sobre objetivos terrestres dentro de su Alcance de Detección Terrestre y objetivos de superficie dentro de su Valor de Detección (DS/DA), exponiendo unidades detectables/brevemente detectables. BMISR: guía a la defensa aérea propia para interceptar misiles balísticos enemigos (intercepción en fase media) cuando el objetivo o trayectoria del misil está dentro de su Alcance de Vigilancia de Misiles.",
+      "note": "El alcance de la misión ISR de un avión de reconocimiento especializado es mayor que el de un avión táctico genérico (isr-tactical).",
+      "sourceRefs": [{ "section": "7.9.2", "page": 130 }]
+    },
+    {
+      "id": "awacs",
+      "name": "Alerta Aérea",
+      "abbreviation": "AWACS",
+      "category": "air-special",
+      "durationType": "long",
+      "missionType": "area",
+      "rangeMultiplier": 1,
+      "maxUnits": 1,
+      "unitCondition": "1 unidad AWACS",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": true,
+      "sustainableFuelCost": 1,
+      "description": "Se despliega en estado Operativo al llegar. Realiza ISR sobre objetivos aéreos enemigos dentro de su Alcance de Detección Aérea (Modificador) y objetivos de superficie dentro de su Valor de Detección, exponiendo unidades detectables. Los grupos de misión propios dentro de su Rango de Red (Networking) obtienen efectos adicionales en combate aéreo/penetración (regla 7.11 Red de AWACS).",
+      "sourceRefs": [{ "section": "7.9.3", "page": 131 }]
+    },
+    {
+      "id": "mpa",
+      "name": "Patrulla Marítima",
+      "abbreviation": "MPA",
+      "category": "air-special",
+      "durationType": "long",
+      "missionType": "area",
+      "rangeMultiplier": 1,
+      "maxUnits": 1,
+      "unitCondition": "1 unidad MPA",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": true,
+      "sustainableFuelCost": 1,
+      "description": "Se despliega en estado Operativo al llegar. Su hexágono y Zona Central forman la 'Zona Antisubmarina': ahí puede iniciar búsqueda ASW (activa en el segmento de Búsqueda de Rutina, o pasiva cuando un submarino activa su propia búsqueda, regla 9.14.3) y anunciar un Ataque Antisubmarino contra un submarino expuesto en cualquier momento del turno activo durante la Fase de Operaciones Aéreas (regresa de inmediato tras atacar). También realiza ISR de superficie dentro de su Valor de Detección de Superficie (DS).",
+      "sourceRefs": [{ "section": "7.9.4", "page": 131 }]
+    },
+    {
+      "id": "ew",
+      "name": "Guerra Electrónica",
+      "abbreviation": "EW",
+      "category": "air-special",
+      "durationType": "long",
+      "missionType": "area",
+      "rangeMultiplier": 1,
+      "maxUnits": 1,
+      "unitCondition": "1 unidad de Avión de Guerra Electrónica",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": true,
+      "sustainableFuelCost": 1,
+      "description": "Se despliega en estado Operativo al llegar. Inicia Detección Electrónica (ESM) contra radares enemigos dentro de su Alcance de Detección Electrónica, poniéndolos en 'Exposición Electrónica'. También realiza ISR de superficie dentro de su Valor de Detección de Superficie (DS).",
+      "note": "La guerra electrónica aire-tierra de TCW incluye Contramedidas de Comunicaciones (CCD), Contramedidas de Radar (RADCM) y Escolta Electrónica Aérea (EEA); la Escolta Electrónica (EEA) no se ejecuta como esta misión (nota 23 del Decision Book).",
+      "sourceRefs": [{ "section": "7.9.5", "page": 132 }]
+    },
+    {
+      "id": "refuel",
+      "name": "Reabastecimiento Aéreo",
+      "abbreviation": "REFUEL",
+      "category": "air-special",
+      "durationType": "long",
+      "missionType": "area",
+      "rangeMultiplier": 1,
+      "maxUnits": 1,
+      "unitCondition": "1 unidad de Avión Nodriza",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": true,
+      "sustainableFuelCost": 1,
+      "description": "Se despliega en estado Operativo al llegar. Proporciona combustible a otras unidades aéreas (regla 7.12 Combustible Adicional y Reabastecimiento Aéreo).",
+      "sourceRefs": [{ "section": "7.9.6", "page": 132 }]
+    },
+    {
+      "id": "air-transport",
+      "name": "Transporte Aéreo / Transferencia",
+      "abbreviation": "Transporte",
+      "category": "air-other",
+      "durationType": "short",
+      "missionType": "point",
+      "rangeMultiplier": 5,
+      "maxUnits": null,
+      "unitCondition": "sin límite de unidades",
+      "combatValue": 0,
+      "commandCost": 1,
+      "returnRequired": false,
+      "description": "El destino debe ser un aeródromo propio. Al llegar, aterriza directamente y descarga las unidades de carga (regla 10.7.2). No puede lanzar carga en paracaídas en su propio hexágono, solo descargar tras aterrizar. Si no es derrotada ni obligada a retirarse en combate aéreo, permanece en su lugar.",
+      "sourceRefs": [{ "section": "7.10.1", "page": 133 }]
+    },
+    {
+      "id": "sustained-flight",
+      "name": "Vuelo Sostenido",
+      "abbreviation": "Vuelo Sostenido",
+      "category": "air-other",
+      "isAdditionalState": true,
+      "durationType": "long",
+      "missionType": "point",
+      "sustainable": true,
+      "description": "Estado adicional y especial, no una misión que se planifique por sí sola: se declara al despegar para otra misión, o se recibe automáticamente cuando un grupo de misión en Regreso no puede aterrizar en un aeródromo propio. El marcador queda en su lado 'Volado'; si consume combustible en el siguiente segmento de Recuperación de Misiones Largas, voltea a 'Listo para Volar' y en el siguiente segmento de Salidas de Combate solo puede ejecutar un Regreso con alcance x5 ALC (Alcance de Vuelo Sostenido).",
+      "sourceRefs": [{ "section": "7.10.2", "page": 133 }]
+    }
+  ],
+
+  "relatedProcedures": {
+    "departure": { "label": "Salida", "sourceRef": { "section": "7.5.1", "page": 123 } },
+    "airspaceLimit": {
+      "label": "Límites de Gestión del Espacio Aéreo",
+      "note": "Un bando puede tener como máximo 5 grupos de misión aérea simultáneos en un mismo hexágono, contando tanto los que pasan por ese hexágono en ruta como los que tienen su Zona Central ahí.",
+      "sourceRef": { "section": "7.5.2", "page": 124 }
+    },
+    "return": { "label": "Regreso", "sourceRef": { "section": "7.5.3", "page": 125 } },
+    "specialReturn": {
+      "label": "Regreso Especial",
+      "variants": ["Regreso Activo (1 Punto de Mando de Operaciones Aéreas, a voluntad)", "Regreso Pasivo (obligatorio tras derrota en combate aéreo o al cierre del segmento de recuperación correspondiente; sin coste)"],
+      "sourceRef": { "section": "7.5.4", "page": 125 }
+    }
+  }
+}

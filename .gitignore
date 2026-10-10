@@ -1,0 +1,20 @@
+node_modules/
+*.log
+.DS_Store
+.claude/
+Combate/
+
+# Playwright (test/e2e, roadmap Fase 18/19 COR-004): artefactos generados, no fuente.
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Material de terceros (reglamento, hojas de ayuda, tablas de armamento y análisis en PDF/DOCX): se conserva en local
+# como fuente de trabajo, pero no se publica en el repositorio (decisión del mantenedor, 2026-10-10). La web no los sirve:
+# usa las imágenes y los datos derivados de data/. El inventario de fuentes vive en data/sources/sources.json.
+*.pdf
+*.docx
+
+# Web estática generada con `npm run build`
+dist/
