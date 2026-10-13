@@ -99,7 +99,7 @@
       "strategicPhaseNote": "needs_review: las bandas 4, 8 y 12 (patrón cada 4 turnos) aparecen resaltadas en la hoja física, lo que sugiere que ahí se resuelve la Fase 0/Estratégica — la hoja no incluye texto explícito que lo confirme. Pendiente de contrastar con el Decision Book cuando se transcriba la categoría 'reglas' de Ayuda rápida."
     },
     "commandRecoveryNote": "Recuperación de Mando se realiza antes del inicio de cada día (antes de la fase de Refuerzos de la fase de mañana); la hoja la marca como REC. MANDO. en cada ciclo de tres fases. Su procedimiento (Decision Book 3.3.4) está en el nodo consultable.",
-    "groundActivationMarkersNote": "Los marcadores A/B/C/D junto a la columna Tierra son el Nivel de Reacción de las unidades terrestres móviles que pueden activarse en esa fase (Decision Book 8.1.2 y 8.3.1, págs. 157 y 169-170; equivale a la Iniciativa de la ficha). Activos por fase: A,B,C en la 1.ª; A,B en la 3.ª; A,B,C,D en la 4.ª; solo A en la 6.ª; la 2.ª y la 5.ª no tienen segmento terrestre. needs_review: las definiciones literales de los niveles en 8.3.1 están invertidas respecto del ejemplo del propio libro; se usa la lectura coherente con el ejemplo y con la hoja (ver docs/rules/known-ambiguities.md).",
+    "groundActivationMarkersNote": "Los marcadores A/B/C/D junto a la columna Tierra son el Nivel de Reacción de las unidades terrestres móviles que pueden activarse en esa fase (Decision Book 8.1.2 y 8.3.1, págs. 157 y 169-170; equivale a la Iniciativa de la ficha). Activos por fase: A,B,C en la 1.ª; A,B en la 3.ª; A,B,C,D en la 4.ª; solo A en la 6.ª; la 2.ª y la 5.ª no tienen segmento terrestre. Confirmado por el mantenedor (2026-10-13): las definiciones literales de los niveles en 8.3.1 están invertidas respecto del ejemplo del propio libro; se usa la lectura coherente con el ejemplo y con la hoja (ver docs/rules/known-ambiguities.md).",
     "phaseOrderCrossCheck": "El orden y contenido de segments de la Primera/Cuarta Fase coincide exactamente con las 4 familias de subfases mínimas de AGENTS.md §3.1: Superficie (reorganización, combate naval, logística de transporte), Tierra (despliegue, maniobra/combate/ataque, reorganización) y Submarino (patrulla, combate, logística de transporte) son una correspondencia 1:1. Aire I/Aire II de esta hoja se reparten entre sí los 7 conceptos de la fase aérea de AGENTS.md (planificación, mantenimiento de alerta, recuperación de misiones largas/cortas, preparación de salidas, y 'Parálisis' como concepto adicional no nombrado en AGENTS.md)."
   },
   "band": {
@@ -214,13 +214,17 @@
         "summary": "Fase adicional que se realiza al principio de cada una de las seis fases de campaña, antes de las subfases de Aire I.",
         "procedure": null,
         "position": "Fase adicional al principio de cada fase de campaña, antes de las subfases de Aire I.",
-        "status": "needs_review",
-        "pending": "Pendiente de transcribir/validar el procedimiento: no se ha localizado en el Decision Book ninguna regla de refuerzos del turno (búsqueda de «refuerzo» sin resultados relevantes) ni la hoja de turnos imprime este paso. La posición en la secuencia la indicó el mantenedor.",
+        "status": "verified",
         "sourceRefs": [
           {
             "status": "verified",
             "document": "Indicación del mantenedor",
             "section": "posición en la secuencia"
+          },
+          {
+            "status": "verified",
+            "document": "Indicación del mantenedor",
+            "section": "Los refuerzos dependen del escenario jugado (2026-10-13)"
           }
         ],
         "sourceSearch": {
@@ -232,7 +236,8 @@
         "positionSource": {
           "document": "Indicación del mantenedor",
           "section": "posición en la secuencia"
-        }
+        },
+        "scenarioNote": "Los refuerzos que entran en cada fase dependen del escenario que se juegue: consulta las reglas especiales de tu escenario."
       }
     },
     "groundReactionRef": {
@@ -347,15 +352,15 @@
             {
               "document": "TCW - Hoja de turnos 1.1.pdf",
               "page": "1",
-              "status": "needs_review",
-              "note": "La hoja imprime los marcadores A-D junto a la columna Tierra."
+              "status": "verified",
+              "note": "Confirmado por el mantenedor (2026-10-13): las letras son el Nivel de Reacción y se usa la lectura de 8.3.1 coherente con el ejemplo del libro y con la hoja (docs/rules/known-ambiguities.md)."
             },
             {
               "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
               "section": "8.1.2 Unidades móviles y 8.3.1 Niveles de Reacción",
               "page": "157, 169-170",
-              "status": "needs_review",
-              "note": "Las letras son el Nivel de Reacción; las definiciones literales de 8.3.1 están invertidas respecto del ejemplo del libro (docs/rules/known-ambiguities.md)."
+              "status": "verified",
+              "note": "Confirmado por el mantenedor (2026-10-13): las letras son el Nivel de Reacción y se usa la lectura de 8.3.1 coherente con el ejemplo del libro y con la hoja (docs/rules/known-ambiguities.md)."
             }
           ]
         },
@@ -381,7 +386,7 @@
         "B",
         "C"
       ],
-      "groundReactionStatus": "needs_review",
+      "groundReactionStatus": "verified",
       "sourceRefs": [
         {
           "document": "TCW - Hoja de turnos 1.1.pdf",
@@ -549,15 +554,15 @@
             {
               "document": "TCW - Hoja de turnos 1.1.pdf",
               "page": "1",
-              "status": "needs_review",
-              "note": "La hoja imprime los marcadores A-D junto a la columna Tierra."
+              "status": "verified",
+              "note": "Confirmado por el mantenedor (2026-10-13): las letras son el Nivel de Reacción y se usa la lectura de 8.3.1 coherente con el ejemplo del libro y con la hoja (docs/rules/known-ambiguities.md)."
             },
             {
               "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
               "section": "8.1.2 Unidades móviles y 8.3.1 Niveles de Reacción",
               "page": "157, 169-170",
-              "status": "needs_review",
-              "note": "Las letras son el Nivel de Reacción; las definiciones literales de 8.3.1 están invertidas respecto del ejemplo del libro (docs/rules/known-ambiguities.md)."
+              "status": "verified",
+              "note": "Confirmado por el mantenedor (2026-10-13): las letras son el Nivel de Reacción y se usa la lectura de 8.3.1 coherente con el ejemplo del libro y con la hoja (docs/rules/known-ambiguities.md)."
             }
           ]
         },
@@ -579,7 +584,7 @@
         "A",
         "B"
       ],
-      "groundReactionStatus": "needs_review",
+      "groundReactionStatus": "verified",
       "sheetNote": "La hoja solo imprime los marcadores de Tierra (A,B); el resto de columnas están en blanco (ver nota de la Segunda Fase sobre no inventar la lista de pasos).",
       "sourceRefs": [
         {
@@ -663,15 +668,15 @@
             {
               "document": "TCW - Hoja de turnos 1.1.pdf",
               "page": "1",
-              "status": "needs_review",
-              "note": "La hoja imprime los marcadores A-D junto a la columna Tierra."
+              "status": "verified",
+              "note": "Confirmado por el mantenedor (2026-10-13): las letras son el Nivel de Reacción y se usa la lectura de 8.3.1 coherente con el ejemplo del libro y con la hoja (docs/rules/known-ambiguities.md)."
             },
             {
               "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
               "section": "8.1.2 Unidades móviles y 8.3.1 Niveles de Reacción",
               "page": "157, 169-170",
-              "status": "needs_review",
-              "note": "Las letras son el Nivel de Reacción; las definiciones literales de 8.3.1 están invertidas respecto del ejemplo del libro (docs/rules/known-ambiguities.md)."
+              "status": "verified",
+              "note": "Confirmado por el mantenedor (2026-10-13): las letras son el Nivel de Reacción y se usa la lectura de 8.3.1 coherente con el ejemplo del libro y con la hoja (docs/rules/known-ambiguities.md)."
             }
           ]
         },
@@ -695,7 +700,7 @@
         "C",
         "D"
       ],
-      "groundReactionStatus": "needs_review",
+      "groundReactionStatus": "verified",
       "sheetNote": "Misma estructura de columnas que la Primera Fase; la hoja solo vuelve a imprimir el paso de Tierra ('Combate cercano', con los 4 marcadores A-D activos). El resto de columnas están en blanco, igual que en la Segunda/Tercera Fase.",
       "sourceRefs": [
         {
@@ -864,15 +869,15 @@
             {
               "document": "TCW - Hoja de turnos 1.1.pdf",
               "page": "1",
-              "status": "needs_review",
-              "note": "La hoja imprime los marcadores A-D junto a la columna Tierra."
+              "status": "verified",
+              "note": "Confirmado por el mantenedor (2026-10-13): las letras son el Nivel de Reacción y se usa la lectura de 8.3.1 coherente con el ejemplo del libro y con la hoja (docs/rules/known-ambiguities.md)."
             },
             {
               "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
               "section": "8.1.2 Unidades móviles y 8.3.1 Niveles de Reacción",
               "page": "157, 169-170",
-              "status": "needs_review",
-              "note": "Las letras son el Nivel de Reacción; las definiciones literales de 8.3.1 están invertidas respecto del ejemplo del libro (docs/rules/known-ambiguities.md)."
+              "status": "verified",
+              "note": "Confirmado por el mantenedor (2026-10-13): las letras son el Nivel de Reacción y se usa la lectura de 8.3.1 coherente con el ejemplo del libro y con la hoja (docs/rules/known-ambiguities.md)."
             }
           ]
         },
@@ -893,7 +898,7 @@
       "groundReactionLevels": [
         "A"
       ],
-      "groundReactionStatus": "needs_review",
+      "groundReactionStatus": "verified",
       "sheetNote": "Misma estructura que la Tercera Fase, con un único marcador de Tierra (A) activo.",
       "sourceRefs": [
         {

@@ -400,7 +400,8 @@ Tres hallazgos que cambian supuestos hechos con los datos de EEUU, cada uno veri
 - **Discrepancia:** las definiciones de 8.3.1 dicen «Nivel A: solo en segmentos de nivel A… Nivel D: en cualquier nivel», pero el ejemplo del mismo apartado dice que una unidad de Nivel B actúa en los segmentos 1, 3 y 4 (niveles C, B y D) y no en el 6 (nivel A). El ejemplo y la matriz de la hoja de turnos coinciden entre sí (en cada fase pueden activarse las unidades con nivel igual o inferior al del segmento: C → A,B,C; B → A,B; D → A,B,C,D; A → A); la redacción literal de las definiciones no.
 - **Decisión provisional:** la ayuda usará la lectura coherente con el ejemplo y la hoja y lo marcará `needs_review` hasta que el mantenedor confirme. No hay cálculo bloqueado: la información es solo de ayuda.
 - **Terminología (confirmada por el mantenedor, 2026-10-07):** el valor de A/B/C/D es el Nivel de Reacción o Iniciativa (así aparece en la ayuda de la ficha), no un «tipo de unidad». Sigue pendiente de revisión la lectura de las definiciones literales de 8.3.1.
-- **Estado:** `needs_review`.
+- **Resolución del mantenedor (2026-10-13):** se mantiene la lectura coherente con el ejemplo del libro y con la hoja.
+- **Estado:** `resolved`.
 
 ### Refuerzos del turno: sin regla localizada en el Decision Book (2026-10-07)
 
@@ -408,13 +409,15 @@ Tres hallazgos que cambian supuestos hechos con los datos de EEUU, cada uno veri
 - **Búsqueda realizada:** `pdftotext -layout` sobre `TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf` y búsqueda de «refuerzo»/«reinforc»: sin ninguna regla de refuerzos del turno (solo «refuerzo electromagnético» en una nota de diseño); la hoja de turnos tampoco imprime un paso con ese nombre.
 - **Posición (indicada por el mantenedor, 2026-10-07):** fase adicional al principio de cada fase de campaña, antes de las subfases de Aire I. Recuperación de Mando: antes del inicio de cada día, antes de Refuerzos de la fase de mañana.
 - **Decisión provisional:** el nodo `reinforcements` existe en `turn-template.json` con su contenido pendiente y la búsqueda documentada (`sourceSearch`); no se inventa posición ni procedimiento. Pendiente de que el mantenedor indique la fuente o el escenario que lo define.
-- **Estado:** `needs_review`.
+- **Resolución del mantenedor (2026-10-13):** los refuerzos dependen del escenario que se juegue y no hay nada más que indicar en la aplicación; el nodo muestra esa nota y deja de figurar como pendiente.
+- **Estado:** `resolved`.
 
 ### «Mantenimiento» (hoja de turnos) frente a «Fase de Reparación» (2026-10-07)
 
 - **Tema:** la hoja de turnos imprime el quinto paso de la Fase 0 como «Mantenimiento»; el modelo anterior lo llamaba «Fase de Reparación» (regla 2.1.5 / 9.9.4 Reparación de Buques).
 - **Decisión provisional:** el modelo conserva la denominación de la hoja (`title: Mantenimiento`, `alternativeTitles: [Fase de Reparación]`) y marca `nameStatus: needs_review` hasta verificar la equivalencia y el alcance con la regla de reparación naval.
 - **Estado:** `needs_review`.
+- **Decisión del mantenedor (2026-10-13):** se acepta la propuesta: se conserva el nombre de la hoja («Mantenimiento») y se avisa de que la equivalencia con la «Fase de Reparación» (2.1.5 / 9.9.4) sigue pendiente de verificar. Estado: `needs_review` (aceptado así).
 
 ### «Restablecimiento de capacidades» y «Recuperación de Mando» (resuelto por el mantenedor, 2026-10-08)
 

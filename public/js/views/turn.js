@@ -373,6 +373,7 @@
       consultable.procedure.forEach((step) => list.appendChild(el('li', 'actions-list__item', step)));
       wrap.appendChild(list);
     }
+    if (consultable.scenarioNote) wrap.appendChild(el('p', 'turn-view__desc', consultable.scenarioNote));
     if (consultable.pending) wrap.appendChild(el('p', 'pending-note', consultable.pending));
     const src = sourceDetails(consultable.sourceRefs);
     if (src) wrap.appendChild(src);

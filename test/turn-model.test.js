@@ -51,10 +51,10 @@ test('la segunda y la quinta fase no tienen Tierra; las letras terrestres son ex
   assert.deepEqual(ground4.sheetSteps, ['Combate cercano']);
 });
 
-test('las letras de Tierra son un Nivel de Reacción y su lectura está marcada pendiente de revisión', () => {
-  Model.listImpulses(t).filter((i) => i.groundReactionLevels).forEach((i) => assert.equal(i.groundReactionStatus, 'needs_review', i.id));
+test('las letras de Tierra son un Nivel de Reacción y su lectura quedó confirmada por el mantenedor', () => {
+  Model.listImpulses(t).filter((i) => i.groundReactionLevels).forEach((i) => assert.equal(i.groundReactionStatus, 'verified', i.id));
   assert.match(t.sheet.groundActivationMarkersNote, /Nivel de Reacción/);
-  assert.match(t.sheet.groundActivationMarkersNote, /needs_review/);
+  assert.match(t.sheet.groundActivationMarkersNote, /Confirmado por el mantenedor/);
 });
 
 test('la Fase 0 existe una vez por banda y no forma parte de ningún día', () => {
@@ -72,7 +72,8 @@ test('Recuperación de Mando y Refuerzos son nodos consultables con fuente o con
   assert.ok(cr && rf);
   assert.ok(cr.sourceRefs.some((r) => r.document === DB && r.page), 'Recuperación de Mando cita el Decision Book con página');
   assert.ok(Array.isArray(cr.procedure) && cr.procedure.length > 0);
-  assert.ok(rf.pending && /pendiente/i.test(rf.pending), 'Refuerzos declara su contenido pendiente');
+  assert.ok(rf.scenarioNote && /escenario/i.test(rf.scenarioNote), 'Refuerzos explica que dependen del escenario');
+  assert.equal(rf.pending, undefined, 'Refuerzos ya no figura como pendiente');
   assert.ok(rf.sourceSearch && rf.sourceSearch.document === DB, 'Refuerzos documenta la búsqueda realizada en la fuente');
   Model.listDays(t).forEach((d) => assert.ok(t.band.consultables[d.commandRecovery], `${d.id} referencia un nodo consultable inexistente`));
 });
@@ -228,10 +229,10 @@ test('cada subfase cita su sección y página del Decision Book (o declara por q
   });
 });
 
-test('los segmentos de Tierra y las equivalencias por nombre quedan pendientes de revisión con su nota', () => {
+test('los segmentos de Tierra citan 8.3.1 como confirmado; las equivalencias por nombre siguen pendientes con su nota', () => {
   Model.listImpulses(t).filter((i) => i.groundReactionLevels).forEach((i) => {
     const ground = i.segments.find((s) => s.id === 'ground');
-    assert.ok(ground.sourceRefs.some((r) => r.document === DB && r.status === 'needs_review' && /8\.3\.1/.test(r.section) && /known-ambiguities/.test(r.note)), i.id);
+    assert.ok(ground.sourceRefs.some((r) => r.document === DB && r.status === 'verified' && /8\.3\.1/.test(r.section) && /known-ambiguities/.test(r.note)), i.id);
   });
   ['combate_terrestre', 'logistica_transporte_submarino'].forEach((id) => {
     assert.ok(t.subphases[id].sourceRefs.some((r) => r.status === 'needs_review'), id);

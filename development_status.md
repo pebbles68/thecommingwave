@@ -2,6 +2,17 @@
 
 ## Estado actual
 
+### Dudas de reglas resueltas por el mantenedor y NOTICE completo — 2026-10-13
+
+- Estado: `done` (sin commitear).
+- **Niveles de Reacción A-D (8.3.1):** se mantiene la lectura coherente con el ejemplo del libro y con la hoja; pasa a confirmada (`groundReactionStatus: verified`, fuentes verificadas con nota del mantenedor, `known-ambiguities.md` resuelta, `AGENTS.md` §3.1.1 actualizado).
+- **Refuerzos:** dependen del escenario que se juegue y no hay nada más que indicar; el nodo muestra esa nota y deja de figurar como pendiente (`scenarioNote`, estado `verified`).
+- **«Mantenimiento» / «Fase de Reparación»:** se acepta la propuesta (se conserva el nombre de la hoja y se avisa de la equivalencia pendiente); sigue `needs_review` aceptado así.
+- **`NOTICE.md`:** editor Kilovolt y traductor Sherlocky_Luke.
+- Validación: `npm test` 784/784 OK; Playwright completo 351/351 OK.
+- Visible en la web: **sí**: Turno > cualquier fase > Refuerzos (nota del escenario); las fuentes de Tierra ya no dicen «Pendiente de revisión» para 8.3.1.
+- Git: sin commit asociado.
+
 ### Error al abrir la tabla «1) Combate cercano del ejército» (pág. 2) — 2026-10-13
 
 - Estado: `done` (sin commitear).

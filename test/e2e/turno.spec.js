@@ -248,7 +248,7 @@ test('Refuerzos abre cada fase antes de Aire I y Recuperación de Mando va antes
   await page.goto('/#/turno/fase/3/reinforcements');
   await expect(page.getByRole('heading', { name: 'Refuerzos' })).toBeVisible();
   await expect(page.getByText('Fase adicional al principio de cada fase de campaña, antes de las subfases de Aire I.').first()).toBeVisible();
-  await expect(page.getByText(/Pendiente de transcribir\/validar el procedimiento/)).toBeVisible();
+  await expect(page.getByText(/dependen del escenario que se juegue/)).toBeVisible();
   await page.getByRole('button', { name: 'Marcar como hecho' }).click();
   await expect(page).toHaveURL(/#\/turno\/fase\/3$/);
   await expect(page.locator('.phase-card', { hasText: 'Refuerzos' })).toContainText('Terminada');
