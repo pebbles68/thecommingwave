@@ -4,7 +4,7 @@
   --panel-alt: #1c2f45;
   --border: #2a3d54;
   --text: #eef3f8;
-  --text-muted: #93a6bb;
+  --text-muted: #abbccf;
   --accent: #1f6fc2;
   --accent-hover: #4a92e0;
   --danger: #e0693f;
@@ -95,7 +95,9 @@ button {
    que se omite el anillo de foco del contenedor entero. */
 .view-root:focus { outline: none; }
 
-/* Fondo con el logotipo difuminado y scroll paralaje (AGENTS.md §4) */
+/* Fondo con el logotipo y scroll paralaje (AGENTS.md §4). Se ve con nitidez, pero con una opacidad de 0.20 (el mantenedor lo prefiere así):
+   el texto atenuado (--text-muted, aclarado para ello) mantiene un contraste de al menos 4.5:1 incluso sobre el píxel más
+   claro posible del logotipo (sus letras son blancas) (lo comprueba test/background-contrast.test.js). Los campos y tarjetas llevan fondo propio opaco. */
 .bg-logo {
   position: fixed;
   inset: 0;
@@ -105,8 +107,7 @@ button {
   background-repeat: no-repeat;
   background-position: center 15%;
   background-size: min(65vw, 820px);
-  opacity: 0.05;
-  filter: blur(1px);
+  opacity: 0.2;
   will-change: transform;
 }
 

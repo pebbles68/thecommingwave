@@ -2,6 +2,15 @@
 
 ## Estado actual
 
+### Fondo con el logotipo más visible — 2026-10-13
+
+- Estado: `done` (sin commitear). Repositorio activo: `thecommingwave-nuevo` (el antiguo está archivado).
+- Petición del mantenedor: difuminar menos el logotipo, que se vea más, sin que impida ver los campos en primer término.
+- Cambio: `public/css/style.css` — el fondo pasa de opacidad 0.05 y desenfoque de 1 px a opacidad 0.20 (decisión del mantenedor, tras proponer 0.14) y sin desenfoque. Para que el texto no pierda contraste se aclara ligeramente `--text-muted` (#93a6bb → #abbccf): sobre el píxel más claro posible del logotipo (sus letras son blancas) queda en 4.8:1, y el texto principal en más de 8:1. Los campos y tarjetas tienen fondo propio opaco. Nueva prueba `test/background-contrast.test.js` (visible, sin desenfoque y contraste AA garantizado). `AGENTS.md` §4 actualizado.
+- Validación: `npm test` 781/781 OK; Playwright de táctil, objetivos de 48 px y scroll 66/66 OK. Capturas revisadas (inicio, tabla, wizard).
+- Visible en la web: **sí**, en cualquier pantalla, en el fondo.
+- Git: sin commit asociado.
+
 ### PDF y DOCX de terceros fuera del repositorio — 2026-10-10
 
 - Estado: `done` para lo que se publica a partir de ahora (sin commitear); **pendiente** decidir qué hacer con el historial de Git.
