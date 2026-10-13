@@ -2,6 +2,17 @@
 
 ## Estado actual
 
+### Hoja de turnos en imagen y compatibilidad con Safari — 2026-10-13
+
+- Estado: `done` (sin commitear al escribir esto).
+- **Hoja de turnos en imagen:** «Secuencia de turno y fases» tiene un botón «Ver la hoja de turnos (imagen)» y una miniatura que abren la hoja (`data/phases/source-images/hoja-de-turnos.jpg`) en el visor a pantalla completa; el visor compartido admite ahora un toque para pasar a tamaño real (con desplazamiento) y otro para ajustar a la pantalla.
+- **Safari (WebKit):** el conjunto completo de pruebas del navegador pasó en WebKit (349 pruebas); una prueba fallaba solo por cómo Playwright desplaza el botón a la vista en WebKit (no era un fallo de la app) y se corrigió. Además el panel de ayuda visual enfoca su título sin desplazar la página (`preventScroll`).
+- **Firefox:** no se pudo probar: el sistema del equipo impide ejecutar el Firefox de pruebas («Permission denied»). Pendiente de comprobar en otro equipo.
+- Configuración: `playwright.config.js` añade los proyectos `webkit-landscape` y `firefox-landscape` solo con `CROSS_BROWSER=1`.
+- Validación: `npm test` 785/785 OK; Playwright en Chromium 353/353 OK; WebKit completo OK (tras corregir la prueba).
+- Visible en la web: **sí**: Ayuda rápida > Secuencia de turno y fases.
+- Git: sin commit asociado.
+
 ### Dudas de reglas resueltas por el mantenedor y NOTICE completo — 2026-10-13
 
 - Estado: `done` (sin commitear).

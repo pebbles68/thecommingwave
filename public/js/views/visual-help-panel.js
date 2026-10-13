@@ -61,7 +61,7 @@
     document.documentElement.classList.remove('has-vh-panel');
     const back = opener;
     opener = null;
-    if (back && document.contains(back)) back.focus();
+    if (back && document.contains(back)) back.focus({ preventScroll: true });
   }
 
   const STATUS_NOTES = {
@@ -158,7 +158,7 @@
       footEl.appendChild(full);
     }
     if (selection.entity && catalog.sourceRefs) footEl.appendChild(el('p', 'source-refs', `Fuente: ${catalog.sourceRefs.map((r) => r.document).join(' · ')}`));
-    titleEl.focus();
+    titleEl.focus({ preventScroll: true });
   }
 
   // Dibuja un texto cuyas menciones a entidades son botones accesibles (marcadores `[[id]]` con su lista `refs`):

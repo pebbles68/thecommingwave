@@ -1199,3 +1199,12 @@ test('data/tables: índice, páginas y sources.json coinciden en needsReview y e
   }
   assert.deepEqual(tablasCombate.needsReviewPages, flagged, 'sources.json#needsReviewPages desincronizado con data/tables/index.json');
 });
+
+test('la hoja de turnos que sirve la ayuda de secuencia existe como imagen JPEG de tamaño razonable', () => {
+  const f = path.join(DATA_DIR, 'phases', 'source-images', 'hoja-de-turnos.jpg');
+  assert.ok(fs.existsSync(f), 'falta data/phases/source-images/hoja-de-turnos.jpg');
+  const b = fs.readFileSync(f);
+  assert.ok(b.length > 100000, 'la imagen es demasiado pequeña para ser la hoja completa');
+  assert.equal(b[0], 0xff);
+  assert.equal(b[1], 0xd8);
+});

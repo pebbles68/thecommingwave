@@ -62,9 +62,12 @@ test('Escape cierra el panel y devuelve el foco a la mención; el botón de cier
 
 test('el panel conserva la posición de la pantalla y no usa un fondo modal (el contenido sigue interactivo)', async ({ page }) => {
   await page.goto('/#/turno/fase/1/air-1/preparacion_aerodromo');
+  const trigger = page.getByRole('button', { name: 'aeródromos: abrir ayuda visual' });
   await page.evaluate(() => window.scrollTo(0, 200));
+  // Playwright desplaza el botón a la vista antes de pulsarlo (en Safari queda por encima de los 200 px): se mide con el botón ya visible.
+  await trigger.scrollIntoViewIfNeeded();
   const before = await page.evaluate(() => window.scrollY);
-  await page.getByRole('button', { name: 'aeródromos: abrir ayuda visual' }).click();
+  await trigger.click();
   await expect(panel(page)).toBeVisible();
   expect(await page.evaluate(() => window.scrollY)).toBe(before);
   expect(await page.evaluate(() => document.getElementById('app-content').inert)).toBe(false);

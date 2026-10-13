@@ -66,6 +66,11 @@
       closeBtn.type = 'button';
       closeBtn.setAttribute('aria-label', 'Cerrar imagen');
       const img = el('img', 'image-lightbox__img');
+      // Un toque en la imagen alterna entre ajustarla a la pantalla y verla a tamaño real (con desplazamiento).
+      img.addEventListener('click', () => {
+        const zoomed = imageLightboxEl.classList.toggle('is-zoomed');
+        img.setAttribute('aria-label', zoomed ? 'Ajustar la imagen a la pantalla' : 'Ver la imagen a tamaño real');
+      });
       imageLightboxEl.appendChild(img);
       imageLightboxEl.appendChild(closeBtn);
       const close = () => { imageLightboxEl.hidden = true; };
@@ -77,6 +82,8 @@
     const img = imageLightboxEl.querySelector('.image-lightbox__img');
     img.src = src;
     img.alt = alt || '';
+    imageLightboxEl.classList.remove('is-zoomed');
+    img.setAttribute('aria-label', 'Ver la imagen a tamaño real');
     imageLightboxEl.hidden = false;
   }
 

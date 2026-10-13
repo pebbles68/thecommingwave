@@ -320,6 +320,10 @@ button {
   border-radius: var(--radius);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
+/* Con un toque la imagen pasa a tamaño real y el visor se desplaza (hojas grandes como la de turnos). */
+.image-lightbox__img { cursor: zoom-in; }
+.image-lightbox.is-zoomed { overflow: auto; align-items: flex-start; justify-content: flex-start; }
+.image-lightbox.is-zoomed .image-lightbox__img { max-width: none; max-height: none; margin: auto; cursor: zoom-out; }
 .image-lightbox__close {
   position: fixed;
   top: 16px;

@@ -28,6 +28,12 @@ module.exports = defineConfig({
       testIgnore: /touch-smoke.spec.js/,
       use: { ...devices['Desktop Chrome'], viewport: { width: 1024, height: 768 } }
     },
+    // Navegadores de Safari y Firefox: solo con CROSS_BROWSER=1 (npx playwright install webkit firefox una vez).
+    // La integración continua usa Chromium; esto sirve para comprobar la compatibilidad a mano antes de publicar.
+    ...(process.env.CROSS_BROWSER ? [
+      { name: 'webkit-landscape', testIgnore: /touch-smoke.spec.js/, use: { ...devices['Desktop Safari'], viewport: { width: 1024, height: 768 } } },
+      { name: 'firefox-landscape', testIgnore: /touch-smoke.spec.js/, use: { ...devices['Desktop Firefox'], viewport: { width: 1024, height: 768 } } }
+    ] : []),
     {
       name: 'tablet-touch-smoke',
       testMatch: /touch-smoke.spec.js/,

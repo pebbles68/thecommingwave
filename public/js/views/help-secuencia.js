@@ -27,6 +27,26 @@
     wrap.appendChild(el('h1', 'help-detail__title', data.title));
     wrap.appendChild(el('p', 'pending-note', data.note));
 
+    // La hoja de turnos tal como aparece en el documento de origen, para consultarla como imagen (igual que las fichas).
+    const SHEET_IMAGE = '/data/phases/source-images/hoja-de-turnos.jpg';
+    const SHEET_ALT = 'Hoja de turnos 1.1 tal como aparece en el documento de origen';
+    const sheetBtn = el('button', 'btn btn--primary', '🖼 Ver la hoja de turnos (imagen)');
+    sheetBtn.type = 'button';
+    sheetBtn.addEventListener('click', () => AppCore.openImageLightbox(SHEET_IMAGE, SHEET_ALT));
+    wrap.appendChild(sheetBtn);
+    wrap.appendChild(el('p', 'source-refs', 'La hoja de turnos completa, como imagen de apoyo. Tócala para ampliarla a tamaño real y vuelve a tocarla para ajustarla a la pantalla. Lo que ves aquí debajo es la misma hoja explicada paso a paso.'));
+    const sheetThumb = el('button', 'source-page-gallery__item');
+    sheetThumb.type = 'button';
+    const sheetImg = el('img');
+    sheetImg.src = SHEET_IMAGE;
+    sheetImg.alt = `${SHEET_ALT} — miniatura`;
+    sheetThumb.appendChild(sheetImg);
+    sheetThumb.setAttribute('aria-label', 'Ver la hoja de turnos completa');
+    sheetThumb.addEventListener('click', () => AppCore.openImageLightbox(SHEET_IMAGE, SHEET_ALT));
+    const sheetGallery = el('div', 'source-page-gallery');
+    sheetGallery.appendChild(sheetThumb);
+    wrap.appendChild(sheetGallery);
+
     wrap.appendChild(el('h2', null, 'Bandas de día'));
     wrap.appendChild(el('p', 'turn-view__desc', data.dayBands.intro));
     const bandsRow = el('div', 'router-trail');

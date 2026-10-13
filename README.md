@@ -27,6 +27,7 @@ npm run test:e2e -- --workers=1     # interfaz real en Chromium (ver abajo)
 
 - `npm test` valida los datos de `data/` (IDs únicos, referencias resueltas, `sourceRefs` presentes, coherencia de estados de tablas y de la matriz de cobertura), cada motor de dominio y una prueba de humo del servidor. Incluye pruebas parametrizadas de **todas las tablas estructuradas** (cada celda de cada combinación de esquema) y de **cada modificador** declarado en los workflows.
 - `npm run test:e2e` arranca `server/server.js` (o reutiliza el del puerto 3000) y ejecuta dos proyectos de Playwright: `tablet-landscape` (1024×768, la plataforma prioritaria, con todas las pruebas de interfaz) y `tablet-touch-smoke` (los gestos básicos solo con toque). Falla ante cualquier error de consola o petición de red con error. Se recomienda `--workers=1`: con varios trabajadores en paralelo aparecen esperas largas por carga de la máquina.
+- **Safari y Firefox:** `CROSS_BROWSER=1 npx playwright test --project=webkit-landscape` (y `--project=firefox-landscape`) pasa las mismas pruebas en WebKit y Firefox, tras `npx playwright install webkit firefox`. WebKit (Safari) pasó el conjunto completo antes de la 1.0; Firefox no pudo ejecutarse en el equipo de desarrollo por restricciones del sistema y queda por comprobar.
 - La integración continua (`.github/workflows/ci.yml`) ejecuta lo anterior en Node 18 y 22 en cada `push` a `master` y en cada `pull request`.
 
 ## Limitaciones conocidas

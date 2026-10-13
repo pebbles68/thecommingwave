@@ -8,7 +8,7 @@ Aplicación web de ayuda para *The Coming Wave*, pensada para tablet en horizont
 - **Wizards de resolución** con tabla resaltada, modificadores explicados, historial y borradores: combate cercano y ataques terrestres, reacciones terrestres, combate aéreo (asignación de objetivos, BVR y WVR con grupo de misión compartido), defensa aérea, ataques antibuque, torpedos, emboscada de submarino, ASW y búsquedas, efectos del impacto antibuque.
 - **Logística y estrategia:** garantía logística, reabastecimiento de campo del ejército, logística de puerto y munición, Fase Logística con desgaste de Nodos de Suministro, ciberataque y guerra espacial (reglas opcionales).
 - **Perfil de reglas** (expansión y reglas opcionales), con etiquetas «Solo expansión» y «regla opcional».
-- **Ayudas:** detección, 33 páginas de tablas de combate, planes de ataque y munición por país, leyenda de fichas con zonas explicadas, tarjetas de aeródromos y puertos, y buscador.
+- **Ayudas:** detección, 33 páginas de tablas de combate, la hoja de turnos completa como imagen ampliable, planes de ataque y munición por país, leyenda de fichas con zonas explicadas, tarjetas de aeródromos y puertos, y buscador.
 - **Despliegue estático:** `npm run build` genera `dist/`, la web lista para cualquier alojamiento de archivos (ver `README.md`).
 
 ### Limitaciones conocidas
