@@ -268,8 +268,9 @@
 
     appendReviewNotice(wrap, loaded.page, table);
 
-    const rowSchemes = ['values'].concat(Object.keys(table.rowAxis.alternateLabels || {}), Object.keys(table.rowAxis.variants || {}));
-    const columnSchemes = ['values'].concat(Object.keys(table.columnAxis.alternateLabelSets || {}), Object.keys(table.columnAxis.variants || {}));
+    // «values» solo existe si el eje tiene etiquetas canónicas; un eje con solo variantes ofrece únicamente sus esquemas.
+    const rowSchemes = (Array.isArray(table.rowAxis.values) ? ['values'] : []).concat(Object.keys(table.rowAxis.alternateLabels || {}), Object.keys(table.rowAxis.variants || {}));
+    const columnSchemes = (Array.isArray(table.columnAxis.values) ? ['values'] : []).concat(Object.keys(table.columnAxis.alternateLabelSets || {}), Object.keys(table.columnAxis.variants || {}));
     const rowIsPlaceholder = TableEngine.isPlaceholderScheme(table.rowAxis.values);
     const columnIsPlaceholder = TableEngine.isPlaceholderScheme(table.columnAxis.values);
 
@@ -301,11 +302,11 @@
     if (columnSchemeField) form.appendChild(columnSchemeField.field);
 
     function currentRowScheme() {
-      const val = rowSchemeField ? rowSchemeField.select.value : 'values';
+      const val = rowSchemeField ? rowSchemeField.select.value : rowSchemes[0];
       return val === 'values' ? undefined : val;
     }
     function currentColumnScheme() {
-      const val = columnSchemeField ? columnSchemeField.select.value : 'values';
+      const val = columnSchemeField ? columnSchemeField.select.value : columnSchemes[0];
       return val === 'values' ? undefined : val;
     }
 

@@ -304,6 +304,7 @@
   Router.start({
     dispatch: routeDispatch,
     onError: (err) => {
+      console.error(err); // deja rastro (con la pila) de por qué falló la vista
       viewRoot.innerHTML = '';
       viewRoot.appendChild(el('p', 'error-note', 'Error al cargar la vista: ' + err.message));
     },

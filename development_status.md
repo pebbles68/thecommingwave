@@ -2,6 +2,16 @@
 
 ## Estado actual
 
+### Error al abrir la tabla «1) Combate cercano del ejército» (pág. 2) — 2026-10-13
+
+- Estado: `done` (sin commitear).
+- Causa: el eje de columnas de esa tabla solo declara variantes (`pasivo` y `activo`), sin etiquetas canónicas (`values`), y el visor de tablas daba por hecho que siempre existían: «Cannot read properties of undefined (reading length)». Era la única de las 30 tablas con esa forma. No la detectó ninguna prueba porque ninguna abría cada tabla en el visor.
+- Cambios: `help-tablas.js` (ofrece solo los esquemas que existen y elige el primero cuando no hay canónico), `table-engine.js` (`pickAxisLabels` exige esquema con un error claro y `isPlaceholderScheme` tolera etiquetas inexistentes), `app.js` (registra el error con su pila en la consola).
+- Pruebas nuevas: `test/table-axis-variants.test.js` y `test/e2e/all-tables-open.spec.js` (abre las 30 tablas en el visor, sin error y con resultado).
+- Validación: `npm test` 784/784 OK; Playwright completo 351/351 OK.
+- Visible en la web: **sí**: Ayuda rápida > Tablas > Pág. 2 > 1) Combate cercano del ejército.
+- Git: sin commit asociado.
+
 ### Fondo con el logotipo más visible — 2026-10-13
 
 - Estado: `done` (sin commitear). Repositorio activo: `thecommingwave-nuevo` (el antiguo está archivado).

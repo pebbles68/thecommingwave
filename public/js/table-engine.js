@@ -75,7 +75,7 @@
   }
 
   function isPlaceholderScheme(labels) {
-    return labels.length > 0 && labels.every((l) => /^c\d+$/i.test(String(l).trim()));
+    return Array.isArray(labels) && labels.length > 0 && labels.every((l) => /^c\d+$/i.test(String(l).trim()));
   }
 
   // Busca en `labels` (array de etiquetas de eje, en el orden de `cells`) el
@@ -116,7 +116,17 @@
   // Obtiene el array de etiquetas de un eje para un esquema dado. `schemeKey`
   // es opcional; sin él se usa siempre `axis.values` (el esquema canónico).
   function pickAxisLabels(axis, schemeKey) {
-    if (!schemeKey) return axis.values;
+    if (!schemeKey) {
+      // Un eje puede declarar solo variantes (sin etiquetas canónicas): hay que elegir esquema, nunca se elige uno por defecto.
+      if (!Array.isArray(axis.values)) {
+        throw new TableEngineError(
+          'scheme_required',
+          'El eje no tiene etiquetas canónicas (values); hay que indicar un esquema (alternateLabels/alternateLabelSets/variants).',
+          { availableSchemes: listSchemes(axis) }
+        );
+      }
+      return axis.values;
+    }
     if (axis.alternateLabels && axis.alternateLabels[schemeKey]) return axis.alternateLabels[schemeKey];
     if (axis.alternateLabelSets && axis.alternateLabelSets[schemeKey]) return axis.alternateLabelSets[schemeKey];
     if (axis.variants && axis.variants[schemeKey]) return axis.variants[schemeKey];
