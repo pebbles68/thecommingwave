@@ -65,9 +65,9 @@
     wrap.appendChild(el('h1', 'home__title', 'THE COMING WAVE'));
     wrap.appendChild(el('p', 'home__subtitle', 'Guía interactiva de reglas, tablas y resolución de acciones'));
 
-    // Tres entradas principales (AJ-006); los accesos recientes quedan debajo.
+    // Cuatro entradas principales (AJ-006, Fase 24); los accesos recientes quedan debajo. El Turno guiado, al final.
     const main = el('div', 'home__actions');
-    main.appendChild(makeActionCard('Seguir turno', 'Recorre la hoja de turnos fase a fase o entra directamente en la que necesites.', () => { location.hash = '#/turno'; }));
+    main.appendChild(makeActionCard('Turno Comentado', 'La hoja de turnos explicada: toca una fase y te guía por lo que puedes hacer en ella.', () => { location.hash = '#/turno-comentado'; }));
     const combatCard = makeActionCard('Resolver combate', 'Elige el tipo de ataque o combate y responde paso a paso hasta el resultado.', () => {
       combatPanel.hidden = !combatPanel.hidden;
       combatCard.setAttribute('aria-expanded', String(!combatPanel.hidden));
@@ -76,6 +76,7 @@
     combatCard.setAttribute('aria-expanded', 'false');
     main.appendChild(combatCard);
     main.appendChild(makeActionCard('Consultar ayuda', 'Reglas, tablas, detección, planes de ataque, munición y fichas.', () => { location.hash = '#/ayuda'; }));
+    main.appendChild(makeActionCard('Turno guiado', 'Recorre la hoja de turnos fase a fase o entra directamente en la que necesites.', () => { location.hash = '#/turno'; }));
     wrap.appendChild(main);
 
     const combatPanel = el('div', 'home__combat');
@@ -245,6 +246,7 @@
         recordRecentHelp(parts[1]);
       }
       if (parts.length === 0) return renderHome();
+      if (parts[0] === 'turno-comentado') return Views.TurnCommented.renderTurnCommented();
       if (parts[0] === 'turno') return routeTurn(parts);
       if (parts[0] === 'ayuda' && parts.length === 1) return Views.HelpIndex.renderHelpIndex();
       if (parts[0] === 'ayuda' && parts[1] === 'tablas' && parts[2] === 'router') return Views.HelpTablas.renderTableRouter(parts.slice(3));

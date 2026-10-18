@@ -1,5 +1,9 @@
 # Cambios
 
+## Sin etiquetar
+
+- **Turno Comentado:** nueva entrada en Inicio con la hoja de turnos interactiva. Al pulsar una zona se amplía ese recorte y, a su lado, aparece la lista de fases del apartado (con Refuerzos y Recuperación de Mando). El Turno guiado pasa a ser la cuarta y última tarjeta de Inicio. Las zonas de la hoja están pendientes de revisión.
+
 ## 1.0.0 — primera versión pública
 
 Aplicación web de ayuda para *The Coming Wave*, pensada para tablet en horizontal.

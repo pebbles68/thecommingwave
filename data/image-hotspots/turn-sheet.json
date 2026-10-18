@@ -1,0 +1,756 @@
+{
+ "schemaVersion": 1,
+ "kind": "turn-sheet-zones",
+ "calibration": {
+  "tool": "opencv",
+  "toolVersion": "5.0.0",
+  "profile": "turn-sheet-color-grid-v1",
+  "script": "scripts/image-hotspots/calibrate_turn_sheet.py",
+  "note": "Zonas candidatas por color y rejilla; ninguna es verified hasta su revision humana con la imagen de control. source=inferred-from-grid indica que la columna no se detecto por color y se coloco por la rejilla.",
+  "issues": []
+ },
+ "image": {
+  "src": "data/phases/source-images/hoja-de-turnos.jpg",
+  "width": 2338,
+  "height": 1654,
+  "sha256": "cbbd006724d31b1a6d4dfe9fe250caf099f00d6eb4e786c52ca1e686d764a40a"
+ },
+ "zones": [
+  {
+   "id": "strategy:crisis",
+   "kind": "strategy-step",
+   "ref": {
+    "phase": 0,
+    "step": "crisis"
+   },
+   "label": "Crisis",
+   "rect": [
+    0.08768,
+    0.25756,
+    0.07271,
+    0.10218
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "strategy:espacio",
+   "kind": "strategy-step",
+   "ref": {
+    "phase": 0,
+    "step": "espacio"
+   },
+   "label": "Espacio",
+   "rect": [
+    0.16039,
+    0.25756,
+    0.07271,
+    0.10218
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "strategy:diplomacia",
+   "kind": "strategy-step",
+   "ref": {
+    "phase": 0,
+    "step": "diplomacia"
+   },
+   "label": "Diplomacia",
+   "rect": [
+    0.23311,
+    0.25756,
+    0.07271,
+    0.10218
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "strategy:logistica",
+   "kind": "strategy-step",
+   "ref": {
+    "phase": 0,
+    "step": "logistica"
+   },
+   "label": "Logística",
+   "rect": [
+    0.30582,
+    0.25756,
+    0.07271,
+    0.10218
+   ],
+   "source": "inferred-from-grid",
+   "confidence": 0.6,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "strategy:reparacion",
+   "kind": "strategy-step",
+   "ref": {
+    "phase": 0,
+    "step": "reparacion"
+   },
+   "label": "Mantenimiento",
+   "rect": [
+    0.37853,
+    0.25756,
+    0.07271,
+    0.10218
+   ],
+   "source": "inferred-from-grid",
+   "confidence": 0.6,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-1:air-1",
+   "kind": "segment",
+   "ref": {
+    "phase": 1,
+    "segment": "air-1"
+   },
+   "label": "Aire I",
+   "rect": [
+    0.08127,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-1:surface",
+   "kind": "segment",
+   "ref": {
+    "phase": 1,
+    "segment": "surface"
+   },
+   "label": "Superficie",
+   "rect": [
+    0.14585,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-1:air-2",
+   "kind": "segment",
+   "ref": {
+    "phase": 1,
+    "segment": "air-2"
+   },
+   "label": "Aire II",
+   "rect": [
+    0.20616,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-1:ground",
+   "kind": "segment",
+   "ref": {
+    "phase": 1,
+    "segment": "ground"
+   },
+   "label": "Tierra",
+   "rect": [
+    0.26818,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-1:submarine",
+   "kind": "segment",
+   "ref": {
+    "phase": 1,
+    "segment": "submarine"
+   },
+   "label": "Submarino",
+   "rect": [
+    0.33105,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-1:reinforcements",
+   "kind": "segment",
+   "ref": {
+    "phase": 1,
+    "segment": "reinforcements"
+   },
+   "label": "Refuerzos",
+   "rect": [
+    0.08127,
+    0.40629,
+    0.05988,
+    0.02418
+   ],
+   "source": "inferred-from-grid",
+   "confidence": 0.6,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-2:air-1",
+   "kind": "segment",
+   "ref": {
+    "phase": 2,
+    "segment": "air-1"
+   },
+   "label": "Aire I",
+   "rect": [
+    0.40376,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-2:surface",
+   "kind": "segment",
+   "ref": {
+    "phase": 2,
+    "segment": "surface"
+   },
+   "label": "Superficie",
+   "rect": [
+    0.46878,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "inferred-from-grid",
+   "confidence": 0.6,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-2:air-2",
+   "kind": "segment",
+   "ref": {
+    "phase": 2,
+    "segment": "air-2"
+   },
+   "label": "Aire II",
+   "rect": [
+    0.52866,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-2:submarine",
+   "kind": "segment",
+   "ref": {
+    "phase": 2,
+    "segment": "submarine"
+   },
+   "label": "Submarino",
+   "rect": [
+    0.58811,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-2:reinforcements",
+   "kind": "segment",
+   "ref": {
+    "phase": 2,
+    "segment": "reinforcements"
+   },
+   "label": "Refuerzos",
+   "rect": [
+    0.40505,
+    0.40689,
+    0.05774,
+    0.02418
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-3:air-1",
+   "kind": "segment",
+   "ref": {
+    "phase": 3,
+    "segment": "air-1"
+   },
+   "label": "Aire I",
+   "rect": [
+    0.66424,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-3:surface",
+   "kind": "segment",
+   "ref": {
+    "phase": 3,
+    "segment": "surface"
+   },
+   "label": "Superficie",
+   "rect": [
+    0.7284,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-3:air-2",
+   "kind": "segment",
+   "ref": {
+    "phase": 3,
+    "segment": "air-2"
+   },
+   "label": "Aire II",
+   "rect": [
+    0.78956,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-3:ground",
+   "kind": "segment",
+   "ref": {
+    "phase": 3,
+    "segment": "ground"
+   },
+   "label": "Tierra",
+   "rect": [
+    0.84944,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-3:submarine",
+   "kind": "segment",
+   "ref": {
+    "phase": 3,
+    "segment": "submarine"
+   },
+   "label": "Submarino",
+   "rect": [
+    0.91189,
+    0.42987,
+    0.06159,
+    0.22914
+   ],
+   "source": "inferred-from-grid",
+   "confidence": 0.6,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-3:reinforcements",
+   "kind": "segment",
+   "ref": {
+    "phase": 3,
+    "segment": "reinforcements"
+   },
+   "label": "Refuerzos",
+   "rect": [
+    0.66424,
+    0.40629,
+    0.06031,
+    0.02539
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-4:air-1",
+   "kind": "segment",
+   "ref": {
+    "phase": 4,
+    "segment": "air-1"
+   },
+   "label": "Aire I",
+   "rect": [
+    0.08127,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-4:surface",
+   "kind": "segment",
+   "ref": {
+    "phase": 4,
+    "segment": "surface"
+   },
+   "label": "Superficie",
+   "rect": [
+    0.14585,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-4:air-2",
+   "kind": "segment",
+   "ref": {
+    "phase": 4,
+    "segment": "air-2"
+   },
+   "label": "Aire II",
+   "rect": [
+    0.20317,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-4:ground",
+   "kind": "segment",
+   "ref": {
+    "phase": 4,
+    "segment": "ground"
+   },
+   "label": "Tierra",
+   "rect": [
+    0.26818,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-4:submarine",
+   "kind": "segment",
+   "ref": {
+    "phase": 4,
+    "segment": "submarine"
+   },
+   "label": "Submarino",
+   "rect": [
+    0.3302,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-4:reinforcements",
+   "kind": "segment",
+   "ref": {
+    "phase": 4,
+    "segment": "reinforcements"
+   },
+   "label": "Refuerzos",
+   "rect": [
+    0.08127,
+    0.71584,
+    0.05988,
+    0.02418
+   ],
+   "source": "inferred-from-grid",
+   "confidence": 0.6,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-5:air-1",
+   "kind": "segment",
+   "ref": {
+    "phase": 5,
+    "segment": "air-1"
+   },
+   "label": "Aire I",
+   "rect": [
+    0.40376,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-5:surface",
+   "kind": "segment",
+   "ref": {
+    "phase": 5,
+    "segment": "surface"
+   },
+   "label": "Superficie",
+   "rect": [
+    0.46835,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "inferred-from-grid",
+   "confidence": 0.6,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-5:air-2",
+   "kind": "segment",
+   "ref": {
+    "phase": 5,
+    "segment": "air-2"
+   },
+   "label": "Aire II",
+   "rect": [
+    0.52823,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-5:submarine",
+   "kind": "segment",
+   "ref": {
+    "phase": 5,
+    "segment": "submarine"
+   },
+   "label": "Submarino",
+   "rect": [
+    0.58725,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-5:reinforcements",
+   "kind": "segment",
+   "ref": {
+    "phase": 5,
+    "segment": "reinforcements"
+   },
+   "label": "Refuerzos",
+   "rect": [
+    0.40419,
+    0.71584,
+    0.0586,
+    0.02418
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-6:air-1",
+   "kind": "segment",
+   "ref": {
+    "phase": 6,
+    "segment": "air-1"
+   },
+   "label": "Aire I",
+   "rect": [
+    0.66424,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-6:surface",
+   "kind": "segment",
+   "ref": {
+    "phase": 6,
+    "segment": "surface"
+   },
+   "label": "Superficie",
+   "rect": [
+    0.73054,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-6:air-2",
+   "kind": "segment",
+   "ref": {
+    "phase": 6,
+    "segment": "air-2"
+   },
+   "label": "Aire II",
+   "rect": [
+    0.79341,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-6:ground",
+   "kind": "segment",
+   "ref": {
+    "phase": 6,
+    "segment": "ground"
+   },
+   "label": "Tierra",
+   "rect": [
+    0.85287,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-6:submarine",
+   "kind": "segment",
+   "ref": {
+    "phase": 6,
+    "segment": "submarine"
+   },
+   "label": "Submarino",
+   "rect": [
+    0.91531,
+    0.74002,
+    0.06159,
+    0.22914
+   ],
+   "source": "inferred-from-grid",
+   "confidence": 0.6,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "phase-6:reinforcements",
+   "kind": "segment",
+   "ref": {
+    "phase": 6,
+    "segment": "reinforcements"
+   },
+   "label": "Refuerzos",
+   "rect": [
+    0.66382,
+    0.71584,
+    0.06245,
+    0.02418
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "command-recovery:day-odd",
+   "kind": "command-recovery",
+   "ref": {
+    "day": "day-odd"
+   },
+   "label": "Recuperación de Mando",
+   "rect": [
+    0.08298,
+    0.37001,
+    0.07057,
+    0.0266
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  },
+  {
+   "id": "command-recovery:day-even",
+   "kind": "command-recovery",
+   "ref": {
+    "day": "day-even"
+   },
+   "label": "Recuperación de Mando",
+   "rect": [
+    0.08298,
+    0.67896,
+    0.07057,
+    0.02721
+   ],
+   "source": "detected",
+   "confidence": 0.9,
+   "reviewStatus": "needs_review"
+  }
+ ]
+}

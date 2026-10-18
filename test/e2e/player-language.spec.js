@@ -67,9 +67,9 @@ for (const route of ROUTES) {
   });
 }
 
-test('Inicio ofrece tres entradas principales y el listado de combates se despliega', async ({ page }) => {
+test('Inicio ofrece cuatro entradas principales, con el Turno guiado la última y el listado de combates se despliega', async ({ page }) => {
   await page.goto('/#/');
-  for (const name of ['Seguir turno', 'Resolver combate', 'Consultar ayuda']) {
+  for (const name of ['Turno Comentado', 'Resolver combate', 'Consultar ayuda', 'Turno guiado']) {
     await expect(page.locator('.home__actions').first().getByRole('button', { name: new RegExp(`^${name}`) })).toBeVisible();
   }
   await expect(page.getByRole('button', { name: /^Combate aéreo BVR/ })).toBeHidden();

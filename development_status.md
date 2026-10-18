@@ -2,6 +2,14 @@
 
 ## Estado actual
 
+### Primera entrega visible del Turno Comentado (TC-001 a TC-003) — 2026-10-18
+
+- Estado: `in_progress`, **pendiente de la comprobación del mantenedor (CP-001)**; sin commit de código.
+- **Cambios:** Inicio con cuatro tarjetas (Turno Comentado, Resolver combate, Consultar ayuda, Turno guiado); nueva ruta `#/turno-comentado` con la hoja de turnos y 41 zonas (`data/image-hotspots/turn-sheet.json`, calibradas con `scripts/image-hotspots/calibrate_turn_sheet.py`, todas `needs_review`; 8 colocadas por rejilla); al pulsar una zona aparece el cuadro con las subfases del modelo, Refuerzos en todos los Aire I y Recuperación de Mando en Aire I de la 1.ª y la 4.ª. Archivos: `public/js/turn-sheet-engine.js`, `public/js/views/turn-commented.js`, `public/js/app.js`, `public/index.html`, `public/css/style.css`, `test/turn-sheet.test.js`, `test/e2e/turn-commented.spec.js`; las pruebas de Inicio de `player-language.spec.js` y `fast-navigation.spec.js` se adaptaron a los nuevos nombres.
+- **Validación:** `npm test` 793/793; Playwright (tablet horizontal y táctil) 358/358 en Chromium.
+- **Visible en la web: sí.** `npm start`, http://localhost:3000/#/: cuatro tarjetas; «Turno Comentado» abre la hoja; al pasar el ratón se resalta una zona y al pulsarla la zona se separa y se amplía (recorte de esa parte de la hoja) con, a su lado, el cuadro de fases; elegir una fase abre su página (por ahora la del Turno guiado). Imagen de control de la calibración: `docs/image-hotspots/review/turn-sheet-calibration.png` (verde = detectada, rojo = por rejilla).
+- **Pendiente:** TC-004 a TC-007; si alguna zona no encaja, recordar la herramienta de revisión manual de imágenes (Fase 22).
+
 ### Plan del Turno Comentado y de las ayudas de combate por pasos — 2026-10-18
 
 - Estado: `pending` (solo planificado y documentado; nada implementado). Repositorio activo: `thecommingwave-nuevo`; última versión publicada: 1.0.0 (`v1.0.0`).

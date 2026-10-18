@@ -28,7 +28,7 @@ test('navegar rápidamente entre varias rutas de Ayuda rápida no deja contenido
   await expect(page).toHaveURL(/#\/$/);
   await expect(page.locator('main#view-root h1')).toHaveCount(1);
   await expect(page.locator('main#view-root h1')).toHaveText('THE COMING WAVE');
-  await expect(page.getByText('Seguir turno')).toBeVisible();
+  await expect(page.getByText('Turno Comentado')).toBeVisible();
 });
 
 test('navegar rápidamente entre una fase y varias subfases del turno guiado no deja vistas superpuestas', async ({ page }) => {

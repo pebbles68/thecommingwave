@@ -924,3 +924,19 @@ button {
 .source-details__status.is-verified { color: #6fcf97; }
 .source-details__status.is-needs_review { color: var(--hotspot-review-color, #ffb84a); }
 .source-details__note { margin: 2px 0 0; }
+
+/* Turno Comentado (Fase 24): hoja de turnos interactiva; la zona elegida se separa y se amplía junto a su cuadro de fases */
+.turn-commented .ihv__stage { max-width: 1700px; }
+.turn-commented__intro { color: var(--text-muted); max-width: 70ch; }
+.turn-commented__focus[hidden] { display: none; }
+.turn-commented__focus { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 76px 12px 12px; }
+.turn-commented__backdrop { position: absolute; inset: 0; background: rgba(5, 10, 16, 0.72); }
+.turn-commented__panel { position: relative; width: min(1100px, 100%); max-width: 100%; max-height: 100%; overflow: auto; padding: 16px 18px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); }
+.turn-commented__panel-body { display: flex; gap: 18px; align-items: flex-start; flex-wrap: nowrap; }
+.turn-commented__crop { flex: 0 1 auto; max-width: 42%; border: 2px solid var(--hotspot-color, #f5b942); border-radius: var(--radius); background-repeat: no-repeat; background-color: #fff; max-width: 100%; }
+.turn-commented__toolbox { flex: 1 1 0; min-width: 0; }
+.turn-commented__toolbox-title { margin: 0 0 10px; font-size: 1.15rem; }
+.turn-commented__toolbox-label { margin: 12px 0 6px; font-weight: 600; }
+.turn-commented__items { display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+.turn-commented__items .btn { min-height: 48px; text-align: left; }
+.turn-commented__toolbox-close { float: right; min-height: 48px; }
