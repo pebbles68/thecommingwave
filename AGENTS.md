@@ -96,6 +96,17 @@ Política permanente (origen: `ajustes_de_turno.md`, Fase 23), con los nombres y
 10. **Fuentes por nivel:** banda, día, fase, segmento, subfase y nodo consultable tienen `sourceRefs` propios (documento registrado en `data/sources/sources.json`, sección, página y `status` `verified`/`needs_review` con nota cuando es pendiente), visibles en el bloque plegable «Fuentes y trazabilidad». Las decisiones del mantenedor sin documento se registran como la fuente «Indicación del mantenedor».
 11. **Workflows por segmento:** cada subfase declara sus `relatedWorkflowIds` y `wizardLinks`; las páginas de segmento muestran la unión de los de sus subfases, nunca una lista vacía si les corresponde algún combate.
 
+### 3.1.2. Turno Comentado y estructura de la guía interactiva
+
+Decisión del mantenedor (2026-10-18; detalle y estado en `roadmap.md`, Fase 24, y `development_status.md`):
+
+1. **Estructura de Inicio:** el **Seguir turno actual (Turno guiado) sigue como hasta ahora**, sin cambios de comportamiento (§3.1 y §3.1.1 siguen vigentes), y pasa a ser la **cuarta y última opción** de la guía. Se añade el **Turno Comentado**, una opción **más sencilla para los usuarios menos experimentados**, cuyo objetivo es **guiarlos**: decirles qué tienen que hacer y en qué orden, en vez de pedirles que conozcan la hoja. Orden de las tarjetas (interpretación del 2026-10-18, fácil de cambiar si el mantenedor lo indica): Turno Comentado, Resolver combate, Consultar ayuda y Turno guiado.
+2. **Turno Comentado:** muestra la **hoja de seguimiento de turno en imagen** con todos sus segmentos localizados como zonas sobre la imagen (herramienta de localización de bordes con OpenCV, según §9.6: geometría en `data/image-hotspots/`, estados de revisión, nunca `verified` sin revisión del mantenedor). Zonas: los pasos de Estrategia (Crisis, Espacio, Diplomacia, Logística y Mantenimiento; Logística se incluye por indicación del mantenedor del 2026-10-18) y, en cada una de las seis fases de campaña, sus segmentos (Aire I, Superficie, Aire II, Tierra —solo donde la hoja lo imprime— y Submarino).
+3. **Interacción:** al pasar por encima (o al tocar en pantallas táctiles) la zona se resalta; un primer clic abre un cuadro con la lista de fases de ese apartado; un segundo clic abre la página de explicación de la fase elegida con todas sus subfases. Todo es operable con teclado y táctil (áreas de al menos 48×48 px) y el hover es solo mejora progresiva.
+4. **Siempre se mencionan, en cada página que corresponda:** los **Refuerzos** en la primera fase de aire (Aire I) de cada fase de campaña, y la **Recuperación de Mando** en la primera fase de aire de cada día (fases 1.ª y 4.ª). Salen del modelo canónico (`data/phases/turn-template.json`), no de textos duplicados en la vista.
+5. **Cada subfase** muestra qué se puede hacer y reutiliza las ayudas terminológicas del Turno guiado (menciones `[[id]]`, fuentes por nivel, atajos a wizards y tablas). **Ayudar gráficamente es la norma**, no la excepción (§9.7).
+6. La información sale del mismo modelo que el Turno guiado: no se mantiene una segunda copia de fases, subfases ni textos.
+
 ### 3.2. Modo Consulta rápida
 
 Desde cualquier pantalla principal debe poder abrirse un menú de ayuda con:
@@ -111,6 +122,17 @@ Desde cualquier pantalla principal debe poder abrirse un menú de ayuda con:
 La consulta rápida no debe alterar el estado del turno guiado salvo que el usuario confirme expresamente que quiere iniciar una resolución desde ella.
 
 ---
+
+### 3.3. Ayuda de combate por pasos mentales
+
+Decisión del mantenedor (2026-10-18; ver `roadmap.md`, Fase 24): las ayudas de combate deben ser más usables y **seguir los pasos que el jugador recorre mentalmente para elegir la tabla**, explicados al principio del proceso y antes de pedir datos. El enfoque es **guiar a una persona poco experta que no sabe qué tiene que hacer**: es menos una calculadora de factores y más una **guía de pasos a seguir en el proceso del ataque**, que desemboca en el wizard de cálculo cuando toca. Ejemplo para un ataque aéreo:
+
+1. misión del atacante (en fase aérea solo puede ser CAP, Interceptación o Air Strike);
+2. existe detección en defensa; si se detecta, hay CAP o salida de emergencia;
+3. si el objetivo es un AWACS y hay CAP en el mismo hexágono, se indica que el defensor puede defender con la CAP;
+4. paso al BVR y a la tirada de detección BVR, preguntando todas las opciones que afectan a la tirada, pero explicando antes el proceso.
+
+La secuencia de pasos de cada tipo de combate es dato declarativo (no está en la vista), cita su fuente y no inventa reglas (§1.5): lo que la fuente no cubre se muestra como pendiente.
 
 ## 4. Arquitectura técnica obligatoria
 
@@ -476,6 +498,10 @@ Política permanente para **toda imagen con varias zonas explicativas**, existen
 - **Wizards:** un campo que se lee de una imagen declara en `data/rules/wizard-visual-refs.json` la ficha/tarjeta y la zona (`templateId`+`factor`, o `boardType`+`hotspotId`); si la equivalencia con una zona impresa no está validada, se enseña el elemento sin zona preseleccionada.
 - **Toda imagen nueva** debe incluir en la misma funcionalidad su calibración, conceptos, fuentes, pruebas de datos (hash, rangos, conceptos existentes, ningún `verified` sin revisión) y evidencia QA; si aún no la tiene, queda como ayuda visual no interactiva pendiente.
 
+### 9.7. Ayuda gráfica primero
+
+Siempre que exista una imagen que explique mejor que el texto, se muestra primero la imagen con zonas explicadas (§9.6) y el texto la acompaña. Ejemplos (mantenedor, 2026-10-18): en la **Planificación de Misiones** se muestra la tarjeta del aeródromo con sus zonas principales remarcadas y explicadas: despegue temprano (Despegue de Emergencia), CAP, On Call (A Demanda), Air Strike, misiones especiales y aviones disponibles (Lista para Despegar). En las subfases de **recuperación** (aviones dañados) se remarca dónde se colocan los aviones con avería, y en la de **preparación** se remarca el avance de los aviones por el track hasta quedar disponibles. Si falta la imagen, la geometría o el texto de una zona, se declara pendiente; nunca se aproxima.
+
 ---
 
 ## 10. Persistencia e historial
@@ -707,6 +733,10 @@ Mantener una sección inicial de estado actual y un historial breve de hitos. Po
 ```
 
 No convertir `development_status.md` en una copia completa del changelog ni del historial de commits. Debe ser un **documento de continuidad de trabajo**, conciso pero suficiente para que otro agente conozca el estado real del proyecto.
+
+### 18.3.1. Traspaso entre cambios
+
+Antes de cerrar cualquier cambio, `development_status.md` debe dejar escrito **para quien haga el siguiente cambio**: qué se decidió y por qué, qué queda hecho y verificado, qué falta, las dudas abiertas con su motivo, el siguiente paso recomendado y cómo comprobarlo en la web. Las decisiones del mantenedor se registran con su fecha y, si no hay documento, como fuente «Indicación del mantenedor». El `roadmap.md` se actualiza en el mismo conjunto de cambios.
 
 ### 18.4. Relación con Git
 

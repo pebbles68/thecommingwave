@@ -814,3 +814,64 @@ Se cumple la Definition of Done de `ajuste_imagenes.md` §10. No se calibran las
 ### Criterio de salida
 
 Se cumple la Definition of Done de `ajustes_de_turno.md` §7. No se construyen pantallas sobre el JSON actual antes de consolidar el modelo canónico (§6 del informe).
+
+---
+
+# Fase 24 — Turno Comentado, hoja de turnos interactiva y ayudas de combate por pasos (2026-10-18)
+
+**Objetivo:** ofrecer una forma gráfica de consultar el turno (la hoja de seguimiento en imagen, con todos sus segmentos como zonas) y ayudas de combate que sigan el razonamiento del jugador. Origen: petición del mantenedor del 2026-10-18; política permanente en `AGENTS.md` §3.1.2, §3.3 y §9.7.
+
+**Estado:** planificada; nada implementado. Las tareas abiertas dependen de las dudas de abajo.
+
+### Decisiones del mantenedor (2026-10-18, segunda tanda)
+
+- **Inicio:** el Seguir turno sigue como hasta ahora; el Turno Comentado es una opción **más sencilla para usuarios poco experimentados** que debe **guiarlos**. Orden propuesto: Turno Comentado, Resolver combate, Consultar ayuda y Turno guiado (cuarta y última). Interpretación mía, reversible.
+- **Logística** se incluye entre los pasos de Estrategia.
+- **Ayuda de combate:** menos calculadora de factores y más **guía de pasos** del proceso del ataque, para quien no sabe qué hacer. Queda por detallar el resto del paso del BVR (el mensaje se cortó).
+- **Tarjeta del aeródromo, Planificación de Misiones:** remarcar despegue temprano, CAP, On Call, Air Strike, misiones especiales y aviones disponibles. En la subfase de **bajas aéreas / recuperación** remarcar dónde se colocan los aviones con avería, y en la de **preparación** remarcar el avance por el track hasta quedar disponibles.
+
+### Confirmadas por el mantenedor (2026-10-18, tercera tanda)
+
+- Orden de las cuatro tarjetas de Inicio: Turno Comentado, Resolver combate, Consultar ayuda y Turno guiado — **confirmado**.
+- Equivalencias de la tarjeta (despegue temprano = Despegue de Emergencia, On Call = A Demanda, CAP = Superioridad Aérea, aviones disponibles = Lista para Despegar) — **confirmadas**.
+- Método de trabajo: cada tarea termina con una **comprobación del mantenedor** (ver «Puntos de comprobación»): el agente indica qué abrir y qué mirar, y el mantenedor confirma lo que ve antes de pasar a la siguiente.
+
+- **Reparto de confirmaciones (mantenedor, 2026-10-18):** puede confirmar las **reglas** por escrito, pero los **flujos de la aplicación** solo los puede confirmar **viéndolos**. Por eso se entrega primero una **primera versión visible** (TC-001 a TC-003 juntas) y no se pide confirmar flujos sobre papel.
+- **Orden del turno:** es el de la imagen de la hoja de turnos. Al entrar en el Turno Comentado se ve **esa hoja como pantalla principal**, con sus fases y segmentos en el orden impreso; el resto (lista de fases, páginas de segmento) cuelga de ella.
+
+### Dudas que siguen abiertas
+
+- **Correspondencia de las zonas de la tarjeta (ya confirmada, queda el detalle de averiados y track):** despegue temprano = «Despegue de Emergencia» (EMG Scramble); On Call = «A Demanda»; CAP = probablemente la casilla de «Superioridad Aérea»; aviones disponibles = «Lista para Despegar»; averiados = «Aterrizaje: dañadas»; avance por el track = «Aterrizaje: en espera de preparación» hacia «Lista para Despegar». Hay que confirmarlo mirando la tarjeta.
+- **Resto del paso del BVR** de la ayuda de combate.
+
+### Dudas ya resueltas (primera tanda, histórico)
+
+- **Estructura de Inicio:** el Turno guiado pasa a ser la cuarta opción y queda al final; «Seguir turno» incorpora el Turno Comentado. Falta confirmar cuáles son las cuatro opciones y su orden.
+- **«Logística» en Estrategia:** la hoja imprime cinco pasos (Crisis, Espacio, Diplomacia, **Logística**, Mantenimiento) y el mensaje del mantenedor lista cuatro. ¿Se deja fuera Logística o es un olvido?
+- **«OpenLM»:** se entiende que es OpenCV, la herramienta de localización de bordes ya usada en la Fase 22.
+- **Ayuda del BVR:** el mensaje del mantenedor se cortó en «explicar el proceso:» y falta el resto del paso 4 (tirada de detección BVR y las opciones que la afectan).
+- **Casilla «A Demanda»:** la tarjeta del aeródromo la tiene y su resumen quedó sin redactar (no se sabe si equivale al «Ataque Dinámico» del libro).
+- **Zonas de la imagen:** se calibran con OpenCV, quedan `needs_review` y las revisa el mantenedor; si hay que ajustarlas, está prevista la herramienta de revisión manual (Fase 22).
+
+### Tareas
+
+- [x] TC-000 — Documentos: `AGENTS.md` (§3.1.2, §3.3, §9.7, §18.3.1), este roadmap y `development_status.md` — **hecho (2026-10-18)**.
+- [ ] TC-001 — Inicio con cuatro opciones: Turno Comentado (nueva, sencilla y guiada), Resolver combate, Consultar ayuda y Turno guiado (cuarta y última, sin cambios de comportamiento). Pruebas de navegación.
+- [ ] TC-002 — Calibrar con OpenCV las zonas de la hoja de turnos (`data/phases/source-images/hoja-de-turnos.jpg`, 2338×1654): Estrategia (cinco pasos, con Logística), REC. MANDO. de cada día, Refuerzos de cada fase y los segmentos de las seis fases (1.ª, 3.ª, 4.ª y 6.ª con Tierra; 2.ª y 5.ª sin ella). Geometría en `data/image-hotspots/`, imágenes de control, `needs_review`.
+- [ ] TC-003 — Vista «Turno Comentado» con el visor de zonas: resaltado al pasar o tocar, primer clic con la lista de fases del apartado en un cuadro, segundo clic a la página del segmento. Teclado y táctil.
+- [ ] TC-004 — Página de explicación de cada segmento con todas sus subfases; **Refuerzos siempre mencionados en Aire I** y **Recuperación de Mando en Aire I de la 1.ª y la 4.ª fase**, desde el modelo canónico.
+- [ ] TC-005 — Cada subfase: qué se puede hacer y ayudas terminológicas como en el Turno guiado; ayuda gráfica. Planificación de Misiones: tarjeta del aeródromo con despegue temprano, CAP, On Call, Air Strike, misiones especiales y aviones disponibles remarcados y explicados; recuperación: dónde se colocan los aviones con avería; preparación: el avance por el track hasta quedar disponibles. Requiere redactar el resumen de «A Demanda» (On Call) y confirmar la correspondencia de zonas.
+- [ ] TC-006 — Guía de pasos del ataque para quien no sabe qué hacer (más guía que calculadora): datos declarativos de la secuencia de pasos de cada tipo de combate, explicación inicial y enlace con el wizard cuando toca calcular. Primero el ataque aéreo (misión del atacante, detección, CAP o salida de emergencia, AWACS con CAP en el hexágono, BVR); el resto de tipos según se confirme.
+- [ ] TC-007 — Pruebas (datos, unidad y E2E con teclado y táctil), documentación, comprobación en Chromium y Safari, y publicación.
+
+### Puntos de comprobación del mantenedor (Fase 24)
+
+Cada tarea de implementación se cierra con un punto de comprobación: el agente deja la web arrancable (`npm start`, http://localhost:3000, o la versión publicada), explica en el hilo **qué abrir y qué mirar**, y el mantenedor responde con lo que ve. Hasta esa confirmación, la tarea queda «hecha, pendiente de comprobar» y no se avanza a la siguiente que dependa de ella. La confirmación se anota aquí y en `development_status.md` con fecha. Si algo no se ve como se espera, se corrige antes de seguir.
+
+- [ ] CP-001 (tras TC-001 a TC-003, primera versión visible) — **Inicio y hoja**: abrir `#/` y entrar en Turno Comentado: aparece la hoja de turnos tal como está impresa y, al pasar o tocar, se resaltan las zonas disponibles. **Inicio**: abrir `#/`. Se ven cuatro tarjetas en el orden Turno Comentado, Resolver combate, Consultar ayuda y Turno guiado; la última abre el Turno guiado exactamente como antes y el resto de rutas siguen funcionando.
+- [ ] CP-002 (tras TC-002) — **Zonas de la hoja**: abrir las imágenes de control de `docs/image-hotspots/review/`. Se comprueba a ojo que cada recuadro cae sobre su zona: cinco pasos de Estrategia, REC. MANDO. de los dos días, Refuerzos de cada fase y los segmentos de las seis fases (Tierra solo en 1.ª, 3.ª, 4.ª y 6.ª). Si alguna no encaja, se recuerda la herramienta de revisión manual (Fase 22).
+- [ ] CP-003 (tras TC-003) — **Interacción**: en el Turno Comentado, pasar el ratón (o tocar) resalta la zona; un clic muestra la lista de fases del apartado; el segundo clic abre la página de la fase. Probar también con teclado.
+- [ ] CP-004 (tras TC-004) — **Páginas de segmento**: Refuerzos se menciona en Aire I de cada fase y Recuperación de Mando en Aire I de la 1.ª y la 4.ª; se ven todas las subfases del segmento.
+- [ ] CP-005 (tras TC-005) — **Ayuda gráfica**: en Planificación de Misiones aparece la tarjeta del aeródromo con las zonas remarcadas y explicadas; en recuperación se ve dónde van los aviones con avería; en preparación se ve el avance por el track.
+- [ ] CP-006 (tras TC-006) — **Guía de combate**: abrir la guía del ataque aéreo y recorrer los pasos; se entiende qué hacer sin conocer las tablas y desemboca en el wizard cuando toca calcular.
+- [ ] CP-007 (tras TC-007) — **Versión publicada**: revisar la web publicada con los cambios y dar el visto bueno para la etiqueta de versión.

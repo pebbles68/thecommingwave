@@ -2,6 +2,38 @@
 
 ## Estado actual
 
+### Plan del Turno Comentado y de las ayudas de combate por pasos — 2026-10-18
+
+- Estado: `pending` (solo planificado y documentado; nada implementado). Repositorio activo: `thecommingwave-nuevo`; última versión publicada: 1.0.0 (`v1.0.0`).
+- **Documentos actualizados en este cambio:** `AGENTS.md` (§3.1.2 Turno Comentado y estructura de la guía, §3.3 ayuda de combate por pasos mentales, §9.7 ayuda gráfica primero, §18.3.1 traspaso entre cambios) y `roadmap.md` (Fase 24, tareas TC-000 a TC-007; TC-000 hecha).
+- **Petición del mantenedor (2026-10-18), resumida:**
+  1. El Turno guiado actual se queda como está, como cuarta y última opción de la guía interactiva.
+  2. «Seguir turno» incorpora un **Turno Comentado**: la hoja de seguimiento de turno en imagen, con todos sus segmentos localizados (herramienta de bordes con OpenCV; el mensaje decía «OpenLM») — Estrategia (Crisis, Espacio, Diplomacia, Mantenimiento), y en cada día Mañana (Aire I, Superficie, Aire II, Tierra, Submarino), Tarde (sin Tierra) y Noche (con Tierra).
+  3. Al pasar por encima se resalta; un clic muestra en un cuadro la lista de fases del apartado; otro clic abre la página de explicación de la fase elegida con todas sus subfases.
+  4. Mencionar siempre los **Refuerzos** en la primera fase de aire y la **Recuperación de Mando** en la primera fase de aire de cada día.
+  5. Cada subfase: qué se puede hacer y las ayudas terminológicas del Turno guiado, ayudando siempre gráficamente (p. ej. Planificación de Misiones con la tarjeta del aeródromo y las casillas de misión explicadas).
+  6. Ayudas de combate más usables, centradas en los pasos mentales para elegir la tabla (ejemplo del ataque aéreo: misión del atacante, detección en defensa y CAP o salida de emergencia, AWACS con CAP en el hexágono, BVR y tirada de detección con todas las opciones que la afectan, explicando antes el proceso).
+- **Hechos relevantes comprobados en el repositorio:**
+  - La hoja imprime Estrategia con **cinco** pasos (Crisis, Espacio, Diplomacia, **Logística**, Mantenimiento); el mensaje del mantenedor lista cuatro.
+  - La imagen de la hoja ya se sirve en `data/phases/source-images/hoja-de-turnos.jpg` (2338×1654) y se consulta desde «Secuencia de turno y fases».
+  - El modelo canónico ya tiene Refuerzos (consultable al principio de cada fase, antes de Aire I) y Recuperación de Mando (antes de cada día): `data/phases/turn-template.json`.
+  - Tierra existe en las fases 1.ª, 3.ª, 4.ª y 6.ª; no en la 2.ª ni la 5.ª (coincide con el listado del mantenedor).
+  - La tarjeta de aeródromo ya tiene zonas explicadas para las casillas de misión (Superioridad Aérea, Ataque Aéreo, Aerotransporte, Lanzamientos, Especial, Despegue de Emergencia); «A Demanda» quedó sin resumen.
+  - Inicio hoy tiene tres tarjetas principales (Seguir turno, Resolver combate, Consultar ayuda); «Seguir turno» abre el Turno guiado actual.
+- **Respuestas del mantenedor (2026-10-18, segunda tanda):**
+  - Inicio: el Seguir turno sigue como hasta ahora; el Turno Comentado es una opción **más sencilla para usuarios poco experimentados** y debe **guiarlos**. Orden que he aplicado en la documentación (interpretación mía, reversible): Turno Comentado, Resolver combate, Consultar ayuda y Turno guiado, cuarta y última.
+  - Logística se incluye en Estrategia.
+  - Ayuda de combate: guiar a quien no sabe qué hacer; menos calculadora de factores y más guía de pasos del ataque.
+  - Tarjeta del aeródromo: en Planificación de Misiones remarcar despegue temprano, CAP, On Call, Air Strike, misiones especiales y aviones disponibles; en la subfase de bajas aéreas (recuperación) remarcar dónde se colocan los aviones con avería, y en la de preparación remarcar el avance por el track hasta quedar disponibles.
+- **Confirmado por el mantenedor (2026-10-18, tercera tanda):** orden de las cuatro tarjetas de Inicio y equivalencias de la tarjeta (despegue temprano = Despegue de Emergencia, On Call = A Demanda, CAP = Superioridad Aérea, aviones disponibles = Lista para Despegar). Además pidió que el roadmap permita **confirmar lo que ve en cada paso**: se añadieron los puntos de comprobación CP-001 a CP-007 (`roadmap.md`, Fase 24); cada tarea queda «hecha, pendiente de comprobar» hasta que el mantenedor confirme.
+- **Aclaración del mantenedor (2026-10-18):** las reglas las puede confirmar por escrito, pero los flujos solo viéndolos; el orden del turno es el de la imagen de la hoja y al entrar en el Turno Comentado quiere ver esa hoja. Plan: primera entrega visible con TC-001 a TC-003 juntas (CP-001).
+- **Dudas abiertas:** el detalle de las zonas de averiados y del track (ver `roadmap.md`, Fase 24) y el resto del paso del BVR en la ayuda de combate (el mensaje se cortó en «explicar el proceso:»). Falta el resumen de la casilla «A Demanda» (On Call).
+- **Siguiente paso recomendado:** con las dudas resueltas, TC-001 (Inicio con cuatro opciones) y TC-002 (calibrar las zonas de la hoja con OpenCV, `needs_review`); después TC-003 a TC-007 en orden.
+- **Zonas de la imagen:** si el mantenedor pide ajustarlas, recordarle la herramienta de revisión manual de imágenes (Fase 22, solo si se encuentra una imagen incorrecta).
+- Validación: solo documentación; `npm test` 785/785 OK.
+- Visible en la web: **no** (solo documentos).
+- Git: sin commit asociado.
+
 ### Hoja de turnos en imagen y compatibilidad con Safari — 2026-10-13
 
 - Estado: `done` (sin commitear al escribir esto).
