@@ -46,30 +46,64 @@
     crop.style.backgroundImage = `url(/${sheet.image.src})`;
     crop.style.backgroundSize = `${100 / w}% ${100 / h}%`;
     crop.style.backgroundPosition = `${w < 1 ? (x / (1 - w)) * 100 : 0}% ${h < 1 ? (y / (1 - h)) * 100 : 0}%`;
-    return crop;
+    return { crop, region: { x, y, w, h } };
   }
 
-  // Panel que «separa» la zona de la hoja: la zona ampliada a la izquierda y, a su lado, el cuadro con sus fases.
-  function renderToolbox(host, template, sheet, zone) {
+  // Desde la posición real del recorte sobre la hoja hasta su sitio de destino: el trozo se amplía y «viene al frente»
+  // (técnica FLIP: se mide el destino, se coloca la caja en el origen con una transformación y se anima hasta quitarla).
+  function flyToFront(crop, region, svg, onDone) {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const from = svg.getBoundingClientRect();
+    const to = crop.getBoundingClientRect();
+    if (reduce || !from.width || !to.width) { onDone(); return; }
+    const sx = from.left + region.x * from.width;
+    const sy = from.top + region.y * from.height;
+    const sw = region.w * from.width;
+    const sh = region.h * from.height;
+    crop.style.transformOrigin = 'top left';
+    crop.style.transform = `translate(${sx - to.left}px, ${sy - to.top}px) scale(${sw / to.width}, ${sh / to.height})`;
+    crop.getBoundingClientRect(); // fuerza el cálculo de estilos antes de iniciar la transición
+    crop.style.transition = 'transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1)';
+    crop.style.transform = 'none';
+    let done = false;
+    const finish = () => { if (done) return; done = true; crop.style.transition = ''; onDone(); };
+    crop.addEventListener('transitionend', finish, { once: true });
+    setTimeout(finish, 650);
+  }
+
+  // Escape cierra el detalle aunque el foco aún no haya llegado a él (durante la animación).
+  let escapeHandler = null;
+  function clearEscape() {
+    if (escapeHandler) document.removeEventListener('keydown', escapeHandler, true);
+    escapeHandler = null;
+  }
+
+  // Detalle sin marco: la zona ampliada al frente y, cuando se posiciona, las opciones a su derecha.
+  function renderToolbox(host, template, sheet, zone, svg) {
     host.textContent = '';
+    host.classList.remove('is-ready');
+    clearEscape();
     if (!zone) { host.hidden = true; return; }
     const box = TurnSheetEngine.buildToolbox(template, zone);
-    const close = () => renderToolbox(host, template, sheet, null);
+    const close = () => renderToolbox(host, template, sheet, null, svg);
     host.hidden = false;
+    escapeHandler = (ev) => { if (ev.key === 'Escape') { ev.stopPropagation(); close(); } };
+    document.addEventListener('keydown', escapeHandler, true);
     const backdrop = el('div', 'turn-commented__backdrop');
     backdrop.addEventListener('click', close);
     host.appendChild(backdrop);
     const panel = el('div', 'turn-commented__panel');
     panel.setAttribute('role', 'dialog');
     panel.setAttribute('aria-label', box.title);
-    const closeBtn = el('button', 'btn btn--secondary turn-commented__toolbox-close', 'Cerrar');
+    const closeBtn = el('button', 'turn-commented__toolbox-close', 'Cerrar ✕');
     closeBtn.type = 'button';
     closeBtn.addEventListener('click', close);
-    panel.appendChild(closeBtn);
-    panel.appendChild(el('h2', 'turn-commented__toolbox-title', box.title));
+    host.appendChild(closeBtn);
     const body = el('div', 'turn-commented__panel-body');
-    body.appendChild(buildCrop(sheet, zone));
+    const { crop, region } = buildCrop(sheet, zone);
+    body.appendChild(crop);
     const side = el('div', 'turn-commented__toolbox');
+    side.appendChild(el('h2', 'turn-commented__toolbox-title', box.title));
     if (box.note) side.appendChild(el('p', 'source-refs', box.note));
     side.appendChild(linkButton(box.pageLabel, box.pageHash, 'btn btn--primary'));
     if (box.items.length) {
@@ -87,7 +121,11 @@
     body.appendChild(side);
     panel.appendChild(body);
     host.appendChild(panel);
-    closeBtn.focus({ preventScroll: true });
+    flyToFront(crop, region, svg, () => {
+      if (host.hidden || !host.contains(panel)) return;
+      host.classList.add('is-ready');
+      closeBtn.focus({ preventScroll: true });
+    });
   }
 
   async function renderTurnCommented() {
@@ -115,15 +153,16 @@
     const zonesById = new Map(sheet.zones.map((z) => [z.id, z]));
     const toolbox = el('section', 'turn-commented__focus');
     toolbox.hidden = true;
-    toolbox.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') { ev.stopPropagation(); renderToolbox(toolbox, template, sheet, null); } });
+    toolbox.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') { ev.stopPropagation(); renderToolbox(toolbox, template, sheet, null, viewer.element.querySelector('.ihv__svg')); } });
 
-    const viewer = ImageHotspotViewer.create({
+    let viewer;
+    viewer = ImageHotspotViewer.create({
       image: { src: `/${sheet.image.src}`, width: sheet.image.width, height: sheet.image.height, alt: 'Hoja de turnos con sus fases y segmentos' },
       hotspots,
       listCollapsed: true,
       maxWidthPx: 1700,
       // El cuadro se cierra con «Cerrar» o al fijar otra zona.
-      onSelect: (id, pinned) => { if (id && pinned) renderToolbox(toolbox, template, sheet, zonesById.get(id)); }
+      onSelect: (id, pinned) => { if (id && pinned) renderToolbox(toolbox, template, sheet, zonesById.get(id), viewer.element.querySelector('.ihv__svg')); }
     });
     // El cuadro va dentro del contenedor del visor: tocarlo no cuenta como «tocar fuera» (que cerraría la zona,
     // movería el diseño entre pulsar y soltar y anularía el clic).

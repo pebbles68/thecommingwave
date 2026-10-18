@@ -30,6 +30,7 @@ test('la lista de fases queda siempre a la derecha del recorte ampliado, en cual
   await expect(page.locator('.ihv__svg')).toBeVisible();
   for (const label of ['Aire I · Primera Fase', 'Estrategia · Crisis', 'Recuperación de Mando · Día impar', 'Refuerzos · Segunda Fase', 'Submarino · Sexta Fase']) {
     await zone(page, label).click();
+    await expect(page.locator('.turn-commented__focus.is-ready')).toBeVisible();
     const crop = await page.locator('.turn-commented__crop').boundingBox();
     const side = await page.locator('.turn-commented__toolbox').boundingBox();
     expect(side.x, label).toBeGreaterThanOrEqual(crop.x + crop.width - 1);
