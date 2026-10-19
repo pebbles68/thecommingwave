@@ -48,8 +48,8 @@ test('el cuadro de un segmento lista sus subfases del modelo y enlaza su página
   const box = Engine.buildToolbox(template, byId('phase-1:air-1'));
   assert.ok(box.items.length >= 6);
   assert.ok(box.items.some((i) => i.label === 'Planificación de misiones'));
-  assert.ok(box.items.some((i) => i.hash === '#/turno/fase/1/air-1/paralisis_red'));
-  assert.equal(box.pageHash, '#/turno/fase/1/air-1');
+  assert.ok(box.items.some((i) => i.hash === '#/turno-comentado/fase/1/air-1/paralisis_red'));
+  assert.equal(box.pageHash, '#/turno-comentado/fase/1/air-1');
 });
 
 test('Estrategia tiene cinco pasos y Logística está incluida', () => {
@@ -64,4 +64,37 @@ test('buildHotspot conserva el estado más débil y el origen de la posición', 
   const hs = Engine.buildHotspot(template, inferred);
   assert.equal(hs.status, 'needs_review');
   assert.match(hs.sourceText, /rejilla/);
+});
+
+const help = JSON.parse(fs.readFileSync(path.join(root, 'data/phases/commented-turn-help.json'), 'utf8'));
+const boards = JSON.parse(fs.readFileSync(path.join(root, 'data/image-hotspots/boards.json'), 'utf8'));
+
+test('ayuda gráfica del Turno Comentado: subfases y zonas de tarjeta existentes, con fuente', () => {
+  assert.ok(help.sourceRefs.length);
+  Object.entries(help.subphaseVisuals).forEach(([subId, visual]) => {
+    assert.ok(template.subphases[subId], `subfase inexistente: ${subId}`);
+    const inst = boards.instances.filter((i) => i.type === visual.boardType);
+    assert.ok(inst.length, `sin tarjetas de tipo ${visual.boardType}`);
+    visual.hotspots.forEach((decl) => {
+      assert.ok(inst.every((i) => i.hotspots.some((h) => h.id === decl.id)), `zona ${decl.id} no está en todas las tarjetas ${visual.boardType}`);
+      assert.ok(decl.label, decl.id);
+    });
+  });
+});
+
+test('Planificación, recuperación y preparación declaran las zonas pedidas por el mantenedor', () => {
+  const ids = (sub) => help.subphaseVisuals[sub].hotspots.map((h) => h.id);
+  ['emergency-scramble', 'mission-air-superiority', 'mission-on-call', 'mission-air-strike', 'mission-special', 'ready-to-launch'].forEach((id) => assert.ok(ids('planificacion_misiones').includes(id), id));
+  assert.ok(ids('recuperacion_largas').includes('landing-damaged'));
+  assert.ok(ids('recuperacion_cortas').includes('landing-damaged'));
+  assert.deepEqual(ids('preparacion_aerodromo'), ['landing-waiting', 'ready-to-launch']);
+});
+
+test('buildSegmentPage: Aire I con subfases, recordatorios y ayuda gráfica', () => {
+  const page = Engine.buildSegmentPage(template, 1, 'air-1', help);
+  assert.ok(page.subphases.length >= 6);
+  assert.ok(page.reminders.some((r) => r.hash === '#/turno/mando/day-odd'));
+  assert.ok(page.subphases.find((s) => s.id === 'planificacion_misiones').visual);
+  assert.equal(Engine.buildSegmentPage(template, 2, 'ground', help), null);
+  assert.equal(Engine.buildSegmentPage(template, 2, 'air-1', help).reminders.some((r) => r.hash.startsWith('#/turno/mando/')), false);
 });

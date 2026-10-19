@@ -246,6 +246,7 @@
         recordRecentHelp(parts[1]);
       }
       if (parts.length === 0) return renderHome();
+      if (parts[0] === 'turno-comentado' && parts[1] === 'fase' && parts.length >= 4) return Views.TurnCommented.renderSegmentPage(Number(parts[2]), parts[3], parts[4]);
       if (parts[0] === 'turno-comentado') return Views.TurnCommented.renderTurnCommented();
       if (parts[0] === 'turno') return routeTurn(parts);
       if (parts[0] === 'ayuda' && parts.length === 1) return Views.HelpIndex.renderHelpIndex();

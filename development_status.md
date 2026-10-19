@@ -2,6 +2,15 @@
 
 ## Estado actual
 
+### Páginas propias del Turno Comentado y ayuda gráfica del aeródromo (TC-004 y primera parte de TC-005) — 2026-10-19
+
+- Estado: `in_progress`, **pendiente de comprobación del mantenedor (CP-004 y CP-005)**; sin commit.
+- **Cambios:** nueva ruta `#/turno-comentado/fase/<n>/<segmento>[/<subfase>]` (`Views.TurnCommented.renderSegmentPage`) con el resumen del segmento, lo que no hay que olvidar (Refuerzos en todo Aire I y Recuperación de Mando en el Aire I de la 1.ª y la 4.ª fase), las acciones, y cada subfase con su texto y menciones `[[id]]`, atajos a wizards y la ayuda gráfica declarada en `data/phases/commented-turn-help.json` (tarjeta de aeródromo con solo las zonas declaradas y la primera ya explicada). Los cuadros de la hoja enlazan ahora a estas páginas (Estrategia, Refuerzos y Recuperación de Mando siguen en el Turno guiado). `TurnSheetEngine.buildSegmentPage` es el modelo puro; pruebas en `test/turn-sheet.test.js` (796 pruebas) y `test/e2e/turn-commented.spec.js`.
+- **Zonas remarcadas (indicación del mantenedor, 2026-10-18):** Planificación de Misiones: despegue temprano, CAP, On Call, Air Strike, misiones especiales (incluye lanzamientos y transporte) y aviones disponibles; Recuperación larga y corta: aviones con avería (más la zona en espera de preparación); Preparación en aeródromo: del track de aterrizaje en espera hasta disponibles. Interpretación mía: la «subfase de bajas aéreas» es la recuperación de misiones.
+- **Visible en la web: sí.** `npm start`, http://localhost:3000/#/turno-comentado → pulsa Aire I de la 1.ª fase → «Planificación de misiones»: se abre la página del segmento con la tarjeta y sus zonas.
+- **Pendiente:** ayuda gráfica del resto de subfases; páginas propias para Estrategia, Refuerzos y Recuperación de Mando; TC-006 (guía de pasos del combate).
+- **Validación:** `npm test` 796/796. Playwright: en la pasada completa falla una prueba distinta cada vez (`scroll-top`, `mission-context`), que pasa al repetirla sola (intermitencia de tiempos, no demostrada).
+
 ### Primera entrega visible del Turno Comentado (TC-001 a TC-003) — 2026-10-18
 
 - Estado: `in_progress`, **pendiente de la comprobación del mantenedor (CP-001)**; sin commit de código.

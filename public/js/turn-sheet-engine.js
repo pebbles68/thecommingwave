@@ -19,7 +19,9 @@
     const r = zone.ref;
     if (zone.kind === 'strategy-step') return `#/turno/fase/0/${r.step}`;
     if (zone.kind === 'command-recovery') return `#/turno/mando/${r.day}`;
-    return `#/turno/fase/${r.phase}/${r.segment}`;
+    // Refuerzos es un nodo consultable (su página es la del Turno guiado); el resto de segmentos tiene página propia.
+    if (r.segment === 'reinforcements') return `#/turno/fase/${r.phase}/${r.segment}`;
+    return `#/turno-comentado/fase/${r.phase}/${r.segment}`;
   }
 
   function zoneTitle(template, zone) {
@@ -87,6 +89,42 @@
     return box;
   }
 
+  // Página propia de un segmento en el Turno Comentado: todas sus subfases (con sus ayudas terminológicas, atajos y,
+  // si la hay, ayuda gráfica declarada en data/phases/commented-turn-help.json) y lo que no hay que olvidar.
+  function buildSegmentPage(template, number, segmentId, helpData) {
+    const impulse = impulseOf(template, number);
+    const seg = impulse && Model.getSegment(template, impulse.id, segmentId);
+    if (!seg || !seg.phase) return null;
+    const visuals = (helpData && helpData.subphaseVisuals) || {};
+    const day = dayOf(template, impulse);
+    const reminders = [];
+    if (seg.id === 'air-1') {
+      reminders.push({ label: 'Refuerzos (al empezar la fase)', hash: `#/turno/fase/${impulse.number}/reinforcements` });
+      if (day && day.impulses[0] === impulse.id) {
+        reminders.push({ label: `Recuperación de Mando (primera fase del ${day.title.toLowerCase()})`, hash: `#/turno/mando/${day.id}` });
+      }
+    }
+    return {
+      title: `${seg.title} — ${impulse.title}`,
+      summary: seg.phase.summary,
+      actions: (seg.phase.actions || []).map((a) => a.text),
+      reminders,
+      groundLevels: seg.id === 'ground' && impulse.groundReactionLevels ? impulse.groundReactionLevels : null,
+      guidedHash: `#/turno/fase/${impulse.number}/${seg.id}`,
+      subphases: Model.listSubphases(template, seg.phase).map((sub) => ({
+        id: sub.id,
+        title: sub.title,
+        help: sub.help,
+        entityRefs: sub.entityRefs || [],
+        optionalRule: Boolean(sub.optionalRule),
+        wizardLinks: sub.wizardLinks || [],
+        relatedWorkflowIds: sub.relatedWorkflowIds || [],
+        guidedHash: `#/turno/fase/${impulse.number}/${seg.id}/${sub.id}`,
+        visual: visuals[sub.id] || null
+      }))
+    };
+  }
+
   // Comprobaciones de coherencia entre los datos de la hoja y el modelo (usadas por los tests).
   function validateSheetData(sheet, template) {
     const errors = [];
@@ -115,5 +153,5 @@
     return errors;
   }
 
-  return { buildHotspot, buildToolbox, validateSheetData, hashFor, zoneTitle };
+  return { buildHotspot, buildToolbox, buildSegmentPage, validateSheetData, hashFor, zoneTitle };
 });

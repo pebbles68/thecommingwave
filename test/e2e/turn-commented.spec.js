@@ -44,7 +44,11 @@ test('el segundo clic abre la página de la fase elegida', async ({ page }) => {
   await expect(page.locator('.ihv__svg')).toBeVisible();
   await zone(page, 'Aire I · Primera Fase').click();
   await page.locator('.turn-commented__toolbox').getByRole('button', { name: /Planificación de misiones/ }).click();
-  await expect(page).toHaveURL(/#\/turno\/fase\/1\/air-1\/planificacion_misiones$/);
+  await expect(page).toHaveURL(/#\/turno-comentado\/fase\/1\/air-1\/planificacion_misiones$/);
+  await expect(page.getByRole('heading', { name: /Aire I — Primera Fase/ })).toBeVisible();
+  await expect(page.locator('#sub-planificacion_misiones .ihv__svg')).toBeVisible();
+  await expect(page.locator('#sub-planificacion_misiones .ihv__list-btn')).toHaveCount(8);
+  await expect(page.getByRole('button', { name: /^Refuerzos/ })).toBeVisible();
 });
 
 test('el segmento Tierra de la 2.ª fase no existe y Estrategia incluye Logística', async ({ page }) => {

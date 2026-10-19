@@ -1,0 +1,53 @@
+{
+  "id": "commented-turn-help",
+  "schemaVersion": 1,
+  "title": "Ayuda gráfica del Turno Comentado",
+  "summary": "Qué zonas de las tarjetas se remarcan en cada subfase del Turno Comentado. Solo declara qué zonas (IDs de data/image-hotspots/boards.json) y con qué nombre se muestran; el texto de cada zona sale de data/image-hotspots/board-concepts.json.",
+  "sourceRefs": [
+    {
+      "document": "Indicación del mantenedor",
+      "section": "2026-10-18: zonas de la tarjeta de aeródromo que se remarcan en Planificación de Misiones, Recuperación y Preparación",
+      "status": "verified"
+    }
+  ],
+  "subphaseVisuals": {
+    "planificacion_misiones": {
+      "boardType": "airfield",
+      "intro": "Estas son las zonas de la tarjeta de aeródromo que se usan al planificar las misiones. Toca una para ver qué es.",
+      "hotspots": [
+        { "id": "emergency-scramble", "label": "Zona de despegue temprano" },
+        { "id": "mission-air-superiority", "label": "Zona de CAP" },
+        { "id": "mission-on-call", "label": "Zona de On Call (A Demanda)" },
+        { "id": "mission-air-strike", "label": "Zona de Air Strike" },
+        { "id": "mission-special", "label": "Zona de misiones especiales" },
+        { "id": "mission-airdrops", "label": "Zona de misiones especiales: lanzamientos aéreos" },
+        { "id": "mission-air-transport", "label": "Zona de misiones especiales: transporte / carga" },
+        { "id": "ready-to-launch", "label": "Zona de aviones disponibles" }
+      ]
+    },
+    "recuperacion_largas": {
+      "boardType": "airfield",
+      "intro": "Al recuperar las unidades que regresan, los aviones con avería se colocan en la zona marcada de la tarjeta de aeródromo.",
+      "hotspots": [
+        { "id": "landing-damaged", "label": "Zona de aviones con avería" },
+        { "id": "landing-waiting", "label": "Zona de aviones en espera de preparación" }
+      ]
+    },
+    "recuperacion_cortas": {
+      "boardType": "airfield",
+      "intro": "Al recuperar las unidades que regresan, los aviones con avería se colocan en la zona marcada de la tarjeta de aeródromo.",
+      "hotspots": [
+        { "id": "landing-damaged", "label": "Zona de aviones con avería" },
+        { "id": "landing-waiting", "label": "Zona de aviones en espera de preparación" }
+      ]
+    },
+    "preparacion_aerodromo": {
+      "boardType": "airfield",
+      "intro": "En la preparación los aviones avanzan por el track de aterrizaje hasta quedar disponibles. Estas son las dos zonas implicadas.",
+      "hotspots": [
+        { "id": "landing-waiting", "label": "Zona de aviones en espera de preparación (inicio del track)" },
+        { "id": "ready-to-launch", "label": "Zona de aviones disponibles (final del track)" }
+      ]
+    }
+  }
+}

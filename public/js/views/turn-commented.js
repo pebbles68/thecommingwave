@@ -173,6 +173,122 @@
     viewRoot.appendChild(wrap);
   }
 
+  let helpCache = null;
+  async function loadCommentedHelp() {
+    if (helpCache) return helpCache;
+    const res = await fetch('/data/phases/commented-turn-help.json');
+    helpCache = res.ok ? await res.json() : { subphaseVisuals: {} };
+    return helpCache;
+  }
+
+  // Ayuda gráfica de una subfase: la tarjeta con solo las zonas declaradas, la primera ya explicada.
+  async function appendBoardVisual(container, visual) {
+    const bundle = await AppCore.loadBoardHotspots();
+    if (!bundle) return;
+    const { boards, concepts } = bundle;
+    const inst = boards.instances.find((i) => i.type === visual.boardType && i.reviewStatus === 'verified') || boards.instances.find((i) => i.type === visual.boardType);
+    if (!inst) return;
+    const img = boards.images[inst.imageId];
+    const conceptsById = new Map(concepts.concepts.map((c) => [c.id, c]));
+    const hotspots = visual.hotspots.map((decl) => {
+      const h = inst.hotspots.find((x) => x.id === decl.id);
+      if (!h) return null;
+      const c = conceptsById.get(h.conceptId);
+      return {
+        id: h.id, label: decl.label || (c ? c.label : h.id), summary: c ? c.summary : 'Uso pendiente de transcribir/validar.',
+        rect: h.rect, polygon: h.polygon, status: c && c.status !== 'verified' ? c.status : h.reviewStatus, basicOrExpansion: 'basic',
+        sourceText: c && c.sourceRefs ? c.sourceRefs.map((r) => `${r.document}${r.section ? ` — ${r.section}` : ''}`).join(' · ') : '', note: ''
+      };
+    }).filter(Boolean);
+    if (!hotspots.length) return;
+    const pad = 0.012;
+    const vx = Math.max(inst.rect.x - pad, 0);
+    const vy = Math.max(inst.rect.y - pad * 0.7, 0);
+    const view = { x: vx, y: vy, width: Math.min(inst.rect.width + pad * 2, 1 - vx), height: Math.min(inst.rect.height + pad * 1.4, 1 - vy) };
+    if (visual.intro) container.appendChild(el('p', 'turn-view__desc', visual.intro));
+    const hv = ImageHotspotViewer.create({
+      image: { src: `/${img.src}`, width: img.width, height: img.height, alt: `Tarjeta de ejemplo (${inst.label})` },
+      view, hotspots, maxWidthPx: 720, selectedId: hotspots[0].id
+    });
+    container.appendChild(hv.element);
+    container.appendChild(el('p', 'source-refs', 'Tarjeta de ejemplo; las zonas están pendientes de revisión por el mantenedor.'));
+  }
+
+  // Página propia de un segmento: qué se puede hacer, las ayudas de cada subfase y los accesos que no hay que olvidar.
+  async function renderSegmentPage(number, segmentId, subphaseId) {
+    const navToken = Router.currentToken();
+    AppCore.clearLastTurnContext();
+    setBreadcrumb(['TCW Assistant', 'Turno Comentado', `Fase ${number}`, segmentId]);
+    viewRoot.innerHTML = '<p class="loading">Cargando…</p>';
+    let template;
+    let helpData;
+    try {
+      [template, helpData] = await Promise.all([loadTurnTemplate(), loadCommentedHelp()]);
+    } catch (err) {
+      if (!Router.isCurrent(navToken)) return;
+      renderNotFound(err.message);
+      return;
+    }
+    if (!Router.isCurrent(navToken)) return;
+    const page = TurnSheetEngine.buildSegmentPage(template, number, segmentId, helpData);
+    if (!page) { renderNotFound(`El segmento «${segmentId}» no existe en la fase «${number}»`); return; }
+    setBreadcrumb(['TCW Assistant', 'Turno Comentado', page.title]);
+
+    viewRoot.innerHTML = '';
+    const wrap = el('div', 'turn-commented-page');
+    wrap.appendChild(el('h1', 'phase-view__title', page.title));
+    wrap.appendChild(el('p', 'phase-view__desc', page.summary));
+    if (page.groundLevels) wrap.appendChild(el('p', 'phase-view__desc', `Nivel de Reacción de las unidades que pueden activarse: ${page.groundLevels.join(', ')}.`));
+    if (page.reminders.length) {
+      wrap.appendChild(el('h2', 'table-viewer__section-title', 'No olvides'));
+      const row = el('div', 'turn-commented__items');
+      page.reminders.forEach((r) => row.appendChild(linkButton(r.label, r.hash)));
+      wrap.appendChild(row);
+    }
+    if (page.actions.length) {
+      wrap.appendChild(el('h2', 'table-viewer__section-title', 'Qué puedes hacer en este segmento'));
+      const list = el('ol', 'actions-list');
+      page.actions.forEach((a) => list.appendChild(el('li', 'actions-list__item', a)));
+      wrap.appendChild(list);
+    }
+
+    const sections = new Map();
+    for (const sub of page.subphases) {
+      const section = el('section', 'turn-commented-page__sub');
+      section.id = `sub-${sub.id}`;
+      section.appendChild(el('h2', 'subphase-view__title', `${sub.title}${sub.optionalRule ? ' (regla opcional)' : ''}`));
+      if (sub.help && sub.help.includes('[[') && sub.entityRefs.length) AppVisualHelp.renderTextWithRefs(section, sub.help, sub.entityRefs, 'subphase-view__desc');
+      else if (sub.help) section.appendChild(el('p', 'subphase-view__desc', sub.help));
+      if (sub.visual) {
+        try { await appendBoardVisual(section, sub.visual); } catch (_e) { /* la ayuda gráfica es opcional */ }
+        if (!Router.isCurrent(navToken)) return;
+      }
+      const links = el('div', 'turn-commented__items');
+      sub.wizardLinks.forEach((link) => {
+        const hash = AppCore.WORKFLOW_WIZARD_HASHES[link.wizard];
+        if (hash) links.appendChild(linkButton(`▶ ${link.title}`, hash));
+      });
+      links.appendChild(linkButton('Ver esta subfase en el Turno guiado (marcarla como terminada)', sub.guidedHash));
+      section.appendChild(links);
+      wrap.appendChild(section);
+      sections.set(sub.id, section);
+    }
+
+    const helpHost = el('div');
+    wrap.appendChild(helpHost);
+    const workflowIds = [...new Set(page.subphases.flatMap((s) => s.relatedWorkflowIds))];
+    const wizardLinks = page.subphases.flatMap((s) => s.wizardLinks);
+    if (Views.Turn && Views.Turn.renderContextualHelpLinks) await Views.Turn.renderContextualHelpLinks(helpHost, workflowIds, wizardLinks);
+    if (!Router.isCurrent(navToken)) return;
+
+    wrap.appendChild(el('p', 'source-refs', 'Para marcar la fase como terminada o ver sus fuentes, usa el Turno guiado: '));
+    wrap.lastChild.appendChild(linkButton('Abrir en el Turno guiado', page.guidedHash));
+    wrap.appendChild(backRow());
+    viewRoot.appendChild(wrap);
+    const target = subphaseId && sections.get(subphaseId);
+    if (target) target.scrollIntoView({ block: 'start' });
+  }
+
   root.Views = root.Views || {};
-  root.Views.TurnCommented = { renderTurnCommented };
+  root.Views.TurnCommented = { renderTurnCommented, renderSegmentPage };
 })(typeof window !== 'undefined' ? window : globalThis);
