@@ -44,6 +44,7 @@
   //   view:     { x, y, width, height }       región visible (normalizada); por defecto toda
   //   hotspots: [{ id, label, summary, rect:{x,y,width,height}, status, basicOrExpansion,
   //                sourceText, note }]        rect normalizado respecto de la imagen entera
+  //   separateHits: true evita que las áreas táctiles ampliadas de zonas contiguas se solapen (hojas con muchas zonas)
   //   selectedId, onSelect(id|null, pinned)  pinned=false cuando solo es una vista previa (hover/foco)
   function create(options) {
     const instanceId = `ihv${uid += 1}`;
@@ -127,7 +128,8 @@
       if (!rendered.width) return;
       const scale = vbW / rendered.width; // unidades del viewBox por píxel CSS
       const min = MIN_TOUCH_PX * scale;
-      zones.forEach(({ hs, hit }) => {
+      const boxes = new Map();
+      zones.forEach(({ hs, hit }, id) => {
         if (!hit) return;
         const x = hs.rect.x * image.width;
         const y = hs.rect.y * image.height;
@@ -135,10 +137,33 @@
         const h = hs.rect.height * image.height;
         const hw = Math.max(w, min);
         const hh = Math.max(h, min);
-        hit.setAttribute('x', x + w / 2 - hw / 2);
-        hit.setAttribute('y', y + h / 2 - hh / 2);
-        hit.setAttribute('width', hw);
-        hit.setAttribute('height', hh);
+        boxes.set(id, { vis: { l: x, t: y, r: x + w, b: y + h }, hit: { l: x + w / 2 - hw / 2, t: y + h / 2 - hh / 2, r: x + w / 2 + hw / 2, b: y + h / 2 + hh / 2 } });
+      });
+      // Opcional (hojas con muchas zonas contiguas): el área táctil ampliada de una zona no invade la de su vecina; el
+      // espacio entre dos zonas se reparte por la mitad, de modo que cada una sigue pudiéndose pulsar.
+      if (options.separateHits) {
+        const overlaps = (p, q) => p.l < q.r && q.l < p.r && p.t < q.b && q.t < p.b;
+        const rangesOverlap = (a1, a2, b1, b2) => a1 < b2 && b1 < a2;
+        boxes.forEach((a, idA) => {
+          boxes.forEach((b, idB) => {
+            if (idA === idB || !overlaps(a.hit, b.hit) || overlaps(a.vis, b.vis)) return;
+            if (rangesOverlap(a.vis.l, a.vis.r, b.vis.l, b.vis.r)) {
+              if (a.vis.b <= b.vis.t) a.hit.b = Math.min(a.hit.b, (a.vis.b + b.vis.t) / 2);
+              else if (b.vis.b <= a.vis.t) a.hit.t = Math.max(a.hit.t, (b.vis.b + a.vis.t) / 2);
+            }
+            if (rangesOverlap(a.vis.t, a.vis.b, b.vis.t, b.vis.b)) {
+              if (a.vis.r <= b.vis.l) a.hit.r = Math.min(a.hit.r, (a.vis.r + b.vis.l) / 2);
+              else if (b.vis.r <= a.vis.l) a.hit.l = Math.max(a.hit.l, (b.vis.r + a.vis.l) / 2);
+            }
+          });
+        });
+      }
+      boxes.forEach((box, id) => {
+        const { hit } = zones.get(id);
+        hit.setAttribute('x', box.hit.l);
+        hit.setAttribute('y', box.hit.t);
+        hit.setAttribute('width', box.hit.r - box.hit.l);
+        hit.setAttribute('height', box.hit.b - box.hit.t);
       });
       if (selectedId) positionPopover();
     }

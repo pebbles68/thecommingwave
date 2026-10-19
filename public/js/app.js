@@ -249,6 +249,9 @@
       }
       if (parts.length === 0) return renderHome();
       if (parts[0] === 'guia' && parts.length === 2) return Views.CombatGuide.renderCombatGuide(parts[1]);
+      if (parts[0] === 'turno-comentado' && parts[1] === 'mando' && parts.length === 3) return Views.TurnCommented.renderNodePage('command-recovery', { day: parts[2] });
+      if (parts[0] === 'turno-comentado' && parts[1] === 'fase' && parts[2] === '0' && parts.length === 4) return Views.TurnCommented.renderNodePage('strategy-step', { step: parts[3] });
+      if (parts[0] === 'turno-comentado' && parts[1] === 'fase' && parts[3] === 'reinforcements' && parts.length === 4) return Views.TurnCommented.renderNodePage('reinforcements', { phase: Number(parts[2]) });
       if (parts[0] === 'turno-comentado' && parts[1] === 'fase' && parts.length >= 4) return Views.TurnCommented.renderSegmentPage(Number(parts[2]), parts[3], parts[4]);
       if (parts[0] === 'turno-comentado') return Views.TurnCommented.renderTurnCommented();
       if (parts[0] === 'turno') return routeTurn(parts);

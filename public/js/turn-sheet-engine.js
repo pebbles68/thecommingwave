@@ -17,10 +17,8 @@
   // Ruta de la página de un segmento / paso de Estrategia / Recuperación de Mando del turno guiado.
   function hashFor(zone) {
     const r = zone.ref;
-    if (zone.kind === 'strategy-step') return `#/turno/fase/0/${r.step}`;
-    if (zone.kind === 'command-recovery') return `#/turno/mando/${r.day}`;
-    // Refuerzos es un nodo consultable (su página es la del Turno guiado); el resto de segmentos tiene página propia.
-    if (r.segment === 'reinforcements') return `#/turno/fase/${r.phase}/${r.segment}`;
+    if (zone.kind === 'strategy-step') return `#/turno-comentado/fase/0/${r.step}`;
+    if (zone.kind === 'command-recovery') return `#/turno-comentado/mando/${r.day}`;
     return `#/turno-comentado/fase/${r.phase}/${r.segment}`;
   }
 
@@ -69,7 +67,7 @@
     if (zone.kind === 'strategy-step') {
       phase = template.phases[zone.ref.step];
       box.pageLabel = `Abrir ${zone.label}`;
-      box.items = Model.listSubphases(template, phase || {}).map((s) => ({ label: s.title, hash: `#/turno/fase/0/${zone.ref.step}/${s.id}` }));
+      box.items = Model.listSubphases(template, phase || {}).map((s) => ({ label: s.title, hash: `${page}/${s.id}` }));
       return box;
     }
     const impulse = impulseOf(template, zone.ref.phase);
@@ -80,10 +78,10 @@
       box.note = `Nivel de Reacción de las unidades que pueden activarse: ${impulse.groundReactionLevels.join(', ')}.`;
     }
     if (zone.ref.segment === 'air-1') {
-      box.extras.push({ label: 'Refuerzos (al empezar la fase)', hash: `#/turno/fase/${impulse.number}/reinforcements` });
+      box.extras.push({ label: 'Refuerzos (al empezar la fase)', hash: `#/turno-comentado/fase/${impulse.number}/reinforcements` });
       const day = dayOf(template, impulse);
       if (day && day.impulses[0] === impulse.id) {
-        box.extras.push({ label: `Recuperación de Mando (primera fase del ${day.title.toLowerCase()})`, hash: `#/turno/mando/${day.id}` });
+        box.extras.push({ label: `Recuperación de Mando (primera fase del ${day.title.toLowerCase()})`, hash: `#/turno-comentado/mando/${day.id}` });
       }
     }
     return box;
@@ -100,9 +98,9 @@
     const day = dayOf(template, impulse);
     const reminders = [];
     if (seg.id === 'air-1') {
-      reminders.push({ label: 'Refuerzos (al empezar la fase)', hash: `#/turno/fase/${impulse.number}/reinforcements` });
+      reminders.push({ label: 'Refuerzos (al empezar la fase)', hash: `#/turno-comentado/fase/${impulse.number}/reinforcements` });
       if (day && day.impulses[0] === impulse.id) {
-        reminders.push({ label: `Recuperación de Mando (primera fase del ${day.title.toLowerCase()})`, hash: `#/turno/mando/${day.id}` });
+        reminders.push({ label: `Recuperación de Mando (primera fase del ${day.title.toLowerCase()})`, hash: `#/turno-comentado/mando/${day.id}` });
       }
     }
     return {
@@ -125,6 +123,29 @@
         guides: (guides[sub.id] || []).map((g) => ({ title: g.title, description: g.description, hash: `#/guia/${g.guideId}` }))
       }))
     };
+  }
+
+  // Página propia de un nodo sin subfases: Refuerzos, Recuperación de Mando o un paso de Estrategia. Los textos salen
+  // del modelo canónico (consultables y fases); la página del Turno guiado queda como acceso para marcar el avance.
+  function buildNodePage(template, kind, params) {
+    if (kind === 'reinforcements') {
+      const impulse = impulseOf(template, params.phase);
+      const c = template.band.consultables.reinforcements;
+      if (!impulse || !c) return null;
+      return { title: `${c.title} — ${impulse.title}`, summary: c.summary, position: c.position || null, procedure: c.procedure || [], actions: [], endCondition: null, ruleReference: null, scenarioNote: c.scenarioNote || null, pending: c.pending || null, guidedHash: `#/turno/fase/${impulse.number}/reinforcements` };
+    }
+    if (kind === 'command-recovery') {
+      const day = template.band.days.find((d) => d.id === params.day);
+      const c = day && template.band.consultables[day.commandRecovery];
+      if (!c) return null;
+      return { title: `${c.title} — ${day.title}`, summary: c.summary, position: c.position || null, procedure: c.procedure || [], actions: [], endCondition: null, ruleReference: null, scenarioNote: c.scenarioNote || null, pending: c.pending || null, guidedHash: `#/turno/mando/${day.id}` };
+    }
+    if (kind === 'strategy-step') {
+      const phase = template.band.strategic.phases.includes(params.step) ? template.phases[params.step] : null;
+      if (!phase) return null;
+      return { title: phase.title, summary: phase.summary, position: null, procedure: [], actions: (phase.actions || []).map((a) => a.text), endCondition: phase.endCondition || null, ruleReference: phase.ruleReference || null, scenarioNote: null, pending: null, guidedHash: `#/turno/fase/0/${phase.id}` };
+    }
+    return null;
   }
 
   // Comprobaciones de coherencia entre los datos de la hoja y el modelo (usadas por los tests).
@@ -155,5 +176,5 @@
     return errors;
   }
 
-  return { buildHotspot, buildToolbox, buildSegmentPage, validateSheetData, hashFor, zoneTitle };
+  return { buildHotspot, buildToolbox, buildSegmentPage, buildNodePage, validateSheetData, hashFor, zoneTitle };
 });

@@ -161,6 +161,7 @@
       hotspots,
       listCollapsed: true,
       maxWidthPx: 1700,
+      separateHits: true,
       // El cuadro se cierra con «Cerrar» o al fijar otra zona.
       onSelect: (id, pinned) => { if (id && pinned) renderToolbox(toolbox, template, sheet, zonesById.get(id), viewer.element.querySelector('.ihv__svg')); }
     });
@@ -297,6 +298,51 @@
     if (target) target.scrollIntoView({ block: 'start' });
   }
 
+  // Página propia de Refuerzos, Recuperación de Mando o un paso de Estrategia (nodos sin subfases).
+  async function renderNodePage(kind, params) {
+    const navToken = Router.currentToken();
+    AppCore.clearLastTurnContext();
+    setBreadcrumb(['TCW Assistant', 'Turno Comentado']);
+    viewRoot.innerHTML = '<p class="loading">Cargando…</p>';
+    let template;
+    try {
+      template = await loadTurnTemplate();
+    } catch (err) {
+      if (!Router.isCurrent(navToken)) return;
+      renderNotFound(err.message);
+      return;
+    }
+    if (!Router.isCurrent(navToken)) return;
+    const page = TurnSheetEngine.buildNodePage(template, kind, params);
+    if (!page) { renderNotFound('Esta página del turno no existe'); return; }
+    setBreadcrumb(['TCW Assistant', 'Turno Comentado', page.title]);
+    viewRoot.innerHTML = '';
+    const wrap = el('div', 'turn-commented-page');
+    wrap.appendChild(el('h1', 'phase-view__title', page.title));
+    wrap.appendChild(el('p', 'phase-view__desc', page.summary));
+    if (page.position) wrap.appendChild(el('p', 'phase-view__desc', `Posición en la secuencia: ${page.position}`));
+    if (page.procedure.length) {
+      wrap.appendChild(el('h2', 'table-viewer__section-title', 'Procedimiento'));
+      const list = el('ol', 'actions-list');
+      page.procedure.forEach((step) => list.appendChild(el('li', 'actions-list__item', step)));
+      wrap.appendChild(list);
+    }
+    if (page.actions.length) {
+      wrap.appendChild(el('h2', 'table-viewer__section-title', 'Qué puedes hacer'));
+      const list = el('ol', 'actions-list');
+      page.actions.forEach((a) => list.appendChild(el('li', 'actions-list__item', a)));
+      wrap.appendChild(list);
+    }
+    if (page.scenarioNote) wrap.appendChild(el('p', 'turn-view__desc', page.scenarioNote));
+    if (page.endCondition) wrap.appendChild(el('p', 'pending-note', page.endCondition));
+    if (page.ruleReference) wrap.appendChild(el('p', 'source-refs', `Referencia de regla: ${page.ruleReference}`));
+    if (page.pending) wrap.appendChild(el('p', 'pending-note', page.pending));
+    wrap.appendChild(el('p', 'source-refs', 'Para marcarlo como hecho o ver sus fuentes, usa el Turno guiado: '));
+    wrap.lastChild.appendChild(linkButton('Abrir en el Turno guiado', page.guidedHash));
+    wrap.appendChild(backRow());
+    viewRoot.appendChild(wrap);
+  }
+
   root.Views = root.Views || {};
-  root.Views.TurnCommented = { renderTurnCommented, renderSegmentPage };
+  root.Views.TurnCommented = { renderTurnCommented, renderSegmentPage, renderNodePage };
 })(typeof window !== 'undefined' ? window : globalThis);

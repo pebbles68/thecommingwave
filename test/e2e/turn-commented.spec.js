@@ -71,3 +71,17 @@ test('Salidas de combate ofrece la guía del ataque aéreo', async ({ page }) =>
   await page.getByRole('button', { name: /Guía: ataque aéreo paso a paso/ }).click();
   await expect(page).toHaveURL(/#\/guia\/air-attack$/);
 });
+
+test('Refuerzos, Recuperación de Mando y Estrategia abren páginas propias del Turno Comentado', async ({ page }) => {
+  await page.goto('/#/turno-comentado');
+  await expect(page.locator('.ihv__svg')).toBeVisible();
+  await zone(page, 'Refuerzos · Primera Fase').click();
+  await page.locator('.turn-commented__toolbox').getByRole('button', { name: /^Abrir Refuerzos/ }).click();
+  await expect(page).toHaveURL(/#\/turno-comentado\/fase\/1\/reinforcements$/);
+  await expect(page.getByRole('heading', { name: /Refuerzos — Primera Fase/ })).toBeVisible();
+  await page.goto('/#/turno-comentado/mando/day-odd');
+  await expect(page.getByRole('heading', { name: /Recuperación de Mando/ })).toBeVisible();
+  await page.goto('/#/turno-comentado/fase/0/logistica');
+  await expect(page.getByRole('heading', { name: /Logística/ })).toBeVisible();
+  await expect(page.getByRole('button', { name: /Abrir en el Turno guiado/ })).toBeVisible();
+});

@@ -38,8 +38,8 @@ test('Tierra solo existe en las fases 1, 3, 4 y 6', () => {
 test('Aire I menciona Refuerzos siempre y Recuperación de Mando en la primera fase de cada día', () => {
   [1, 2, 3, 4, 5, 6].forEach((n) => {
     const box = Engine.buildToolbox(template, byId(`phase-${n}:air-1`));
-    assert.ok(box.extras.some((e) => e.hash === `#/turno/fase/${n}/reinforcements`), `refuerzos fase ${n}`);
-    const mando = box.extras.filter((e) => e.hash.startsWith('#/turno/mando/'));
+    assert.ok(box.extras.some((e) => e.hash === `#/turno-comentado/fase/${n}/reinforcements`), `refuerzos fase ${n}`);
+    const mando = box.extras.filter((e) => e.hash.startsWith('#/turno-comentado/mando/'));
     assert.equal(mando.length, [1, 4].includes(n) ? 1 : 0, `mando fase ${n}`);
   });
 });
@@ -56,7 +56,7 @@ test('Estrategia tiene cinco pasos y Logística está incluida', () => {
   const steps = sheet.zones.filter((z) => z.kind === 'strategy-step');
   assert.equal(steps.length, 5);
   assert.ok(byId('strategy:logistica'));
-  assert.equal(Engine.buildToolbox(template, byId('strategy:logistica')).pageHash, '#/turno/fase/0/logistica');
+  assert.equal(Engine.buildToolbox(template, byId('strategy:logistica')).pageHash, '#/turno-comentado/fase/0/logistica');
 });
 
 test('buildHotspot conserva el estado más débil y el origen de la posición', () => {
@@ -93,10 +93,10 @@ test('Planificación, recuperación y preparación declaran las zonas pedidas po
 test('buildSegmentPage: Aire I con subfases, recordatorios y ayuda gráfica', () => {
   const page = Engine.buildSegmentPage(template, 1, 'air-1', help);
   assert.ok(page.subphases.length >= 6);
-  assert.ok(page.reminders.some((r) => r.hash === '#/turno/mando/day-odd'));
+  assert.ok(page.reminders.some((r) => r.hash === '#/turno-comentado/mando/day-odd'));
   assert.ok(page.subphases.find((s) => s.id === 'planificacion_misiones').visual);
   assert.equal(Engine.buildSegmentPage(template, 2, 'ground', help), null);
-  assert.equal(Engine.buildSegmentPage(template, 2, 'air-1', help).reminders.some((r) => r.hash.startsWith('#/turno/mando/')), false);
+  assert.equal(Engine.buildSegmentPage(template, 2, 'air-1', help).reminders.some((r) => r.hash.startsWith('#/turno-comentado/mando/')), false);
 });
 
 test('las guías enlazadas desde las subfases existen en data/guides/combat-steps.json', () => {
@@ -107,4 +107,17 @@ test('las guías enlazadas desde las subfases existen en data/guides/combat-step
   });
   const page = Engine.buildSegmentPage(template, 1, 'air-1', help);
   assert.deepEqual(page.subphases.find((x) => x.id === 'salidas_combate').guides.map((g) => g.hash), ['#/guia/air-attack']);
+});
+
+test('buildNodePage: Refuerzos, Recuperación de Mando y pasos de Estrategia tienen página propia', () => {
+  const ref = Engine.buildNodePage(template, 'reinforcements', { phase: 3 });
+  assert.match(ref.title, /Refuerzos — Tercera Fase/);
+  assert.equal(ref.guidedHash, '#/turno/fase/3/reinforcements');
+  const mando = Engine.buildNodePage(template, 'command-recovery', { day: 'day-even' });
+  assert.match(mando.title, /Recuperación de Mando/);
+  assert.equal(mando.guidedHash, '#/turno/mando/day-even');
+  const logistica = Engine.buildNodePage(template, 'strategy-step', { step: 'logistica' });
+  assert.ok(logistica.actions.length > 0);
+  assert.equal(Engine.buildNodePage(template, 'strategy-step', { step: 'nope' }), null);
+  assert.equal(Engine.buildNodePage(template, 'reinforcements', { phase: 9 }), null);
 });
