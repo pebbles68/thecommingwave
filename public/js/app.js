@@ -23,6 +23,7 @@
   // lenguaje de juego; la trazabilidad de cada wizard va dentro de él).
   const COMBAT_ENTRY_GROUPS = [
     { title: 'Ataque y combate terrestre', entries: [
+      ['Guía: reaccionar a una unidad terrestre', 'Si no sabes cuándo puedes reaccionar: qué acción ocurrió, si se detecta, quién puede reaccionar y qué reacción toca.', '#/guia/ground-reaction'],
       ['Combate cercano terrestre', 'Fuerza de combate, guerra electrónica y umbral de Derrota.', '#/wizard/ground-close-combat'],
       ['Ataque terrestre guiado', 'Defensas, modificación por tipo de objetivo y tabla de ataque de precisión (página 5).', '#/wizard/ground-guided'],
       ['Ataque terrestre no guiado', 'Intercepción, modificación contra unidades móviles y tabla de la página 9.', '#/wizard/ground-unguided'],
@@ -31,6 +32,7 @@
       ['Resultado del ataque terrestre', 'Qué hacen los impactos sobre una unidad terrestre, un puerto con sus buques o un aeródromo.', '#/wizard/ground-attack-result']
     ] },
     { title: 'Combate aéreo', entries: [
+      ['Guía: ataque aéreo paso a paso', 'Si no sabes por dónde empezar: qué mirar, en orden, hasta llegar al combate BVR y al combate cercano.', '#/guia/air-attack'],
       ['Grupo de misión aéreo', 'Los dos bandos y sus unidades, compartidos por la asignación de objetivos y el combate cercano; recoge retiradas y bajas.', '#/wizard/air-mission-group'],
       ['Asignación de objetivos BVR', 'Orden de selección, duelos 1 contra 1 y retirada antes del BVR.', '#/wizard/air-intercept-targets'],
       ['Combate aéreo BVR', 'Iniciativa, tipo de combate y ataque 1 contra 1 (página 16).', '#/wizard/air-combat-bvr'],
@@ -246,6 +248,7 @@
         recordRecentHelp(parts[1]);
       }
       if (parts.length === 0) return renderHome();
+      if (parts[0] === 'guia' && parts.length === 2) return Views.CombatGuide.renderCombatGuide(parts[1]);
       if (parts[0] === 'turno-comentado' && parts[1] === 'fase' && parts.length >= 4) return Views.TurnCommented.renderSegmentPage(Number(parts[2]), parts[3], parts[4]);
       if (parts[0] === 'turno-comentado') return Views.TurnCommented.renderTurnCommented();
       if (parts[0] === 'turno') return routeTurn(parts);

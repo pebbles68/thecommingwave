@@ -2,6 +2,18 @@
 
 ## Estado actual
 
+### Guía de pasos del ataque aéreo (primera parte de TC-006) — 2026-10-19
+
+- Estado: `in_progress`, **pendiente de comprobación del mantenedor (CP-006)**; sin commit. Las páginas propias del Turno Comentado (TC-004) y la ayuda gráfica del aeródromo (TC-005, primera parte) ya están subidas (commit `8aef993`).
+- **Cambios:** `data/guides/combat-steps.json` (guía `air-attack`: 1 misión del atacante —en fase aérea solo Patrulla Aérea (CAP), Intercepción Aérea o Ataque Aéreo—, 2 detección en la defensa (si se detecta, CAP o salida de emergencia; aclaración del 2026-10-19: una CAP en el mismo hexágono que el objetivo puede reaccionar aunque no se haya detectado al atacante, siempre que estén en red, sea o no el AWACS que genera la red), 3 combate BVR y tirada de detección BVR, 4 combate cercano WVR); `public/js/combat-guide-engine.js` (puro: pasos y validación), `public/js/views/combat-guide.js` (un paso por pantalla con pasos numerados, anterior/siguiente y enlaces a wizards), ruta `#/guia/<id>` y tarjeta «Guía: ataque aéreo paso a paso» en Resolver combate. Pruebas: `test/combat-guide.test.js`, `test/e2e/combat-guide.spec.js`.
+- **Fuentes:** pasos 1 a 3 por indicación del mantenedor (2026-10-18; misiones enlazadas a `data/missions/air-missions.json`); BVR y WVR de los wizards ya existentes. **El paso del BVR es `needs_review`**: el mensaje del mantenedor se cortó antes de detallar la tirada de detección BVR.
+- **Visible en la web: sí.** http://localhost:3000/#/ → Resolver combate → «Guía: ataque aéreo paso a paso» (o directamente #/guia/air-attack).
+- **Acceso desde el Turno Comentado (2026-10-19, a petición del mantenedor, que no encontraba la guía):** la subfase «Salidas de combate» de las páginas propias muestra la tarjeta «Guía: ataque aéreo paso a paso» (declarada en `subphaseGuides` de `data/phases/commented-turn-help.json`). Además, el visor de zonas (`image-hotspot-viewer.js`) cierra el cuadro al terminar el clic y no al pulsar: antes, cerrarlo movía la página entre pulsar y soltar y el primer clic en un botón de debajo se perdía.
+- **Casos de detección y reacción (2026-10-19):** inventario por tipo de ataque, con fuente, en `docs/rules/detection-and-reaction-cases.md` (solo documentación, nada visible en la web); cuatro huecos pendientes del mantenedor. Roadmap TC-006b.
+- **Respuestas del mantenedor (2026-10-19):** la detección aérea suma tres aclaraciones (Air Strike con CAPs/BARCAPs, límites de la red, MPA con AWACS y CAP); nueva guía `ground-reaction` (`#/guia/ground-reaction`, enlazada desde Resolver combate › Ataque y combate terrestre y desde «Ataques terrestres» del Turno Comentado) con los textos de `data/rules/ground-reactions.json` y la hoja de detección; el paso BVR se completó el 2026-10-19 (la tirada de detección BVR es la misma que la de penetración / interceptación, página 15) y ya es `verified`.
+- **Pendiente:** guías del resto de tipos de combate; ayuda gráfica del resto de subfases del Turno Comentado.
+- **Validación:** `npm test` y Playwright, ver respuesta del hilo.
+
 ### Páginas propias del Turno Comentado y ayuda gráfica del aeródromo (TC-004 y primera parte de TC-005) — 2026-10-19
 
 - Estado: `in_progress`, **pendiente de comprobación del mantenedor (CP-004 y CP-005)**; sin commit.

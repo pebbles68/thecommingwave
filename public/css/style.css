@@ -946,3 +946,12 @@ button {
   .turn-commented__backdrop { animation: none; }
   .turn-commented__toolbox { transition: none; transform: none; }
 }
+
+/* Guía de pasos del combate (Fase 24, TC-006) */
+.combat-guide__steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.combat-guide__chip { min-height: 48px; padding: 0 14px; border: 1px solid var(--border); border-radius: var(--radius); background: transparent; color: var(--text); font: inherit; cursor: pointer; }
+.combat-guide__chip.is-done { opacity: 0.75; }
+.combat-guide__chip.is-active { background: var(--accent); border-color: var(--accent); font-weight: 600; }
+.combat-guide__progress { margin: 8px 0 0; color: var(--text-muted); }
+.combat-guide__question { margin: 6px 0 10px; font-size: 1.35rem; }
+.combat-guide__clarification { margin: 8px 0; padding: 10px 14px; border-left: 4px solid var(--accent); background: var(--panel-alt); border-radius: 0 var(--radius) var(--radius) 0; }

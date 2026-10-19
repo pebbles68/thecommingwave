@@ -10,6 +10,14 @@
       "status": "verified"
     }
   ],
+  "subphaseGuides": {
+    "ataques_terrestres": [
+      { "guideId": "ground-reaction", "title": "Guía: reaccionar a una unidad terrestre", "description": "Si no sabes cuándo puedes reaccionar contra una unidad terrestre, esta guía recorre qué acción ocurrió, si se detecta, quién puede reaccionar y qué reacción toca." }
+    ],
+    "salidas_combate": [
+      { "guideId": "air-attack", "title": "Guía: ataque aéreo paso a paso", "description": "Si vas a resolver un ataque aéreo y no sabes por dónde empezar, esta guía te lleva por los pasos hasta el combate BVR y el combate cercano." }
+    ]
+  },
   "subphaseVisuals": {
     "planificacion_misiones": {
       "boardType": "airfield",

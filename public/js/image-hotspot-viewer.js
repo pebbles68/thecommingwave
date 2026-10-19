@@ -270,8 +270,9 @@
     element.addEventListener('keydown', (ev) => {
       if (ev.key === 'Escape' && selectedId) { ev.stopPropagation(); select(null); }
     });
-    // Tocar fuera cierra la zona fijada.
-    document.addEventListener('pointerdown', (ev) => {
+    // Tocar fuera cierra la zona fijada. Se hace al completarse el clic (no al pulsar): cerrar el cuadro de explicación
+    // cambia la altura de la página y, si ocurriera entre pulsar y soltar, el control pulsado se movería y perdería el clic.
+    document.addEventListener('click', (ev) => {
       if (!selectedId || !pinned) return;
       if (element.contains(ev.target)) return;
       select(null);

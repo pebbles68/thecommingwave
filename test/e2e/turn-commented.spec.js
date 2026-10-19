@@ -65,3 +65,9 @@ test('con teclado: foco en una zona y Enter abre el cuadro', async ({ page }) =>
   await page.keyboard.press('Enter');
   await expect(page.locator('.turn-commented__panel')).toContainText('Estrategia · Crisis');
 });
+
+test('Salidas de combate ofrece la guía del ataque aéreo', async ({ page }) => {
+  await page.goto('/#/turno-comentado/fase/1/air-1/salidas_combate');
+  await page.getByRole('button', { name: /Guía: ataque aéreo paso a paso/ }).click();
+  await expect(page).toHaveURL(/#\/guia\/air-attack$/);
+});

@@ -1,0 +1,232 @@
+{
+  "id": "combat-steps",
+  "schemaVersion": 1,
+  "title": "Guías de pasos del combate",
+  "summary": "Secuencia de pasos que se recorre mentalmente para llegar a la tabla correcta, pensada para quien no sabe qué hacer. Cada guía explica el proceso, pregunta lo imprescindible en cada paso y, cuando toca calcular, abre el wizard o la ayuda correspondiente.",
+  "sourceRefs": [
+    {
+      "document": "Indicación del mantenedor",
+      "section": "2026-10-18 y 2026-10-19: pasos mentales del ataque aéreo (misión del atacante, detección en la defensa con CAP o salida de emergencia y CAP en red con el objetivo, BVR)",
+      "status": "verified"
+    }
+  ],
+  "guides": [
+    {
+      "id": "air-attack",
+      "title": "Ataque aéreo paso a paso",
+      "summary": "Qué mirar, en orden, desde que un grupo aéreo ataca hasta que llegas a la tabla de combate.",
+      "intro": "Un ataque aéreo se resuelve en pasos cortos. Primero decides qué misión ejecuta quien ataca, después miras si la defensa lo detecta y qué puede hacer (incluida una CAP en red con el objetivo), y por último entras en el combate BVR y, si procede, en el combate cercano. Esta guía te dice qué comprobar en cada paso; los cálculos los hace el wizard cuando toque.",
+      "steps": [
+        {
+          "id": "attacker-mission",
+          "order": 1,
+          "title": "Misión del atacante",
+          "question": "¿Qué misión ejecuta el grupo que ataca?",
+          "explanation": "Si estás en la fase de acciones aéreas, solo puede ser una Patrulla Aérea (CAP), una Intercepción Aérea o un Ataque Aéreo (Air Strike).",
+          "missionRefs": [
+            "caps",
+            "ink",
+            "air-strike"
+          ],
+          "links": [],
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "2026-10-18",
+              "status": "verified"
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "7.3-7.10 Misiones aéreas (ficha data/missions/air-missions.json)",
+              "page": "120-134",
+              "status": "verified"
+            }
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "defense-detection",
+          "order": 2,
+          "title": "Detección en la defensa",
+          "question": "¿La defensa detecta al grupo atacante?",
+          "explanation": "Si el defensor lo detecta, puede responder con una CAP o con una salida de emergencia.",
+          "missionRefs": [],
+          "links": [
+            {
+              "title": "Ayuda de detección",
+              "hash": "#/ayuda/deteccion"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "2026-10-18, 2026-10-19 (CAP en red) y 2026-10-19 (Air Strike, límites de la red y MPA)",
+              "status": "verified"
+            }
+          ],
+          "status": "verified",
+          "clarifications": [
+            "Si el ataque aéreo es un Air Strike, también pueden detectar al atacante las CAPs o BARCAPs del defensor.",
+            "Una CAP situada en el mismo hexágono que el objetivo puede reaccionar aunque no se haya detectado al atacante, siempre que la CAP y el objetivo estén en red. Da igual que el objetivo sea el AWACS que genera la red o no: el AWACS es solo un ejemplo.",
+            "En la red solo puede haber un AWACS con CAPs, o CAPs entre ellas (reglas avanzadas). Por eso este criterio no se aplica a la salida de emergencia ni a los ataques a superficie o a tierra.",
+            "Si un avión MPA está en la misma casilla que un AWACS y una CAP, la CAP también puede reaccionar a un ataque al MPA aunque no se haya detectado."
+          ]
+        },
+        {
+          "id": "bvr",
+          "order": 3,
+          "title": "Combate BVR y tirada de detección BVR",
+          "question": "¿Quién tiene la iniciativa y qué tipo de combate BVR toca?",
+          "explanation": "La tirada de detección BVR es la misma tirada que la de penetración / interceptación (página 15). Se calcula la Diferencia de Iniciativa: la iniciativa mayor menos la menor, con +1 al bando cuya unidad ataca en red con un AWACS que detecta y expone al objetivo. Tira 1d10 el bando con ventaja (el de mayor iniciativa; si son iguales, deciden los jugadores), se suma el modificador de la tabla según la diferencia y el total elige el resultado: sin BVR (se pasa al combate cercano), BVR simultáneo, ventaja BVR (ataque unilateral o retirada activa), penetración exitosa o interceptación con ventaja BVR. Si las dos unidades son sigilosas, el resultado es «Sin BVR». Los wizards te preguntan todas las opciones que afectan a la tirada.",
+          "missionRefs": [],
+          "links": [
+            {
+              "title": "▶ Asignar objetivos BVR y ver quién puede retirarse",
+              "hash": "#/wizard/air-intercept-targets",
+              "description": "Orden de selección por escolta electrónica, detección y Valor Electrónico; duelos 1 contra 1 (Decision Book §7.16.1-§7.16.2)."
+            },
+            {
+              "title": "▶ Resolver el combate aéreo BVR",
+              "hash": "#/wizard/air-combat-bvr",
+              "description": "Iniciativa, tipo de combate y ataque 1 contra 1 (página 16)."
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "Indicación del mantenedor",
+              "section": "2026-10-19: la tirada de detección BVR es la misma que la de penetración / interceptación",
+              "status": "verified"
+            },
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "7.16.2 Resolución de Combate BVR, Confirmar el Valor de Iniciativa",
+              "page": "144",
+              "status": "verified"
+            },
+            {
+              "document": "Tablas-de-combate 5.pdf",
+              "section": "Combate aéreo - Interceptación (resultado del combate)",
+              "page": "15",
+              "status": "verified"
+            }
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "wvr",
+          "order": 4,
+          "title": "Combate aéreo cercano (WVR)",
+          "question": "¿Queda combate cercano después del BVR?",
+          "explanation": "Si el BVR no lo evita, se pasa al combate cercano por rondas, con absorción de impactos, salida de combate y derrota.",
+          "missionRefs": [],
+          "links": [
+            {
+              "title": "▶ Resolver el combate aéreo cercano (WVR)",
+              "hash": "#/wizard/air-combat-wvr",
+              "description": "Rondas de combate cercano, absorción de impactos, salida de combate y derrota (página 17)."
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "Tablas-de-combate 5.pdf",
+              "page": "17",
+              "status": "verified"
+            }
+          ],
+          "status": "verified"
+        }
+      ]
+    },
+    {
+      "id": "ground-reaction",
+      "title": "Reacción a una unidad terrestre paso a paso",
+      "summary": "Cuándo se puede reaccionar contra una unidad terrestre y con qué ataque.",
+      "intro": "Algunas acciones dejan a una unidad terrestre «brevemente detectable». Si se la detecta, se puede reaccionar contra ella. Esta guía sigue ese orden: qué acción ocurrió, si se detecta, quién puede reaccionar y qué reacción toca. Lo declaras todo antes de resolver el primer ataque.",
+      "steps": [
+        {
+          "id": "brief-action",
+          "order": 1,
+          "title": "Acción que deja brevemente detectable",
+          "question": "¿Qué acaba de hacer la unidad terrestre?",
+          "explanation": "El movimiento, el disparo, el apoyo y la retirada dejan a una unidad oculta en estado «brevemente detectable». Es una detección temporal: termina cuando el atacante ha declarado y resuelto todos los ataques de reacción.",
+          "missionRefs": [],
+          "links": [],
+          "sourceRefs": [
+            {
+              "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf",
+              "page": "4-5",
+              "status": "verified"
+            }
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "detected",
+          "order": 2,
+          "title": "¿Se detecta?",
+          "question": "¿Las unidades de detección la han detectado mientras estaba brevemente detectable?",
+          "explanation": "Una unidad brevemente detectable solo puede sufrir ataques de reacción si está dentro del alcance de detección. Solo tienen capacidad de detección terrestre algunas unidades aéreas y de baja altitud (misiones ISR).",
+          "missionRefs": [],
+          "links": [
+            {
+              "title": "Ayuda de detección",
+              "hash": "#/ayuda/deteccion"
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW-Hoja-de-Ayuda-Deteccion.pdf",
+              "page": "4-5",
+              "status": "verified"
+            }
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "who-reacts",
+          "order": 3,
+          "title": "Quién puede reaccionar",
+          "question": "¿Quién puede ejecutar el ataque de reacción?",
+          "explanation": "Salvo las Operaciones de Contrabatería, solo pueden realizar un ataque de reacción las unidades aéreas que ejecutan un Ataque Dinámico (ON CALL) y las unidades de baja altitud en estado Operativo. Cada objetivo detectado puede recibir varios ataques de reacción por la misma causa, y el atacante decide todo (unidades, objetivos y orden) antes de resolver el primero.",
+          "missionRefs": [
+            "on-call"
+          ],
+          "links": [],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "5.16",
+              "page": "88-89",
+              "status": "verified"
+            }
+          ],
+          "status": "verified"
+        },
+        {
+          "id": "which-reaction",
+          "order": 4,
+          "title": "Qué reacción toca",
+          "question": "¿Qué ha ocurrido para que se pueda reaccionar?",
+          "explanation": "Contrabatería (CF): una unidad de artillería asigna su Apoyo de Combate al combate cercano. Contrafuegos (AS): una unidad de artillería ataca o una de defensa aérea dispara. Persecución Aérea (KB): una unidad principal queda «Derrotada» en un enfrentamiento terrestre. Interdicción de Batalla (BAI): una unidad terrestre se mueve hacia el hexágono o la Zona Central de una unidad aérea en Ataque Dinámico, o al hexágono de una unidad de baja altitud Operativa. El wizard comprueba las condiciones de cada una antes de dejarte ejecutarla.",
+          "missionRefs": [],
+          "links": [
+            {
+              "title": "▶ Resolver un ataque de reacción (CF, AS, KB, BAI)",
+              "hash": "#/wizard/ground-reaction",
+              "description": "Contrabatería, Contrafuegos, Persecución Aérea e Interdicción de Batalla: quién puede atacar, objetivos y orden, y consecuencias (Decision Book §5.16)."
+            }
+          ],
+          "sourceRefs": [
+            {
+              "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+              "section": "5.16.1-5.16.4",
+              "page": "89-91",
+              "status": "verified"
+            }
+          ],
+          "status": "verified"
+        }
+      ]
+    }
+  ]
+}

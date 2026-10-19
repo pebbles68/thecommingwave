@@ -128,9 +128,8 @@ La consulta rápida no debe alterar el estado del turno guiado salvo que el usua
 Decisión del mantenedor (2026-10-18; ver `roadmap.md`, Fase 24): las ayudas de combate deben ser más usables y **seguir los pasos que el jugador recorre mentalmente para elegir la tabla**, explicados al principio del proceso y antes de pedir datos. El enfoque es **guiar a una persona poco experta que no sabe qué tiene que hacer**: es menos una calculadora de factores y más una **guía de pasos a seguir en el proceso del ataque**, que desemboca en el wizard de cálculo cuando toca. Ejemplo para un ataque aéreo:
 
 1. misión del atacante (en fase aérea solo puede ser CAP, Interceptación o Air Strike);
-2. existe detección en defensa; si se detecta, hay CAP o salida de emergencia;
-3. si el objetivo es un AWACS y hay CAP en el mismo hexágono, se indica que el defensor puede defender con la CAP;
-4. paso al BVR y a la tirada de detección BVR, preguntando todas las opciones que afectan a la tirada, pero explicando antes el proceso.
+2. existe detección en defensa; si se detecta, hay CAP o salida de emergencia; aclaración (mantenedor, 2026-10-19): una CAP en el mismo hexágono que el objetivo puede reaccionar aunque no se haya detectado al atacante, siempre que la CAP y el objetivo estén en red (el AWACS que genera la red era solo un ejemplo);
+3. paso al BVR y a la tirada de detección BVR, preguntando todas las opciones que afectan a la tirada, pero explicando antes el proceso.
 
 La secuencia de pasos de cada tipo de combate es dato declarativo (no está en la vista), cita su fuente y no inventa reglas (§1.5): lo que la fuente no cubre se muestra como pendiente.
 

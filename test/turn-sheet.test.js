@@ -98,3 +98,13 @@ test('buildSegmentPage: Aire I con subfases, recordatorios y ayuda gráfica', ()
   assert.equal(Engine.buildSegmentPage(template, 2, 'ground', help), null);
   assert.equal(Engine.buildSegmentPage(template, 2, 'air-1', help).reminders.some((r) => r.hash.startsWith('#/turno/mando/')), false);
 });
+
+test('las guías enlazadas desde las subfases existen en data/guides/combat-steps.json', () => {
+  const guides = JSON.parse(fs.readFileSync(path.join(root, 'data/guides/combat-steps.json'), 'utf8')).guides.map((g) => g.id);
+  Object.entries(help.subphaseGuides).forEach(([subId, list]) => {
+    assert.ok(template.subphases[subId], subId);
+    list.forEach((g) => assert.ok(guides.includes(g.guideId), g.guideId));
+  });
+  const page = Engine.buildSegmentPage(template, 1, 'air-1', help);
+  assert.deepEqual(page.subphases.find((x) => x.id === 'salidas_combate').guides.map((g) => g.hash), ['#/guia/air-attack']);
+});

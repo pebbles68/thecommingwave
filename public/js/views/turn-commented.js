@@ -263,6 +263,14 @@
         try { await appendBoardVisual(section, sub.visual); } catch (_e) { /* la ayuda gráfica es opcional */ }
         if (!Router.isCurrent(navToken)) return;
       }
+      sub.guides.forEach((g) => {
+        const card = el('button', 'help-card help-card--highlight');
+        card.type = 'button';
+        card.appendChild(el('span', 'help-card__title', `→ ${g.title}`));
+        card.appendChild(el('span', 'help-card__source', g.description));
+        card.addEventListener('click', () => { location.hash = g.hash; });
+        section.appendChild(card);
+      });
       const links = el('div', 'turn-commented__items');
       sub.wizardLinks.forEach((link) => {
         const hash = AppCore.WORKFLOW_WIZARD_HASHES[link.wizard];

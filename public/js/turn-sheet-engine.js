@@ -96,6 +96,7 @@
     const seg = impulse && Model.getSegment(template, impulse.id, segmentId);
     if (!seg || !seg.phase) return null;
     const visuals = (helpData && helpData.subphaseVisuals) || {};
+    const guides = (helpData && helpData.subphaseGuides) || {};
     const day = dayOf(template, impulse);
     const reminders = [];
     if (seg.id === 'air-1') {
@@ -120,7 +121,8 @@
         wizardLinks: sub.wizardLinks || [],
         relatedWorkflowIds: sub.relatedWorkflowIds || [],
         guidedHash: `#/turno/fase/${impulse.number}/${seg.id}/${sub.id}`,
-        visual: visuals[sub.id] || null
+        visual: visuals[sub.id] || null,
+        guides: (guides[sub.id] || []).map((g) => ({ title: g.title, description: g.description, hash: `#/guia/${g.guideId}` }))
       }))
     };
   }
