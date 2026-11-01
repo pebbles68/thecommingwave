@@ -4,7 +4,7 @@
 
 ### Página de revisión de fichas y tablas (#/revision) — 2026-11-01
 
-- Estado: `in_progress`, **pendiente de que el mantenedor revise**; sin commit.
+- Estado: `done` (revisión aplicada). Commit `6fd9593`, subido a master el 2026-11-01 junto con todo el asistente de combate (Fase 25) a petición del mantenedor; las imágenes de `images/` no se suben.
 - **Petición:** revisar todas las fichas y zonas juntas en vez de buscarlas por la ayuda. Es la herramienta de marcado manual que quedó pendiente en la Fase 22 (memoria del proyecto).
 - **Cambios:** `public/js/views/image-review.js` (ruta `#/revision`, tarjeta «Revisión de fichas y tablas» en Inicio › Accesos recientes): las 20 fichas reales con sus zonas numeradas (tocar el nombre resalta el recuadro) y lo que se dice sin zona («no impreso», «pendiente de identificar»), y las rejillas de las 4 tablas calibradas; «Bien»/«Mal» con nota por zona (179 en total), recordado en el navegador; «Marcar como Bien todo lo que falta»; «Descargar la revisión» → `image-review.json`. Ese archivo se guarda en `scripts/image-hotspots/profiles/image-review.json` y `calibrate_real_counters.py` / `calibrate_table_pages.py` lo aplican: «ok» → `verified` con `reviewedBy`/`reviewedAt`; «wrong» → `needs_review` con `reviewNote`. Prueba E2E `test/e2e/image-review.spec.js`.
 - **Visible en la web: sí.** http://localhost:3000/#/revision
