@@ -224,7 +224,7 @@
         (def.options || choices).forEach((g) => input.appendChild(Object.assign(el('option', null, g.label), { value: g.value })));
       } else {
         input = el('input');
-        input.type = 'number';
+        input.type = def.kind === 'text' ? 'text' : 'number';
         input.inputMode = 'numeric';
         if (def.min !== undefined) input.min = def.min;
         if (def.max !== undefined) input.max = def.max;

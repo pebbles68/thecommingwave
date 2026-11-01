@@ -282,6 +282,26 @@
       ],
       "columnEdges": "detected",
       "skipLines": 2
+    },
+    {
+      "page": 32,
+      "tableId": "strategic-actions-outcome",
+      "searchY": [
+        0.05,
+        0.42
+      ],
+      "columns": 4,
+      "rows": 10,
+      "headerSchemes": [
+        {
+          "schemes": [
+            "_title"
+          ],
+          "span": 1
+        },
+        "canonical"
+      ],
+      "columnEdges": "detected"
     }
   ]
 }

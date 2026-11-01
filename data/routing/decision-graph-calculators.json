@@ -1,6 +1,6 @@
 {
   "id": "decision-graph-calculators",
-  "description": "Cálculos que el asistente de combate hace dentro de una pregunta del árbol (roadmap Fase 25): qué factores pide a cada bando (con la ficha y el factor donde se leen), qué tabla de data/tables/ cruza y en qué página real marca la columna, la fila y la celda de cada bando (data/image-hotspots/table-pages.json). La lógica está en public/js/decision-graph-calculators.js y reutiliza los motores ya probados de los wizards; «choices» dice de qué workflow sale la lista de la pregunta de elección (value, label y columnScheme de la fila de la tabla); aquí solo se declaran los datos. `visualTemplate` fija la plantilla de ficha que abre el botón del campo (en el combate aéreo, la de avión de combate). `choices.options` declara la lista en el propio archivo cuando no sale de un workflow; `extraTables` son otras tablas de la misma página que el cálculo también marca (p. ej. la de guerra electrónica). Un cálculo puede declarar sus propios `sides` (p. ej. una sola unidad que ataca) y un campo de elección sus propias `options`. Un campo con `showIf` solo se pide cuando otro campo tiene ese valor; un cálculo puede elegir tabla según una respuesta (el resultado trae `tableId`) y marcar celdas adicionales (`extraCells`, p. ej. el rango de detección). `optional` marca un campo que no hace falta para calcular (p. ej. la segunda tirada); `rules` es un archivo de data/rules/ que el cálculo necesita (p. ej. el texto de la celda de éxito). `prefill: \"columnShift\"` propone como valor inicial la suma de los desplazamientos de columna («-N columnas») de lo que el árbol ya ha aplicado; se puede cambiar. `default` es el valor inicial de un campo cuando la regla lo fija (p. ej. -5 del ataque antirradiación, Tablas p. 13).",
+  "description": "Cálculos que el asistente de combate hace dentro de una pregunta del árbol (roadmap Fase 25): qué factores pide a cada bando (con la ficha y el factor donde se leen), qué tabla de data/tables/ cruza y en qué página real marca la columna, la fila y la celda de cada bando (data/image-hotspots/table-pages.json). La lógica está en public/js/decision-graph-calculators.js y reutiliza los motores ya probados de los wizards; «choices» dice de qué workflow sale la lista de la pregunta de elección (value, label y columnScheme de la fila de la tabla); aquí solo se declaran los datos. `visualTemplate` fija la plantilla de ficha que abre el botón del campo (en el combate aéreo, la de avión de combate). `choices.options` declara la lista en el propio archivo cuando no sale de un workflow; `extraTables` son otras tablas de la misma página que el cálculo también marca (p. ej. la de guerra electrónica). Un cálculo puede declarar sus propios `sides` (p. ej. una sola unidad que ataca) y un campo de elección sus propias `options`. Un campo con `showIf` solo se pide cuando otro campo tiene ese valor; un cálculo puede elegir tabla según una respuesta (el resultado trae `tableId`) y marcar celdas adicionales (`extraCells`, p. ej. el rango de detección). `optional` marca un campo que no hace falta para calcular (p. ej. la segunda tirada); `rules` es un archivo de data/rules/ que el cálculo necesita (p. ej. el texto de la celda de éxito). `prefill: \"columnShift\"` propone como valor inicial la suma de los desplazamientos de columna («-N columnas») de lo que el árbol ya ha aplicado; se puede cambiar. `default` es el valor inicial de un campo cuando la regla lo fija (p. ej. -5 del ataque antirradiación, Tablas p. 13). Un campo `kind: \"text\"` recoge varias tiradas; `column` fija la columna de la tabla de acciones estratégicas.",
   "sourceRefs": [
     {
       "document": "Tablas-de-combate 5.pdf",
@@ -1162,6 +1162,60 @@
         }
       ],
       "afterResult": "Por cada impacto: Valor de Protección simple, 1 daño; enmarcado, 2 daños. Una unidad múltiple (x2…) con 1 daño cuenta como 1 hundido."
+    },
+    "strategic-cyber": {
+      "title": "Guerra cibernética: tiradas de ataque",
+      "nodes": [
+        "strategic.cyber.compare"
+      ],
+      "engine": "strategic-rolls",
+      "column": "cyber",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Atacante",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-32.json",
+        "tableId": "strategic-actions-outcome"
+      },
+      "intro": "Cada tirada del atacante se lee en la columna Guerra Cibernética: «Éxito» es un ataque efectivo y «Fallo» uno inefectivo. La acción tiene éxito si hay más efectivos que inefectivos.",
+      "fields": [
+        {
+          "id": "rolls",
+          "label": "Tiradas 1d10, separadas por espacios (p. ej. «3 7 0 9»)",
+          "kind": "text"
+        }
+      ]
+    },
+    "strategic-space": {
+      "title": "Destrucción espacial: tiradas",
+      "nodes": [
+        "strategic.space.result"
+      ],
+      "engine": "strategic-rolls",
+      "column": "destruction",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Atacante",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-32.json",
+        "tableId": "strategic-actions-outcome"
+      },
+      "intro": "Cada tirada de destrucción se lee en la columna Destrucción Espacial; el efecto de cada «Éxito» o «Fallo» depende del tipo de destrucción (blanda, dura u orbital), como dice la pregunta.",
+      "fields": [
+        {
+          "id": "rolls",
+          "label": "Tiradas 1d10, separadas por espacios (p. ej. «3 7 0 9»)",
+          "kind": "text"
+        }
+      ]
     }
   }
 }

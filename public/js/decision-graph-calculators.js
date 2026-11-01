@@ -3,9 +3,9 @@
 // devuelve por bando la columna, la fila y la celda elegidas (índices de data/tables/) más la explicación. La posición
 // de esas columnas y filas en la página real sale de data/image-hotspots/table-pages.json (`markRects`). Sin DOM.
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory(require('./air-combat-wvr-engine.js'), require('./air-combat-bvr-engine.js'), require('./ground-close-combat-engine.js'), require('./asw-attack-engine.js'), require('./asw-signature-search-engine.js'), require('./asw-air-search-engine.js'), require('./torpedo-attack-engine.js'), require('./army-resupply-engine.js'), require('./ground-guided-attack-engine.js'), require('./anti-radiation-attack-engine.js'), require('./combat-modifier-engine.js'), require('./table-engine.js'));
-  else root.DecisionGraphCalculators = factory(root.AirCombatWvrEngine, root.AirCombatBvrEngine, root.GroundCloseCombatEngine, root.AswAttackEngine, root.AswSignatureSearchEngine, root.AswAirSearchEngine, root.TorpedoAttackEngine, root.ArmyResupplyEngine, root.GroundGuidedAttackEngine, root.AntiRadiationAttackEngine, root.CombatModifierEngine, root.TableEngine);
-})(typeof self !== 'undefined' ? self : this, function (AirCombatWvrEngine, AirCombatBvrEngine, GroundCloseCombatEngine, AswAttackEngine, AswSignatureSearchEngine, AswAirSearchEngine, TorpedoAttackEngine, ArmyResupplyEngine, GroundGuidedAttackEngine, AntiRadiationAttackEngine, CombatModifierEngine, TableEngine) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./air-combat-wvr-engine.js'), require('./air-combat-bvr-engine.js'), require('./ground-close-combat-engine.js'), require('./asw-attack-engine.js'), require('./asw-signature-search-engine.js'), require('./asw-air-search-engine.js'), require('./torpedo-attack-engine.js'), require('./army-resupply-engine.js'), require('./ground-guided-attack-engine.js'), require('./anti-radiation-attack-engine.js'), require('./combat-modifier-engine.js'), require('./strategic-actions-engine.js'), require('./table-engine.js'));
+  else root.DecisionGraphCalculators = factory(root.AirCombatWvrEngine, root.AirCombatBvrEngine, root.GroundCloseCombatEngine, root.AswAttackEngine, root.AswSignatureSearchEngine, root.AswAirSearchEngine, root.TorpedoAttackEngine, root.ArmyResupplyEngine, root.GroundGuidedAttackEngine, root.AntiRadiationAttackEngine, root.CombatModifierEngine, root.StrategicActionsEngine, root.TableEngine);
+})(typeof self !== 'undefined' ? self : this, function (AirCombatWvrEngine, AirCombatBvrEngine, GroundCloseCombatEngine, AswAttackEngine, AswSignatureSearchEngine, AswAirSearchEngine, TorpedoAttackEngine, ArmyResupplyEngine, GroundGuidedAttackEngine, AntiRadiationAttackEngine, CombatModifierEngine, StrategicActionsEngine, TableEngine) {
   'use strict';
 
   function calculatorForNode(calcData, nodeId) {
@@ -417,7 +417,26 @@
     return { sides };
   }
 
+  // Acciones estratégicas (página 32): varias tiradas en una columna fija; cada una se marca en su fila.
+  function computeStrategicRolls(calculator, table, inputs) {
+    const sides = {};
+    const columnIndex = StrategicActionsEngine.COLUMNS[calculator.column];
+    Object.entries(inputs.sides || {}).forEach(([sideId, v]) => {
+      if (missingFields(calculator, v).length) { sides[sideId] = { status: 'incomplete' }; return; }
+      const rolls = StrategicActionsEngine.parseRolls(v.rolls);
+      if (!rolls || !rolls.length) { sides[sideId] = { status: 'error', explanation: ['Escribe las tiradas como cifras de 0 a 9 separadas por espacios.'] }; return; }
+      const tally = StrategicActionsEngine.tallyRolls(table, calculator.column, rolls);
+      const label = table.columnAxis.values[columnIndex];
+      const cells = rolls.map((r) => ({ columnIndex, rowIndex: Math.min(r, 9) }));
+      const lines = [`Columna: ${label}.`, `Tiradas ${rolls.join(', ')} → ${rolls.map((r) => { const c = StrategicActionsEngine.cell(table, calculator.column, r); return c === '.' ? 'sin efecto' : c; }).join(', ')}.`, `Éxitos: ${tally.successes}; fallos: ${tally.failures}; sin efecto: ${tally.none}.`];
+      if (calculator.column === 'cyber') lines.push(tally.successes > tally.failures ? 'Más ataques efectivos que inefectivos: la acción cibernética tiene éxito.' : 'No hay más efectivos que inefectivos: la acción cibernética falla.');
+      sides[sideId] = { status: 'ok', columnScheme: 'canonical', columnIndex, columnLabel: label, rowIndex: cells[0].rowIndex, rowValue: rolls[0], extraCells: cells.slice(1), explanation: lines };
+    });
+    return { sides };
+  }
+
   function compute(calculator, context, inputs) {
+    if (calculator.engine === 'strategic-rolls') return computeStrategicRolls(calculator, context.table, inputs);
     if (calculator.engine === 'antiship-guided-final') return computeAntishipGuidedFinal(calculator, context.table, inputs);
     if (calculator.engine === 'antiship-unguided') return computeAntishipUnguided(calculator, context.table, inputs);
     if (calculator.engine === 'anti-radiation') return computeAntiRadiation(calculator, context.table, inputs);
@@ -486,5 +505,5 @@
     return ((hotspots && hotspots.tables) || []).find((t) => t.page === n && t.tableId === tableId) || null;
   }
 
-  return { calculatorForNode, findKey, resolveChoices, fieldApplies, computeWvrRound, computeBvrAttack, computeGroundCloseCombat, computeAsw, computeSignatureSearch, computeAirSearch, computeTorpedo, computeArmyResupply, computeGroundGuided, computeAntiRadiation, computeAntishipGuidedFinal, computeAntishipUnguided, columnShiftFromEffects, compute, computeWithColumn, markRects, geometryFor };
+  return { calculatorForNode, findKey, resolveChoices, fieldApplies, computeWvrRound, computeBvrAttack, computeGroundCloseCombat, computeAsw, computeSignatureSearch, computeAirSearch, computeTorpedo, computeArmyResupply, computeGroundGuided, computeAntiRadiation, computeAntishipGuidedFinal, computeAntishipUnguided, computeStrategicRolls, columnShiftFromEffects, compute, computeWithColumn, markRects, geometryFor };
 });

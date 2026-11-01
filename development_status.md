@@ -2,6 +2,14 @@
 
 ## Estado actual
 
+### Acciones estratégicas dentro del asistente — 2026-11-01
+
+- Estado: `done` (pendiente de comprobación del mantenedor); subido a master.
+- Cálculos `strategic-cyber` (`strategic.cyber.compare`) y `strategic-space` (`strategic.space.result`) sobre la tabla de la p. 32: varias tiradas en un campo de texto, columna fija (Guerra Cibernética / Destrucción Espacial) y cada tirada marcada en su fila; en el ciberataque dice si hay más efectivos que inefectivos. Rejilla de la tabla calibrada (`needs_review`).
+- **Validación:** `npm test` 837/837.
+- **Visible en la web: sí.** `#/decision/strategic.cyber.compare` y `#/decision/strategic.space.result`.
+- **Siguiente:** ramas del árbol para los wizards no cubiertos y sustitución final de los wizards.
+
 ### Cálculo dentro del asistente: ataques terrestres, antibuque y columna antes de la tirada — 2026-11-01
 
 - Estado: `in_progress`, **pendiente de comprobación del mantenedor**; subido a master el 2026-11-01 a petición del mantenedor (junto con los cálculos de submarinos, torpedos y reabastecimiento).

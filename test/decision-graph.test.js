@@ -502,3 +502,19 @@ test('antibuque guiado (tabla final, página 22) y no guiado (página 25)', () =
   assert.equal(n.sides.A.impacts, 1);
   ['page-22.json', 'page-25.json'].forEach((p, i) => assert.ok(Calc.geometryFor(tableHotspots, p, [g, u][i].table.tableId)));
 });
+
+test('acciones estratégicas (página 32): varias tiradas en su columna, cada una en su fila', () => {
+  const c = Calc.calculatorForNode(calculators, 'strategic.cyber.compare');
+  const t32 = table('32').tables.find((t) => t.id === c.table.tableId);
+  // Guerra Cibernética: 6 y 9 son Éxito, 0 es Fallo, 3 no tiene efecto → 2 frente a 1: éxito.
+  const r = Calc.compute(c, { table: t32 }, { sides: { A: { rolls: '6 0 9 3' } } });
+  assert.equal(r.sides.A.columnIndex, 0);
+  assert.equal(r.sides.A.extraCells.length, 3);
+  assert.match(r.sides.A.explanation.join(' '), /tiene éxito/);
+  const bad = Calc.compute(c, { table: t32 }, { sides: { A: { rolls: '6 x' } } });
+  assert.equal(bad.sides.A.status, 'error');
+  const s = Calc.calculatorForNode(calculators, 'strategic.space.result');
+  const sp = Calc.compute(s, { table: t32 }, { sides: { A: { rolls: '7 2' } } });
+  assert.equal(sp.sides.A.columnIndex, 1);
+  assert.ok(Calc.geometryFor(tableHotspots, 'page-32.json', 'strategic-actions-outcome'));
+});

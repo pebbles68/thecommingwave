@@ -1018,6 +1018,59 @@
       },
       "confidence": "grid-checked",
       "reviewStatus": "needs_review"
+    },
+    {
+      "page": 32,
+      "tableId": "strategic-actions-outcome",
+      "image": "images/tablas/page-32.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "10e58861f8db8c6ea7fc1d7ab8b7a796fe58fb61f581238433e2d72680aa0afd",
+      "frame": [
+        0.21659,
+        0.05812,
+        0.81884,
+        0.40627
+      ],
+      "columnEdges": [
+        0.27134,
+        0.39654,
+        0.53422,
+        0.65982,
+        0.81643
+      ],
+      "rowEdges": [
+        0.12934,
+        0.15687,
+        0.18439,
+        0.21191,
+        0.23943,
+        0.26695,
+        0.29447,
+        0.32199,
+        0.34952,
+        0.37704,
+        0.40456
+      ],
+      "valuesTop": 0.08205,
+      "headerBands": {
+        "_title": [
+          0.08205,
+          0.1057
+        ],
+        "canonical": [
+          0.1057,
+          0.12934
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 2.7
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
     }
   ],
   "unmatched": []
