@@ -1,0 +1,439 @@
+{
+  "id": "decision-graph-extensions",
+  "reviewStatus": "needs_review",
+  "description": "Ramas añadidas al árbol de decisión para los procedimientos que el árbol original no cubre (roadmap Fase 25, AD-005). Generado por scripts/build-decision-extensions.js a partir de data/rules/ (no editar a mano): las respuestas y los textos de los resultados son los de esos archivos, con sus fuentes. `addRoutes` añade respuestas a preguntas del árbol original; `nodes` son los nodos nuevos (prefijo «ext.»). Pendiente de revisión del mantenedor.",
+  "sourceRefs": [
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "description": "Secciones 5.9, 5.16, 7.16, 9.9.4-9.9.5, 9.16, 11.0-11.6 (vía data/rules/)."
+    }
+  ],
+  "addRoutes": [
+    {
+      "node": "land.kind",
+      "route": {
+        "answer": "Ataque de reacción terrestre (CF, AS, KB, BAI)",
+        "to": "ext.reaction.kind"
+      }
+    },
+    {
+      "node": "surface.kind",
+      "route": {
+        "answer": "Emboscada de submarino (reacción)",
+        "to": "ext.ambush.event"
+      }
+    },
+    {
+      "node": "surface.kind",
+      "route": {
+        "answer": "Efectos del impacto en un buque (daño, portaaviones, transportes)",
+        "to": "ext.impact.hull"
+      }
+    },
+    {
+      "node": "strategic.kind",
+      "route": {
+        "answer": "Logística de puerto y munición",
+        "to": "ext.port.operation"
+      }
+    },
+    {
+      "node": "strategic.kind",
+      "route": {
+        "answer": "Garantía logística de una unidad",
+        "to": "ext.guarantee.unit"
+      }
+    },
+    {
+      "node": "air.kind",
+      "route": {
+        "answer": "Organizar el grupo de misión y asignar objetivos BVR",
+        "to": "ext.air.organize"
+      }
+    }
+  ],
+  "nodes": {
+    "ext.reaction.kind": {
+      "type": "decision",
+      "question": "¿Qué ataque de reacción se quiere ejecutar?",
+      "source": [
+        "Reglas 5.16"
+      ],
+      "routes": [
+        {
+          "answer": "Operaciones de Contrabatería (CF)",
+          "to": "ext.reaction.cf",
+          "effects": [
+            "Se activa cuando: Una unidad de artillería (fuego) con Valor de Apoyo de Combate lo asigna al combate cercano, antes de resolverlo."
+          ]
+        },
+        {
+          "answer": "Ataque de Contrafuegos (AS)",
+          "to": "ext.reaction.as",
+          "effects": [
+            "Se activa cuando: Una unidad de artillería ejecuta un ataque, o una unidad de defensa aérea realiza un disparo de defensa aérea, y se completa la resolución."
+          ]
+        },
+        {
+          "answer": "Persecución Aérea (KB)",
+          "to": "ext.reaction.kb",
+          "effects": [
+            "Se activa cuando: Una unidad principal queda «Derrotada» en un enfrentamiento terrestre (entra en estado Brevemente Detectable)."
+          ]
+        },
+        {
+          "answer": "Interdicción de Batalla (BAI)",
+          "to": "ext.reaction.bai",
+          "effects": [
+            "Se activa cuando: Una unidad terrestre se mueve (las unidades son Brevemente Detectables mientras se mueven) hacia el hexágono o Zona Central de una unidad aérea en Ataque Dinámico, o al hexágono de una unidad de baja altitud Operativa."
+          ]
+        }
+      ]
+    },
+    "ext.reaction.cf": {
+      "type": "terminal",
+      "title": "Operaciones de Contrabatería (CF)",
+      "instructions": [
+        "Objetivo: La unidad de artillería que asignó su Apoyo de Combate (cae en estado Brevemente Detectable) y que ha sido detectada.",
+        "Unidad aérea en Ataque Dinámico (ON CALL): El objetivo está dentro del alcance de su plan de ataque terrestre; el alcance aumenta en +1.",
+        "Unidad de baja altitud en estado Operativo: El objetivo está en su mismo hexágono.",
+        "Unidad de artillería (fuego): El objetivo está en su mismo hexágono, no está realizando Apoyo de Fuego Cercano (CAS) y tiene al menos 1 punto de munición.",
+        "Límite: En un mismo enfrentamiento terrestre, cada unidad de artillería solo puede realizar una Operación de Contrabatería.",
+        "Después, Unidad aérea en Ataque Dinámico (ON CALL): Las unidades aéreas que la ejecutaron regresan inmediatamente.",
+        "Después, Unidad de baja altitud en estado Operativo: Las unidades de baja altitud permanecen en ese hexágono hasta ser recuperadas.",
+        "Después, Unidad de artillería (fuego): La artillería que realizó la operación coloca un marcador de consumo de munición «-1». Además cae en estado de detección breve y puede ser objeto de un Ataque de Contrafuegos (AS); solo podrá realizar un ataque en las fases de ataque posteriores."
+      ],
+      "source": [
+        "Reglas 5.16"
+      ]
+    },
+    "ext.reaction.as": {
+      "type": "terminal",
+      "title": "Ataque de Contrafuegos (AS)",
+      "instructions": [
+        "Objetivo: La unidad de artillería o de defensa aérea que acaba de disparar (cae en estado de Detección Breve) y que ha sido detectada.",
+        "Unidad aérea en Ataque Dinámico (ON CALL): El objetivo está dentro del alcance de su plan de ataque terrestre; el alcance aumenta en +1.",
+        "Unidad de baja altitud en estado Operativo: El objetivo está en su mismo hexágono.",
+        "Después, Unidad aérea en Ataque Dinámico (ON CALL): Las unidades aéreas que lo ejecutaron regresan inmediatamente.",
+        "Después, Unidad de baja altitud en estado Operativo: Las unidades de baja altitud permanecen en ese hexágono hasta ser recuperadas."
+      ],
+      "source": [
+        "Reglas 5.16"
+      ]
+    },
+    "ext.reaction.kb": {
+      "type": "terminal",
+      "title": "Persecución Aérea (KB)",
+      "instructions": [
+        "Objetivo: Las unidades principales «Derrotadas» del enfrentamiento terrestre, una vez identificadas todas.",
+        "Unidad aérea en Ataque Dinámico (ON CALL): El hexágono del combate terrestre está dentro de su hexágono o Zona Central.",
+        "Unidad de baja altitud en estado Operativo: El hexágono del combate terrestre es su mismo hexágono (en cara de Operaciones).",
+        "Después, Unidad aérea en Ataque Dinámico (ON CALL): Las unidades aéreas que ejecutaron la persecución regresan inmediatamente.",
+        "Después, Unidad de baja altitud en estado Operativo: Las unidades de aviación del ejército permanecen en el hexágono hasta ser recuperadas."
+      ],
+      "source": [
+        "Reglas 5.16"
+      ]
+    },
+    "ext.reaction.bai": {
+      "type": "terminal",
+      "title": "Interdicción de Batalla (BAI)",
+      "instructions": [
+        "Objetivo: La unidad terrestre en movimiento, en el hexágono donde empieza a moverse o en uno al que acaba de entrar.",
+        "Unidad aérea en Ataque Dinámico (ON CALL): La unidad se mueve a su hexágono o Zona Central.",
+        "Unidad de baja altitud en estado Operativo: La unidad se mueve a su hexágono (en cara de Operaciones).",
+        "Después, Unidad aérea en Ataque Dinámico (ON CALL): Las unidades aéreas que ejecutaron la interdicción regresan inmediatamente.",
+        "Después, Unidad de baja altitud en estado Operativo: Las unidades de aviación del ejército permanecen en el hexágono hasta ser recuperadas."
+      ],
+      "source": [
+        "Reglas 5.16"
+      ]
+    },
+    "ext.ambush.event": {
+      "type": "decision",
+      "question": "¿Qué hace la formación de superficie respecto a la Zona de Emboscada del submarino Oculto?",
+      "source": [
+        "Reglas 9.16",
+        "Reglas 9.16.1"
+      ],
+      "routes": [
+        {
+          "answer": "Entra en la zona",
+          "to": "ext.ambush.steps"
+        },
+        {
+          "answer": "Sale de la zona",
+          "to": "ext.ambush.steps"
+        },
+        {
+          "answer": "Se mueve dentro de la zona",
+          "to": "ext.ambush.steps"
+        },
+        {
+          "answer": "Ninguna de las anteriores",
+          "to": "ext.ambush.none"
+        }
+      ]
+    },
+    "ext.ambush.steps": {
+      "type": "terminal",
+      "title": "Resolución de la emboscada",
+      "instructions": [
+        "El jugador anuncia que el submarino inicia la Emboscada. La iniciación siempre tiene éxito.",
+        "Antes de que comience la resolución del ataque, el objetivo de la Emboscada puede realizar una Búsqueda ASW de inmediato. Esto se activa incluso si un submarino convencional embosca a una formación en su misma casilla.",
+        "El submarino se mueve inmediatamente a la casilla de la formación de superficie objetivo.",
+        "Realiza inmediatamente un Ataque con Torpedos, que se resuelve con el proceso estándar de Ataque con Torpedos a Unidades de Superficie (9.13.1).",
+        "Cuando concluye la Emboscada, el objetivo del ataque puede realizar una Búsqueda ASW considerada «Después del Ataque», con las reglas normales de Búsqueda ASW. No se gira la ficha del submarino a su lado «En Movimiento».",
+        "Tras completar la resolución, se realizan las Búsquedas por Diferencia de Firma y las Búsquedas Aéreas ASW como de costumbre, según los desencadenantes aplicables."
+      ],
+      "source": [
+        "Reglas 9.16.2"
+      ]
+    },
+    "ext.ambush.none": {
+      "type": "terminal",
+      "title": "No hay emboscada",
+      "instructions": [
+        "La formación no entra, sale ni se mueve dentro de la Zona de Emboscada: el submarino no puede iniciar la emboscada."
+      ],
+      "source": [
+        "Reglas 9.16"
+      ]
+    },
+    "ext.impact.hull": {
+      "type": "decision",
+      "question": "¿Qué tipo de unidad de superficie sufre el punto de daño?",
+      "source": [
+        "Reglas 5.9"
+      ],
+      "routes": [
+        {
+          "answer": "Buque único (sin marcador numérico)",
+          "to": "ext.impact.single"
+        },
+        {
+          "answer": "Doble buque (marca x2 junto a la silueta)",
+          "to": "ext.impact.double"
+        },
+        {
+          "answer": "Multi-buque (marcas x3, x4, x5 junto a la silueta)",
+          "to": "ext.impact.multi"
+        }
+      ]
+    },
+    "ext.impact.single": {
+      "type": "terminal",
+      "title": "Efecto del impacto: Buque único (sin marcador numérico)",
+      "instructions": [
+        "Una unidad de buque único (sin marcador numérico) que sufre 1 punto de daño se da la vuelta (pasa a su lado dañado) y debe realizar una verificación por daño crítico.",
+        "Si el operador de la unidad ya estaba en su lado dañado, o solo le quedaba 1 barco (unidad multi-buque), antes de resolver este efecto de impacto y sufre daño, es eliminado directamente, sin verificación por daño crítico.",
+        "Una unidad cuyo reverso no tiene contenido (no tiene lado dañado) es eliminada directamente al sufrir 1 punto de daño.",
+        "Unidad portaeronaves dañada (se da la vuelta): no puede continuar operando unidades aéreas (no puede lanzar ni recuperar). Las unidades aéreas o de baja altitud que transporta no se ven afectadas por este daño.",
+        "Unidad portaeronaves hundida: todas las unidades aéreas o de baja altitud de su Ficha de Aeródromo son eliminadas junto con ella.",
+        "Dañada o hundida, las unidades que ya estaban desplegadas (colocadas en el mapa) deberán usar otro aeródromo o base como destino para regresar/ser recuperadas.",
+        "Unidad de transporte (convoy de transporte, buque de asalto anfibio, flota de desembarco anfibio) dañada o hundida con una disminución de su capacidad total de transporte: hay que eliminar tropas (o suministros) equivalentes a la capacidad perdida, hasta que la carga restante cumpla su nuevo nivel de capacidad (regla 10.4 Pérdidas de Transporte)."
+      ],
+      "source": [
+        "Reglas 5.9"
+      ]
+    },
+    "ext.impact.double": {
+      "type": "terminal",
+      "title": "Efecto del impacto: Doble buque (marca x2 junto a la silueta)",
+      "instructions": [
+        "Una unidad de doble buque (marca x2) que sufre 1 punto de daño se da la vuelta inmediatamente.",
+        "Si el operador de la unidad ya estaba en su lado dañado, o solo le quedaba 1 barco (unidad multi-buque), antes de resolver este efecto de impacto y sufre daño, es eliminado directamente, sin verificación por daño crítico.",
+        "Una unidad cuyo reverso no tiene contenido (no tiene lado dañado) es eliminada directamente al sufrir 1 punto de daño.",
+        "Unidad portaeronaves dañada (se da la vuelta): no puede continuar operando unidades aéreas (no puede lanzar ni recuperar). Las unidades aéreas o de baja altitud que transporta no se ven afectadas por este daño.",
+        "Unidad portaeronaves hundida: todas las unidades aéreas o de baja altitud de su Ficha de Aeródromo son eliminadas junto con ella.",
+        "Dañada o hundida, las unidades que ya estaban desplegadas (colocadas en el mapa) deberán usar otro aeródromo o base como destino para regresar/ser recuperadas.",
+        "Unidad de transporte (convoy de transporte, buque de asalto anfibio, flota de desembarco anfibio) dañada o hundida con una disminución de su capacidad total de transporte: hay que eliminar tropas (o suministros) equivalentes a la capacidad perdida, hasta que la carga restante cumpla su nuevo nivel de capacidad (regla 10.4 Pérdidas de Transporte)."
+      ],
+      "source": [
+        "Reglas 5.9"
+      ]
+    },
+    "ext.impact.multi": {
+      "type": "terminal",
+      "title": "Efecto del impacto: Multi-buque (marcas x3, x4, x5 junto a la silueta)",
+      "instructions": [
+        "Una unidad con más barcos (marcas x3, x4, x5) que sufre 1 punto de daño reduce su tamaño de flota en 1 (se representa con el marcador de daño correspondiente).",
+        "Si el operador de la unidad ya estaba en su lado dañado, o solo le quedaba 1 barco (unidad multi-buque), antes de resolver este efecto de impacto y sufre daño, es eliminado directamente, sin verificación por daño crítico.",
+        "Una unidad cuyo reverso no tiene contenido (no tiene lado dañado) es eliminada directamente al sufrir 1 punto de daño.",
+        "Unidad portaeronaves dañada (se da la vuelta): no puede continuar operando unidades aéreas (no puede lanzar ni recuperar). Las unidades aéreas o de baja altitud que transporta no se ven afectadas por este daño.",
+        "Unidad portaeronaves hundida: todas las unidades aéreas o de baja altitud de su Ficha de Aeródromo son eliminadas junto con ella.",
+        "Dañada o hundida, las unidades que ya estaban desplegadas (colocadas en el mapa) deberán usar otro aeródromo o base como destino para regresar/ser recuperadas.",
+        "Unidad de transporte (convoy de transporte, buque de asalto anfibio, flota de desembarco anfibio) dañada o hundida con una disminución de su capacidad total de transporte: hay que eliminar tropas (o suministros) equivalentes a la capacidad perdida, hasta que la carga restante cumpla su nuevo nivel de capacidad (regla 10.4 Pérdidas de Transporte)."
+      ],
+      "source": [
+        "Reglas 5.9"
+      ]
+    },
+    "ext.port.operation": {
+      "type": "decision",
+      "question": "¿Qué operación de puerto o de munición se resuelve?",
+      "source": [
+        "Reglas 9.9.4",
+        "Reglas 9.9.5",
+        "Reglas 11.6"
+      ],
+      "routes": [
+        {
+          "answer": "Reabastecer munición en puerto",
+          "to": "ext.port.ammo_resupply"
+        },
+        {
+          "answer": "Reparar un buque dañado (opcional)",
+          "to": "ext.port.ship_repair"
+        },
+        {
+          "answer": "Reparaciones de emergencia del puerto",
+          "to": "ext.port.emergency_repair"
+        },
+        {
+          "answer": "Agotamiento de munición",
+          "to": "ext.port.ammo_depletion"
+        },
+        {
+          "answer": "Desgaste de un Nodo de Suministro Ordinario",
+          "to": "ext.port.supply_node_decay"
+        }
+      ]
+    },
+    "ext.port.ammo_resupply": {
+      "type": "terminal",
+      "title": "Reabastecer munición en puerto",
+      "instructions": [
+        "Cuántas unidades de superficie o submarinas puede reabastecer el puerto en el segmento."
+      ],
+      "source": [
+        "Reglas 9.9.4-9.9.5",
+        "Reglas 11.6"
+      ]
+    },
+    "ext.port.ship_repair": {
+      "type": "terminal",
+      "title": "Reparar un buque dañado (opcional)",
+      "instructions": [
+        "Intento de reparación de un buque dañado en el Dique Seco con 1d10."
+      ],
+      "source": [
+        "Reglas 9.9.4-9.9.5",
+        "Reglas 11.6"
+      ]
+    },
+    "ext.port.emergency_repair": {
+      "type": "terminal",
+      "title": "Reparaciones de emergencia del puerto",
+      "instructions": [
+        "Marcadores de «Instalaciones Inutilizadas» que se eliminan al final del segmento."
+      ],
+      "source": [
+        "Reglas 9.9.4-9.9.5",
+        "Reglas 11.6"
+      ]
+    },
+    "ext.port.ammo_depletion": {
+      "type": "terminal",
+      "title": "Agotamiento de munición",
+      "instructions": [
+        "Valor de ataque efectivo cuando queda menos munición que el valor del plan de ataque."
+      ],
+      "source": [
+        "Reglas 9.9.4-9.9.5",
+        "Reglas 11.6"
+      ]
+    },
+    "ext.port.supply_node_decay": {
+      "type": "terminal",
+      "title": "Desgaste de un Nodo de Suministro Ordinario",
+      "instructions": [
+        "Al final de la Fase de Logística del turno estratégico, cada Nodo Ordinario que dio garantía baja 1 nivel."
+      ],
+      "source": [
+        "Reglas 9.9.4-9.9.5",
+        "Reglas 11.6"
+      ]
+    },
+    "ext.guarantee.unit": {
+      "type": "decision",
+      "question": "¿Qué tipo de unidad comprueba su garantía logística?",
+      "source": [
+        "Reglas 11.0-11.5"
+      ],
+      "routes": [
+        {
+          "answer": "Unidad terrestre principal",
+          "to": "ext.guarantee.ground_main"
+        },
+        {
+          "answer": "Unidad técnica terrestre",
+          "to": "ext.guarantee.ground_technical"
+        },
+        {
+          "answer": "Aeródromo / Base Aérea",
+          "to": "ext.guarantee.airfield"
+        },
+        {
+          "answer": "Puerto",
+          "to": "ext.guarantee.port"
+        }
+      ]
+    },
+    "ext.guarantee.ground_main": {
+      "type": "terminal",
+      "title": "Garantía logística: Unidad terrestre principal",
+      "instructions": [
+        "Todas las operaciones de combate requieren soporte logístico: las unidades que no puedan obtener garantías logísticas sufrirán impactos negativos en el combate. Se verifica durante la Fase de Logística del Segmento de Tiempo 0 (§11.4); se llama \"con suministros\" al estado en el que se obtiene garantía y \"sin suministros\" al contrario.",
+        "Sin garantía logística: Solo puede iniciar un \"Combate Pasivo\" y no puede realizar reabastecimiento en el campo. Si al menos una unidad principal participante pierde la garantía logística, el jugador solo puede iniciar un \"Combate Pasivo\"."
+      ],
+      "source": [
+        "Reglas 11.5 Pérdida de la Garantía Logística"
+      ]
+    },
+    "ext.guarantee.ground_technical": {
+      "type": "terminal",
+      "title": "Garantía logística: Unidad técnica terrestre",
+      "instructions": [
+        "Todas las operaciones de combate requieren soporte logístico: las unidades que no puedan obtener garantías logísticas sufrirán impactos negativos en el combate. Se verifica durante la Fase de Logística del Segmento de Tiempo 0 (§11.4); se llama \"con suministros\" al estado en el que se obtiene garantía y \"sin suministros\" al contrario.",
+        "Sin garantía logística: No puede obtener reabastecimiento de munición."
+      ],
+      "source": [
+        "Reglas 11.5 Pérdida de la Garantía Logística"
+      ]
+    },
+    "ext.guarantee.airfield": {
+      "type": "terminal",
+      "title": "Garantía logística: Aeródromo / Base Aérea",
+      "instructions": [
+        "Todas las operaciones de combate requieren soporte logístico: las unidades que no puedan obtener garantías logísticas sufrirán impactos negativos en el combate. Se verifica durante la Fase de Logística del Segmento de Tiempo 0 (§11.4); se llama \"con suministros\" al estado en el que se obtiene garantía y \"sin suministros\" al contrario.",
+        "Sin garantía logística: No puede reacondicionar unidades; las unidades de vuelo a baja altura no pueden despegar en misión; no puede realizar reparaciones de emergencia (recuperar nivel de pista, valor de reacondicionamiento). Además las unidades aéreas basadas en él no pueden planificar misiones de ataque / ataque dinámico, y las aeronaves especiales tampoco pueden realizar ataques durante misiones especiales (§11.6.1)."
+      ],
+      "source": [
+        "Reglas 11.5 Pérdida de la Garantía Logística / 11.6.1"
+      ]
+    },
+    "ext.guarantee.port": {
+      "type": "terminal",
+      "title": "Garantía logística: Puerto",
+      "instructions": [
+        "Todas las operaciones de combate requieren soporte logístico: las unidades que no puedan obtener garantías logísticas sufrirán impactos negativos en el combate. Se verifica durante la Fase de Logística del Segmento de Tiempo 0 (§11.4); se llama \"con suministros\" al estado en el que se obtiene garantía y \"sin suministros\" al contrario.",
+        "Sin garantía logística: No puede realizar reabastecimiento de munición, ni de combustible, ni reparaciones de emergencia (reducir el efecto de \"Instalaciones Inutilizadas\")."
+      ],
+      "source": [
+        "Reglas 11.5 Pérdida de la Garantía Logística"
+      ]
+    },
+    "ext.air.organize": {
+      "type": "terminal",
+      "title": "Grupo de misión y asignación de objetivos BVR",
+      "instructions": [
+        "Anota los dos bandos y sus unidades en el cálculo del grupo de misión: lo comparten la asignación de objetivos y el combate cercano, y recoge retiradas y bajas.",
+        "La asignación de objetivos ordena la selección y forma los duelos 1 contra 1 del BVR; después, cada duelo se resuelve en la intercepción (banda de Iniciativa y tabla BVR)."
+      ],
+      "source": [
+        "Reglas 7.16"
+      ]
+    }
+  }
+}

@@ -148,11 +148,15 @@ test('contraste: antirradiación -5 (página 13)', () => {
 
 test('enlaces: cada resultado no ilegal lleva al cálculo existente y a páginas de tabla reales', () => {
   const pages = new Set(fs.readdirSync(path.join(root, 'data/tables')).filter((f) => /^page-\d+\.json$/.test(f)));
+  // Con las ramas añadidas: un enlace puede ser un wizard registrado o una pregunta del árbol (#/decision/<nodo>).
+  const full = Engine.mergeExtensions(graph, readJson('data/routing/decision-graph-extensions.json'));
   const isKnownHash = (hash) => {
+    const d = hash.match(/^#\/decision\/(.+)$/);
+    if (d) return Boolean(full.nodes[d[1]]);
     const m = hash.match(/^#\/wizard\/([a-z-]+)$/);
     return Boolean(m) && appJs.includes(`parts[1] === '${m[1]}'`);
   };
-  assert.deepEqual(Engine.validateLinks(graph, links, isKnownHash, pages), []);
+  assert.deepEqual(Engine.validateLinks(full, links, isKnownHash, pages), []);
 });
 
 // Puntos de entrada por página (Fase 25, AD-003).
@@ -517,4 +521,28 @@ test('acciones estratégicas (página 32): varias tiradas en su columna, cada un
   const sp = Calc.compute(s, { table: t32 }, { sides: { A: { rolls: '7 2' } } });
   assert.equal(sp.sides.A.columnIndex, 1);
   assert.ok(Calc.geometryFor(tableHotspots, 'page-32.json', 'strategic-actions-outcome'));
+});
+
+// Ramas añadidas para los procedimientos que el árbol original no cubre (AD-005).
+test('extensiones: el árbol ampliado cumple los invariantes y sus textos salen de data/rules', () => {
+  const ext = readJson('data/routing/decision-graph-extensions.json');
+  const full = Engine.mergeExtensions(graph, ext);
+  assert.deepEqual(Engine.validateGraph(full), []);
+  assert.equal(Object.keys(graph.nodes).length, 117, 'el árbol original no cambia');
+  assert.ok(full.nodes['land.kind'].routes.some((r) => r.to === 'ext.reaction.kind'));
+  Object.keys(ext.nodes).forEach((id) => assert.match(id, /^ext\./));
+  const reactions = readJson('data/rules/ground-reactions.json').reactions;
+  reactions.forEach((r) => assert.equal(full.nodes[`ext.reaction.${r.id}`].title, r.name));
+  const steps = readJson('data/rules/submarine-ambush.json').steps.map((x) => x.text);
+  assert.deepEqual(full.nodes['ext.ambush.steps'].instructions, steps);
+  // El archivo es el que genera el script (no se edita a mano).
+  const { execFileSync } = require('node:child_process');
+  const before = fs.readFileSync(path.join(root, 'data/routing/decision-graph-extensions.json'), 'utf8');
+  execFileSync(process.execPath, [path.join(root, 'scripts/build-decision-extensions.js')]);
+  assert.equal(fs.readFileSync(path.join(root, 'data/routing/decision-graph-extensions.json'), 'utf8'), before);
+  // Un recorrido completo por una rama nueva.
+  let s = Engine.createSession(full, { startNode: 'land.kind' });
+  s = Engine.choose(full, s, full.nodes['land.kind'].routes.findIndex((r) => r.to === 'ext.reaction.kind'));
+  s = Engine.choose(full, s, 0);
+  assert.equal(Engine.isFinished(full, s), true);
 });

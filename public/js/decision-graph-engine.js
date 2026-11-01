@@ -186,6 +186,19 @@
     return session.history.filter((step) => step.nodeId === id).length;
   }
 
+  // Une al árbol original las ramas de data/routing/decision-graph-extensions.json: nodos nuevos y respuestas
+  // añadidas a preguntas existentes. Devuelve un árbol nuevo; el original no se modifica.
+  function mergeExtensions(graph, ext) {
+    if (!ext) return graph;
+    const nodes = { ...graph.nodes };
+    Object.entries(ext.nodes || {}).forEach(([id, node]) => { nodes[id] = node; });
+    (ext.addRoutes || []).forEach(({ node, route }) => {
+      if (!nodes[node]) return;
+      nodes[node] = { ...nodes[node], routes: [...(nodes[node].routes || []), route] };
+    });
+    return { ...graph, nodes };
+  }
+
   // Puntos de entrada por página (data/routing/decision-entrypoints.json): una entrada es la lista de respuestas que se
   // dan por puestas desde el inicio; se buscan por su texto exacto y quedan en el historial marcadas como `preset`.
   function entryForContext(entriesData, kind, key) {
@@ -228,7 +241,7 @@
   }
 
   return {
-    entryForContext, sessionFromEntry, validateEntrypoints, tablePagesFromSource, repeatCount,
+    entryForContext, sessionFromEntry, validateEntrypoints, tablePagesFromSource, repeatCount, mergeExtensions,
     getNode, validateGraph, reachableFrom, createSession, currentNodeId, currentNode, choose, goBack, rewindTo,
     accumulatedEffects, sourceTrace, isFinished, terminalLinks, nodeLinks, validateLinks
   };

@@ -1,6 +1,6 @@
 {
   "id": "decision-graph-links",
-  "description": "Enlaza cada resultado final del árbol de decisión (data/routing/decision-graph.json) con el cálculo que ya existe: los wizards que resuelven la tabla y las páginas de data/tables/ que usa. Es provisional (Fase 25): según se sustituya cada dominio, el resultado abrirá directamente la tabla con la columna marcada. Los resultados terminal.illegal.* no llevan enlace porque no hay nada que calcular. «nodes» hace lo mismo con las preguntas en las que se cruza una tabla (la ronda WVR, la tirada de combate cercano, las búsquedas ASW…): el asistente ofrece ahí mismo el cálculo para resolver ese paso antes de responder.",
+  "description": "Enlaza cada resultado final del árbol de decisión (data/routing/decision-graph.json) con el cálculo que ya existe: los wizards que resuelven la tabla y las páginas de data/tables/ que usa. Es provisional (Fase 25): según se sustituya cada dominio, el resultado abrirá directamente la tabla con la columna marcada. Los resultados terminal.illegal.* no llevan enlace porque no hay nada que calcular. «nodes» hace lo mismo con las preguntas en las que se cruza una tabla (la ronda WVR, la tirada de combate cercano, las búsquedas ASW…): el asistente ofrece ahí mismo el cálculo para resolver ese paso antes de responder. Los resultados de las ramas añadidas (prefijo «ext.») enlazan con su cálculo y, cuando sigue, con la pregunta del árbol donde continúa la resolución (#/decision/<nodo>).",
   "sourceRefs": [
     {
       "document": "Grafo de decisión/routemap.json",
@@ -269,6 +269,204 @@
         "page-06.json",
         "page-09.json"
       ]
+    },
+    "ext.reaction.cf": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-reaction",
+          "title": "Ataques de reacción terrestres"
+        },
+        {
+          "hash": "#/decision/land.guided.target",
+          "title": "Resolver el ataque guiado"
+        }
+      ],
+      "tables": []
+    },
+    "ext.reaction.as": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-reaction",
+          "title": "Ataques de reacción terrestres"
+        },
+        {
+          "hash": "#/decision/land.guided.target",
+          "title": "Resolver el ataque guiado"
+        }
+      ],
+      "tables": []
+    },
+    "ext.reaction.kb": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-reaction",
+          "title": "Ataques de reacción terrestres"
+        },
+        {
+          "hash": "#/decision/land.guided.target",
+          "title": "Resolver el ataque guiado"
+        }
+      ],
+      "tables": []
+    },
+    "ext.reaction.bai": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-reaction",
+          "title": "Ataques de reacción terrestres"
+        },
+        {
+          "hash": "#/decision/location.mobile.bai",
+          "title": "Daño a la unidad móvil"
+        }
+      ],
+      "tables": []
+    },
+    "ext.ambush.steps": {
+      "wizards": [
+        {
+          "hash": "#/wizard/submarine-ambush",
+          "title": "Emboscada de submarino"
+        },
+        {
+          "hash": "#/decision/surface.torpedo.presearch",
+          "title": "Seguir con el ataque con torpedos"
+        }
+      ],
+      "tables": [
+        "page-27.json"
+      ]
+    },
+    "ext.ambush.none": {
+      "wizards": [],
+      "tables": []
+    },
+    "ext.impact.single": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ship-impact-effects",
+          "title": "Efectos del impacto antibuque"
+        }
+      ],
+      "tables": []
+    },
+    "ext.impact.double": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ship-impact-effects",
+          "title": "Efectos del impacto antibuque"
+        }
+      ],
+      "tables": []
+    },
+    "ext.impact.multi": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ship-impact-effects",
+          "title": "Efectos del impacto antibuque"
+        }
+      ],
+      "tables": []
+    },
+    "ext.air.organize": {
+      "wizards": [
+        {
+          "hash": "#/wizard/air-mission-group",
+          "title": "Grupo de misión aéreo"
+        },
+        {
+          "hash": "#/wizard/air-intercept-targets",
+          "title": "Asignación de objetivos BVR"
+        },
+        {
+          "hash": "#/decision/air.intercept.mode",
+          "title": "Resolver la intercepción"
+        }
+      ],
+      "tables": [
+        "page-15.json"
+      ]
+    },
+    "ext.port.ammo_resupply": {
+      "wizards": [
+        {
+          "hash": "#/wizard/port-logistics",
+          "title": "Logística de puerto y munición"
+        }
+      ],
+      "tables": []
+    },
+    "ext.port.ship_repair": {
+      "wizards": [
+        {
+          "hash": "#/wizard/port-logistics",
+          "title": "Logística de puerto y munición"
+        }
+      ],
+      "tables": []
+    },
+    "ext.port.emergency_repair": {
+      "wizards": [
+        {
+          "hash": "#/wizard/port-logistics",
+          "title": "Logística de puerto y munición"
+        }
+      ],
+      "tables": []
+    },
+    "ext.port.ammo_depletion": {
+      "wizards": [
+        {
+          "hash": "#/wizard/port-logistics",
+          "title": "Logística de puerto y munición"
+        }
+      ],
+      "tables": []
+    },
+    "ext.port.supply_node_decay": {
+      "wizards": [
+        {
+          "hash": "#/wizard/port-logistics",
+          "title": "Logística de puerto y munición"
+        }
+      ],
+      "tables": []
+    },
+    "ext.guarantee.ground_main": {
+      "wizards": [
+        {
+          "hash": "#/wizard/logistics-guarantee",
+          "title": "Garantía logística"
+        }
+      ],
+      "tables": []
+    },
+    "ext.guarantee.ground_technical": {
+      "wizards": [
+        {
+          "hash": "#/wizard/logistics-guarantee",
+          "title": "Garantía logística"
+        }
+      ],
+      "tables": []
+    },
+    "ext.guarantee.airfield": {
+      "wizards": [
+        {
+          "hash": "#/wizard/logistics-guarantee",
+          "title": "Garantía logística"
+        }
+      ],
+      "tables": []
+    },
+    "ext.guarantee.port": {
+      "wizards": [
+        {
+          "hash": "#/wizard/logistics-guarantee",
+          "title": "Garantía logística"
+        }
+      ],
+      "tables": []
     }
   },
   "nodes": {

@@ -2,6 +2,14 @@
 
 ## Estado actual
 
+### Ramas del árbol para los procedimientos que no cubría (AD-005) — 2026-11-01
+
+- Estado: `done`, **pendiente de revisión del mantenedor**; subido a master.
+- **Cambios:** `scripts/build-decision-extensions.js` genera `data/routing/decision-graph-extensions.json` (24 nodos «ext.*» y 6 respuestas nuevas en `land.kind`, `surface.kind`, `strategic.kind` y `air.kind`) con los textos de `data/rules/ground-reactions.json`, `submarine-ambush.json`, `ship-impact-effects.json`, `port-logistics.json` y `logistics-guarantee.json`; `DecisionGraphEngine.mergeExtensions` las une al árbol sin modificarlo; la vista avisa de que son ramas añadidas pendientes de revisión. Cada resultado enlaza con su cálculo y, cuando sigue, con la pregunta del árbol donde continúa (`#/decision/<nodo>` en `decision-graph-links.json`).
+- **Validación:** `npm test` 838/838 (invariantes del árbol ampliado, textos iguales a los de data/rules y archivo idéntico al que genera el script).
+- **Visible en la web: sí.** `#/decision/land.kind` → «Ataque de reacción terrestre»; `#/decision/surface.kind` → «Emboscada» o «Efectos del impacto»; `#/decision/strategic.kind` → «Logística de puerto» o «Garantía logística»; `#/decision/air.kind` → «Organizar el grupo de misión».
+- **Siguiente:** AD-004, sustituir los wizards (las rutas `#/wizard/...` abrirán el asistente) dominio a dominio.
+
 ### Acciones estratégicas dentro del asistente — 2026-11-01
 
 - Estado: `done` (pendiente de comprobación del mantenedor); subido a master.

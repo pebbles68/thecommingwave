@@ -12,8 +12,9 @@
   let cache = null;
   async function loadData() {
     if (cache) return cache;
-    const [graph, links, entrypoints, nodeRefs, visualRefs, calculators, tableHotspots] = await Promise.all([
+    const [baseGraph, extensions, links, entrypoints, nodeRefs, visualRefs, calculators, tableHotspots] = await Promise.all([
       fetch('/data/routing/decision-graph.json').then((r) => { if (!r.ok) throw new Error('No se pudo cargar decision-graph.json'); return r.json(); }),
+      fetch('/data/routing/decision-graph-extensions.json').then((r) => (r.ok ? r.json() : null)),
       fetch('/data/routing/decision-graph-links.json').then((r) => (r.ok ? r.json() : { terminals: {} })),
       fetch('/data/routing/decision-entrypoints.json').then((r) => (r.ok ? r.json() : { entries: {} })),
       fetch('/data/routing/decision-graph-visual-refs.json').then((r) => (r.ok ? r.json() : { nodes: {} })),
@@ -22,6 +23,8 @@
       fetch('/data/image-hotspots/table-pages.json').then((r) => (r.ok ? r.json() : { tables: [] }))
     ]);
     const factorMap = await AppData.loadFactorMap().catch(() => null);
+    // Ramas añadidas para los procedimientos que el árbol original no cubre (Fase 25, AD-005).
+    const graph = DecisionGraphEngine.mergeExtensions(baseGraph, extensions);
     cache = { graph, links, entrypoints, nodeRefs, visualRefs, calculators, tableHotspots, factorMap, pageTitles: new Map(), tableData: new Map(), workflows: new Map() };
     return cache;
   }
@@ -440,6 +443,7 @@
       const illegal = node.id.startsWith('terminal.illegal.');
       body.appendChild(el('p', 'combat-guide__progress', illegal ? 'No se puede resolver' : 'Resultado'));
       body.appendChild(el('h2', 'combat-guide__question', node.title));
+      if (node.id.startsWith('ext.')) body.appendChild(el('p', 'source-refs', 'Rama añadida a partir del reglamento, pendiente de revisión por el mantenedor.'));
       const ul = el('ul', 'decision-graph__instructions');
       node.instructions.forEach((text) => ul.appendChild(el('li', null, text)));
       body.appendChild(ul);
