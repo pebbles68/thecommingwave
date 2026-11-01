@@ -84,7 +84,8 @@
         return wrap;
       }
       wrap.appendChild(el('p', 'source-refs', tpl.title));
-      const { viewer, activateFactor } = AppVisuals.buildCounterViewer(tpl, data, tpl.region.sourceImage, bundle);
+      const real = await AppVisuals.loadRealCounter(tpl.id);
+      const { viewer, activateFactor } = AppVisuals.buildCounterViewer(tpl, data, tpl.region.sourceImage, bundle, real);
       wrap.appendChild(viewer);
       const factor = Engine.wantedFactors(ref).find((id) => tpl.factors.some((f) => f.factor === id));
       if (factor) activateFactor(factor);

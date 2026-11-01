@@ -15,6 +15,9 @@ const test = base.test.extend({
     page.on('pageerror', (err) => {
       consoleErrors.push(err.message);
     });
+    // Las pruebas ven la web como la versión pública: sin las imágenes reales de images/ (fuera del repositorio,
+    // roadmap Fase 25), aunque estén en el equipo de quien las ejecuta.
+    await page.route('**/images/**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ available: false }) }));
     page.on('response', (res) => {
       if (res.status() >= 400) failedRequests.push(`${res.status()} ${res.url()}`);
     });

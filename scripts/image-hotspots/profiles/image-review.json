@@ -1,0 +1,595 @@
+{
+  "schemaVersion": 1,
+  "note": "Revisión del mantenedor desde #/revision. Lo aplican calibrate_real_counters.py y calibrate_table_pages.py: «ok» pasa a verified; «wrong» queda needs_review con la nota.",
+  "review": {
+    "by": "Mantenedor (Pablo)",
+    "at": "2026-11-01"
+  },
+  "counters": {
+    "aircraft-combat-tactical": {
+      "air_combat": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "signature": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "air_search": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "combat_support": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      },
+      "runway": {
+        "status": "ok"
+      },
+      "no_refuel": {
+        "status": "ok"
+      }
+    },
+    "aircraft-transport-tactical": {
+      "air_combat": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "signature": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "air_search": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "runway": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "capacity": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      },
+      "no_refuel": {
+        "status": "ok"
+      }
+    },
+    "ship-combat": {
+      "aa": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "anti_jamming_air_search": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "support": {
+        "status": "ok"
+      },
+      "asw": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      },
+      "hull_number": {
+        "status": "ok"
+      },
+      "port_level": {
+        "status": "ok"
+      }
+    },
+    "ground-main": {
+      "aa": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "size": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "attack": {
+        "status": "ok"
+      },
+      "defense": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "initiative": {
+        "status": "ok"
+      },
+      "skill": {
+        "status": "ok"
+      }
+    },
+    "aircraft-special-awacs": {
+      "air_network": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "air_detection": {
+        "status": "ok"
+      },
+      "signature": {
+        "status": "ok"
+      },
+      "anti_jamming": {
+        "status": "ok"
+      }
+    },
+    "ground-tech-antiair": {
+      "air_detection": {
+        "status": "ok"
+      },
+      "aa": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "ballistic_defense": {
+        "status": "ok"
+      },
+      "anti_jamming": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "low_altitude_detection": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "mobile_or_fixed": {
+        "status": "ok"
+      }
+    },
+    "low-altitude-flying": {
+      "air_combat": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "signature": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "type": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      }
+    },
+    "submarine-hidden": {
+      "model": {
+        "status": "ok"
+      },
+      "ambush": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "torpedoes": {
+        "status": "ok"
+      },
+      "noise": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      }
+    },
+    "submarine-exposed": {
+      "model": {
+        "status": "ok"
+      },
+      "ambush": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "torpedoes": {
+        "status": "ok"
+      },
+      "noise": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      }
+    },
+    "ship-carrier": {
+      "aa": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "anti_jamming_air_search": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "port_level": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "runway": {
+        "status": "ok"
+      },
+      "asw": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      }
+    },
+    "low-altitude-operating": {
+      "skill": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "type": {
+        "status": "ok"
+      },
+      "signature": {
+        "status": "ok"
+      }
+    },
+    "ground-tech-fire": {
+      "aa": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "function_support": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "mobile_or_fixed": {
+        "status": "ok"
+      }
+    },
+    "ground-tech-antisurface": {
+      "aa": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "function_type": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "mobile_or_fixed": {
+        "status": "ok"
+      }
+    },
+    "ground-tech-heliport": {
+      "number": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "initiative": {
+        "status": "ok"
+      }
+    },
+    "ground-tech-earlywarning": {
+      "electronic": {
+        "status": "ok"
+      },
+      "air_detection": {
+        "status": "ok"
+      },
+      "skill": {
+        "status": "ok"
+      },
+      "anti_jamming": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "low_altitude_detection": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "mobile_or_fixed": {
+        "status": "ok"
+      }
+    },
+    "aircraft-special-other-operating": {
+      "skill_1": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "signature": {
+        "status": "ok"
+      },
+      "operational_category": {
+        "status": "ok"
+      },
+      "skill_2": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "type": {
+        "status": "ok"
+      },
+      "asw": {
+        "status": "ok"
+      }
+    },
+    "surface-transport-underway": {
+      "aa": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "anti_jamming_air_search": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "one_unit_capacity": {
+        "status": "ok"
+      },
+      "max_capacity": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      },
+      "hull_number": {
+        "status": "ok"
+      },
+      "port_level": {
+        "status": "ok"
+      }
+    },
+    "surface-transport-loading": {
+      "aa": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      },
+      "anti_jamming_air_search": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "one_unit_capacity": {
+        "status": "ok"
+      },
+      "max_capacity": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "unload": {
+        "status": "ok"
+      },
+      "hull_number": {
+        "status": "ok"
+      },
+      "port_level": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      }
+    },
+    "aircraft-special-flying": {
+      "air_combat": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "signature": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "runway": {
+        "status": "ok"
+      },
+      "logistics": {
+        "status": "ok"
+      },
+      "operational_category": {
+        "status": "ok"
+      },
+      "protection": {
+        "status": "ok"
+      },
+      "movement": {
+        "status": "ok"
+      },
+      "anti_jamming_air_search": {
+        "status": "ok"
+      },
+      "no_refuel": {
+        "status": "ok"
+      }
+    },
+    "low-altitude-operating-transport": {
+      "skill": {
+        "status": "ok"
+      },
+      "electronic": {
+        "status": "ok"
+      },
+      "model": {
+        "status": "ok"
+      },
+      "capacity": {
+        "status": "ok"
+      },
+      "signature": {
+        "status": "ok"
+      },
+      "surface_detection": {
+        "status": "ok"
+      }
+    }
+  },
+  "tables": {
+    "page-17": {
+      "air-combat-wvr-damage": {
+        "status": "ok"
+      }
+    },
+    "page-16": {
+      "air-combat-bvr-damage": {
+        "status": "ok"
+      }
+    },
+    "page-02": {
+      "ground-close-combat-result": {
+        "status": "ok"
+      },
+      "ground-close-combat-electronic-warfare": {
+        "status": "ok"
+      }
+    }
+  }
+}

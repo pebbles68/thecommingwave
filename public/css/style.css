@@ -955,3 +955,63 @@ button {
 .combat-guide__progress { margin: 8px 0 0; color: var(--text-muted); }
 .combat-guide__question { margin: 6px 0 10px; font-size: 1.35rem; }
 .combat-guide__clarification { margin: 8px 0; padding: 10px 14px; border-left: 4px solid var(--accent); background: var(--panel-alt); border-radius: 0 var(--radius) var(--radius) 0; }
+
+/* Asistente de combate por árbol de decisión (Fase 25) */
+.decision-graph__entry { margin: 8px 0; padding: 10px 14px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--panel-alt); }
+.decision-graph__round { margin: 6px 0; padding: 8px 12px; border-radius: var(--radius); background: var(--accent); font-weight: 600; }
+.decision-graph__factors { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0 12px; }
+.decision-graph__factors .decision-graph__calc { margin: 12px 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); }
+.decision-graph__calc-sides { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.decision-graph__side { border: 2px solid; border-radius: var(--radius); padding: 8px 12px 12px; }
+.decision-graph__side legend { font-weight: 700; padding: 0 6px; }
+.decision-graph__field-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; margin-top: 8px; }
+.decision-graph__field { display: flex; flex-direction: column; gap: 4px; flex: 1 1 220px; }
+.decision-graph__field select, .decision-graph__field input { min-height: var(--touch-min, 48px); font: inherit; padding: 0 10px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--panel-alt); color: var(--text); }
+.decision-graph__calc-result { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-top: 12px; }
+.decision-graph__side-result { border-left: 4px solid; padding: 6px 10px; background: var(--panel-alt); border-radius: 0 var(--radius) var(--radius) 0; }
+.decision-graph__side-result p { margin: 4px 0; }
+.decision-graph__figure { grid-column: 1 / -1; margin: 0; }
+.decision-graph__figure--extra .decision-graph__marked-table { max-width: 420px; }
+.decision-graph__marked-table { display: block; width: 100%; max-width: 900px; height: auto; background: #fff; border-radius: var(--radius); }
+.decision-graph__calc-result > .phase-view__desc, .decision-graph__calc-result > .pending-note { grid-column: 1 / -1; }
+.counter-viewer__real-title { margin: 0 0 6px; font-weight: 700; }
+.counter-viewer--real > .ihv .ihv__stage { max-width: 420px; }
+.counter-viewer__sample { margin-top: 10px; }
+.counter-viewer__sample > summary { min-height: var(--touch-min, 48px); display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.image-review__card { margin: 14px 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); }
+.image-review__title { margin: 0; font-size: 1.1rem; }
+.image-review__body { display: grid; grid-template-columns: minmax(220px, 320px) 1fr; gap: 14px; align-items: start; }
+.image-review__svg { display: block; width: 100%; height: auto; background: #fff; border-radius: var(--radius); }
+.image-review__figure--table .image-review__svg { max-width: 900px; }
+.image-review__zone rect { fill: none; stroke: #e53935; stroke-width: 1.2; }
+.image-review__zone text { fill: #e53935; font-size: 7px; font-weight: 700; }
+.image-review__zone.is-active rect { stroke: #ffb300; stroke-width: 2.5; }
+.image-review__col { stroke: #1e63d6; stroke-width: 2; }
+.image-review__row { stroke: #e53935; stroke-width: 2; }
+.image-review__band { stroke: #2e9d4a; stroke-width: 2; stroke-dasharray: 6 4; }
+.image-review__list { margin: 0; padding-left: 22px; }
+.image-review__item { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 4px 0; border-bottom: 1px solid var(--border); }
+.image-review__item--claim { list-style: none; margin-left: -22px; }
+.image-review__name { flex: 1 1 160px; min-height: var(--touch-min, 48px); background: none; border: 0; color: var(--text); font: inherit; text-align: left; cursor: pointer; display: flex; align-items: center; }
+.image-review__controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.image-review__ok.is-active { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+.image-review__bad.is-active { background: #c62828; border-color: #c62828; color: #fff; }
+.image-review__note { min-height: var(--touch-min, 48px); flex: 1 1 200px; padding: 0 10px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--panel-alt); color: var(--text); font: inherit; }
+.image-review__status { font-weight: 700; }
+@media (max-width: 760px) { .image-review__body { grid-template-columns: 1fr; } }
+.decision-graph__subtitle { width: 100%; margin: 0; }
+.decision-graph__factors .pending-note { width: 100%; margin-top: 4px; }
+.decision-graph__table { margin: 12px 0; }
+.decision-graph__table > summary { min-height: var(--touch-min, 48px); display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.decision-graph__table-img { display: block; width: 100%; max-width: 900px; height: auto; background: #fff; border-radius: var(--radius); }
+.decision-graph__subtitle { margin: 18px 0 8px; font-size: 1rem; color: var(--text-muted); }
+.decision-graph__options { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+.decision-graph__option { width: 100%; cursor: pointer; font: inherit; }
+.decision-graph__answers { margin: 0; padding-left: 22px; }
+.decision-graph__answer { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.decision-graph__answer-value { grid-column: 1; }
+.decision-graph__change { grid-column: 2; grid-row: 1 / span 2; }
+.decision-graph__answer-question { color: var(--text-muted); }
+.decision-graph__change { min-height: var(--touch-min, 48px); }
+.decision-graph__effects { margin-top: 16px; padding: 10px 14px; border-left: 4px solid var(--accent); background: var(--panel-alt); border-radius: 0 var(--radius) var(--radius) 0; }
+.decision-graph__effects ul, .decision-graph__instructions { margin: 6px 0; padding-left: 20px; }

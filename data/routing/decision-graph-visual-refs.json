@@ -1,0 +1,104 @@
+{
+  "id": "decision-graph-visual-refs",
+  "description": "Para cada pregunta del asistente de combate (data/routing/decision-graph.json) que pide un valor que se lee de una ficha o de una tarjeta, qué entrada de data/rules/wizard-visual-refs.json lo señala (roadmap Fase 25). El asistente enseña un botón por factor que abre el panel lateral con el factor recuadrado; si la entrada está pendiente de ayuda visual, enseña su motivo. Hoy usa las fichas de muestra; la tarea AD-007 las cambia por fichas reales. Una entrada puede ser {\"ref\": id, \"templateId\": plantilla} cuando la pregunta solo admite un tipo de ficha: en el combate aéreo solo combaten aviones de combate (indicación del mantenedor, 2026-11-01), así que se abre directamente esa ficha.",
+  "sourceRefs": [
+    {
+      "document": "Grafo de decisión/routemap.json",
+      "description": "Preguntas del árbol."
+    },
+    {
+      "document": "Resumen counters - Español.pdf",
+      "description": "Leyenda de factores de ficha."
+    }
+  ],
+  "nodes": {
+    "land.close.support": [
+      "ground-combat-support"
+    ],
+    "land.close.ew": [
+      "ground-electronic"
+    ],
+    "land.close.casualties": [
+      "ground-force-size"
+    ],
+    "land.guided.fixed_ecm": [
+      "ground-electronic"
+    ],
+    "land.guided.tech_ecm": [
+      "ground-electronic"
+    ],
+    "land.guided.mobile_special": [
+      "ground-force-size",
+      "designation-correction"
+    ],
+    "land.unguided.adjust": [
+      "ground-force-size",
+      "designation-correction"
+    ],
+    "land.guided.counter": [
+      "low-altitude-attacker-protection"
+    ],
+    "land.unguided.counter": [
+      "low-altitude-attacker-protection"
+    ],
+    "land.arm.counter": [
+      "low-altitude-attacker-protection"
+    ],
+    "air.intercept.initiative": [
+      "bvr-initiative"
+    ],
+    "air.intercept.bvr": [
+      {
+        "ref": "bvr-air-combat-value",
+        "templateId": "aircraft-combat-tactical"
+      },
+      {
+        "ref": "air-electronic-value",
+        "templateId": "aircraft-combat-tactical"
+      }
+    ],
+    "air.intercept.round": [
+      {
+        "ref": "air-protection",
+        "templateId": "aircraft-combat-tactical"
+      }
+    ],
+    "air.area.escort": [
+      {
+        "ref": "ew-escort-protection",
+        "templateId": "aircraft-combat-tactical"
+      }
+    ],
+    "surface.guided.counter": [
+      "ship-aa-own-guided"
+    ],
+    "surface.unguided.counter": [
+      "ship-aa-own"
+    ],
+    "surface.close.target": [
+      "ship-protection"
+    ],
+    "asw.air.roll": [
+      "asw-air-detection"
+    ],
+    "location.airfield.part": [
+      "airfield-capacity",
+      "airfield-protection"
+    ],
+    "location.port.part": [
+      "port-protection"
+    ],
+    "location.port.resistance": [
+      "ship-sink-value"
+    ],
+    "location.mobile.cover": [
+      "ground-terrain"
+    ],
+    "strategic.cyber.defense": [
+      "cyber-capacity-points"
+    ],
+    "strategic.space.type": [
+      "space-war-resources"
+    ]
+  }
+}

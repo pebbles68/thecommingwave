@@ -1,0 +1,2808 @@
+{
+  "id": "real-counters-hotspots",
+  "description": "Fichas reales (images/, fuera del repositorio) con la zona de cada factor, calibradas con scripts/image-hotspots/calibrate_real_counters.py a partir de las zonas ya revisadas de la ficha de muestra. `notPrinted`: la ficha real no lleva ese factor impreso. Todo needs_review hasta la revisión del mantenedor; si la imagen no está en el servidor, la ayuda usa la ficha de muestra.",
+  "sourceRefs": [
+    {
+      "document": "Resumen counters - Español.pdf",
+      "description": "Posición de cada factor en la ficha de muestra."
+    }
+  ],
+  "instances": [
+    {
+      "templateId": "aircraft-combat-tactical",
+      "image": "images/US-F16V.gif",
+      "unit": "F-16V (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        176,
+        176
+      ],
+      "sha256": "effda5a65cc3fe0a4306302e1aedc0475f7051cb092e650558bbba42fcc935e8",
+      "hotspots": [
+        {
+          "id": "air_combat",
+          "conceptId": "air_combat",
+          "rect": {
+            "x": 0.0795,
+            "y": 0.0739,
+            "width": 0.1989,
+            "height": 0.1932
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.4034,
+            "y": 0.0966,
+            "width": 0.1932,
+            "height": 0.2273
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.5909,
+            "y": 0.3352,
+            "width": 0.1136,
+            "height": 0.358
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.7159,
+            "y": 0.0966,
+            "width": 0.2045,
+            "height": 0.1875
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "air_search",
+          "conceptId": "air_search",
+          "rect": {
+            "x": 0.125,
+            "y": 0.3295,
+            "width": 0.0625,
+            "height": 0.1023
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0795,
+            "y": 0.4545,
+            "width": 0.1534,
+            "height": 0.2045
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "runway",
+          "conceptId": "runway",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.8011,
+            "y": 0.4318,
+            "width": 0.0795,
+            "height": 0.1534
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "no_refuel",
+          "conceptId": "no_refuel",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "combat_support",
+          "conceptId": "combat_support",
+          "rect": {
+            "x": 0.0795,
+            "y": 0.7216,
+            "width": 0.1591,
+            "height": 0.1989
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.5284,
+            "y": 0.7443,
+            "width": 0.0966,
+            "height": 0.1591
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.75,
+            "y": 0.7386,
+            "width": 0.1875,
+            "height": 0.1705
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "aircraft-transport-tactical",
+      "image": "images/US-C130.gif",
+      "unit": "C-130 (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        176,
+        176
+      ],
+      "sha256": "9c641c1bf33d76ffb45f8461c10de15b56cc3e3a7a8fbd615420c2bacca0018f",
+      "hotspots": [
+        {
+          "id": "air_combat",
+          "conceptId": "air_combat",
+          "rect": {
+            "x": 0.1023,
+            "y": 0.1364,
+            "width": 0.1648,
+            "height": 0.0909
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.3239,
+            "y": 0.0909,
+            "width": 0.358,
+            "height": 0.233
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.5966,
+            "y": 0.3352,
+            "width": 0.108,
+            "height": 0.3409
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.7273,
+            "y": 0.0966,
+            "width": 0.2045,
+            "height": 0.1875
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "air_search",
+          "conceptId": "air_search",
+          "rect": {
+            "x": 0.125,
+            "y": 0.3523,
+            "width": 0.0682,
+            "height": 0.0682
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0739,
+            "y": 0.4489,
+            "width": 0.1705,
+            "height": 0.2102
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "runway",
+          "conceptId": "runway",
+          "rect": {
+            "x": 0.7727,
+            "y": 0.3182,
+            "width": 0.1136,
+            "height": 0.1477
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.7614,
+            "y": 0.4773,
+            "width": 0.1307,
+            "height": 0.1591
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "no_refuel",
+          "conceptId": "no_refuel",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "capacity",
+          "conceptId": "capacity",
+          "rect": {
+            "x": 0.0682,
+            "y": 0.6761,
+            "width": 0.2955,
+            "height": 0.25
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.5398,
+            "y": 0.7443,
+            "width": 0.0568,
+            "height": 0.1534
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.767,
+            "y": 0.7216,
+            "width": 0.1477,
+            "height": 0.1818
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "ship-combat",
+      "image": "images/US-BSABF1-Fitzgerald.gif",
+      "unit": "Fitzgerald, clase Arleigh Burke (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        176,
+        176
+      ],
+      "sha256": "a5783f3bed0401f455f19e00cf1c66e3a43bed5ab4bb17f2d1248a5a99b2dcc4",
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.0625,
+            "y": 0.0625,
+            "width": 0.2614,
+            "height": 0.2102
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.3295,
+            "y": 0.1023,
+            "width": 0.3864,
+            "height": 0.108
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "hull_number",
+          "conceptId": "hull_number",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.7273,
+            "y": 0.0909,
+            "width": 0.2045,
+            "height": 0.2045
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.0966,
+            "y": 0.3295,
+            "width": 0.1875,
+            "height": 0.108
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0852,
+            "y": 0.4886,
+            "width": 0.1648,
+            "height": 0.2102
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "port_level",
+          "conceptId": "port_level",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.8068,
+            "y": 0.517,
+            "width": 0.0739,
+            "height": 0.1534
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "support",
+          "conceptId": "support",
+          "rect": {
+            "x": 0.0909,
+            "y": 0.7386,
+            "width": 0.1648,
+            "height": 0.1875
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "asw",
+          "conceptId": "asw",
+          "rect": {
+            "x": 0.3409,
+            "y": 0.733,
+            "width": 0.1932,
+            "height": 0.1989
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.625,
+            "y": 0.7557,
+            "width": 0.0909,
+            "height": 0.1591
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.7955,
+            "y": 0.7443,
+            "width": 0.1023,
+            "height": 0.1648
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "ground-main",
+      "image": "images/US-LAV25.gif",
+      "unit": "LAV-25 (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        176,
+        176
+      ],
+      "sha256": "2377f9c9cef9bc4632840be651e991523a2415f6ba5a3c3835cb6538bf487aa1",
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.1136,
+            "y": 0.1023,
+            "width": 0.1023,
+            "height": 0.1761
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "skill",
+          "conceptId": "skill",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.5625,
+            "y": 0.0795,
+            "width": 0.3466,
+            "height": 0.2386
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "size",
+          "conceptId": "size",
+          "rect": {
+            "x": 0.267,
+            "y": 0.3409,
+            "width": 0.1477,
+            "height": 0.2898
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0966,
+            "y": 0.4318,
+            "width": 0.1534,
+            "height": 0.2045
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.8011,
+            "y": 0.3409,
+            "width": 0.0852,
+            "height": 0.1591
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "attack",
+          "conceptId": "attack",
+          "rect": {
+            "x": 0.0852,
+            "y": 0.7159,
+            "width": 0.2216,
+            "height": 0.2273
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "defense",
+          "conceptId": "defense",
+          "rect": {
+            "x": 0.3466,
+            "y": 0.7159,
+            "width": 0.2159,
+            "height": 0.2216
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.6307,
+            "y": 0.7443,
+            "width": 0.0966,
+            "height": 0.1591
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "initiative",
+          "conceptId": "initiative",
+          "rect": {
+            "x": 0.7898,
+            "y": 0.7443,
+            "width": 0.125,
+            "height": 0.1648
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "aircraft-special-awacs",
+      "image": "images/US-E3C-2.png",
+      "unit": "E-3C operando (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "6defdcaeb57b2dda775a9c6d14ff500894982a5600aaaceadab55d59caef0de6",
+      "hotspots": [
+        {
+          "id": "air_network",
+          "conceptId": "air_network",
+          "rect": {
+            "x": 0.4658,
+            "y": 0.0685,
+            "width": 0.2329,
+            "height": 0.2055
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.7534,
+            "y": 0.0822,
+            "width": 0.1918,
+            "height": 0.1918
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "air_detection",
+          "conceptId": "air_detection",
+          "rect": {
+            "x": 0.1233,
+            "y": 0.0959,
+            "width": 0.2808,
+            "height": 0.8014
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.7671,
+            "y": 0.3014,
+            "width": 0.1781,
+            "height": 0.3562
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "anti_jamming",
+          "conceptId": "anti_jamming",
+          "rect": {
+            "x": 0.4315,
+            "y": 0.4041,
+            "width": 0.1027,
+            "height": 0.1644
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "ground-tech-antiair",
+      "image": "images/CH-HQ9A.gif",
+      "unit": "HQ-9A (China)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "1a339a71d41277ca31c31c8437a9889d09a902e53c9b201c6c2e4931473f6819",
+      "hotspots": [
+        {
+          "id": "air_detection",
+          "conceptId": "air_detection",
+          "rect": {
+            "x": 0.0548,
+            "y": 0.0616,
+            "width": 0.2945,
+            "height": 0.8288
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.4452,
+            "y": 0.0822,
+            "width": 0.226,
+            "height": 0.2397
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.411,
+            "y": 0.3356,
+            "width": 0.1096,
+            "height": 0.1644
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "ballistic_defense",
+          "conceptId": "ballistic_defense",
+          "rect": {
+            "x": 0.5822,
+            "y": 0.1918,
+            "width": 0.089,
+            "height": 0.1301
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "anti_jamming",
+          "conceptId": "anti_jamming",
+          "rect": {
+            "x": 0.4178,
+            "y": 0.6164,
+            "width": 0.0753,
+            "height": 0.0959
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.8562,
+            "y": 0.5137,
+            "width": 0.0685,
+            "height": 0.1438
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "low_altitude_detection",
+          "conceptId": "low_altitude_detection",
+          "rect": {
+            "x": 0.3767,
+            "y": 0.8014,
+            "width": 0.1507,
+            "height": 0.1301
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.6164,
+            "y": 0.7329,
+            "width": 0.089,
+            "height": 0.1507
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "mobile_or_fixed",
+          "conceptId": "mobile_or_fixed",
+          "rect": {
+            "x": 0.7877,
+            "y": 0.726,
+            "width": 0.1027,
+            "height": 0.1644
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "low-altitude-flying",
+      "image": "images/US-AH64E.gif",
+      "unit": "AH-64E volando (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "e515a200d13ad6add7b0e7cc8a68fd8e51a906f0e703550a12aca37f9937ab00",
+      "hotspots": [
+        {
+          "id": "air_combat",
+          "conceptId": "air_combat",
+          "rect": {
+            "x": 0.1096,
+            "y": 0.0959,
+            "width": 0.1644,
+            "height": 0.1507
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.5479,
+            "y": 0.1096,
+            "width": 0.3493,
+            "height": 0.2397
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0753,
+            "y": 0.4384,
+            "width": 0.1575,
+            "height": 0.2055
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.5822,
+            "y": 0.3562,
+            "width": 0.0822,
+            "height": 0.1781
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.7808,
+            "y": 0.4247,
+            "width": 0.0822,
+            "height": 0.1575
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "type",
+          "conceptId": "type",
+          "rect": {
+            "x": 0.0822,
+            "y": 0.7329,
+            "width": 0.2466,
+            "height": 0.1918
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.4726,
+            "y": 0.7466,
+            "width": 0.089,
+            "height": 0.1644
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.637,
+            "y": 0.7055,
+            "width": 0.2329,
+            "height": 0.2329
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "submarine-hidden",
+      "image": "images/US-SSVG-2.png",
+      "unit": "Virginia oculto (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "47b2dae0b9f0b5b8772ef8abdee4226d69525ed5f1436fdf387fcf6f7b6add39",
+      "hotspots": [
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.089,
+            "y": 0.0685,
+            "width": 0.363,
+            "height": 0.1507
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "ambush",
+          "conceptId": "ambush",
+          "rect": {
+            "x": 0.7192,
+            "y": 0.0822,
+            "width": 0.1986,
+            "height": 0.1918
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.7603,
+            "y": 0.4863,
+            "width": 0.1438,
+            "height": 0.137
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "torpedoes",
+          "conceptId": "torpedoes",
+          "rect": {
+            "x": 0.089,
+            "y": 0.6986,
+            "width": 0.2123,
+            "height": 0.2123
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "noise",
+          "conceptId": "noise",
+          "rect": {
+            "x": 0.4589,
+            "y": 0.2877,
+            "width": 0.3562,
+            "height": 0.411
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.7808,
+            "y": 0.7123,
+            "width": 0.1027,
+            "height": 0.1712
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "submarine-exposed",
+      "image": "images/US-SSVG.gif",
+      "unit": "Virginia expuesto (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "b3c70a92f23b04caaf517cdb81f9fc51320052089ee0f07738ebadf77e33b400",
+      "hotspots": [
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.1027,
+            "y": 0.0959,
+            "width": 0.3425,
+            "height": 0.137
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "ambush",
+          "conceptId": "ambush",
+          "rect": {
+            "x": 0.7877,
+            "y": 0.1027,
+            "width": 0.0959,
+            "height": 0.1644
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.1096,
+            "y": 0.4795,
+            "width": 0.0959,
+            "height": 0.1644
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.7603,
+            "y": 0.5,
+            "width": 0.1507,
+            "height": 0.1438
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "torpedoes",
+          "conceptId": "torpedoes",
+          "rect": {
+            "x": 0.089,
+            "y": 0.7123,
+            "width": 0.2123,
+            "height": 0.2123
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "noise",
+          "conceptId": "noise",
+          "rect": {
+            "x": 0.3425,
+            "y": 0.7123,
+            "width": 0.2192,
+            "height": 0.2123
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.6164,
+            "y": 0.7397,
+            "width": 0.0959,
+            "height": 0.1644
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.774,
+            "y": 0.7329,
+            "width": 0.1164,
+            "height": 0.1712
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "ship-carrier",
+      "image": "images/US-CVNM-Truman.gif",
+      "unit": "Truman, portaaviones nuclear (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        176,
+        176
+      ],
+      "sha256": "d424fb51f19bd9af4d26fd16421100ca953207d85a52c620662b24e666e3618b",
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.0909,
+            "y": 0.0625,
+            "width": 0.1818,
+            "height": 0.1932
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.3523,
+            "y": 0.0909,
+            "width": 0.2898,
+            "height": 0.108
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.7727,
+            "y": 0.0795,
+            "width": 0.1648,
+            "height": 0.1705
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.0682,
+            "y": 0.3125,
+            "width": 0.1875,
+            "height": 0.125
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0625,
+            "y": 0.4716,
+            "width": 0.1705,
+            "height": 0.2159
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "port_level",
+          "conceptId": "port_level",
+          "rect": {
+            "x": 0.767,
+            "y": 0.2955,
+            "width": 0.1023,
+            "height": 0.1477
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.7614,
+            "y": 0.5341,
+            "width": 0.1193,
+            "height": 0.1136
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "runway",
+          "conceptId": "runway",
+          "rect": {
+            "x": 0.0852,
+            "y": 0.7614,
+            "width": 0.1364,
+            "height": 0.1534
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "asw",
+          "conceptId": "asw",
+          "rect": {
+            "x": 0.3636,
+            "y": 0.7216,
+            "width": 0.1591,
+            "height": 0.1761
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.5682,
+            "y": 0.733,
+            "width": 0.1534,
+            "height": 0.1932
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.7784,
+            "y": 0.733,
+            "width": 0.0966,
+            "height": 0.1648
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "low-altitude-operating",
+      "image": "images/US-AH64E-2.png",
+      "unit": "AH-64E operando (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "2ebfefa86c752aa8131fa4580a708603fb7c945d749ce7cc14cf6b288e6bc6cb",
+      "hotspots": [
+        {
+          "id": "skill",
+          "conceptId": "skill",
+          "rect": {
+            "x": 0.089,
+            "y": 0.0616,
+            "width": 0.4247,
+            "height": 0.2877
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.7192,
+            "y": 0.0685,
+            "width": 0.2055,
+            "height": 0.2055
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.1233,
+            "y": 0.4041,
+            "width": 0.089,
+            "height": 0.1644
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.5685,
+            "y": 0.2671,
+            "width": 0.3562,
+            "height": 0.2397
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "type",
+          "conceptId": "type",
+          "rect": {
+            "x": 0.089,
+            "y": 0.7055,
+            "width": 0.1644,
+            "height": 0.1986
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.7192,
+            "y": 0.5274,
+            "width": 0.1781,
+            "height": 0.3699
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "ground-tech-fire",
+      "image": "images/US-M142.gif",
+      "unit": "M142 HIMARS (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "586cc581e4f5a76f9a4804a90a29a2f785946194fabcb0c41ba6b7f7668cc5ff",
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.1096,
+            "y": 0.1986,
+            "width": 0.0685,
+            "height": 0.0411
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.411,
+            "y": 0.089,
+            "width": 0.4795,
+            "height": 0.2329
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0753,
+            "y": 0.411,
+            "width": 0.1644,
+            "height": 0.2192
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.8082,
+            "y": 0.3425,
+            "width": 0.0411,
+            "height": 0.1438
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "function_support",
+          "conceptId": "function_support",
+          "rect": {
+            "x": 0.0753,
+            "y": 0.7055,
+            "width": 0.1712,
+            "height": 0.2055
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.5411,
+            "y": 0.726,
+            "width": 0.1027,
+            "height": 0.1644
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "mobile_or_fixed",
+          "conceptId": "mobile_or_fixed",
+          "rect": {
+            "x": 0.7534,
+            "y": 0.7192,
+            "width": 0.1301,
+            "height": 0.1781
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "ground-tech-antisurface",
+      "image": "images/CH-YJ12B-2.png",
+      "unit": "YJ-12B (China)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "b757f9708790d7b18253f76d1a1c7641c7a440e5a7ac4214a74e0a49f6ac701a",
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.1164,
+            "y": 0.1918,
+            "width": 0.0685,
+            "height": 0.0685
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.3082,
+            "y": 0.1096,
+            "width": 0.3836,
+            "height": 0.226
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.8014,
+            "y": 0.1301,
+            "width": 0.1027,
+            "height": 0.1575
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0959,
+            "y": 0.4178,
+            "width": 0.1438,
+            "height": 0.2192
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.8151,
+            "y": 0.363,
+            "width": 0.0685,
+            "height": 0.137
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "function_type",
+          "conceptId": "function_type",
+          "rect": {
+            "x": 0.1438,
+            "y": 0.7534,
+            "width": 0.2329,
+            "height": 0.1301
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.5616,
+            "y": 0.7466,
+            "width": 0.0959,
+            "height": 0.1507
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "mobile_or_fixed",
+          "conceptId": "mobile_or_fixed",
+          "rect": {
+            "x": 0.7877,
+            "y": 0.7329,
+            "width": 0.0959,
+            "height": 0.1712
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "ground-tech-heliport",
+      "image": "images/US-Heliport11.gif",
+      "unit": "Helipuerto 11 (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "1dc9f8b90f2394e3ebb31135166b2c6a2cbbcff0f00d45980ae90755f85cbb0f",
+      "hotspots": [
+        {
+          "id": "number",
+          "conceptId": "number",
+          "rect": {
+            "x": 0.5479,
+            "y": 0.3562,
+            "width": 0.3219,
+            "height": 0.3151
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.089,
+            "y": 0.4589,
+            "width": 0.1575,
+            "height": 0.2055
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.5274,
+            "y": 0.7329,
+            "width": 0.1233,
+            "height": 0.1781
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "initiative",
+          "conceptId": "initiative",
+          "rect": {
+            "x": 0.7603,
+            "y": 0.7329,
+            "width": 0.137,
+            "height": 0.1781
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "ground-tech-earlywarning",
+      "image": "images/CH-YLC8E.gif",
+      "unit": "YLC-8E (China)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "aef1edda069a6316ea74b023aeb8757999fc010cf46deb0db94d85c0c4441ec6",
+      "hotspots": [
+        {
+          "id": "air_detection",
+          "conceptId": "air_detection",
+          "rect": {
+            "x": 0.0479,
+            "y": 0.0411,
+            "width": 0.3425,
+            "height": 0.8425
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "skill",
+          "conceptId": "skill",
+          "rect": {
+            "x": 0.4315,
+            "y": 0.1027,
+            "width": 0.2055,
+            "height": 0.2192
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.5137,
+            "y": 0.4452,
+            "width": 0.1233,
+            "height": 0.1849
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "anti_jamming",
+          "conceptId": "anti_jamming",
+          "rect": {
+            "x": 0.4178,
+            "y": 0.6027,
+            "width": 0.0753,
+            "height": 0.1164
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.8562,
+            "y": 0.5068,
+            "width": 0.0685,
+            "height": 0.137
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "low_altitude_detection",
+          "conceptId": "low_altitude_detection",
+          "rect": {
+            "x": 0.3767,
+            "y": 0.7945,
+            "width": 0.1507,
+            "height": 0.1301
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.6096,
+            "y": 0.7123,
+            "width": 0.089,
+            "height": 0.1644
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "mobile_or_fixed",
+          "conceptId": "mobile_or_fixed",
+          "rect": {
+            "x": 0.7877,
+            "y": 0.7123,
+            "width": 0.0959,
+            "height": 0.1712
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "aircraft-special-other-operating",
+      "image": "images/US-KC135-2.png",
+      "unit": "KC-135 operando (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "cc9d8a4f7423d225bf56842231397cc64665ef68ca3dc0c0a275da08dae74e93",
+      "hotspots": [
+        {
+          "id": "skill_1",
+          "conceptId": "skill_1",
+          "rect": {
+            "x": 0.0753,
+            "y": 0.0479,
+            "width": 0.3425,
+            "height": 0.3014
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "skill_2",
+          "conceptId": "skill_2",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.089,
+            "y": 0.3767,
+            "width": 0.1507,
+            "height": 0.2055
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.7329,
+            "y": 0.2808,
+            "width": 0.2055,
+            "height": 0.3836
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "type",
+          "conceptId": "type",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "asw",
+          "conceptId": "asw",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "operational_category",
+          "conceptId": "operational_category",
+          "rect": {
+            "x": 0.5,
+            "y": 0.6781,
+            "width": 0.4521,
+            "height": 0.2329
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "surface-transport-underway",
+      "image": "images/US-LFSA-NewOrleans.gif",
+      "unit": "New Orleans, transporte navegando (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        176,
+        176
+      ],
+      "sha256": "4737504bc359286e697e6cfc01b1b13df4bb82dd5939944437bfa9f6ce5e77b4",
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.1307,
+            "y": 0.1023,
+            "width": 0.1477,
+            "height": 0.1648
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.4091,
+            "y": 0.1023,
+            "width": 0.2557,
+            "height": 0.108
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "hull_number",
+          "conceptId": "hull_number",
+          "unidentified": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.8125,
+            "y": 0.1193,
+            "width": 0.0966,
+            "height": 0.142
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.1193,
+            "y": 0.3239,
+            "width": 0.1761,
+            "height": 0.108
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.1023,
+            "y": 0.4773,
+            "width": 0.1761,
+            "height": 0.2159
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "port_level",
+          "conceptId": "port_level",
+          "unidentified": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.8182,
+            "y": 0.5114,
+            "width": 0.0795,
+            "height": 0.1477
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "one_unit_capacity",
+          "conceptId": "one_unit_capacity",
+          "rect": {
+            "x": 0.0852,
+            "y": 0.7045,
+            "width": 0.2386,
+            "height": 0.2273
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "max_capacity",
+          "conceptId": "max_capacity",
+          "rect": {
+            "x": 0.3693,
+            "y": 0.7102,
+            "width": 0.2102,
+            "height": 0.2159
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.6591,
+            "y": 0.7443,
+            "width": 0.0966,
+            "height": 0.1591
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.8011,
+            "y": 0.7386,
+            "width": 0.108,
+            "height": 0.1648
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "surface-transport-loading",
+      "image": "images/US-LFSA-Greenbay-2.png",
+      "unit": "Green Bay, transporte cargando (EE. UU.)",
+      "side": "completa",
+      "imageSize": [
+        176,
+        176
+      ],
+      "sha256": "cf891f51bb7e2fef8c7427045948b3dba6b3e5594872a58acef5bc4d3bd684d4",
+      "hotspots": [
+        {
+          "id": "aa",
+          "conceptId": "aa",
+          "rect": {
+            "x": 0.1136,
+            "y": 0.0966,
+            "width": 0.1534,
+            "height": 0.1705
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.392,
+            "y": 0.0966,
+            "width": 0.2614,
+            "height": 0.108
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "hull_number",
+          "conceptId": "hull_number",
+          "unidentified": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "rect": {
+            "x": 0.7955,
+            "y": 0.108,
+            "width": 0.0966,
+            "height": 0.1477
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "rect": {
+            "x": 0.1023,
+            "y": 0.3239,
+            "width": 0.1818,
+            "height": 0.108
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0852,
+            "y": 0.4773,
+            "width": 0.1705,
+            "height": 0.2159
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "port_level",
+          "conceptId": "port_level",
+          "unidentified": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "one_unit_capacity",
+          "conceptId": "one_unit_capacity",
+          "rect": {
+            "x": 0.0795,
+            "y": 0.7045,
+            "width": 0.233,
+            "height": 0.2273
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "max_capacity",
+          "conceptId": "max_capacity",
+          "rect": {
+            "x": 0.3523,
+            "y": 0.7159,
+            "width": 0.2159,
+            "height": 0.2102
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.642,
+            "y": 0.75,
+            "width": 0.0966,
+            "height": 0.1591
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "unload",
+          "conceptId": "unload",
+          "rect": {
+            "x": 0.7898,
+            "y": 0.7784,
+            "width": 0.1023,
+            "height": 0.0909
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "aircraft-special-flying",
+      "image": "images/KR-R737.gif",
+      "unit": "E-737 AWACS volando (Corea del Sur)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "d5e5730f49d2dfdd3502618e9484988c22dbeb67c40604f397e52738f75872c5",
+      "hotspots": [
+        {
+          "id": "air_combat",
+          "conceptId": "air_combat",
+          "rect": {
+            "x": 0.089,
+            "y": 0.0822,
+            "width": 0.1712,
+            "height": 0.137
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.363,
+            "y": 0.0822,
+            "width": 0.2534,
+            "height": 0.2329
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.5342,
+            "y": 0.3151,
+            "width": 0.2123,
+            "height": 0.3904
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "anti_jamming_air_search",
+          "conceptId": "anti_jamming_air_search",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.0753,
+            "y": 0.4041,
+            "width": 0.1438,
+            "height": 0.1918
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "runway",
+          "conceptId": "runway",
+          "rect": {
+            "x": 0.7877,
+            "y": 0.3014,
+            "width": 0.0959,
+            "height": 0.1438
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "logistics",
+          "conceptId": "logistics",
+          "rect": {
+            "x": 0.7945,
+            "y": 0.4726,
+            "width": 0.0822,
+            "height": 0.1575
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.8,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "no_refuel",
+          "conceptId": "no_refuel",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "operational_category",
+          "conceptId": "operational_category",
+          "rect": {
+            "x": 0.0685,
+            "y": 0.7329,
+            "width": 0.4178,
+            "height": 0.1781
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "protection",
+          "conceptId": "protection",
+          "rect": {
+            "x": 0.4863,
+            "y": 0.7329,
+            "width": 0.0959,
+            "height": 0.1781
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "movement",
+          "conceptId": "movement",
+          "rect": {
+            "x": 0.6781,
+            "y": 0.7123,
+            "width": 0.2329,
+            "height": 0.1986
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    },
+    {
+      "templateId": "low-altitude-operating-transport",
+      "image": "images/CH-Z8-2.png",
+      "unit": "Z-8 operando (China)",
+      "side": "completa",
+      "imageSize": [
+        146,
+        146
+      ],
+      "sha256": "789845a3ee45c35b34137d86bfd8df6470901c6666f337397c7df1703239c6c1",
+      "hotspots": [
+        {
+          "id": "skill",
+          "conceptId": "skill",
+          "rect": {
+            "x": 0.0959,
+            "y": 0.0753,
+            "width": 0.411,
+            "height": 0.2877
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "surface_detection",
+          "conceptId": "surface_detection",
+          "notPrinted": true,
+          "method": "manual",
+          "confidence": 1,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "electronic",
+          "conceptId": "electronic",
+          "rect": {
+            "x": 0.1301,
+            "y": 0.4315,
+            "width": 0.089,
+            "height": 0.1575
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "model",
+          "conceptId": "model",
+          "rect": {
+            "x": 0.7466,
+            "y": 0.3082,
+            "width": 0.1781,
+            "height": 0.2123
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "capacity",
+          "conceptId": "capacity",
+          "rect": {
+            "x": 0.1027,
+            "y": 0.6644,
+            "width": 0.2671,
+            "height": 0.2466
+          },
+          "method": "manual+opencv-snap",
+          "confidence": 0.6,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        },
+        {
+          "id": "signature",
+          "conceptId": "signature",
+          "rect": {
+            "x": 0.7329,
+            "y": 0.5411,
+            "width": 0.1781,
+            "height": 0.3562
+          },
+          "method": "manual",
+          "confidence": 0.7,
+          "reviewStatus": "verified",
+          "reviewedBy": "Mantenedor (Pablo)",
+          "reviewedAt": "2026-11-01"
+        }
+      ]
+    }
+  ],
+  "unmatched": []
+}

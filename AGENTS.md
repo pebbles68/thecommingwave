@@ -32,6 +32,8 @@ Las fuentes entregadas son la referencia de negocio. **Los PDF y DOCX originales
 - `Aeródromos y puertos 1.pdf`, `Aeródromos y puertos 2.pdf`: sin transcribir todavía. Revisadas por primera vez el 2026-09-27 (Fase 2, ver `development_status.md`): no son solo apoyo visual — `Aeródromos y puertos 1.pdf` (17 páginas) contiene las fichas de seguimiento físico de cada puerto (munición/combustible disponible, nivel, buques en dique, área de carga del ejército) y `Aeródromos y puertos 2.pdf` (15 páginas) las de cada aeródromo (salidas disponibles, nivel, capacidad de baja altitud, tablero de reacondicionamiento/aterrizaje, casillas de misión Superioridad Aérea/A Demanda/Ataque Aéreo/Aerotransporte/Especial) más las cartas de "Capacidad de Mando" (C4I) por país y dominio (Conjunto/Aéreo/Terrestre/Superficie). Quedan pendientes de transcribir a `data/` cuando se aborde el modelo real de unidades/mando.
 - escenarios `.docx`: ejemplos y contenido contextual de uso de reglas.
 - `Mejoras y ajustes de TCW.txt`: correcciones de diseño y ajustes de UX aportadas por el mantenedor tras el cierre de la Fase 3 (roadmap.md), ya incorporadas a este documento (§4, §9) — no es una fuente de reglas de juego, es la referencia de los requisitos de diseño que se listan en esas secciones.
+- `Grafo de decisión/` (2026-10-31): árbol de decisión de resolución de combate (`routemap.json`, esquema, vista HTML y su propio `AGENTS.md`), copiado a `data/routing/decision-graph.json`; ver §3.4. `needs_review` salvo las partes contrastadas con `data/tables/`.
+- `images/` (2026-10-31): fichas, tarjetas y páginas de tablas reales de todos los tipos, para usarlas como ejemplo en las ayudas (§3.4). **No se suben al repositorio** (están en `.gitignore`): el mantenedor las usará en local y en un servidor privado hasta que el editor dé el visto bueno. Las páginas de tablas firmadas por @Sherlocky_Luke son de un aficionado y no se usan como tabla; la tabla real se recorta de `Tablas-de-combate 5.pdf`.
 
 ### Regla de precedencia
 
@@ -132,6 +134,18 @@ Decisión del mantenedor (2026-10-18; ver `roadmap.md`, Fase 24): las ayudas de 
 3. paso al BVR y a la tirada de detección BVR, preguntando todas las opciones que afectan a la tirada, pero explicando antes el proceso.
 
 La secuencia de pasos de cada tipo de combate es dato declarativo (no está en la vista), cita su fuente y no inventa reglas (§1.5): lo que la fuente no cubre se muestra como pendiente.
+
+### 3.4. Asistente de combate por árbol de decisión
+
+Decisión del mantenedor (2026-10-31; ver `roadmap.md`, Fase 25): **todos los wizards de la web se sustituyen por un único asistente que sigue el árbol de `data/routing/decision-graph.json`**. Los cálculos de los wizards son correctos y se conservan; lo que cambia es el recorrido de preguntas y la forma de mostrar los datos, con fichas y tablas reales.
+
+- **Recorrido:** contrato de `Grafo de decisión/AGENTS.md`. Una pregunta por pantalla con las respuestas exactas del nodo; cada respuesta acumula sus efectos; volver atrás o cambiar una respuesta descarta todo lo posterior; un nodo terminal no pregunta más. Lógica pura en `public/js/decision-graph-engine.js`; vista `public/js/views/decision-graph.js`, ruta `#/decision[/<nodo de entrada>]`.
+- **Entrada a mitad del árbol:** según la página desde la que se abre, el asistente empieza en otro nodo o con respuestas ya dadas (se ven y se pueden cambiar). El punto de entrada de cada página es dato, no lógica de la vista.
+- **Cálculo:** cada resultado final enlaza con el cálculo existente (`data/routing/decision-graph-links.json`) hasta que su dominio se sustituya; después abrirá directamente la tabla real con la columna marcada.
+- **Fichas reales:** cuando una pregunta pide un factor, se enseña una ficha real de `images/` con el factor recuadrado (calibración OpenCV de `scripts/image-hotspots/`, §9.6), en lugar de la ficha de muestra, en toda la web.
+- **Cálculo dentro de la pregunta:** donde el árbol cruza una tabla, el asistente pide los factores de cada bando (azul y rojo) con su botón de ficha y calcula con el motor del wizard correspondiente; los cálculos se declaran en `data/routing/decision-graph-calculators.json` y su lógica pura está en `public/js/decision-graph-calculators.js`.
+- **Tablas reales:** con la columna ya determinada, se enseña la tabla recortada de `Tablas-de-combate 5.pdf` con la columna (y luego fila y celda) marcadas con la misma herramienta; el marcado sale del cálculo con los datos de `data/tables/`, nunca de leer la imagen.
+- **Contraste:** el árbol no figura entre las fuentes canónicas; si un efecto choca con un dato verificado de `data/tables/`, gana el dato verificado y la rama se marca pendiente (`test/decision-graph.test.js` contrasta los efectos numéricos).
 
 ## 4. Arquitectura técnica obligatoria
 

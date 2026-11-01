@@ -1,0 +1,25 @@
+flowchart TD
+  start{"¿Qué necesitas resolver?"}
+  start --> d_land{"Objetivos terrestres"}
+  d_land --> d_land_1["Combate cercano"]
+  d_land --> d_land_2["Ataque guiado"]
+  d_land --> d_land_3["Ataque no guiado"]
+  d_land --> d_land_4["Antirradiación"]
+  start --> d_air{"Unidades aéreas"}
+  d_air --> d_air_1["Intercepción / penetración"]
+  d_air --> d_air_2["Defensa aérea de área"]
+  start --> d_surface{"Buques de superficie"}
+  d_surface --> d_surface_1["Antibuque guiado"]
+  d_surface --> d_surface_2["Antibuque no guiado"]
+  d_surface --> d_surface_3["Combate naval cercano"]
+  d_surface --> d_surface_4["Torpedos contra superficie"]
+  start --> d_asw{"Detección y combate ASW"}
+  d_asw --> d_asw_1["Búsqueda por firma"]
+  d_asw --> d_asw_2["Búsqueda aérea"]
+  d_asw --> d_asw_3["Ataque ASW"]
+  start --> d_strategic{"Acciones estratégicas y logística"}
+  d_strategic --> d_strategic_1["Guerra cibernética"]
+  d_strategic --> d_strategic_2["Destrucción espacial"]
+  d_strategic --> d_strategic_3["Reabastecimiento"]
+  classDef decision fill:#eef3ff,stroke:#4169a8,color:#111;
+  class start,d_land,d_air,d_surface,d_asw,d_strategic,d_location decision;

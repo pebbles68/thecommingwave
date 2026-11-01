@@ -4,5 +4,8 @@
 #   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/calibrate_boards.py
 #   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/calibrate_ammo_plans.py
 #   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/export_pending_summaries.py
+#   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/calibrate_table_pages.py
+#   uv run --no-project --python 3.12 --with opencv-python-headless==5.0.0.93 --with numpy==2.5.3 python scripts/image-hotspots/calibrate_real_counters.py
+#     (las dos últimas necesitan antes: node scripts/render-table-pages.js "<ruta a Tablas-de-combate 5.pdf>")
 opencv-python-headless==5.0.0.93
 numpy==2.5.3

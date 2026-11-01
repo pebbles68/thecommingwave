@@ -1,0 +1,71 @@
+{
+  "description": "Tablas que calibra scripts/image-hotspots/calibrate_table_pages.py: página, tabla de data/tables/, zona vertical donde buscar el marco (fracción del alto), número de columnas de valores y de filas de la tirada, y esquemas de columnas de la cabecera en el orden impreso (alternateLabelSets de la tabla). Un esquema compartido por varias líneas impresas se declara {\"schemes\": [...], \"span\": n}; «canonical» es el etiquetado canónico de la tabla (columnScheme null). `searchX` limita también la zona horizontal (fracción del ancho) cuando hay varias tablas a la misma altura.",
+  "tables": [
+    {
+      "page": 17,
+      "tableId": "air-combat-wvr-damage",
+      "searchY": [
+        0.48,
+        0.9
+      ],
+      "columns": 8,
+      "rows": 10,
+      "headerSchemes": [
+        "intercepcion_dde",
+        "caps"
+      ]
+    },
+    {
+      "page": 16,
+      "tableId": "air-combat-bvr-damage",
+      "searchY": [
+        0.3,
+        0.8
+      ],
+      "columns": 16,
+      "rows": 10,
+      "headerSchemes": [
+        "canonical",
+        {
+          "schemes": [
+            "intercepcion_dde",
+            "caps_awacs"
+          ],
+          "span": 2
+        },
+        "caps"
+      ]
+    },
+    {
+      "page": 2,
+      "tableId": "ground-close-combat-result",
+      "searchY": [
+        0.1,
+        0.47
+      ],
+      "columns": 16,
+      "rows": 10,
+      "headerSchemes": [
+        "pasivo",
+        "activo"
+      ]
+    },
+    {
+      "page": 2,
+      "tableId": "ground-close-combat-electronic-warfare",
+      "searchY": [
+        0.49,
+        0.66
+      ],
+      "searchX": [
+        0.66,
+        0.95
+      ],
+      "columns": 4,
+      "rows": 5,
+      "headerSchemes": [
+        "canonical"
+      ]
+    }
+  ]
+}

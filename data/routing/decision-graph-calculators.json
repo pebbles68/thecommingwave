@@ -1,0 +1,196 @@
+{
+  "id": "decision-graph-calculators",
+  "description": "Cálculos que el asistente de combate hace dentro de una pregunta del árbol (roadmap Fase 25): qué factores pide a cada bando (con la ficha y el factor donde se leen), qué tabla de data/tables/ cruza y en qué página real marca la columna, la fila y la celda de cada bando (data/image-hotspots/table-pages.json). La lógica está en public/js/decision-graph-calculators.js y reutiliza los motores ya probados de los wizards; «choices» dice de qué workflow sale la lista de la pregunta de elección (value, label y columnScheme de la fila de la tabla); aquí solo se declaran los datos. `visualTemplate` fija la plantilla de ficha que abre el botón del campo (en el combate aéreo, la de avión de combate). `choices.options` declara la lista en el propio archivo cuando no sale de un workflow; `extraTables` son otras tablas de la misma página que el cálculo también marca (p. ej. la de guerra electrónica).",
+  "sourceRefs": [
+    {
+      "document": "Tablas-de-combate 5.pdf",
+      "description": "Página 17, Combate Aéreo Cercano (WVR)."
+    },
+    {
+      "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "description": "§7.16.4, combate aéreo cercano."
+    }
+  ],
+  "sides": [
+    {
+      "id": "A",
+      "label": "Bando azul",
+      "color": "#2f80ed"
+    },
+    {
+      "id": "B",
+      "label": "Bando rojo",
+      "color": "#eb3b3b"
+    }
+  ],
+  "calculators": {
+    "wvr-round": {
+      "title": "Ronda de combate cercano (WVR)",
+      "nodes": [
+        "air.intercept.round"
+      ],
+      "engine": "wvr-round",
+      "table": {
+        "page": "page-17.json",
+        "tableId": "air-combat-wvr-damage"
+      },
+      "intro": "Cada bando suma el Combate aéreo (CA) de todos sus aviones en el combate cercano, elige la fila por la misión de su grupo y tira 1d10. Los impactos de los dos bandos se aplican a la vez.",
+      "fields": [
+        {
+          "id": "groupType",
+          "label": "Misión del grupo",
+          "kind": "choice"
+        },
+        {
+          "id": "airCombatValue",
+          "label": "Suma del Combate aéreo (CA) de sus aviones en el combate cercano",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "bvr-air-combat-value",
+          "visualTemplate": "aircraft-combat-tactical"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sharedFields": [
+        {
+          "id": "roundBonus",
+          "label": "Bonificación por rondas anteriores sin bajas (+1 por cada una, para los dos bandos)",
+          "kind": "number",
+          "min": 0
+        }
+      ],
+      "afterResult": "El bando que recibe los impactos elige qué aviones los absorben: cada punto de daño consume la Protección de ese avión. El reparto detallado está en el cálculo del combate cercano.",
+      "choices": {
+        "workflow": "05_combate_aereo.json",
+        "key": "roundRule",
+        "list": "groupTypes"
+      }
+    },
+    "bvr-attack": {
+      "title": "Ataque BVR unidad contra unidad",
+      "nodes": [
+        "air.intercept.bvr"
+      ],
+      "engine": "bvr-attack",
+      "table": {
+        "page": "page-16.json",
+        "tableId": "air-combat-bvr-damage"
+      },
+      "choices": {
+        "workflow": "05_combate_aereo.json",
+        "questionId": "mission_condition"
+      },
+      "intro": "Las unidades se enfrentan de una en una. Cada bando que ataca elige la fila por la misión de su avión (y «+ AWACS» si un AWACS propio en red detecta al objetivo), busca su Combate aéreo en esa fila y tira 1d10. El bando con el Valor Electrónico más alto suma la diferencia a su tirada.",
+      "fields": [
+        {
+          "id": "condition",
+          "label": "Condición del avión que ataca",
+          "kind": "choice"
+        },
+        {
+          "id": "airCombatValue",
+          "label": "Combate aéreo (CA) del avión que ataca",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "bvr-air-combat-value",
+          "visualTemplate": "aircraft-combat-tactical"
+        },
+        {
+          "id": "electronic",
+          "label": "Valor Electrónico del avión",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "air-electronic-value",
+          "visualTemplate": "aircraft-combat-tactical"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "Cada Valor de Protección del avión que recibe absorbe un punto de impacto y le causa un punto de daño; un avión de Patrulla Aérea (CAPs) solo recibe 1 y sale temporalmente del combate. El reparto detallado está en el cálculo del combate BVR."
+    },
+    "ground-close-combat": {
+      "title": "Combate cercano terrestre",
+      "nodes": [
+        "land.close.roll"
+      ],
+      "engine": "ground-close-combat",
+      "table": {
+        "page": "page-02.json",
+        "tableId": "ground-close-combat-result"
+      },
+      "extraTables": [
+        {
+          "page": "page-02.json",
+          "tableId": "ground-close-combat-electronic-warfare"
+        }
+      ],
+      "choices": {
+        "options": [
+          {
+            "value": "activo",
+            "label": "Activo: inicia el combate",
+            "columnScheme": "activo"
+          },
+          {
+            "value": "pasivo",
+            "label": "Pasivo: recibe el combate",
+            "columnScheme": "pasivo"
+          }
+        ],
+        "sourceRefs": [
+          {
+            "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+            "section": "8.7.1"
+          },
+          {
+            "document": "Tablas-de-combate 5.pdf",
+            "description": "Página 2, filas «Pasivo» y «Activo»."
+          }
+        ]
+      },
+      "intro": "Cada bando suma el Valor de Ataque y el Apoyo de Combate de sus unidades, lo busca en su fila (Activo si inicia el combate, Pasivo si lo recibe) y tira 1d10. Si los Valores Electrónicos más altos de los dos bandos son distintos, el que tiene más cruza la diferencia con su tirada en la tabla de guerra electrónica: con ✔ duplica sus impactos.",
+      "fields": [
+        {
+          "id": "role",
+          "label": "Papel en el combate",
+          "kind": "choice"
+        },
+        {
+          "id": "attackTotal",
+          "label": "Valor de Ataque + Apoyo de Combate de sus unidades",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "ground-attack-total",
+          "visualTemplate": "ground-main"
+        },
+        {
+          "id": "electronic",
+          "label": "Valor Electrónico más alto de sus unidades",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "ground-electronic",
+          "visualTemplate": "ground-main"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "Con los impactos recibidos, cada bando mira el umbral de Derrota en la tabla de bajas (nivel de reacción y Tamaño de Fuerza antes del combate): es la pregunta siguiente del asistente."
+    }
+  }
+}

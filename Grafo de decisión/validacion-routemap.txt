@@ -1,0 +1,9 @@
+VALIDACIÓN ROUTEMAP — THE COMING WAVE
+Archivo: C:\Users\p.alvarez\Documents\Codex\2026-10-27\aq\outputs\routemap.json
+Nodos: 117 (92 decisiones, 25 terminales)
+Rutas: 237
+Alcanzables desde entrypoint: 117
+Errores: 0
+Avisos: 0
+
+Resultado: OK. No hay nodos deterministas ni referencias rotas.

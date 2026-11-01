@@ -357,7 +357,90 @@
     });
   }
 
-  function buildCounterViewer(tpl, data, sheetImage, bundle) {
+  // Ficha real de una plantilla (data/image-hotspots/real-counters.json, Fase 25): solo si su imagen está en este
+  // servidor (images/ queda fuera del repositorio; en la versión pública no existe y se usa la ficha de muestra).
+  // images/available.json solo existe donde se han copiado las imágenes reales (local y servidor privado); en la versión
+  // pública no está y la web no pide ninguna otra imagen de images/.
+  let privateImagesPromise = null;
+  function privateImagesAvailable() {
+    if (!privateImagesPromise) privateImagesPromise = fetch('/images/available.json').then((r) => (r.ok ? r.json() : null)).then((d) => Boolean(d && d.available)).catch(() => false);
+    return privateImagesPromise;
+  }
+
+  let realCountersPromise = null;
+  const realImageChecks = new Map();
+  async function loadRealCounter(templateId) {
+    if (!(await privateImagesAvailable())) return null;
+    if (!realCountersPromise) realCountersPromise = fetch('/data/image-hotspots/real-counters.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    return realCountersPromise.then((data) => {
+      const inst = data && data.instances.find((i) => i.templateId === templateId);
+      if (!inst) return null;
+      if (!realImageChecks.has(inst.image)) {
+        realImageChecks.set(inst.image, new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = `/${inst.image}`;
+        }));
+      }
+      return realImageChecks.get(inst.image).then((ok) => (ok ? inst : null));
+    });
+  }
+
+  // Visor de la ficha real con la zona de cada factor impreso (todas needs_review hasta la revisión del mantenedor).
+  function buildRealCounterHotspotViewer(tpl, data, bundle, real, onSelect) {
+    const conceptsById = new Map(bundle.concepts.concepts.map((c) => [c.id, c]));
+    const hotspots = real.hotspots.filter((h) => !h.notPrinted && !h.unidentified && h.rect).map((h) => {
+      const concept = conceptsById.get(h.conceptId || h.id);
+      const f = tpl.factors.find((x) => x.factor === h.id);
+      return {
+        id: h.id,
+        label: concept ? concept.label : (data.factorVocabulary[h.id] ? data.factorVocabulary[h.id].label : h.id),
+        summary: concept ? concept.summary : 'Uso pendiente de transcribir/validar.',
+        rect: h.rect,
+        status: h.reviewStatus,
+        basicOrExpansion: f && f.expansionOnly ? 'expansion' : (concept ? concept.basicOrExpansion : 'basic'),
+        sourceText: `Ficha real: ${real.unit}. Zona colocada a mano y ajustada con OpenCV${h.reviewStatus === 'verified' ? `, revisada (${h.reviewedAt})` : ', pendiente de revisión'}.`,
+        note: ''
+      };
+    });
+    return ImageHotspotViewer.create({
+      image: { src: `/${real.image}`, width: real.imageSize[0], height: real.imageSize[1], alt: `Ficha real: ${real.unit}` },
+      view: { x: 0, y: 0, width: 1, height: 1 },
+      hotspots,
+      onSelect
+    });
+  }
+
+  function buildCounterViewer(tpl, data, sheetImage, bundle, real) {
+    if (bundle && real) {
+      // Ficha real primero; la de muestra, plegada debajo, para los factores que esta ficha no lleva impresos.
+      const wrap = document.createElement('div');
+      wrap.className = 'counter-viewer counter-viewer--hotspots counter-viewer--real';
+      wrap.appendChild(el('p', 'counter-viewer__real-title', `Ficha real: ${real.unit}`));
+      const markRow = (id) => viewRoot.querySelectorAll('.counter-factor').forEach((rowEl) => { rowEl.classList.toggle('is-active', Boolean(id) && rowEl.dataset.factor === id); });
+      const hv = buildRealCounterHotspotViewer(tpl, data, bundle, real, markRow);
+      wrap.appendChild(hv.element);
+      const labelOf = (h) => (data.factorVocabulary[h.id] ? data.factorVocabulary[h.id].label : h.id);
+      const missing = real.hotspots.filter((h) => h.notPrinted).map(labelOf);
+      if (missing.length) wrap.appendChild(el('p', 'source-refs', `Esta ficha no lleva impreso: ${missing.join(', ')}.`));
+      const pending = real.hotspots.filter((h) => h.unidentified).map(labelOf);
+      if (pending.length) wrap.appendChild(el('p', 'pending-note', `Pendiente de identificar en esta ficha (se ve en la de muestra): ${pending.join(', ')}.`));
+      const details = el('details', 'counter-viewer__sample');
+      details.appendChild(el('summary', null, 'Ver la ficha de muestra con todos los factores'));
+      const sample = buildCounterHotspotViewer(tpl, data, sheetImage, bundle, markRow);
+      details.appendChild(sample.element);
+      wrap.appendChild(details);
+      const printed = new Set(real.hotspots.filter((h) => !h.notPrinted && !h.unidentified).map((h) => h.id));
+      return {
+        viewer: wrap,
+        activateFactor: (id) => {
+          if (printed.has(id)) { hv.select(id); return; }
+          details.open = true;
+          sample.select(id);
+        }
+      };
+    }
     if (bundle) {
       const wrap = document.createElement('div');
       wrap.className = 'counter-viewer counter-viewer--hotspots';
@@ -478,6 +561,8 @@
     renderSourcePageGallery,
     translatePosition,
     buildCounterViewer,
+    loadRealCounter,
+    privateImagesAvailable,
     appendFactorIdentificationHint
   };
 })(typeof window !== 'undefined' ? window : globalThis);

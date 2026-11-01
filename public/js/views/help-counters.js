@@ -103,7 +103,9 @@
     if (tpl.matchHint) wrap.appendChild(el('p', 'turn-view__desc', tpl.matchHint));
 
     const bundle = await loadImageHotspots();
-    const { viewer, activateFactor } = buildCounterViewer(tpl, data, catInfo.image, bundle);
+    const real = await AppVisuals.loadRealCounter(tpl.id);
+    if (!Router.isCurrent(navToken)) return;
+    const { viewer, activateFactor } = buildCounterViewer(tpl, data, catInfo.image, bundle, real);
     wrap.appendChild(viewer);
     wrap.appendChild(el('p', 'source-refs', 'Toca (o pasa el ratón sobre) un factor de la lista o su recuadro en la imagen para señalarlo. AGENTS.md §11: la imagen es apoyo visual, el cálculo usa los datos estructurados de abajo.'));
 

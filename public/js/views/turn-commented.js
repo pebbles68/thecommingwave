@@ -287,7 +287,7 @@
     wrap.appendChild(helpHost);
     const workflowIds = [...new Set(page.subphases.flatMap((s) => s.relatedWorkflowIds))];
     const wizardLinks = page.subphases.flatMap((s) => s.wizardLinks);
-    if (Views.Turn && Views.Turn.renderContextualHelpLinks) await Views.Turn.renderContextualHelpLinks(helpHost, workflowIds, wizardLinks);
+    if (Views.Turn && Views.Turn.renderContextualHelpLinks) await Views.Turn.renderContextualHelpLinks(helpHost, workflowIds, wizardLinks, page.subphases.map((s) => s.id));
     if (!Router.isCurrent(navToken)) return;
 
     wrap.appendChild(el('p', 'source-refs', 'Para marcar la fase como terminada o ver sus fuentes, usa el Turno guiado: '));

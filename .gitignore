@@ -16,5 +16,10 @@ playwright/.cache/
 *.pdf
 *.docx
 
+# Fichas, tarjetas y tablas reales del juego (carpeta images/, ~1.200 imágenes, entregada el 2026-10-31): se usan en local
+# y en el servidor privado de pruebas hasta que el editor dé el visto bueno; no se suben porque el repositorio publica en
+# abierto (Cloudflare). Ver roadmap.md, Fase 25.
+images/
+
 # Web estática generada con `npm run build`
 dist/

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/tcw/routemap.schema.json",
+  "title": "TCW routemap",
+  "type": "object",
+  "required": ["schema_version", "entrypoint", "nodes"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "title": {"type": "string"},
+    "language": {"type": "string"},
+    "entrypoint": {"type": "string"},
+    "nodes": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": ["type", "question", "routes"],
+            "properties": {
+              "type": {"const": "decision"},
+              "question": {"type": "string"},
+              "source": {"type": "array", "items": {"type": "string"}},
+              "routes": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "object",
+                  "required": ["answer", "to"],
+                  "properties": {
+                    "answer": {"type": "string"},
+                    "to": {"type": "string"},
+                    "effects": {"type": "array", "items": {"type": "string"}}
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": ["type", "title", "instructions"],
+            "properties": {
+              "type": {"const": "terminal"},
+              "title": {"type": "string"},
+              "instructions": {"type": "array", "items": {"type": "string"}},
+              "source": {"type": "array", "items": {"type": "string"}}
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  }
+}
+

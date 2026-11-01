@@ -1,0 +1,230 @@
+{
+  "id": "decision-entrypoints",
+  "description": "Punto de entrada del asistente de combate (data/routing/decision-graph.json) según la página desde la que se abre (roadmap Fase 25, AD-003). Cada entrada es la lista de respuestas que se dan por puestas desde el inicio del árbol: el asistente las enseña como respuestas ya dadas, que el jugador puede cambiar. Las subfases del turno, las fichas de «Combate por tipo» y las páginas de «Tablas» remiten a una entrada por su id. Una subfase con combates de varios dominios entra por el inicio del árbol.",
+  "sourceRefs": [
+    {
+      "document": "Grafo de decisión/routemap.json",
+      "description": "Respuestas de los nodos start.scope y de los nodos *.kind."
+    },
+    {
+      "document": "Tablas-de-combate 5.pdf",
+      "description": "Página citada por cada rama del árbol."
+    }
+  ],
+  "entries": {
+    "all": {
+      "title": "Cualquier combate",
+      "answers": []
+    },
+    "land": {
+      "title": "Combate o ataque terrestre",
+      "answers": [
+        "Combate o ataque contra un objetivo terrestre"
+      ]
+    },
+    "land-close": {
+      "title": "Combate cercano terrestre",
+      "answers": [
+        "Combate o ataque contra un objetivo terrestre",
+        "Combate cercano entre unidades terrestres"
+      ]
+    },
+    "land-guided": {
+      "title": "Ataque terrestre guiado",
+      "answers": [
+        "Combate o ataque contra un objetivo terrestre",
+        "Ataque terrestre guiado"
+      ]
+    },
+    "land-unguided": {
+      "title": "Ataque terrestre no guiado",
+      "answers": [
+        "Combate o ataque contra un objetivo terrestre",
+        "Ataque terrestre no guiado"
+      ]
+    },
+    "land-arm": {
+      "title": "Ataque antirradiación (ARM)",
+      "answers": [
+        "Combate o ataque contra un objetivo terrestre",
+        "Ataque antirradiación (ARM)"
+      ]
+    },
+    "air": {
+      "title": "Combate aéreo",
+      "answers": [
+        "Combate aéreo o defensa contra unidades aéreas"
+      ]
+    },
+    "air-intercept": {
+      "title": "Intercepción y combate aire-aire",
+      "answers": [
+        "Combate aéreo o defensa contra unidades aéreas",
+        "Intercepción / penetración / combate aire-aire"
+      ]
+    },
+    "air-area": {
+      "title": "Defensa aérea de área",
+      "answers": [
+        "Combate aéreo o defensa contra unidades aéreas",
+        "Defensa aérea de área contra aeronaves, helicópteros o UAV"
+      ]
+    },
+    "surface": {
+      "title": "Ataque a buques de superficie",
+      "answers": [
+        "Ataque contra buques de superficie"
+      ]
+    },
+    "surface-guided": {
+      "title": "Ataque antibuque guiado",
+      "answers": [
+        "Ataque contra buques de superficie",
+        "Ataque antibuque guiado"
+      ]
+    },
+    "surface-unguided": {
+      "title": "Ataque antibuque no guiado",
+      "answers": [
+        "Ataque contra buques de superficie",
+        "Ataque antibuque no guiado"
+      ]
+    },
+    "surface-close": {
+      "title": "Combate naval cercano",
+      "answers": [
+        "Ataque contra buques de superficie",
+        "Combate naval cercano con artillería"
+      ]
+    },
+    "surface-torpedo": {
+      "title": "Torpedos contra superficie",
+      "answers": [
+        "Ataque contra buques de superficie",
+        "Torpedos de submarino contra superficie"
+      ]
+    },
+    "asw": {
+      "title": "Detección o ataque antisubmarino",
+      "answers": [
+        "Detección o ataque antisubmarino (ASW)"
+      ]
+    },
+    "asw-signature": {
+      "title": "Búsqueda por diferencia de firma",
+      "answers": [
+        "Detección o ataque antisubmarino (ASW)",
+        "Búsqueda por diferencia de firma"
+      ]
+    },
+    "asw-air-search": {
+      "title": "Búsqueda aérea ASW",
+      "answers": [
+        "Detección o ataque antisubmarino (ASW)",
+        "Búsqueda aérea ASW"
+      ]
+    },
+    "asw-attack": {
+      "title": "Ataque contra submarino",
+      "answers": [
+        "Detección o ataque antisubmarino (ASW)",
+        "Ataque contra submarino"
+      ]
+    },
+    "asw-attack-sub": {
+      "title": "Ataque ASW con submarino",
+      "answers": [
+        "Detección o ataque antisubmarino (ASW)",
+        "Ataque contra submarino",
+        "Submarina"
+      ]
+    },
+    "strategic": {
+      "title": "Acción estratégica o logística",
+      "answers": [
+        "Acción estratégica, ciberespacial, espacial o logística"
+      ]
+    },
+    "strategic-cyber": {
+      "title": "Guerra cibernética",
+      "answers": [
+        "Acción estratégica, ciberespacial, espacial o logística",
+        "Guerra cibernética"
+      ]
+    },
+    "strategic-space": {
+      "title": "Destrucción espacial",
+      "answers": [
+        "Acción estratégica, ciberespacial, espacial o logística",
+        "Destrucción espacial"
+      ]
+    },
+    "strategic-logistics": {
+      "title": "Reabastecimiento logístico terrestre",
+      "answers": [
+        "Acción estratégica, ciberespacial, espacial o logística",
+        "Reabastecimiento logístico terrestre"
+      ]
+    }
+  },
+  "subphases": {
+    "salidas_combate": "all",
+    "combate_superficie": "surface",
+    "combate_terrestre": "land-close",
+    "ataques_terrestres": "land",
+    "busqueda_rutina": "asw",
+    "combate_submarino": "all",
+    "reorganizacion_terrestre": "strategic-logistics",
+    "paralisis_red": "strategic-cyber"
+  },
+  "workflows": {
+    "ground_close_combat": "land-close",
+    "ground_guided": "land-guided",
+    "ground_unguided": "land-unguided",
+    "anti_radiation": "land-arm",
+    "air_combat": "air-intercept",
+    "area_air_defense": "air-area",
+    "antiship_guided": "surface-guided",
+    "antiship_unguided": "surface-unguided",
+    "torpedo_vs_surface": "surface-torpedo",
+    "asw_surface_air": "asw-attack",
+    "asw_submarine": "asw-attack-sub",
+    "strategic_actions": "strategic",
+    "asw_search_support": "asw"
+  },
+  "tablePages": {
+    "page-10.json": "land-unguided",
+    "page-11.json": "land-arm",
+    "page-12.json": "land-arm",
+    "page-13.json": "land-arm",
+    "page-14.json": "land-arm",
+    "page-15.json": "air-intercept",
+    "page-16.json": "air-intercept",
+    "page-17.json": "air-intercept",
+    "page-18.json": "air-area",
+    "page-19.json": "surface-guided",
+    "page-20.json": "surface-guided",
+    "page-21.json": "surface-guided",
+    "page-22.json": "surface-guided",
+    "page-23.json": "surface-unguided",
+    "page-24.json": "surface-unguided",
+    "page-25.json": "surface-unguided",
+    "page-26.json": "surface-unguided",
+    "page-27.json": "surface-torpedo",
+    "page-28.json": "asw",
+    "page-29.json": "asw-attack",
+    "page-30.json": "asw-attack-sub",
+    "page-31.json": "strategic",
+    "page-32.json": "strategic",
+    "page-33.json": "asw-signature",
+    "page-34.json": "asw-air-search",
+    "page-02.json": "land-close",
+    "page-03.json": "land-guided",
+    "page-04.json": "land-guided",
+    "page-05.json": "land-guided",
+    "page-06.json": "land-guided",
+    "page-07.json": "land-unguided",
+    "page-08.json": "land-unguided",
+    "page-09.json": "land-unguided"
+  }
+}

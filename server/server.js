@@ -6,6 +6,9 @@ const PORT = process.env.PORT || 3000;
 const ROOT = path.join(__dirname, '..');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const DATA_DIR = path.join(ROOT, 'data');
+// Fichas y tablas reales del juego (images/, en .gitignore): solo existen en local y en el servidor privado de pruebas
+// (roadmap Fase 25). Si la carpeta no está, /images/ responde 404 y la web enseña su alternativa.
+const IMAGES_DIR = path.join(ROOT, 'images');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -15,6 +18,7 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon'
 };
@@ -81,6 +85,13 @@ const server = http.createServer((req, res) => {
 
   if (pathname.startsWith('/data/')) {
     const filePath = resolveSafePath(DATA_DIR, pathname.slice('/data/'.length));
+    if (!filePath) { res.writeHead(400); res.end('Bad request'); return; }
+    serveFile(res, filePath);
+    return;
+  }
+
+  if (pathname.startsWith('/images/')) {
+    const filePath = resolveSafePath(IMAGES_DIR, pathname.slice('/images/'.length));
     if (!filePath) { res.writeHead(400); res.end('Bad request'); return; }
     serveFile(res, filePath);
     return;

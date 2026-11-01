@@ -488,7 +488,7 @@
 
     // Combates y resoluciones de este segmento: la unión de los de sus subfases (nunca una lista vacía si le corresponden).
     const segWorkflows = Model.phaseWorkflows(data, phase);
-    await renderContextualHelpLinks(wrap, segWorkflows.workflowIds, segWorkflows.wizardLinks);
+    await renderContextualHelpLinks(wrap, segWorkflows.workflowIds, segWorkflows.wizardLinks, phase.subphases);
     if (!Router.isCurrent(navToken)) return;
 
     const finished = Engine.isFinished(progress, nodeId);
@@ -577,7 +577,7 @@
     const imageGallery = SUBPHASE_IMAGE_GALLERIES[sub.id];
     if (imageGallery) await renderPhaseImageGallery(wrap, imageGallery.group, imageGallery.title);
 
-    await renderContextualHelpLinks(wrap, sub.relatedWorkflowIds, sub.wizardLinks);
+    await renderContextualHelpLinks(wrap, sub.relatedWorkflowIds, sub.wizardLinks, [sub.id]);
     if (!Router.isCurrent(navToken)) return;
 
     const finished = Engine.isFinished(progress, subNodeId);
@@ -598,10 +598,16 @@
   // (AGENTS.md §3.1): los workflows de combate relacionados (si la subfase los declara en
   // `relatedWorkflowIds`) más un acceso siempre disponible a Tablas/Detección/Reglas y
   // extractos/Counters, sin salir del flujo de turno guiado.
-  async function renderContextualHelpLinks(container, relatedWorkflowIds, wizardLinks) {
+  // `subphaseIds`: subfases de la página, para abrir el asistente de combate en su punto del árbol (Fase 25, AD-003).
+  async function renderContextualHelpLinks(container, relatedWorkflowIds, wizardLinks, subphaseIds) {
     const box = el('div', 'help-view');
     box.appendChild(el('h2', 'table-viewer__section-title', 'Ayuda contextual'));
     const list = el('div', 'help-list');
+
+    if (Views.DecisionGraph && subphaseIds && subphaseIds.length) {
+      const launch = await Views.DecisionGraph.entryCard('subphases', subphaseIds);
+      if (launch) list.appendChild(launch);
+    }
 
     if (relatedWorkflowIds && relatedWorkflowIds.length) {
       const index = await loadWorkflowsIndex();

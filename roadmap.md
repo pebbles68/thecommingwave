@@ -876,3 +876,29 @@ Cada tarea de implementación se cierra con un punto de comprobación: el agente
 - [ ] CP-005 (tras TC-005) — **Ayuda gráfica**: en Planificación de Misiones aparece la tarjeta del aeródromo con las zonas remarcadas y explicadas; en recuperación se ve dónde van los aviones con avería; en preparación se ve el avance por el track.
 - [ ] CP-006 (tras TC-006) — **Guía de combate**: abrir la guía del ataque aéreo y recorrer los pasos; se entiende qué hacer sin conocer las tablas y desemboca en el wizard cuando toca calcular.
 - [ ] CP-007 (tras TC-007) — **Versión publicada**: revisar la web publicada con los cambios y dar el visto bueno para la etiqueta de versión.
+
+---
+
+# Fase 25 — Asistente de combate por árbol de decisión, fichas reales y tablas reales (2026-10-31)
+
+**Objetivo:** sustituir todos los wizards de la web por un único asistente que siga el árbol de `Grafo de decisión/` (`AGENTS.md` §3.4), entrando a mitad del árbol según la página, enseñando fichas reales con el factor recuadrado y, con la columna determinada, la tabla real del PDF con la columna marcada.
+
+**Decisiones del mantenedor (2026-10-31):** los cálculos de los wizards son correctos y se conservan, cambian los recorridos y la forma de mostrar los datos; las imágenes reales (`images/`) se usan en local y en un servidor privado para enseñárselas al editor, no se publican en abierto todavía; se empieza por las fases 1 y 2. «openVCL» en su mensaje = OpenCV (`scripts/image-hotspots/`). Plan completo: Claude Doc «Plan: árbol de decisión en lugar de los wizards».
+
+**Pendiente de decidir:** cómo publicar en el servidor privado sin pasar por el repositorio público (las imágenes están en `.gitignore`); los seis wizards que el árbol no cubre (reacciones CF/AS/KB, emboscada, grupo de misión, asignación BVR, efectos del impacto antibuque, logística de puerto y garantía logística) necesitan ramas nuevas, sacadas del Decision Book y marcadas `needs_review`.
+
+### Tareas
+
+- [x] AD-001 — **hecho (2026-10-31)** — Árbol copiado a `data/routing/decision-graph.json` (+ esquema), fuente `grafo-decision` en `sources.json`, invariantes y contraste de efectos con las páginas 5, 8, 13, 15, 21 y 24 en `test/decision-graph.test.js` (sin discrepancias).
+- [x] AD-002 — **hecho (2026-10-31), pendiente de comprobar (CP-AD2)** — Motor puro `public/js/decision-graph-engine.js` y vista `#/decision[/<nodo>]` con migas cambiables, efectos acumulados, fuentes y, en el resultado, enlaces al cálculo existente (`data/routing/decision-graph-links.json`). Tarjeta «Asistente de combate» en Resolver combate.
+- [x] AD-003 — **hecho (2026-11-01), pendiente de comprobar (CP-AD3)** — Puntos de entrada a mitad del árbol por página (`data/routing/decision-entrypoints.json`, 23 entradas): las 8 subfases con combate, los 13 tipos de «Combate por tipo» y las 33 páginas de Tablas abren el asistente con la tarjeta «▶ Resolver con el asistente de combate» (ruta `#/decision/e/<entrada>`); las respuestas que da por puestas la página se ven «dadas por la página» y se pueden cambiar. Una página con combates de varios dominios (Salidas de combate, Combate Submarino) entra por el inicio del árbol. Pruebas: ninguna página de combate se queda sin entrada.
+- [ ] AD-004 — Sustitución por dominio (terrestre, superficie, aéreo, submarino, estratégico): el resultado llama al cálculo conservado, las rutas `#/wizard/...` redirigen al nodo equivalente y pasan los golden tests. Un dominio por entrega, con comprobación del mantenedor.
+- [ ] AD-005 — Ramas nuevas para los seis wizards no cubiertos por el árbol.
+- [~] AD-006 — **en curso (2026-11-01)**: cada pregunta y cada resultado enseñan la página real de la tabla (`images/tablas/`, generada con `scripts/render-table-pages.js`, fuera del repositorio). **Ronda WVR (p. 17) y ataque BVR (p. 16) hechos**: el asistente pide los factores de cada bando (`data/routing/decision-graph-calculators.json`, `public/js/decision-graph-calculators.js`) y marca sobre el recorte real la columna, fila y celda de azul y rojo (rejilla OpenCV en `data/image-hotspots/table-pages.json`, `needs_review`). Falta repetirlo con el resto de tablas — Tablas reales recortadas del PDF, rejilla calibrada con OpenCV (`data/image-hotspots/tables.json`, `needs_review`) y columna, fila y celda marcadas desde el cálculo.
+- [~] AD-007 — **en curso (2026-11-01)**: cada pregunta con factor tiene su botón «Ver en la ficha» (`data/routing/decision-graph-visual-refs.json`). Fichas reales calibradas para las 20 plantillas (`data/image-hotspots/real-counters.json`, `needs_review`); se ven en el panel lateral y en la leyenda de counters. Pendiente: revisión del mantenedor y las dudas de N.º/Nivel de puerto en los transportes. Pendiente del mantenedor: dónde se lee la Iniciativa aérea — Fichas reales de `images/` con el factor recuadrado en toda la web (panel de ayuda visual, leyenda de counters, preguntas del árbol), solo las necesarias.
+- [ ] AD-008 — Retirar las vistas de wizard sustituidas; matriz de cobertura, roadmap, `AGENTS.md` y `development_status.md` al día.
+
+### Puntos de comprobación del mantenedor (Fase 25)
+
+- [ ] CP-AD3 (tras AD-003) — Abrir una página de tablas (p. ej. `#/ayuda/tablas/page-05.json`), una subfase del turno (`#/turno/fase/1/ground/combate_terrestre`) y un tipo de «Combate por tipo»: la tarjeta «▶ Resolver con el asistente de combate» abre el asistente en la pregunta que toca, con las respuestas previas marcadas «dada por la página» y cambiables.
+- [ ] CP-AD2 (tras AD-002) — Abrir `#/` › Resolver combate › «Asistente de combate» (o `#/decision`): una pregunta cada vez, las respuestas dadas arriba con «Cambiar», lo que se aplica hasta ahora y, al final, el resultado con sus enlaces al wizard y a las tablas. Probar también una entrada a mitad del árbol: `#/decision/land.guided.fixed_ecm`.

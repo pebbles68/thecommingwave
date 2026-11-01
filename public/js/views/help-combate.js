@@ -169,6 +169,11 @@
     }
     if (workflow.finalTableReference) wrap.appendChild(el('p', 'source-refs', `Tabla final: ${workflow.finalTableReference}`));
 
+    // Fase 25 (AD-003): abrir el asistente de combate en el punto del árbol de este tipo de combate.
+    const launch = Views.DecisionGraph ? await Views.DecisionGraph.entryCard('workflows', [workflowId]) : null;
+    if (!Router.isCurrent(navToken)) return;
+    if (launch) wrap.appendChild(launch);
+
     const relatedPages = tablesIdx.pages.filter((p) => (p.workflowRefs || []).includes(workflowId));
     if (relatedPages.length) {
       wrap.appendChild(el('h2', 'table-viewer__section-title', 'Tablas relacionadas'));

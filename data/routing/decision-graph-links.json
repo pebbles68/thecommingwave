@@ -1,0 +1,364 @@
+{
+  "id": "decision-graph-links",
+  "description": "Enlaza cada resultado final del árbol de decisión (data/routing/decision-graph.json) con el cálculo que ya existe: los wizards que resuelven la tabla y las páginas de data/tables/ que usa. Es provisional (Fase 25): según se sustituya cada dominio, el resultado abrirá directamente la tabla con la columna marcada. Los resultados terminal.illegal.* no llevan enlace porque no hay nada que calcular. «nodes» hace lo mismo con las preguntas en las que se cruza una tabla (la ronda WVR, la tirada de combate cercano, las búsquedas ASW…): el asistente ofrece ahí mismo el cálculo para resolver ese paso antes de responder.",
+  "sourceRefs": [
+    {
+      "document": "Grafo de decisión/routemap.json",
+      "description": "Nodos terminales del árbol."
+    },
+    {
+      "document": "Tablas-de-combate 5.pdf",
+      "description": "Páginas citadas en cada nodo."
+    }
+  ],
+  "terminals": {
+    "terminal.land.close": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-close-combat",
+          "title": "Combate cercano terrestre"
+        }
+      ],
+      "tables": [
+        "page-02.json"
+      ]
+    },
+    "terminal.land.attack": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-guided",
+          "title": "Ataque terrestre guiado"
+        },
+        {
+          "hash": "#/wizard/ground-unguided",
+          "title": "Ataque terrestre no guiado"
+        },
+        {
+          "hash": "#/wizard/ground-attack-result",
+          "title": "Resultado del ataque terrestre"
+        }
+      ],
+      "tables": [
+        "page-03.json",
+        "page-04.json",
+        "page-05.json",
+        "page-06.json",
+        "page-07.json",
+        "page-08.json",
+        "page-09.json",
+        "page-10.json"
+      ]
+    },
+    "terminal.land.arm": {
+      "wizards": [
+        {
+          "hash": "#/wizard/anti-radiation",
+          "title": "Ataque antirradiación (ARM)"
+        }
+      ],
+      "tables": [
+        "page-11.json",
+        "page-12.json",
+        "page-13.json",
+        "page-14.json"
+      ]
+    },
+    "terminal.air.intercept": {
+      "wizards": [
+        {
+          "hash": "#/wizard/air-mission-group",
+          "title": "Grupo de misión aéreo"
+        },
+        {
+          "hash": "#/wizard/air-intercept-targets",
+          "title": "Asignación de objetivos BVR"
+        },
+        {
+          "hash": "#/wizard/air-combat-bvr",
+          "title": "Combate aéreo BVR"
+        },
+        {
+          "hash": "#/wizard/air-combat-wvr",
+          "title": "Combate aéreo cercano WVR"
+        }
+      ],
+      "tables": [
+        "page-15.json",
+        "page-16.json",
+        "page-17.json"
+      ]
+    },
+    "terminal.air.area": {
+      "wizards": [],
+      "tables": [
+        "page-18.json"
+      ]
+    },
+    "terminal.surface.guided": {
+      "wizards": [
+        {
+          "hash": "#/wizard/antiship-guided",
+          "title": "Ataque guiado a superficie"
+        },
+        {
+          "hash": "#/wizard/ship-impact-effects",
+          "title": "Efectos del impacto antibuque"
+        }
+      ],
+      "tables": [
+        "page-19.json",
+        "page-20.json",
+        "page-21.json",
+        "page-22.json"
+      ]
+    },
+    "terminal.surface.unguided": {
+      "wizards": [
+        {
+          "hash": "#/wizard/antiship-unguided",
+          "title": "Ataque antibuque no guiado"
+        },
+        {
+          "hash": "#/wizard/ship-impact-effects",
+          "title": "Efectos del impacto antibuque"
+        }
+      ],
+      "tables": [
+        "page-23.json",
+        "page-24.json",
+        "page-25.json",
+        "page-26.json"
+      ]
+    },
+    "terminal.surface.close": {
+      "wizards": [
+        {
+          "hash": "#/wizard/antiship-unguided",
+          "title": "Ataque antibuque no guiado"
+        }
+      ],
+      "tables": [
+        "page-25.json"
+      ]
+    },
+    "terminal.surface.torpedo": {
+      "wizards": [
+        {
+          "hash": "#/wizard/torpedo-surface",
+          "title": "Torpedos contra superficie"
+        },
+        {
+          "hash": "#/wizard/submarine-ambush",
+          "title": "Emboscada de submarino"
+        }
+      ],
+      "tables": [
+        "page-27.json"
+      ]
+    },
+    "terminal.asw.search": {
+      "wizards": [
+        {
+          "hash": "#/wizard/asw-signature-search",
+          "title": "Búsqueda por Diferencia de Firma"
+        },
+        {
+          "hash": "#/wizard/asw-air-search",
+          "title": "Búsqueda Aérea ASW"
+        }
+      ],
+      "tables": [
+        "page-28.json",
+        "page-33.json",
+        "page-34.json"
+      ]
+    },
+    "terminal.asw.attack": {
+      "wizards": [
+        {
+          "hash": "#/wizard/asw-surface-air",
+          "title": "Ataque ASW (superficie y aéreas)"
+        },
+        {
+          "hash": "#/wizard/asw-submarine",
+          "title": "Ataque ASW (submarinos)"
+        }
+      ],
+      "tables": [
+        "page-29.json",
+        "page-30.json"
+      ]
+    },
+    "terminal.strategic.cyber": {
+      "wizards": [
+        {
+          "hash": "#/wizard/cyber-attack",
+          "title": "Ataque cibernético"
+        }
+      ],
+      "tables": [
+        "page-31.json"
+      ]
+    },
+    "terminal.strategic.space": {
+      "wizards": [
+        {
+          "hash": "#/wizard/space-war",
+          "title": "Guerra espacial"
+        }
+      ],
+      "tables": [
+        "page-31.json",
+        "page-32.json"
+      ]
+    },
+    "terminal.strategic.logistics": {
+      "wizards": [
+        {
+          "hash": "#/wizard/army-resupply",
+          "title": "Reabastecimiento de Campo del Ejército"
+        }
+      ],
+      "tables": [
+        "page-32.json"
+      ]
+    },
+    "terminal.location.airfield": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-attack-result",
+          "title": "Resultado del ataque terrestre"
+        }
+      ],
+      "tables": [
+        "page-06.json",
+        "page-09.json"
+      ]
+    },
+    "terminal.location.port": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-attack-result",
+          "title": "Resultado del ataque terrestre"
+        },
+        {
+          "hash": "#/wizard/ship-impact-effects",
+          "title": "Efectos del impacto antibuque"
+        }
+      ],
+      "tables": [
+        "page-06.json",
+        "page-09.json",
+        "page-22.json",
+        "page-25.json"
+      ]
+    },
+    "terminal.location.mobile": {
+      "wizards": [
+        {
+          "hash": "#/wizard/ground-attack-result",
+          "title": "Resultado del ataque terrestre"
+        },
+        {
+          "hash": "#/wizard/ground-reaction",
+          "title": "Ataques de reacción terrestres"
+        }
+      ],
+      "tables": [
+        "page-05.json",
+        "page-06.json",
+        "page-09.json"
+      ]
+    }
+  },
+  "nodes": {
+    "air.intercept.band": [
+      {
+        "hash": "#/wizard/air-combat-bvr",
+        "title": "Combate aéreo BVR"
+      }
+    ],
+    "air.intercept.bvr": [
+      {
+        "hash": "#/wizard/air-intercept-targets",
+        "title": "Asignación de objetivos BVR"
+      },
+      {
+        "hash": "#/wizard/air-combat-bvr",
+        "title": "Combate aéreo BVR"
+      }
+    ],
+    "air.intercept.wvr": [
+      {
+        "hash": "#/wizard/air-combat-wvr",
+        "title": "Combate aéreo cercano WVR"
+      }
+    ],
+    "air.intercept.round": [
+      {
+        "hash": "#/wizard/air-combat-wvr",
+        "title": "Combate aéreo cercano WVR"
+      }
+    ],
+    "land.close.roll": [
+      {
+        "hash": "#/wizard/ground-close-combat",
+        "title": "Combate cercano terrestre"
+      }
+    ],
+    "land.close.casualties": [
+      {
+        "hash": "#/wizard/ground-close-combat",
+        "title": "Combate cercano terrestre"
+      }
+    ],
+    "surface.torpedo.result": [
+      {
+        "hash": "#/wizard/torpedo-surface",
+        "title": "Torpedos contra superficie"
+      }
+    ],
+    "asw.signature.roll": [
+      {
+        "hash": "#/wizard/asw-signature-search",
+        "title": "Búsqueda por Diferencia de Firma"
+      }
+    ],
+    "asw.air.roll": [
+      {
+        "hash": "#/wizard/asw-air-search",
+        "title": "Búsqueda Aérea ASW"
+      }
+    ],
+    "asw.attack.roll": [
+      {
+        "hash": "#/wizard/asw-surface-air",
+        "title": "Ataque ASW (superficie y aéreas)"
+      }
+    ],
+    "asw.attack.sub_result": [
+      {
+        "hash": "#/wizard/asw-submarine",
+        "title": "Ataque ASW (submarinos)"
+      }
+    ],
+    "strategic.cyber.compare": [
+      {
+        "hash": "#/wizard/cyber-attack",
+        "title": "Ataque cibernético"
+      }
+    ],
+    "strategic.space.result": [
+      {
+        "hash": "#/wizard/space-war",
+        "title": "Guerra espacial"
+      }
+    ],
+    "strategic.logistics.roll": [
+      {
+        "hash": "#/wizard/army-resupply",
+        "title": "Reabastecimiento de Campo del Ejército"
+      }
+    ]
+  }
+}

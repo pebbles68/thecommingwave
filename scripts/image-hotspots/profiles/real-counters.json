@@ -1,0 +1,1098 @@
+{
+  "description": "Ficha real (images/, fuera del repositorio) que representa cada plantilla de data/counters/factor-map.json en la ayuda visual (Fase 25, AD-007). `boxes`: zona de cada factor colocada a mano en píxeles de la ficha real [x0, y0, x1, y1], según la posición del factor en la ficha de muestra; los factores que no aparecen no están impresos en esa ficha. La calibra scripts/image-hotspots/calibrate_real_counters.py, que ajusta cada zona a sus caracteres con OpenCV. `unidentified`: factores que la ficha sí parece llevar pero sin saber con seguridad qué cifra son; no se marcan hasta que el mantenedor lo confirme. AWACS: se usa la cara «operando» del E-3C (la que coincide con la muestra AWACS), no la cara de vuelo. Una zona con un quinto elemento \"fixed\" se conserva tal cual (el ajuste se quedaba con la cifra de dentro de un recuadro de color oscuro).",
+  "counters": [
+    {
+      "templateId": "aircraft-combat-tactical",
+      "image": "US-F16V.gif",
+      "unit": "F-16V (EE. UU.)",
+      "boxes": {
+        "air_combat": [
+          12,
+          16,
+          49,
+          49
+        ],
+        "model": [
+          68,
+          15,
+          106,
+          57
+        ],
+        "surface_detection": [
+          126,
+          17,
+          162,
+          50
+        ],
+        "air_search": [
+          20,
+          56,
+          35,
+          76
+        ],
+        "electronic": [
+          13,
+          78,
+          42,
+          114
+        ],
+        "signature": [
+          99,
+          58,
+          131,
+          124
+        ],
+        "logistics": [
+          138,
+          74,
+          156,
+          106
+        ],
+        "combat_support": [
+          12,
+          126,
+          44,
+          162
+        ],
+        "protection": [
+          90,
+          130,
+          112,
+          160
+        ],
+        "movement": [
+          128,
+          126,
+          165,
+          162
+        ]
+      }
+    },
+    {
+      "templateId": "aircraft-transport-tactical",
+      "image": "US-C130.gif",
+      "unit": "C-130 (EE. UU.)",
+      "boxes": {
+        "air_combat": [
+          16,
+          20,
+          48,
+          42
+        ],
+        "model": [
+          54,
+          16,
+          120,
+          58
+        ],
+        "surface_detection": [
+          128,
+          17,
+          164,
+          50
+        ],
+        "air_search": [
+          22,
+          62,
+          34,
+          74
+        ],
+        "electronic": [
+          13,
+          78,
+          42,
+          120
+        ],
+        "signature": [
+          96,
+          54,
+          130,
+          124
+        ],
+        "runway": [
+          136,
+          56,
+          156,
+          82
+        ],
+        "logistics": [
+          133,
+          82,
+          160,
+          110
+        ],
+        "capacity": [
+          11,
+          118,
+          64,
+          162
+        ],
+        "protection": [
+          93,
+          128,
+          110,
+          160
+        ],
+        "movement": [
+          133,
+          126,
+          165,
+          162
+        ]
+      }
+    },
+    {
+      "templateId": "ship-combat",
+      "image": "US-BSABF1-Fitzgerald.gif",
+      "unit": "Fitzgerald, clase Arleigh Burke (EE. UU.)",
+      "boxes": {
+        "aa": [
+          11,
+          11,
+          57,
+          48
+        ],
+        "model": [
+          55,
+          18,
+          127,
+          40
+        ],
+        "surface_detection": [
+          128,
+          16,
+          164,
+          52
+        ],
+        "anti_jamming_air_search": [
+          14,
+          54,
+          52,
+          76
+        ],
+        "electronic": [
+          13,
+          84,
+          42,
+          120
+        ],
+        "logistics": [
+          138,
+          92,
+          157,
+          120
+        ],
+        "support": [
+          14,
+          128,
+          44,
+          162
+        ],
+        "asw": [
+          60,
+          126,
+          92,
+          162
+        ],
+        "protection": [
+          108,
+          130,
+          127,
+          160
+        ],
+        "movement": [
+          138,
+          128,
+          160,
+          160
+        ]
+      }
+    },
+    {
+      "templateId": "ground-main",
+      "image": "US-LAV25.gif",
+      "unit": "LAV-25 (EE. UU.)",
+      "boxes": {
+        "aa": [
+          18,
+          18,
+          40,
+          50
+        ],
+        "model": [
+          96,
+          16,
+          162,
+          58
+        ],
+        "size": [
+          46,
+          58,
+          74,
+          112
+        ],
+        "electronic": [
+          16,
+          74,
+          44,
+          112
+        ],
+        "logistics": [
+          138,
+          60,
+          157,
+          88
+        ],
+        "attack": [
+          13,
+          124,
+          57,
+          168
+        ],
+        "defense": [
+          60,
+          124,
+          102,
+          168
+        ],
+        "protection": [
+          106,
+          130,
+          127,
+          162
+        ],
+        "initiative": [
+          130,
+          128,
+          162,
+          162
+        ]
+      }
+    },
+    {
+      "templateId": "aircraft-special-awacs",
+      "image": "US-E3C-2.png",
+      "unit": "E-3C operando (EE. UU.)",
+      "boxes": {
+        "air_detection": [
+          12,
+          8,
+          61,
+          132
+        ],
+        "air_network": [
+          68,
+          10,
+          102,
+          40
+        ],
+        "surface_detection": [
+          110,
+          12,
+          138,
+          40
+        ],
+        "signature": [
+          112,
+          44,
+          138,
+          96
+        ],
+        "anti_jamming": [
+          63,
+          59,
+          78,
+          83
+        ]
+      }
+    },
+    {
+      "templateId": "ground-tech-antiair",
+      "image": "CH-HQ9A.gif",
+      "unit": "HQ-9A (China)",
+      "boxes": {
+        "air_detection": [
+          8,
+          10,
+          57,
+          128
+        ],
+        "aa": [
+          60,
+          10,
+          98,
+          46
+        ],
+        "ballistic_defense": [
+          84,
+          31,
+          99,
+          47
+        ],
+        "electronic": [
+          60,
+          49,
+          76,
+          73
+        ],
+        "low_altitude_detection": [
+          56,
+          112,
+          77,
+          134
+        ],
+        "anti_jamming": [
+          58,
+          88,
+          74,
+          109
+        ],
+        "logistics": [
+          122,
+          72,
+          138,
+          97
+        ],
+        "protection": [
+          88,
+          102,
+          105,
+          130
+        ],
+        "mobile_or_fixed": [
+          112,
+          102,
+          132,
+          131
+        ]
+      },
+      "note": "Protección, Móvil/Fijo, Logística y Anti-Jamming por la misma posición que en la YLC-8E y la M142 (misma disposición de ficha técnica); pendiente de confirmar por el mantenedor."
+    },
+    {
+      "templateId": "low-altitude-flying",
+      "image": "US-AH64E.gif",
+      "unit": "AH-64E volando (EE. UU.)",
+      "boxes": {
+        "air_combat": [
+          14,
+          16,
+          44,
+          40
+        ],
+        "model": [
+          78,
+          16,
+          135,
+          52
+        ],
+        "electronic": [
+          11,
+          64,
+          34,
+          94
+        ],
+        "signature": [
+          83,
+          49,
+          105,
+          82
+        ],
+        "logistics": [
+          111,
+          60,
+          127,
+          87
+        ],
+        "type": [
+          11,
+          105,
+          49,
+          132
+        ],
+        "protection": [
+          67,
+          108,
+          83,
+          132
+        ],
+        "movement": [
+          93,
+          96,
+          129,
+          135
+        ]
+      }
+    },
+    {
+      "templateId": "submarine-hidden",
+      "image": "US-SSVG-2.png",
+      "unit": "Virginia oculto (EE. UU.)",
+      "boxes": {
+        "model": [
+          13,
+          10,
+          66,
+          32
+        ],
+        "ambush": [
+          105,
+          12,
+          134,
+          40
+        ],
+        "noise": [
+          67,
+          42,
+          119,
+          102
+        ],
+        "logistics": [
+          109,
+          68,
+          131,
+          94
+        ],
+        "torpedoes": [
+          13,
+          102,
+          45,
+          136
+        ],
+        "movement": [
+          113,
+          104,
+          130,
+          132
+        ]
+      }
+    },
+    {
+      "templateId": "submarine-exposed",
+      "image": "US-SSVG.gif",
+      "unit": "Virginia expuesto (EE. UU.)",
+      "boxes": {
+        "model": [
+          13,
+          10,
+          66,
+          32
+        ],
+        "ambush": [
+          105,
+          12,
+          134,
+          40
+        ],
+        "electronic": [
+          16,
+          70,
+          32,
+          92
+        ],
+        "logistics": [
+          109,
+          72,
+          131,
+          94
+        ],
+        "torpedoes": [
+          13,
+          102,
+          45,
+          136
+        ],
+        "noise": [
+          51,
+          104,
+          81,
+          136
+        ],
+        "protection": [
+          89,
+          106,
+          105,
+          134
+        ],
+        "movement": [
+          113,
+          104,
+          131,
+          134
+        ]
+      }
+    },
+    {
+      "templateId": "ship-carrier",
+      "image": "US-CVNM-Truman.gif",
+      "unit": "Truman, portaaviones nuclear (EE. UU.)",
+      "boxes": {
+        "aa": [
+          13,
+          13,
+          52,
+          48
+        ],
+        "model": [
+          59,
+          16,
+          116,
+          38
+        ],
+        "surface_detection": [
+          127,
+          13,
+          168,
+          52
+        ],
+        "anti_jamming_air_search": [
+          13,
+          52,
+          48,
+          76
+        ],
+        "electronic": [
+          11,
+          80,
+          42,
+          122
+        ],
+        "port_level": [
+          133,
+          54,
+          154,
+          78
+        ],
+        "logistics": [
+          131,
+          90,
+          156,
+          116
+        ],
+        "runway": [
+          13,
+          128,
+          42,
+          162
+        ],
+        "asw": [
+          61,
+          126,
+          94,
+          162
+        ],
+        "protection": [
+          103,
+          126,
+          126,
+          164
+        ],
+        "movement": [
+          135,
+          126,
+          156,
+          162
+        ]
+      }
+    },
+    {
+      "templateId": "low-altitude-operating",
+      "image": "US-AH64E-2.png",
+      "unit": "AH-64E operando (EE. UU.)",
+      "boxes": {
+        "skill": [
+          12,
+          9,
+          74,
+          50
+        ],
+        "surface_detection": [
+          104,
+          11,
+          134,
+          41
+        ],
+        "model": [
+          81,
+          39,
+          134,
+          76
+        ],
+        "electronic": [
+          13,
+          55,
+          35,
+          85
+        ],
+        "type": [
+          11,
+          99,
+          37,
+          131
+        ],
+        "signature": [
+          105,
+          77,
+          131,
+          131
+        ]
+      }
+    },
+    {
+      "templateId": "ground-tech-fire",
+      "image": "US-M142.gif",
+      "unit": "M142 HIMARS (EE. UU.)",
+      "boxes": {
+        "aa": [
+          16,
+          29,
+          26,
+          35
+        ],
+        "model": [
+          60,
+          13,
+          130,
+          47
+        ],
+        "logistics": [
+          117,
+          49,
+          125,
+          72
+        ],
+        "electronic": [
+          13,
+          59,
+          37,
+          91
+        ],
+        "function_support": [
+          11,
+          101,
+          38,
+          133
+        ],
+        "protection": [
+          78,
+          105,
+          95,
+          131
+        ],
+        "mobile_or_fixed": [
+          109,
+          104,
+          130,
+          132
+        ]
+      }
+    },
+    {
+      "templateId": "ground-tech-antisurface",
+      "image": "CH-YJ12B-2.png",
+      "unit": "YJ-12B (China)",
+      "boxes": {
+        "aa": [
+          17,
+          28,
+          27,
+          38
+        ],
+        "model": [
+          37,
+          15,
+          109,
+          49
+        ],
+        "surface_detection": [
+          115,
+          19,
+          131,
+          43
+        ],
+        "logistics": [
+          117,
+          55,
+          131,
+          73
+        ],
+        "electronic": [
+          14,
+          61,
+          35,
+          93,
+          "fixed"
+        ],
+        "function_type": [
+          13,
+          101,
+          63,
+          133
+        ],
+        "protection": [
+          81,
+          108,
+          97,
+          132
+        ],
+        "mobile_or_fixed": [
+          114,
+          106,
+          130,
+          133
+        ]
+      }
+    },
+    {
+      "templateId": "ground-tech-heliport",
+      "image": "US-Heliport11.gif",
+      "unit": "Helipuerto 11 (EE. UU.)",
+      "boxes": {
+        "electronic": [
+          13,
+          65,
+          37,
+          97
+        ],
+        "number": [
+          79,
+          51,
+          129,
+          99
+        ],
+        "protection": [
+          77,
+          107,
+          95,
+          133
+        ],
+        "initiative": [
+          111,
+          107,
+          131,
+          133
+        ]
+      }
+    },
+    {
+      "templateId": "ground-tech-earlywarning",
+      "image": "CH-YLC8E.gif",
+      "unit": "YLC-8E (China)",
+      "boxes": {
+        "air_detection": [
+          8,
+          7,
+          57,
+          133
+        ],
+        "skill": [
+          63,
+          15,
+          93,
+          47
+        ],
+        "electronic": [
+          73,
+          63,
+          93,
+          91
+        ],
+        "anti_jamming": [
+          59,
+          87,
+          73,
+          107
+        ],
+        "logistics": [
+          121,
+          73,
+          137,
+          95
+        ],
+        "low_altitude_detection": [
+          53,
+          113,
+          77,
+          135
+        ],
+        "protection": [
+          87,
+          103,
+          103,
+          131
+        ],
+        "mobile_or_fixed": [
+          113,
+          103,
+          131,
+          131
+        ]
+      }
+    },
+    {
+      "templateId": "aircraft-special-other-operating",
+      "image": "US-KC135-2.png",
+      "unit": "KC-135 operando (EE. UU.)",
+      "boxes": {
+        "skill_1": [
+          11,
+          7,
+          61,
+          51
+        ],
+        "electronic": [
+          13,
+          55,
+          35,
+          85
+        ],
+        "signature": [
+          107,
+          41,
+          137,
+          97
+        ],
+        "operational_category": [
+          73,
+          99,
+          139,
+          133
+        ]
+      }
+    },
+    {
+      "templateId": "surface-transport-underway",
+      "image": "US-LFSA-NewOrleans.gif",
+      "unit": "New Orleans, transporte navegando (EE. UU.)",
+      "unidentified": [
+        "hull_number",
+        "port_level"
+      ],
+      "boxes": {
+        "aa": [
+          17,
+          17,
+          50,
+          47
+        ],
+        "model": [
+          57,
+          19,
+          119,
+          39
+        ],
+        "surface_detection": [
+          131,
+          17,
+          163,
+          49
+        ],
+        "anti_jamming_air_search": [
+          17,
+          55,
+          51,
+          75
+        ],
+        "electronic": [
+          17,
+          81,
+          47,
+          121
+        ],
+        "logistics": [
+          143,
+          89,
+          159,
+          117
+        ],
+        "one_unit_capacity": [
+          13,
+          121,
+          57,
+          163
+        ],
+        "max_capacity": [
+          63,
+          123,
+          101,
+          161
+        ],
+        "protection": [
+          115,
+          130,
+          134,
+          160
+        ],
+        "movement": [
+          140,
+          129,
+          161,
+          160
+        ]
+      }
+    },
+    {
+      "templateId": "surface-transport-loading",
+      "image": "US-LFSA-Greenbay-2.png",
+      "unit": "Green Bay, transporte cargando (EE. UU.)",
+      "unidentified": [
+        "hull_number",
+        "port_level"
+      ],
+      "boxes": {
+        "aa": [
+          17,
+          17,
+          50,
+          47
+        ],
+        "model": [
+          57,
+          19,
+          119,
+          39
+        ],
+        "surface_detection": [
+          131,
+          17,
+          163,
+          49
+        ],
+        "anti_jamming_air_search": [
+          17,
+          55,
+          51,
+          75
+        ],
+        "electronic": [
+          17,
+          81,
+          47,
+          121
+        ],
+        "one_unit_capacity": [
+          13,
+          121,
+          57,
+          163
+        ],
+        "max_capacity": [
+          63,
+          123,
+          101,
+          161
+        ],
+        "protection": [
+          115,
+          130,
+          134,
+          160
+        ],
+        "unload": [
+          139,
+          137,
+          157,
+          153
+        ]
+      }
+    },
+    {
+      "templateId": "aircraft-special-flying",
+      "image": "KR-R737.gif",
+      "unit": "E-737 AWACS volando (Corea del Sur)",
+      "boxes": {
+        "air_combat": [
+          12,
+          12,
+          39,
+          32
+        ],
+        "model": [
+          53,
+          12,
+          90,
+          46
+        ],
+        "electronic": [
+          11,
+          57,
+          34,
+          89
+        ],
+        "signature": [
+          78,
+          45,
+          109,
+          103
+        ],
+        "runway": [
+          116,
+          44,
+          129,
+          63
+        ],
+        "logistics": [
+          116,
+          69,
+          129,
+          92
+        ],
+        "operational_category": [
+          10,
+          107,
+          71,
+          133
+        ],
+        "protection": [
+          71,
+          107,
+          85,
+          133
+        ],
+        "movement": [
+          99,
+          104,
+          133,
+          133
+        ]
+      },
+      "note": "Indicada por el mantenedor (2026-11-01) como AWACS: es la cara de vuelo; la plantilla «AWACS» de la leyenda es la cara operando (E-3C)."
+    },
+    {
+      "templateId": "low-altitude-operating-transport",
+      "image": "CH-Z8-2.png",
+      "unit": "Z-8 operando (China)",
+      "boxes": {
+        "skill": [
+          13,
+          11,
+          75,
+          53
+        ],
+        "model": [
+          99,
+          41,
+          137,
+          77
+        ],
+        "electronic": [
+          14,
+          57,
+          36,
+          87
+        ],
+        "capacity": [
+          13,
+          93,
+          57,
+          136
+        ],
+        "signature": [
+          107,
+          79,
+          133,
+          131
+        ]
+      }
+    }
+  ]
+}

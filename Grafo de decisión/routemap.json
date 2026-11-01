@@ -1,0 +1,937 @@
+{
+  "schema_version": "1.0",
+  "title": "The Coming Wave — routemap de combate, ataques, localizaciones y ASW",
+  "language": "es-ES",
+  "entrypoint": "start.scope",
+  "source_policy": {
+    "precedence": [
+      "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+      "Tablas-de-combate 5.pdf"
+    ],
+    "note": "El Decision Book gobierna legalidad y secuencia; las tablas gobiernan cruces numéricos. Las páginas citadas son páginas físicas del PDF.",
+    "glyph_warning": "Algunos símbolos de capacidad no se extraen como texto. Deben compararse visualmente con la ficha y la página citada; no se deben inferir por el nombre de la unidad."
+  },
+  "invariants": [
+    "Todo nodo decision tiene dos o más rutas.",
+    "Todo nodo terminal tiene cero rutas.",
+    "No existen nodos de acción con una única salida: los efectos automáticos viven en routes[].effects.",
+    "Solo se formula la pregunta del nodo actual.",
+    "Las rutas pueden converger si conservan efectos de estado distintos.",
+    "Una consulta numérica termina en una instrucción de tabla con fila, columna, tirada y página explícitas."
+  ],
+  "overview": [
+    {"id":"land","label":"Objetivos terrestres","entry":"land.kind","procedures":["Combate cercano","Ataque guiado","Ataque no guiado","Antirradiación"]},
+    {"id":"air","label":"Unidades aéreas","entry":"air.kind","procedures":["Intercepción / penetración","Defensa aérea de área"]},
+    {"id":"surface","label":"Buques de superficie","entry":"surface.kind","procedures":["Antibuque guiado","Antibuque no guiado","Combate naval cercano","Torpedos contra superficie"]},
+    {"id":"asw","label":"Detección y combate ASW","entry":"asw.kind","procedures":["Búsqueda por firma","Búsqueda aérea","Ataque ASW"]},
+    {"id":"strategic","label":"Acciones estratégicas y logística","entry":"strategic.kind","procedures":["Guerra cibernética","Destrucción espacial","Reabastecimiento"]}
+  ],
+  "nodes": {
+    "start.scope": {
+      "type": "decision",
+      "question": "¿Qué tipo de situación o qué clase de objetivo quieres resolver?",
+      "source": ["Tablas p.1"],
+      "routes": [
+        {"answer":"Combate o ataque contra un objetivo terrestre","to":"land.kind"},
+        {"answer":"Combate aéreo o defensa contra unidades aéreas","to":"air.kind"},
+        {"answer":"Ataque contra buques de superficie","to":"surface.kind"},
+        {"answer":"Detección o ataque antisubmarino (ASW)","to":"asw.kind"},
+        {"answer":"Acción estratégica, ciberespacial, espacial o logística","to":"strategic.kind"}
+      ]
+    },
+    "land.kind": {
+      "type": "decision",
+      "question": "¿Qué procedimiento terrestre estás resolviendo?",
+      "source": ["Tablas pp.2-14", "Reglas 5.11-5.16 y 8.6-8.9"],
+      "routes": [
+        {"answer":"Combate cercano entre unidades terrestres","to":"land.close.mode"},
+        {"answer":"Ataque terrestre guiado","to":"land.guided.target"},
+        {"answer":"Ataque terrestre no guiado","to":"land.unguided.target"},
+        {"answer":"Ataque antirradiación (ARM)","to":"land.arm.target_active"}
+      ]
+    },
+    "land.close.mode": {
+      "type": "decision",
+      "question": "¿La unidad principal inicia el combate de forma activa o participa de forma pasiva?",
+      "source": ["Tablas p.2", "Reglas 8.6.1-8.7.4"],
+      "routes": [
+        {"answer":"Activa","to":"land.close.supply","effects":["Usar cabecera Activo en la tabla de combate cercano."]},
+        {"answer":"Pasiva","to":"land.close.support","effects":["Usar cabecera Pasivo en la tabla de combate cercano."]}
+      ]
+    },
+    "land.close.supply": {
+      "type": "decision",
+      "question": "¿La unidad principal activa está fuera de suministro?",
+      "source": ["Tablas p.2", "Reglas 11.4-11.5"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.illegal.active_out_of_supply"},
+        {"answer":"No","to":"land.close.support"}
+      ]
+    },
+    "land.close.support": {
+      "type": "decision",
+      "question": "¿Se añade apoyo de combate a la fuerza de ataque?",
+      "source": ["Tablas p.2", "Reglas 8.8"],
+      "routes": [
+        {"answer":"Sí","to":"land.close.ew","effects":["Sumar el apoyo legal al valor de ataque antes de elegir columna."]},
+        {"answer":"No","to":"land.close.ew","effects":["Usar solo el valor de ataque aplicable."]}
+      ]
+    },
+    "land.close.ew": {
+      "type": "decision",
+      "question": "¿Cuál es la diferencia electrónica entre el valor mayor y el menor?",
+      "source": ["Tablas p.2", "Reglas 8.7.5"],
+      "routes": [
+        {"answer":"Valores iguales: sin guerra electrónica","to":"land.close.roll","effects":["No hay efecto electrónico especial."]},
+        {"answer":"1-2","to":"land.close.roll","effects":["Cruzar la tirada con la columna Dif. electrónica 1-2."]},
+        {"answer":"3-4","to":"land.close.roll","effects":["Cruzar la tirada con la columna Dif. electrónica 3-4."]},
+        {"answer":"5-6","to":"land.close.roll","effects":["Cruzar la tirada con la columna Dif. electrónica 5-6."]},
+        {"answer":"7+","to":"land.close.roll","effects":["Cruzar la tirada con la columna Dif. electrónica 7+."]}
+      ]
+    },
+    "land.close.roll": {
+      "type": "decision",
+      "question": "Tras tirar 1d10 y cruzar la columna de ataque, ¿se activa el resultado electrónico ✔?",
+      "source": ["Tablas p.2"],
+      "routes": [
+        {"answer":"Sí","to":"land.close.casualties","effects":["Duplicar el número de impactos causados por el bando con ventaja electrónica."]},
+        {"answer":"No","to":"land.close.casualties","effects":["Mantener los impactos de la tabla sin duplicación electrónica."]}
+      ]
+    },
+    "land.close.casualties": {
+      "type": "decision",
+      "question": "Al cruzar nivel de la unidad y tamaño previo, ¿cómo queda el umbral de bajas?",
+      "source": ["Tablas p.2", "Reglas 8.7.6-8.7.9"],
+      "routes": [
+        {"answer":"No alcanza ningún umbral","to":"terminal.land.close","effects":["La unidad no queda Derrotada por este resultado."]},
+        {"answer":"Alcanza valor único o supera el máximo del rango","to":"terminal.land.close","effects":["La unidad queda Derrotada, Brevemente Detectable y puede ser Perseguida."]},
+        {"answer":"Supera el mínimo pero no el máximo del rango","to":"terminal.land.close","effects":["El propietario elige si la unidad queda Derrotada."]}
+      ]
+    },
+    "land.guided.target": {
+      "type": "decision",
+      "question": "¿Qué clase de objetivo recibe el ataque terrestre guiado?",
+      "source": ["Tablas pp.5-6", "Reglas 5.12 y 5.15"],
+      "routes": [
+        {"answer":"Instalación fija","to":"land.guided.fixed_ecm","effects":["Usar modificador de Valor Electrónico de instalación fija."]},
+        {"answer":"Unidad principal móvil","to":"land.guided.mobile_distance","effects":["Usar modificadores Básico de objetivo móvil."]},
+        {"answer":"Unidad técnica móvil","to":"land.guided.tech_ecm","effects":["Usar Básico + Técnico."]}
+      ]
+    },
+    "land.guided.fixed_ecm": {
+      "type": "decision",
+      "question": "¿Cuál es el Valor Electrónico de la instalación fija?",
+      "source": ["Tablas p.5", "Reglas 5.12.8"],
+      "routes": [
+        {"answer":"0","to":"land.guided.area","effects":["Modificador 0."]},
+        {"answer":"1","to":"land.guided.area","effects":["Modificador -1 columna."]},
+        {"answer":"2","to":"land.guided.area","effects":["Modificador -5 columnas."]},
+        {"answer":"3","to":"land.guided.area","effects":["Modificador -10 columnas."]}
+      ]
+    },
+    "land.guided.tech_ecm": {
+      "type": "decision",
+      "question": "¿Cuál es el Valor Electrónico de la unidad técnica?",
+      "source": ["Tablas p.5", "Reglas 5.12.7"],
+      "routes": [
+        {"answer":"0","to":"land.guided.mobile_distance","effects":["Modificador Técnico 0."]},
+        {"answer":"1","to":"land.guided.mobile_distance","effects":["Modificador Técnico -2 columnas."]},
+        {"answer":"2","to":"land.guided.mobile_distance","effects":["Modificador Técnico -4 columnas."]},
+        {"answer":"3","to":"land.guided.mobile_distance","effects":["Modificador Técnico -8 columnas."]}
+      ]
+    },
+    "land.guided.mobile_distance": {
+      "type": "decision",
+      "question": "¿Qué distancia de ataque aplica al objetivo móvil?",
+      "source": ["Tablas p.5", "Reglas 5.12.3"],
+      "routes": [
+        {"answer":"Distancia 0 / misión de área ≤1","to":"land.guided.mobile_special","effects":["Modificador Básico -2 columnas."]},
+        {"answer":"Distancia 1 / misión de área ≤2","to":"land.guided.mobile_special","effects":["Modificador Básico -5 columnas."]},
+        {"answer":"Distancia ≥2 / misión de área ≥3","to":"land.guided.mobile_special","effects":["Modificador Básico -10 columnas."]}
+      ]
+    },
+    "land.guided.mobile_special": {
+      "type": "decision",
+      "question": "¿Qué ajustes positivos aplican al objetivo móvil?",
+      "source": ["Tablas p.5", "Reglas 5.12.4-5.12.6"],
+      "routes": [
+        {"answer":"Ninguno","to":"land.guided.area"},
+        {"answer":"Alta penetración + supersónico","to":"land.guided.area","effects":["Añadir +2."]},
+        {"answer":"Exceso de densidad de fuerza","to":"land.guided.area","effects":["Añadir +2 por cada 5 puntos que excedan el límite."]},
+        {"answer":"Corrección de designación","to":"land.guided.area","effects":["Añadir el modificador de guiado impreso/aplicable."]},
+        {"answer":"Se combinan varios","to":"land.guided.area","effects":["Sumar todos los ajustes legales anteriores."]}
+      ]
+    },
+    "land.guided.area": {
+      "type": "decision",
+      "question": "¿Existe defensa aérea de área elegible y el defensor decide disparar?",
+      "source": ["Tablas p.3", "Reglas 6.3"],
+      "routes": [
+        {"answer":"Sí","to":"land.guided.munition","effects":["Resolver reducción por VA de defensa, consumo, trayectoria y detección en tabla p.3."]},
+        {"answer":"No","to":"land.guided.munition","effects":["No aplicar reducción de defensa aérea de área."]}
+      ]
+    },
+    "land.guided.munition": {
+      "type": "decision",
+      "question": "¿Hay una unidad elegible que realice interceptación de munición?",
+      "source": ["Tablas p.4", "Reglas 6.5"],
+      "routes": [
+        {"answer":"Sí","to":"land.guided.roll9","effects":["Resolver cada sistema por separado; aplicar método, consumo, alcance, detección y límites de mismo hex."]},
+        {"answer":"No","to":"land.guided.roll9","effects":["Conservar el valor tras defensa de área."]}
+      ]
+    },
+    "land.guided.roll9": {
+      "type": "decision",
+      "question": "¿El resultado natural del d10 de ataque es 9?",
+      "source": ["Tablas p.5", "Reglas 5.12.9-5.12.10"],
+      "routes": [
+        {"answer":"Sí","to":"land.guided.counter","effects":["Cancelar modificaciones de intensidad y resolver en la columna no desplazada; VA máximo 13."]},
+        {"answer":"No","to":"land.guided.counter","effects":["Desplazar columnas según el modificador total, omitiendo columnas ·; todo modificador ≥1 se trata como 0; VA máximo 13."]}
+      ]
+    },
+    "land.guided.counter": {
+      "type": "decision",
+      "question": "¿El atacante es de baja altura, está en el mismo hex y el objetivo tiene capacidad de contraataque?",
+      "source": ["Tablas p.6", "Reglas 5.12.11 y 6.6"],
+      "routes": [
+        {"answer":"Sí","to":"land.damage.kind","effects":["Resolver contraataque a baja altura; no consume munición AA."]},
+        {"answer":"No","to":"land.damage.kind","effects":["Omitir contraataque a baja altura."]}
+      ]
+    },
+    "land.unguided.target": {
+      "type": "decision",
+      "question": "¿Qué clase de objetivo recibe el ataque terrestre no guiado?",
+      "source": ["Tablas pp.8-10", "Reglas 5.13 y 5.15"],
+      "routes": [
+        {"answer":"Instalación fija","to":"land.unguided.final","effects":["Sin modificador de intensidad por tipo de instalación."]},
+        {"answer":"Unidad principal móvil","to":"land.unguided.distance","effects":["Aplicar Básico."]},
+        {"answer":"Unidad técnica móvil","to":"land.unguided.distance","effects":["Aplicar Básico de unidad técnica según la tabla."]}
+      ]
+    },
+    "land.unguided.distance": {
+      "type": "decision",
+      "question": "¿Qué distancia de ataque aplica al objetivo móvil?",
+      "source": ["Tablas p.8", "Reglas 5.13.3"],
+      "routes": [
+        {"answer":"Distancia 0 / misión de área ≤1","to":"land.unguided.adjust","effects":["Aplicar -2 columnas."]},
+        {"answer":"Distancia 1 / misión de área ≤2","to":"land.unguided.adjust","effects":["Aplicar -5 columnas."]},
+        {"answer":"Distancia ≥2 / misión de área ≥3","to":"land.unguided.adjust","effects":["Aplicar -10 columnas."]}
+      ]
+    },
+    "land.unguided.adjust": {
+      "type": "decision",
+      "question": "¿Hay ajuste por densidad de fuerza o corrección de designación?",
+      "source": ["Tablas p.8", "Reglas 5.13.4-5.13.5"],
+      "routes": [
+        {"answer":"No","to":"land.unguided.final"},
+        {"answer":"Solo densidad","to":"land.unguided.final","effects":["Añadir +2 por cada 5 puntos que excedan el límite."]},
+        {"answer":"Solo designación","to":"land.unguided.final","effects":["Añadir el modificador de guiado aplicable."]},
+        {"answer":"Ambos","to":"land.unguided.final","effects":["Sumar densidad y designación."]}
+      ]
+    },
+    "land.unguided.final": {
+      "type": "decision",
+      "question": "¿Existe capacidad de interceptación final contra la unidad atacante?",
+      "source": ["Tablas p.7", "Reglas 6.4"],
+      "routes": [
+        {"answer":"Sí","to":"land.unguided.munition","effects":["Resolver una sola interceptación final para el ataque; unidades terrestres no consumen munición AA."]},
+        {"answer":"No","to":"land.unguided.munition"}
+      ]
+    },
+    "land.unguided.munition": {
+      "type": "decision",
+      "question": "¿Hay interceptación de munición elegible?",
+      "source": ["Tablas p.8", "Reglas 6.5"],
+      "routes": [
+        {"answer":"Sí","to":"land.unguided.roll9","effects":["Resolver reducción por cada sistema independiente con sus modificadores."]},
+        {"answer":"No","to":"land.unguided.roll9"}
+      ]
+    },
+    "land.unguided.roll9": {
+      "type": "decision",
+      "question": "¿El resultado natural del d10 de ataque es 9?",
+      "source": ["Tablas pp.8-9", "Reglas 5.13.6"],
+      "routes": [
+        {"answer":"Sí","to":"land.unguided.counter","effects":["Cancelar modificaciones de intensidad y usar tabla p.9."]},
+        {"answer":"No","to":"land.unguided.counter","effects":["Aplicar desplazamiento de columnas, omitiendo ·, y resolver cada método por separado."]}
+      ]
+    },
+    "land.unguided.counter": {
+      "type": "decision",
+      "question": "¿Se cumplen baja altura, mismo hex y capacidad del objetivo para contraatacar?",
+      "source": ["Tablas p.10", "Reglas 5.13.7 y 6.6"],
+      "routes": [
+        {"answer":"Sí","to":"land.damage.kind","effects":["Resolver contraataque a baja altura sin consumo de munición AA."]},
+        {"answer":"No","to":"land.damage.kind"}
+      ]
+    },
+    "land.arm.target_active": {
+      "type": "decision",
+      "question": "¿El objetivo es un sistema de detección activado y legal para ARM?",
+      "source": ["Tablas p.13", "Reglas 5.14"],
+      "routes": [
+        {"answer":"Sí","to":"land.arm.area","effects":["Aplicar modificador antirradiación -5; el terreno no aporta protección."]},
+        {"answer":"No","to":"terminal.illegal.arm_target"}
+      ]
+    },
+    "land.arm.area": {
+      "type": "decision",
+      "question": "¿Hay defensa aérea de área elegible contra el marcador ARM?",
+      "source": ["Tablas p.11", "Reglas 5.14.1 y 6.3"],
+      "routes": [
+        {"answer":"Sí","to":"land.arm.munition","effects":["Resolver fuego concentrado y modificador -2 si atacante no detectado."]},
+        {"answer":"No","to":"land.arm.munition"}
+      ]
+    },
+    "land.arm.munition": {
+      "type": "decision",
+      "question": "¿Hay interceptación de munición elegible?",
+      "source": ["Tablas p.12", "Reglas 6.5"],
+      "routes": [
+        {"answer":"Sí","to":"land.arm.roll9","effects":["Resolver cada buque/sistema por separado con detección, rendimiento y alcance."]},
+        {"answer":"No","to":"land.arm.roll9"}
+      ]
+    },
+    "land.arm.roll9": {
+      "type": "decision",
+      "question": "¿El resultado natural del d10 es 9?",
+      "source": ["Tablas p.13", "Reglas 5.14.2-5.14.3"],
+      "routes": [
+        {"answer":"Sí","to":"land.arm.counter","effects":["Cancelar el desplazamiento -5 y resolver con VA máximo 13."]},
+        {"answer":"No","to":"land.arm.counter","effects":["Aplicar -5 columnas, omitiendo ·, y resolver cada método por separado."]}
+      ]
+    },
+    "land.arm.counter": {
+      "type": "decision",
+      "question": "¿El atacante ARM es de baja altura, está en el mismo hex y el objetivo puede contraatacar?",
+      "source": ["Tablas p.14", "Reglas 6.6"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.land.arm","effects":["Resolver contraataque a baja altura sin consumo AA."]},
+        {"answer":"No","to":"terminal.land.arm"}
+      ]
+    },
+    "air.kind": {
+      "type": "decision",
+      "question": "¿Qué resolución aérea corresponde?",
+      "source": ["Tablas pp.15-18", "Reglas 7.15-7.17 y 6.3"],
+      "routes": [
+        {"answer":"Intercepción / penetración / combate aire-aire","to":"air.intercept.mode"},
+        {"answer":"Defensa aérea de área contra aeronaves, helicópteros o UAV","to":"air.area.target"}
+      ]
+    },
+    "air.intercept.mode": {
+      "type": "decision",
+      "question": "¿Es una intercepción de penetración o una intercepción de combate aéreo?",
+      "source": ["Tablas p.15", "Reglas 7.15-7.17"],
+      "routes": [
+        {"answer":"Penetración","to":"air.intercept.awacs","effects":["Usar columna Interceptación de Penetración."]},
+        {"answer":"Combate aéreo","to":"air.intercept.awacs","effects":["Usar columna Intercepción de Combate Aéreo."]}
+      ]
+    },
+    "air.intercept.awacs": {
+      "type": "decision",
+      "question": "¿Qué bandos tienen un AWACS válido que detecta a la unidad aérea contraria?",
+      "source": ["Tablas p.15", "Reglas 7.11 y 7.16-7.17"],
+      "routes": [
+        {"answer":"Ninguno","to":"air.intercept.initiative","effects":["No aplicar modificadores AWACS a la Iniciativa."]},
+        {"answer":"Solo el bando atacante detecta al defensor","to":"air.intercept.initiative","effects":["Añadir +1 a la Iniciativa del atacante antes de calcular la diferencia."]},
+        {"answer":"Solo el bando defensor detecta al atacante","to":"air.intercept.initiative","effects":["Añadir +1 a la Iniciativa del defensor antes de calcular la diferencia."]},
+        {"answer":"Ambos bandos se detectan mediante AWACS","to":"air.intercept.initiative","effects":["Añadir +1 a la Iniciativa de ambos bandos; la diferencia entre ellos no cambia por AWACS."]}
+      ]
+    },
+    "air.intercept.initiative": {
+      "type": "decision",
+      "question": "¿Cuál es la diferencia final de Iniciativa?",
+      "source": ["Tablas p.15"],
+      "routes": [
+        {"answer":"0","to":"air.intercept.band","effects":["DRM +0; no hay bando con ventaja por diferencia."]},
+        {"answer":"1","to":"air.intercept.band","effects":["DRM +3 para el bando con iniciativa mayor."]},
+        {"answer":"2","to":"air.intercept.band","effects":["DRM +5."]},
+        {"answer":"3-4","to":"air.intercept.band","effects":["DRM +6."]},
+        {"answer":"5-7","to":"air.intercept.band","effects":["DRM +7."]},
+        {"answer":"8+","to":"air.intercept.band","effects":["DRM +8."]}
+      ]
+    },
+    "air.intercept.band": {
+      "type": "decision",
+      "question": "¿En qué banda queda 1d10 + DRM?",
+      "source": ["Tablas p.15"],
+      "routes": [
+        {"answer":"0-5","to":"air.intercept.wvr","effects":["Sin combate BVR."]},
+        {"answer":"6-9","to":"air.intercept.bvr","effects":["BVR simultáneo; en penetración sigilosa, una unidad con Firma Aérea 1 y LF-CM puede penetrar."]},
+        {"answer":"10+","to":"air.intercept.bvr","effects":["BVR con ventaja; en penetración, el bando con ventaja puede lograr penetración exitosa."]}
+      ]
+    },
+    "air.intercept.bvr": {
+      "type": "decision",
+      "question": "Tras resolver BVR unidad contra unidad, ¿queda alguna unidad enemiga capaz de continuar?",
+      "source": ["Tablas p.16", "Reglas 7.16.1-7.16.3 y 7.17.1-7.17.3"],
+      "routes": [
+        {"answer":"No","to":"terminal.air.intercept","effects":["Finalizar: el enemigo fue destruido o retirado temporalmente."]},
+        {"answer":"Sí","to":"air.intercept.wvr","effects":["Conservar retiradas temporales y daños antes de WVR."]}
+      ]
+    },
+    "air.intercept.wvr": {
+      "type": "decision",
+      "question": "¿Ambos bandos entran o permanecen en combate cercano WVR?",
+      "source": ["Tablas p.17", "Reglas 7.16.4 y 7.17.4"],
+      "routes": [
+        {"answer":"Sí","to":"air.intercept.network","effects":["Sumar CA elegible de todas las unidades y resolver la ronda WVR."]},
+        {"answer":"No","to":"terminal.air.intercept"}
+      ]
+    },
+    "air.intercept.network": {
+      "type": "decision",
+      "question": "¿Hay una patrulla en red elegible del mismo nodo, a ≤4 hex y dentro del límite de una patrulla?",
+      "source": ["Tablas p.17", "Reglas 7.11 y 7.16.4"],
+      "routes": [
+        {"answer":"Sí","to":"air.intercept.round","effects":["Añadirla al WVR; la patrulla enemiga en red solo entra desde la segunda ronda cuando corresponda."]},
+        {"answer":"No","to":"air.intercept.round"}
+      ]
+    },
+    "air.intercept.round": {
+      "type": "decision",
+      "question": "Tras la ronda WVR, ¿ambos bandos conservan unidades y desean continuar?",
+      "source": ["Tablas p.17"],
+      "routes": [
+        {"answer":"Sí","to":"air.intercept.round","effects":["Jugar otra ronda; si la anterior no causó bajas, acumular +1."]},
+        {"answer":"No","to":"terminal.air.intercept","effects":["Aplicar retirada; si se pierde el duelo, todas las unidades de ese bando salen, se retiran temporalmente o son destruidas."]}
+      ]
+    },
+    "air.area.target": {
+      "type": "decision",
+      "question": "¿Qué tipo de objetivo aéreo recibe el disparo de área?",
+      "source": ["Tablas p.18", "Reglas 6.3"],
+      "routes": [
+        {"answer":"Convencional","to":"air.area.eligible"},
+        {"answer":"Baja altura","to":"air.area.eligible","effects":["Los sistemas de superficie solo disparan si detectaron por sí mismos al objetivo."]},
+        {"answer":"Espacio cercano","to":"air.area.eligible","effects":["Exigir capacidad de combate a gran altura; no confundir con ataques desde espacio cercano de expansión."]}
+      ]
+    },
+    "air.area.eligible": {
+      "type": "decision",
+      "question": "¿El sistema cumple las restricciones de clase, detección y altitud del objetivo?",
+      "source": ["Tablas p.18", "Reglas 6.3.1"],
+      "routes": [
+        {"answer":"Sí","to":"air.area.escort"},
+        {"answer":"No","to":"terminal.illegal.air_area"}
+      ]
+    },
+    "air.area.escort": {
+      "type": "decision",
+      "question": "¿Hay escolta electrónica con protección aplicable?",
+      "source": ["Tablas p.18", "Reglas 7.10.4"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.air.area","effects":["La escolta absorbe impactos prioritariamente; resolver VA, consumo y 1d10 en p.18."]},
+        {"answer":"No","to":"terminal.air.area","effects":["Resolver VA, consumo y 1d10 en p.18 sin absorción prioritaria."]}
+      ]
+    },
+    "surface.kind": {
+      "type": "decision",
+      "question": "¿Qué ataque contra unidades de superficie estás resolviendo?",
+      "source": ["Tablas pp.19-27", "Reglas 5.5-5.10 y 9.8-9.13"],
+      "routes": [
+        {"answer":"Ataque antibuque guiado","to":"surface.guided.method"},
+        {"answer":"Ataque antibuque no guiado","to":"surface.unguided.final"},
+        {"answer":"Combate naval cercano con artillería","to":"surface.close.same_hex"},
+        {"answer":"Torpedos de submarino contra superficie","to":"surface.torpedo.ambush"}
+      ]
+    },
+    "surface.guided.method": {
+      "type": "decision",
+      "question": "¿Qué método de ataque guiado se usa?",
+      "source": ["Tablas pp.19-22", "Reglas 5.6"],
+      "routes": [
+        {"answer":"Subsónico","to":"surface.guided.area","effects":["La resolución de ataque usa 2d10 y elige el mayor; cada impacto causa 1 daño."]},
+        {"answer":"Supersónico","to":"surface.guided.area","effects":["Usa 1d10; cada impacto causa 2 daños."]},
+        {"answer":"Balístico","to":"surface.guided.area","effects":["Usa 1d10 y aplica daño según símbolo de Resistencia."]},
+        {"answer":"Espacio cercano","to":"surface.guided.area","effects":["Usa 1d10 y aplica daño según símbolo de Resistencia."]}
+      ]
+    },
+    "surface.guided.area": {
+      "type": "decision",
+      "question": "¿Hay defensa aérea de área elegible contra la munición?",
+      "source": ["Tablas p.19", "Reglas 5.6.1 y 6.3"],
+      "routes": [
+        {"answer":"Sí","to":"surface.guided.munition","effects":["Resolver reducción; aplicar trayectoria, detección y capacidad frente a BM."]},
+        {"answer":"No","to":"surface.guided.munition"}
+      ]
+    },
+    "surface.guided.munition": {
+      "type": "decision",
+      "question": "¿Hay interceptación de munición elegible?",
+      "source": ["Tablas p.20", "Reglas 6.5"],
+      "routes": [
+        {"answer":"Sí","to":"surface.guided.detection","effects":["Resolver cada sistema por separado y aplicar límites de mismo hex/ZoC y BVR."]},
+        {"answer":"No","to":"surface.guided.detection"}
+      ]
+    },
+    "surface.guided.detection": {
+      "type": "decision",
+      "question": "¿Qué ha detectado el defensor respecto al atacante y al guía/designador?",
+      "source": ["Tablas p.21", "Reglas 5.6.2-5.6.3"],
+      "routes": [
+        {"answer":"Atacante detectado","to":"surface.guided.range","effects":["Sin penalización de detección."]},
+        {"answer":"Atacante no; guía sí","to":"surface.guided.range","effects":["Modificador -1."]},
+        {"answer":"Ni atacante ni guía","to":"surface.guided.range","effects":["Modificador -3."]}
+      ]
+    },
+    "surface.guided.range": {
+      "type": "decision",
+      "question": "¿Qué distancia de ataque o misión de área aplica?",
+      "source": ["Tablas p.21"],
+      "routes": [
+        {"answer":"0-2 / área 0-3","to":"surface.guided.vef","effects":["Modificador +0."]},
+        {"answer":"3-5 / área 4-6","to":"surface.guided.vef","effects":["Modificador +1."]},
+        {"answer":"6+ / área 7+","to":"surface.guided.vef","effects":["Modificador +3."]}
+      ]
+    },
+    "surface.guided.vef": {
+      "type": "decision",
+      "question": "¿En qué banda queda el Valor Electrónico de la Flota (VEF)?",
+      "source": ["Tablas p.21"],
+      "routes": [
+        {"answer":"≤-1","to":"surface.guided.counter","effects":["Modificador VEF +7; convertir modificador total a multiplicador según p.21."]},
+        {"answer":"0","to":"surface.guided.counter","effects":["Modificador VEF +3; convertir a multiplicador."]},
+        {"answer":"1-8","to":"surface.guided.counter","effects":["Restar el VEF; convertir el total a multiplicador x1-x6."]},
+        {"answer":"9","to":"surface.guided.counter","effects":["Modificador VEF -8."]},
+        {"answer":"10+","to":"surface.guided.counter","effects":["Modificador VEF -9."]}
+      ]
+    },
+    "surface.guided.counter": {
+      "type": "decision",
+      "question": "¿El atacante está a baja altura y algún buque elegible puede contraatacar?",
+      "source": ["Tablas p.22", "Reglas 5.6.6 y 6.6"],
+      "routes": [
+        {"answer":"Sí","to":"surface.guided.location","effects":["Resolver cada buque por separado con su artillería naval; excluir buques con símbolo que prohíbe contraataque."]},
+        {"answer":"No","to":"surface.guided.location"}
+      ]
+    },
+    "surface.unguided.final": {
+      "type": "decision",
+      "question": "¿La flota tiene capacidad de interceptación final?",
+      "source": ["Tablas p.23", "Reglas 5.7.1 y 6.4"],
+      "routes": [
+        {"answer":"Sí","to":"surface.unguided.munition","effects":["Hacer una sola interceptación final; sumar AA por tipo de consumo y sumar impactos alto+bajo."]},
+        {"answer":"No","to":"surface.unguided.munition"}
+      ]
+    },
+    "surface.unguided.munition": {
+      "type": "decision",
+      "question": "¿Hay interceptación de munición elegible?",
+      "source": ["Tablas p.24", "Reglas 6.5"],
+      "routes": [
+        {"answer":"Sí","to":"surface.unguided.range","effects":["Resolver reducción por sistema independiente."]},
+        {"answer":"No","to":"surface.unguided.range"}
+      ]
+    },
+    "surface.unguided.range": {
+      "type": "decision",
+      "question": "¿Qué distancia aplica a la flota objetivo?",
+      "source": ["Tablas p.24", "Reglas 5.7.2"],
+      "routes": [
+        {"answer":"0 / área ≤1","to":"surface.unguided.roll9","effects":["Modificador 0."]},
+        {"answer":"1 / área 2","to":"surface.unguided.roll9","effects":["Modificador -3 columnas."]},
+        {"answer":"≥2 / área ≥3","to":"surface.unguided.roll9","effects":["Modificador -8 columnas."]}
+      ]
+    },
+    "surface.unguided.roll9": {
+      "type": "decision",
+      "question": "¿El d10 natural es 9?",
+      "source": ["Tablas pp.24-25", "Reglas 5.7.3-5.7.4"],
+      "routes": [
+        {"answer":"Sí","to":"surface.unguided.counter","effects":["Cancelar modificación de intensidad y resolver daño en p.25."]},
+        {"answer":"No","to":"surface.unguided.counter","effects":["Desplazar columnas omitiendo · y resolver daño en p.25."]}
+      ]
+    },
+    "surface.unguided.counter": {
+      "type": "decision",
+      "question": "¿El atacante está a baja altura y hay buques elegibles para contraatacar?",
+      "source": ["Tablas p.26", "Reglas 5.7.5 y 6.6"],
+      "routes": [
+        {"answer":"Sí","to":"surface.unguided.location","effects":["Resolver cada buque por separado; excluir símbolos que no contraatacan."]},
+        {"answer":"No","to":"surface.unguided.location"}
+      ]
+    },
+    "surface.close.same_hex": {
+      "type": "decision",
+      "question": "¿Las flotas enemigas están en el mismo hex?",
+      "source": ["Tablas p.25", "Reglas 9.8"],
+      "routes": [
+        {"answer":"Sí","to":"surface.close.target","effects":["Sumar el valor de combate de todas las unidades participantes del atacante y resolver como artillería naval."]},
+        {"answer":"No","to":"terminal.illegal.naval_close"}
+      ]
+    },
+    "surface.close.target": {
+      "type": "decision",
+      "question": "¿Qué clase de unidad recibe cada impacto asignado por el atacante?",
+      "source": ["Tablas p.25"],
+      "routes": [
+        {"answer":"Protección: 1 daño por impacto","to":"terminal.surface.close","effects":["Aplicar 1 daño por impacto."]},
+        {"answer":"Protección: 2 daños por impacto","to":"terminal.surface.close","effects":["Aplicar 2 daños por impacto."]},
+        {"answer":"Unidad múltiple de bajo tonelaje (x2…)","to":"terminal.surface.close","effects":["Cada daño cuenta como 1 unidad hundida."]}
+      ]
+    },
+    "surface.torpedo.ambush": {
+      "type": "decision",
+      "question": "¿El ataque se realiza como emboscada?",
+      "source": ["Tablas p.27", "Reglas 9.16 y 9.13.1"],
+      "routes": [
+        {"answer":"Sí","to":"surface.torpedo.presearch","effects":["Colocar el submarino en el hex objetivo; alcance 0 convencional / 1 nuclear."]},
+        {"answer":"No","to":"surface.torpedo.speed"}
+      ]
+    },
+    "surface.torpedo.presearch": {
+      "type": "decision",
+      "question": "¿La búsqueda previa a la emboscada detecta al submarino?",
+      "source": ["Tablas p.27", "Reglas 9.16.2"],
+      "routes": [
+        {"answer":"Sí","to":"surface.torpedo.speed","effects":["Atacante Expuesto para seleccionar columna."]},
+        {"answer":"No","to":"surface.torpedo.speed","effects":["Atacante Oculto para seleccionar columna."]}
+      ]
+    },
+    "surface.torpedo.speed": {
+      "type": "decision",
+      "question": "¿Todos los buques objetivo tienen velocidad impresa ≤3?",
+      "source": ["Tablas p.27"],
+      "routes": [
+        {"answer":"Sí","to":"surface.torpedo.result","effects":["Fijar todos los valores de resolución en 9."]},
+        {"answer":"No","to":"surface.torpedo.result","effects":["Cruzar condición del hex, estado del atacante, VA de torpedo y d10."]}
+      ]
+    },
+    "surface.torpedo.result": {
+      "type": "decision",
+      "question": "¿Qué tipo de resultado muestra la tabla de torpedos?",
+      "source": ["Tablas p.27"],
+      "routes": [
+        {"answer":"NO ATACÓ","to":"terminal.surface.torpedo","effects":["No consumir munición y no hacer búsqueda posterior al ataque."]},
+        {"answer":"Valor numérico sin *","to":"terminal.surface.torpedo","effects":["Aplicar impactos; según potencia de torpedo puede limitarse a un buque."]},
+        {"answer":"Valor con *","to":"terminal.surface.torpedo","effects":["Aplicar la regla del símbolo de potencia: círculos tiran 1d10 para número máximo de buques; hexágonos consideran el * ataque fallido/ineficaz."]}
+      ]
+    },
+    "asw.kind": {
+      "type": "decision",
+      "question": "¿Qué procedimiento antisubmarino se resuelve?",
+      "source": ["Tablas pp.28-30 y 33-34", "Reglas 9.14-9.17"],
+      "routes": [
+        {"answer":"Búsqueda por diferencia de firma","to":"asw.signature.trigger"},
+        {"answer":"Búsqueda aérea ASW","to":"asw.air.trigger"},
+        {"answer":"Ataque contra submarino","to":"asw.attack.attacker"}
+      ]
+    },
+    "asw.signature.trigger": {
+      "type": "decision",
+      "question": "¿Qué evento desencadena la búsqueda por diferencia de firma?",
+      "source": ["Tablas pp.28 y 33", "Reglas 9.14.3 y 9.15.3"],
+      "routes": [
+        {"answer":"Rutina / movimiento / pre-emboscada","to":"asw.signature.range","effects":["Usar bloque correspondiente de p.33."]},
+        {"answer":"Después del ataque / antes de evadir","to":"asw.signature.range","effects":["Usar bloque correspondiente de p.33; tras ataque solo busca la flota atacada."]}
+      ]
+    },
+    "asw.signature.range": {
+      "type": "decision",
+      "question": "¿Detector y objetivo están ambos en aguas profundas?",
+      "source": ["Tablas p.28", "Reglas 9.14.2 y 9.15.1"],
+      "routes": [
+        {"answer":"Sí","to":"asw.signature.roll","effects":["La búsqueda por diferencia de firma puede alcanzar hex adyacente cuando la tabla lo permita."]},
+        {"answer":"No","to":"asw.signature.roll","effects":["Limitar la búsqueda al mismo hex salvo regla específica."]}
+      ]
+    },
+    "asw.signature.roll": {
+      "type": "decision",
+      "question": "Al cruzar firma, profundidad/posición y valor de búsqueda en p.33, ¿el d10 alcanza el umbral?",
+      "source": ["Tablas p.33"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.asw.search","effects":["Objetivo detectado; si era Oculto, girarlo a Expuesto."]},
+        {"answer":"No o aparece ·","to":"terminal.asw.search","effects":["Búsqueda fallida; conservar estado salvo otra regla."]}
+      ]
+    },
+    "asw.air.trigger": {
+      "type": "decision",
+      "question": "¿Qué tipo de búsqueda aérea ASW se realiza?",
+      "source": ["Tablas pp.28 y 34", "Reglas 9.15.2 y 9.15.4"],
+      "routes": [
+        {"answer":"Movimiento / rutina / pre-emboscada","to":"asw.air.cap","effects":["Usar tabla superior p.34; unidad de superficie solo busca en su hex."]},
+        {"answer":"Después del ataque / antes de evadir","to":"asw.air.cap","effects":["Usar tabla inferior p.34; atacante puede buscarse en adyacente, maniobra de ocultación solo en mismo hex."]}
+      ]
+    },
+    "asw.air.cap": {
+      "type": "decision",
+      "question": "¿El objetivo o el buscador está dentro de una zona de patrulla aérea enemiga que prohíbe la búsqueda?",
+      "source": ["Tablas p.28", "Reglas 9.14.4"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.illegal.asw_air"},
+        {"answer":"No","to":"asw.air.roll"}
+      ]
+    },
+    "asw.air.roll": {
+      "type": "decision",
+      "question": "Tras sumar el valor aéreo ASW del hex y cruzar firma/profundidad, ¿el d10 alcanza el umbral de p.34?",
+      "source": ["Tablas p.34"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.asw.search","effects":["Objetivo detectado y Expuesto."]},
+        {"answer":"No o aparece ·","to":"terminal.asw.search","effects":["Búsqueda fallida."]}
+      ]
+    },
+    "asw.attack.attacker": {
+      "type": "decision",
+      "question": "¿Qué clase de unidad ataca al submarino?",
+      "source": ["Tablas pp.29-30", "Reglas 9.17"],
+      "routes": [
+        {"answer":"Superficie","to":"asw.attack.range","effects":["Usar tabla p.29; ataque independiente por unidad."]},
+        {"answer":"Aérea","to":"asw.attack.cap","effects":["Usar tabla p.29; ataque independiente por unidad."]},
+        {"answer":"Submarina","to":"asw.attack.sub_range","effects":["Usar tabla p.30."]}
+      ]
+    },
+    "asw.attack.range": {
+      "type": "decision",
+      "question": "¿El objetivo está en el mismo hex/zona central o se cumplen las condiciones de ataque adyacente?",
+      "source": ["Tablas p.29", "Reglas 9.17.1"],
+      "routes": [
+        {"answer":"Sí","to":"asw.attack.roll"},
+        {"answer":"No","to":"terminal.illegal.asw_range"}
+      ]
+    },
+    "asw.attack.cap": {
+      "type": "decision",
+      "question": "¿El objetivo está dentro de una zona de patrulla aérea enemiga?",
+      "source": ["Tablas p.29", "Reglas 9.17.1"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.illegal.asw_cap"},
+        {"answer":"No","to":"asw.attack.roll"}
+      ]
+    },
+    "asw.attack.sub_range": {
+      "type": "decision",
+      "question": "¿Atacante y objetivo submarinos están en el mismo hex?",
+      "source": ["Tablas p.30", "Reglas 9.13.2 y 9.17.1"],
+      "routes": [
+        {"answer":"Sí","to":"asw.attack.sub_result"},
+        {"answer":"No","to":"terminal.illegal.asw_range"}
+      ]
+    },
+    "asw.attack.roll": {
+      "type": "decision",
+      "question": "Al cruzar posición, firma y VA ASW en p.29, ¿el d10 produce impactos?",
+      "source": ["Tablas p.29", "Reglas 9.17.2"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.asw.attack","effects":["Aplicar el número de impactos indicado."]},
+        {"answer":"No / ·","to":"terminal.asw.attack","effects":["Ataque sin impactos."]}
+      ]
+    },
+    "asw.attack.sub_result": {
+      "type": "decision",
+      "question": "¿Qué resultado da p.30 al cruzar firmas, VA de torpedo y d10?",
+      "source": ["Tablas p.30"],
+      "routes": [
+        {"answer":"NO DISPARAR","to":"terminal.asw.attack","effects":["No hacer búsqueda posterior al ataque."]},
+        {"answer":"Número sin *","to":"terminal.asw.attack","effects":["El ataque solo tiene efecto si el símbolo de potencia permite resultados sin *; en otro caso es ineficaz."]},
+        {"answer":"Número con *","to":"terminal.asw.attack","effects":["Aplicar impactos; el ataque con potencia marcada que exige * tiene efecto."]}
+      ]
+    },
+    "strategic.kind": {
+      "type": "decision",
+      "question": "¿Qué acción estratégica o logística se resuelve?",
+      "source": ["Tablas pp.31-32", "Reglas 11 y 14"],
+      "routes": [
+        {"answer":"Guerra cibernética","to":"strategic.cyber.defense"},
+        {"answer":"Destrucción espacial","to":"strategic.space.type"},
+        {"answer":"Reabastecimiento logístico terrestre","to":"strategic.logistics.supply"}
+      ]
+    },
+    "strategic.cyber.defense": {
+      "type": "decision",
+      "question": "¿El defensor invierte Capacidad de Guerra Cibernética para defenderse?",
+      "source": ["Tablas p.31", "Reglas 14.2-14.4"],
+      "routes": [
+        {"answer":"Sí","to":"strategic.cyber.compare","effects":["Consumir recursos aplicables; tirar 3d10 de defensa y clasificar cada dado: éxito defensivo = ataque inefectivo."]},
+        {"answer":"No","to":"strategic.cyber.compare","effects":["No hay tiradas defensivas; tirar los 3d10 de ataque por cada recurso/acción aplicable."]}
+      ]
+    },
+    "strategic.cyber.compare": {
+      "type": "decision",
+      "question": "¿El número de ataques efectivos es mayor que el de ataques inefectivos?",
+      "source": ["Tablas pp.31-32", "Reglas 14.3"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.strategic.cyber","effects":["Acción cibernética exitosa; aplicar efecto del objetivo elegido."]},
+        {"answer":"No","to":"terminal.strategic.cyber","effects":["Acción cibernética fallida/inefectiva."]}
+      ]
+    },
+    "strategic.space.type": {
+      "type": "decision",
+      "question": "¿Qué tipo de destrucción espacial se ejecuta?",
+      "source": ["Tablas p.31", "Reglas 14.7"],
+      "routes": [
+        {"answer":"Ataque blando","to":"strategic.space.result","effects":["Consumir 1 LAUNCH; tirar 1d10. Éxito consume 1 recurso orbital enemigo; fallo sin efecto."]},
+        {"answer":"Ataque duro","to":"strategic.space.maneuver","effects":["Consumir 1 LAUNCH; base 3d10."]},
+        {"answer":"Ataque orbital","to":"strategic.space.maneuver","effects":["Consumir 1 recurso orbital; base 3d10."]}
+      ]
+    },
+    "strategic.space.maneuver": {
+      "type": "decision",
+      "question": "¿El defensor reacciona con Maniobra Orbital?",
+      "source": ["Tablas p.31", "Reglas 14.8.1"],
+      "routes": [
+        {"answer":"Sí","to":"strategic.space.result","effects":["Consumir 1 recurso orbital del defensor y cambiar la resolución a 1d10."]},
+        {"answer":"No","to":"strategic.space.result","effects":["Mantener resolución de 3d10."]}
+      ]
+    },
+    "strategic.space.result": {
+      "type": "decision",
+      "question": "¿El resultado de cada dado es éxito o fallo según la tabla de acción/reacción?",
+      "source": ["Tablas p.32", "Reglas 14.7-14.9"],
+      "routes": [
+        {"answer":"Éxito","to":"terminal.strategic.space","effects":["Blando: consumir 1 orbital defensor. Duro/orbital: destruir 1 orbital y generar 2 fragmentos."]},
+        {"answer":"Fallo","to":"terminal.strategic.space","effects":["Blando: sin efecto. Duro/orbital: generar 1 fragmento."]},
+        {"answer":"Varios dados con mezcla","to":"terminal.strategic.space","effects":["Aplicar el efecto de cada dado por separado y sumar fragmentos."]}
+      ]
+    },
+    "strategic.logistics.supply": {
+      "type": "decision",
+      "question": "¿La Línea de Suministro está cortada?",
+      "source": ["Tablas p.32", "Reglas 8.11.3 y 11.3-11.5"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.illegal.resupply"},
+        {"answer":"No","to":"strategic.logistics.enemy"}
+      ]
+    },
+    "strategic.logistics.enemy": {
+      "type": "decision",
+      "question": "¿La unidad está en el mismo hex que una unidad principal enemiga?",
+      "source": ["Tablas p.32"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.illegal.resupply"},
+        {"answer":"No","to":"strategic.logistics.roll"}
+      ]
+    },
+    "strategic.logistics.roll": {
+      "type": "decision",
+      "question": "Según nivel de iniciativa A-D y 1d10, ¿la tabla indica Éxito?",
+      "source": ["Tablas p.32"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.strategic.logistics","effects":["Aumentar fuerza en 1 punto y girar la unidad a Movida."]},
+        {"answer":"No / ·","to":"terminal.strategic.logistics","effects":["No aumentar fuerza; girar igualmente la unidad a Movida."]}
+      ]
+    },
+    "land.damage.kind": {
+      "type": "decision",
+      "question": "¿Qué tipo de objetivo recibe los impactos finales del ataque terrestre?",
+      "source": ["Tablas pp.6 y 9", "Reglas 5.15"],
+      "routes": [
+        {"answer":"Aeródromo / hangar / pista","to":"location.airfield.part"},
+        {"answer":"Puerto / barcos en puerto","to":"location.port.part"},
+        {"answer":"Unidad terrestre móvil","to":"location.mobile.attack"},
+        {"answer":"Otro objetivo terrestre sin regla especial de localización","to":"terminal.land.attack"}
+      ]
+    },
+    "surface.guided.location": {
+      "type": "decision",
+      "question": "¿El buque impactado se encuentra dentro de un puerto?",
+      "source": ["Tablas pp.6, 9 y 22", "Reglas 5.6, 5.9 y 5.15.2"],
+      "routes": [
+        {"answer":"Sí","to":"location.port.ship_class","effects":["Aplicar la regla de barcos dentro del puerto."]},
+        {"answer":"No","to":"terminal.surface.guided","effects":["Aplicar el daño antibuque guiado normal según método y Resistencia."]}
+      ]
+    },
+    "surface.unguided.location": {
+      "type": "decision",
+      "question": "¿El buque impactado se encuentra dentro de un puerto?",
+      "source": ["Tablas pp.6, 9 y 25", "Reglas 5.7, 5.9 y 5.15.2"],
+      "routes": [
+        {"answer":"Sí","to":"location.port.ship_class","effects":["Aplicar la regla de barcos dentro del puerto."]},
+        {"answer":"No","to":"terminal.surface.unguided","effects":["Aplicar 1 o 2 daños por impacto según Protección."]}
+      ]
+    },
+    "location.airfield.part": {
+      "type": "decision",
+      "question": "¿Dónde se asignan los impactos del aeródromo?",
+      "source": ["Tablas pp.6 y 9", "Reglas 5.15.3"],
+      "routes": [
+        {"answer":"Unidades dentro de capacidad de hangar","to":"terminal.location.airfield","effects":["Pérdida de personal = parte entera de impactos / Valor de Protección."]},
+        {"answer":"Unidades que exceden capacidad de hangar","to":"terminal.location.airfield","effects":["Cada impacto se convierte directamente en pérdida de personal en pista/área."]},
+        {"answer":"Pista","to":"terminal.location.airfield","effects":["Cada 2 impactos reducen el nivel de pista en 1."]}
+      ]
+    },
+    "location.port.part": {
+      "type": "decision",
+      "question": "¿Qué recibe los impactos en el puerto?",
+      "source": ["Tablas pp.6 y 9", "Reglas 5.15.2"],
+      "routes": [
+        {"answer":"Instalación portuaria","to":"terminal.location.port","effects":["Instalaciones paralizadas = parte entera de impactos / Valor de Protección."]},
+        {"answer":"Buque individual","to":"location.port.resistance"},
+        {"answer":"Unidad de superficie multibuque","to":"terminal.location.port","effects":["Cada impacto hunde 1 buque."]}
+      ]
+    },
+    "location.port.resistance": {
+      "type": "decision",
+      "question": "¿Qué símbolo de Protección/Resistencia muestra el buque individual?",
+      "source": ["Tablas pp.6 y 9"],
+      "routes": [
+        {"answer":"Símbolo de daño grave","to":"terminal.location.port","effects":["Cada impacto causa 1 daño grave."]},
+        {"answer":"Símbolo de daño doble","to":"terminal.location.port","effects":["Cada impacto causa 2 daños."]}
+      ]
+    },
+    "location.port.ship_class": {
+      "type": "decision",
+      "question": "¿El objetivo en el puerto es un buque individual o una unidad multibuque?",
+      "source": ["Tablas pp.6 y 9", "Reglas 5.15.2"],
+      "routes": [
+        {"answer":"Buque individual","to":"location.port.resistance"},
+        {"answer":"Unidad de superficie multibuque","to":"terminal.location.port","effects":["Cada impacto hunde 1 buque."]}
+      ]
+    },
+    "location.mobile.attack": {
+      "type": "decision",
+      "question": "¿Qué tipo de ataque afecta a la unidad terrestre móvil?",
+      "source": ["Tablas pp.6 y 9", "Reglas 5.15.1 y 5.16"],
+      "routes": [
+        {"answer":"Ataque / contrabatería / contrafuego","to":"location.mobile.cover"},
+        {"answer":"Interdicción del campo de batalla (BAI)","to":"location.mobile.bai"},
+        {"answer":"Persecución aérea","to":"location.mobile.cover"}
+      ]
+    },
+    "location.mobile.cover": {
+      "type": "decision",
+      "question": "¿La unidad tiene cobertura del terreno?",
+      "source": ["Tablas pp.6 y 9", "Reglas 8.9.1"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.location.mobile","effects":["Ataque/CF/AS: pérdida máxima 1. En persecución, aplicar límite según la condición de cobertura."]},
+        {"answer":"No","to":"terminal.location.mobile","effects":["Persecución aérea: pérdida sin límite. Para otros ataques, aplicar la fila específica de la tabla."]}
+      ]
+    },
+    "location.mobile.bai": {
+      "type": "decision",
+      "question": "¿La unidad elige continuar moviéndose tras la interdicción?",
+      "source": ["Tablas pp.6 y 9", "Reglas 5.16.4 y 8.5.6"],
+      "routes": [
+        {"answer":"Sí","to":"terminal.location.mobile","effects":["Añadir 1 pérdida de personal; sin cobertura, la pérdida base máxima es 1."]},
+        {"answer":"No","to":"terminal.location.mobile","effects":["No añadir la pérdida por continuar movimiento."]}
+      ]
+    },
+    "terminal.illegal.active_out_of_supply": {"type":"terminal","title":"Combate activo no permitido","instructions":["Una unidad principal fuera de suministro no puede iniciar combate activo."],"source":["Tablas p.2","Reglas 8.6.1 y 11.5"]},
+    "terminal.illegal.arm_target": {"type":"terminal","title":"Objetivo ARM no válido","instructions":["No resolver como ataque antirradiación hasta confirmar un sistema activado y legal."],"source":["Tablas p.13","Reglas 5.14"]},
+    "terminal.illegal.air_area": {"type":"terminal","title":"Disparo de área no permitido","instructions":["El sistema no cumple la clase, detección o altitud exigida."],"source":["Tablas p.18","Reglas 6.3.1"]},
+    "terminal.illegal.naval_close": {"type":"terminal","title":"No hay combate naval cercano","instructions":["Las flotas deben compartir hex; usa ataque antibuque guiado/no guiado si corresponde."],"source":["Tablas p.25","Reglas 9.8"]},
+    "terminal.illegal.asw_air": {"type":"terminal","title":"Búsqueda aérea ASW prohibida","instructions":["La zona de patrulla aérea enemiga impide esta búsqueda."],"source":["Tablas p.28","Reglas 9.14.4"]},
+    "terminal.illegal.asw_range": {"type":"terminal","title":"Objetivo fuera de alcance ASW","instructions":["No se cumplen mismo hex, zona central o condición especial de adyacencia."],"source":["Tablas pp.29-30","Reglas 9.17.1"]},
+    "terminal.illegal.asw_cap": {"type":"terminal","title":"Ataque aéreo ASW prohibido","instructions":["Una unidad aérea no puede atacar un objetivo dentro de patrulla aérea enemiga."],"source":["Tablas p.29"]},
+    "terminal.illegal.resupply": {"type":"terminal","title":"Reabastecimiento no permitido","instructions":["Falla una condición previa; no se tira en la tabla de reabastecimiento."],"source":["Tablas p.32"]},
+    "terminal.land.close": {"type":"terminal","title":"Combate cercano resuelto","instructions":["Conservar impactos finales, estado Derrotada, detección breve y posibilidad de persecución/retirada."],"source":["Tablas p.2","Reglas 8.7"]},
+    "terminal.land.attack": {"type":"terminal","title":"Ataque terrestre y daño final resueltos","instructions":["Registrar los impactos y aplicar el efecto final correspondiente al objetivo; esta rama no requiere una regla especial de aeródromo, puerto o unidad móvil."],"source":["Tablas pp.5-9","Reglas 5.12-5.15"]},
+    "terminal.land.arm": {"type":"terminal","title":"Ataque antirradiación resuelto","instructions":["Cruzar método ARM, VA final y d10 en p.13; sumar impactos; sin protección de terreno."],"source":["Tablas pp.13-14","Reglas 5.14"]},
+    "terminal.air.intercept": {"type":"terminal","title":"Intercepción aérea resuelta","instructions":["Registrar destrucciones, daños, retiradas temporales, penetración y estado final de la misión."],"source":["Tablas pp.15-17","Reglas 7.15-7.17"]},
+    "terminal.air.area": {"type":"terminal","title":"Defensa aérea de área resuelta","instructions":["Cruzar tipo, consumo, VA de combate aéreo y d10 en p.18; asignar impactos con prioridad de escolta si existe."],"source":["Tablas p.18","Reglas 6.3"]},
+    "terminal.surface.guided": {"type":"terminal","title":"Ataque antibuque guiado resuelto","instructions":["Multiplicar VA tras reducción, cruzar método/VA final/dado en p.22 y aplicar daños por método y Resistencia."],"source":["Tablas pp.21-22","Reglas 5.6 y 5.9"]},
+    "terminal.surface.unguided": {"type":"terminal","title":"Ataque antibuque no guiado resuelto","instructions":["Cruzar VA/artillería y d10 en p.25; aplicar 1 o 2 daños por impacto según Protección y regla multibuque."],"source":["Tablas pp.25-26","Reglas 5.7 y 5.9"]},
+    "terminal.surface.close": {"type":"terminal","title":"Combate naval cercano resuelto","instructions":["El atacante distribuye impactos y cada impacto se convierte según Protección o unidad múltiple."],"source":["Tablas p.25","Reglas 9.8"]},
+    "terminal.surface.torpedo": {"type":"terminal","title":"Ataque de torpedos a superficie resuelto","instructions":["Aplicar hundimiento/daño por Resistencia, límite de buques por potencia y búsqueda posterior salvo NO ATACÓ."],"source":["Tablas p.27","Reglas 9.13.1 y 9.16"]},
+    "terminal.asw.search": {"type":"terminal","title":"Búsqueda ASW resuelta","instructions":["Registrar éxito/fallo y girar objetivo Oculto a Expuesto cuando resulte detectado."],"source":["Tablas pp.28, 33-34","Reglas 9.14-9.15"]},
+    "terminal.asw.attack": {"type":"terminal","title":"Ataque ASW resuelto","instructions":["Registrar impactos, consumo de munición y búsqueda posterior salvo resultado NO DISPARAR."],"source":["Tablas pp.29-30","Reglas 9.17"]},
+    "terminal.strategic.cyber": {"type":"terminal","title":"Acción cibernética resuelta","instructions":["Aplicar el efecto específico del objetivo solo si los ataques efectivos superan a los inefectivos."],"source":["Tablas pp.31-32","Reglas 14.2-14.4"]},
+    "terminal.strategic.space": {"type":"terminal","title":"Destrucción espacial resuelta","instructions":["Actualizar recursos orbitales, LAUNCH y fragmentos por cada dado."],"source":["Tablas pp.31-32","Reglas 14.7-14.9"]},
+    "terminal.strategic.logistics": {"type":"terminal","title":"Reabastecimiento resuelto","instructions":["La unidad termina en lado Movida con independencia del éxito."],"source":["Tablas p.32","Reglas 8.11.3"]},
+    "terminal.location.airfield": {"type":"terminal","title":"Efecto en aeródromo aplicado","instructions":["Registrar pérdidas de personal o reducción de pista según el área impactada."],"source":["Tablas pp.6 y 9","Reglas 5.15.3"]},
+    "terminal.location.port": {"type":"terminal","title":"Efecto en puerto aplicado","instructions":["Registrar instalaciones paralizadas, daños graves/daños o buques hundidos."],"source":["Tablas pp.6 y 9","Reglas 5.15.2"]},
+    "terminal.location.mobile": {"type":"terminal","title":"Ataque y daño en unidad móvil resueltos","instructions":["Aplicar límites por cobertura y la pérdida adicional de BAI cuando corresponda."],"source":["Tablas pp.6 y 9","Reglas 5.15.1 y 5.16"]}
+  }
+}

@@ -183,6 +183,11 @@
       wrap.appendChild(link);
     });
 
+    // Fase 25 (AD-003): abrir el asistente de combate en el punto del árbol que usa esta página.
+    const launch = Views.DecisionGraph ? await Views.DecisionGraph.entryCard('tablePages', [fileName]) : null;
+    if (!Router.isCurrent(navToken)) return;
+    if (launch) wrap.appendChild(launch);
+
     appendReviewNotice(wrap, page, {});
 
     if (page.reusesTable) {

@@ -22,6 +22,9 @@
   // Atajos a los wizards de resolución, agrupados por dominio (AJ-006: texto en
   // lenguaje de juego; la trazabilidad de cada wizard va dentro de él).
   const COMBAT_ENTRY_GROUPS = [
+    { title: 'Asistente de combate (nuevo)', entries: [
+      ['Asistente de combate', 'Una pregunta cada vez hasta el procedimiento y la tabla que corresponden, para cualquier tipo de combate. Sustituirá a los wizards de abajo.', '#/decision']
+    ] },
     { title: 'Ataque y combate terrestre', entries: [
       ['Guía: reaccionar a una unidad terrestre', 'Si no sabes cuándo puedes reaccionar: qué acción ocurrió, si se detecta, quién puede reaccionar y qué reacción toca.', '#/guia/ground-reaction'],
       ['Combate cercano terrestre', 'Fuerza de combate, guerra electrónica y umbral de Derrota.', '#/wizard/ground-close-combat'],
@@ -95,6 +98,7 @@
     const recent = el('div', 'home__actions');
     recent.appendChild(makeActionCard('Plantilla de fuerzas', 'Unidades de la sesión y su estado (Actuada/Dañada).', () => { location.hash = '#/unidades'; }));
     recent.appendChild(makeActionCard('Perfil de reglas', 'Elige si usas la expansión y las reglas opcionales: se ocultan las opciones que no uses.', () => { location.hash = '#/perfil-reglas'; }));
+    recent.appendChild(makeActionCard('Revisión de fichas y tablas', 'Todas las fichas reales y las rejillas de las tablas juntas, para marcar cada zona como bien o mal.', () => { location.hash = '#/revision'; }));
     recent.appendChild(makeActionCard('Historial de resoluciones', 'Combates guardados: repetir, copiar o revisar el resumen.', () => { location.hash = '#/historial'; }));
     wrap.appendChild(recent);
 
@@ -248,6 +252,8 @@
         recordRecentHelp(parts[1]);
       }
       if (parts.length === 0) return renderHome();
+      if (parts[0] === 'decision' && parts[1] === 'e' && parts.length === 3) return Views.DecisionGraph.renderDecisionGraph(null, parts[2]);
+      if (parts[0] === 'decision' && parts.length <= 2) return Views.DecisionGraph.renderDecisionGraph(parts[1]);
       if (parts[0] === 'guia' && parts.length === 2) return Views.CombatGuide.renderCombatGuide(parts[1]);
       if (parts[0] === 'turno-comentado' && parts[1] === 'mando' && parts.length === 3) return Views.TurnCommented.renderNodePage('command-recovery', { day: parts[2] });
       if (parts[0] === 'turno-comentado' && parts[1] === 'fase' && parts[2] === '0' && parts.length === 4) return Views.TurnCommented.renderNodePage('strategy-step', { step: parts[3] });
@@ -305,6 +311,7 @@
       if (parts[0] === 'unidades' && parts.length === 1) return Views.Roster.renderRosterIndex();
       if (parts[0] === 'unidades' && parts[1] === 'anadir') return Views.Roster.renderRosterAddForm();
       if (parts[0] === 'historial' && parts.length === 1) return Views.History.renderResolutionHistory();
+      if (parts[0] === 'revision' && parts.length === 1) return Views.ImageReview.render();
       if (parts[0] === 'perfil-reglas' && parts.length === 1) return Views.RuleProfile.render();
       AppCore.renderNotFound('Ruta no reconocida');
     }
