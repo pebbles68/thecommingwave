@@ -436,6 +436,72 @@
       ],
       "kind": "pending-visual",
       "reason": "Los Escombros Espaciales se cuentan en el área «Escombros Espaciales» del Tablero de Flujo de Turno, que no tiene recorte transcrito todavía."
+    },
+    {
+      "id": "ship-asw",
+      "pattern": "^(?!)",
+      "wizards": [
+        "asw-surface-air"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "surface-unit",
+        "scope": "generic",
+        "factorId": "asw"
+      }
+    },
+    {
+      "id": "submarine-noise",
+      "pattern": "^(?!)",
+      "wizards": [
+        "asw-surface-air",
+        "asw-submarine"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "submarine-unit",
+        "scope": "generic",
+        "factorId": "noise"
+      }
+    },
+    {
+      "id": "submarine-torpedoes",
+      "pattern": "^(?!)",
+      "wizards": [
+        "asw-submarine"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "submarine-unit",
+        "scope": "generic",
+        "factorId": "torpedoes"
+      }
+    },
+    {
+      "id": "submarine-noise-searcher",
+      "pattern": "^(?!)",
+      "wizards": [
+        "asw-signature-search"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "submarine-unit",
+        "scope": "generic",
+        "factorId": "noise"
+      }
+    },
+    {
+      "id": "ground-initiative",
+      "pattern": "^(?!)",
+      "wizards": [
+        "army-resupply"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "ground-unit",
+        "scope": "generic",
+        "factorId": "initiative"
+      }
     }
   ]
 }

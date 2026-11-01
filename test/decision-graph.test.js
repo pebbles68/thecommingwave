@@ -358,3 +358,147 @@ test('cálculo de combate cercano terrestre: filas Activo/Pasivo, celda y guerra
   assert.equal(r.extraMarks.length, 1);
   ['ground-close-combat-result', 'ground-close-combat-electronic-warfare'].forEach((id) => assert.ok(Calc.geometryFor(tableHotspots, 'page-02.json', id), `sin rejilla: ${id}`));
 });
+
+test('cálculos ASW: fila de cabecera por profundidad y Firma, columna por Valor de Ataque (páginas 29 y 30)', () => {
+  const a = Calc.calculatorForNode(calculators, 'asw.attack.roll');
+  const t29 = table('29').tables.find((t) => t.id === a.table.tableId);
+  // P. 4, Firma 5 → banda 2 («4~6»); ataque 4 → columna «3~4»; tirada 6 → celda impresa «1».
+  const r = Calc.compute(a, { table: t29 }, { sides: { A: { position: 'P4', signature: 5, moving: 'no', attack: 4, roll: 6 } } });
+  assert.equal(r.sides.A.columnScheme, 'band_2');
+  assert.equal(r.sides.A.columnLabel, '3~4');
+  assert.equal(r.sides.A.impacts, 1);
+  const s = Calc.calculatorForNode(calculators, 'asw.attack.sub_result');
+  const t30 = table('30').tables.find((t) => t.id === s.table.tableId);
+  // P. 3, Firma 1 + 1 en movimiento = 2 → banda 2; torpedo 7 → columna «7»; tirada 8 → celda «3».
+  const r2 = Calc.compute(s, { table: t30 }, { sides: { A: { position: 'P3', signature: 1, moving: 'yes', torpedoType: 'circle', attack: 7, roll: 8 } } });
+  assert.equal(r2.sides.A.columnLabel, '7');
+  assert.equal(r2.sides.A.impacts, 3);
+  const noFire = Calc.compute(s, { table: t30 }, { sides: { A: { position: 'P3', signature: 1, moving: 'no', torpedoType: 'circle', attack: 7, roll: 2 } } });
+  assert.equal(noFire.sides.A.rawCell, 'NO_DISPARAR');
+  ['page-29.json', 'page-30.json'].forEach((p, i) => assert.ok(Calc.geometryFor(tableHotspots, p, [a, s][i].table.tableId)));
+});
+
+test('búsquedas ASW: diferencia de firma (página 33) y aérea (página 34), con su celda de rango', () => {
+  const sig = Calc.calculatorForNode(calculators, 'asw.signature.roll');
+  const t33 = table('33').tables.find((t) => t.id === sig.table.tableId);
+  // Superficie, marco 1, P. 4: columna «sup1-p4»; Firma 6 → 6.ª fila; rango Rutina/misma casilla «8+»; tirada 8 → detectado.
+  const r = Calc.compute(sig, { table: t33 }, { sides: { A: { searcherKind: 'surface', frame: '1', depth: 'P4', trigger: 'routine_movement', distance: 'hex', targetSignature: 6, moving: 'no', roll: 8 } } });
+  assert.equal(r.sides.A.columnIndex, t33.columnAxis.values.indexOf('sup1-p4'));
+  assert.equal(r.sides.A.rowIndex, 5);
+  assert.equal(r.sides.A.success, true);
+  assert.equal(r.sides.A.extraCells.length, 1);
+  // El campo de Firma del submarino que busca no se pide a una unidad de superficie.
+  assert.equal(Calc.fieldApplies(sig.fields.find((f) => f.id === 'searcherSignature'), { searcherKind: 'surface' }), false);
+  const air = Calc.calculatorForNode(calculators, 'asw.air.roll');
+  const p34 = table('34').tables;
+  const extra = { 'asw-air-search-post-attack': p34.find((t) => t.id === 'asw-air-search-post-attack') };
+  // Rutina, P. 3, Firma 4 → 3.ª fila; Valor aéreo 11 → columna «11»; celda «9»; tirada 9 → detectado.
+  const a = Calc.compute(air, { table: p34.find((t) => t.id === 'asw-air-search-routine'), extra }, { sides: { A: { trigger: 'routine', depth: 'P3', signature: 4, moving: 'no', airValue: 11, roll: 9 } } });
+  assert.equal(a.tableId, 'asw-air-search-routine');
+  assert.equal(a.sides.A.columnLabel, '11');
+  assert.equal(a.sides.A.success, true);
+  const b = Calc.compute(air, { table: p34[0], extra }, { sides: { A: { trigger: 'post_attack', depth: 'P3', signature: 4, moving: 'no', airValue: 11, roll: 3 } } });
+  assert.equal(b.tableId, 'asw-air-search-post-attack');
+  ['asw-signature-difference-search', 'asw-air-search-routine', 'asw-air-search-post-attack'].forEach((id) => assert.ok(tableHotspots.tables.some((g) => g.tableId === id), `sin rejilla: ${id}`));
+});
+
+test('torpedos contra superficie (página 27) y reabastecimiento de campo (página 32)', () => {
+  const t = Calc.calculatorForNode(calculators, 'surface.torpedo.result');
+  const t27 = table('27').tables.find((x) => x.id === t.table.tableId);
+  const base = { aswContext: 'none', torpedoType: 'circle', attack: 6, slowTargets: 'no', roll: 5 };
+  // Sin búsqueda en la casilla: fila «Cualq.»; 6 → columna «6»; tirada 5 → «2*»: el círculo pide una segunda tirada.
+  const pending = Calc.compute(t, { table: t27 }, { sides: { A: base } });
+  assert.equal(pending.sides.A.rawCell, '2*');
+  assert.equal(pending.sides.A.impacts, null);
+  const done = Calc.compute(t, { table: t27 }, { sides: { A: { ...base, followUpRoll: 1 } } });
+  assert.equal(done.sides.A.impacts, 1);
+  // Todos los buques lentos: la tirada no se pide y se fija en 9.
+  const slow = Calc.compute(t, { table: t27 }, { sides: { A: { ...base, slowTargets: 'yes', roll: '' } } });
+  assert.equal(slow.sides.A.rowValue, 9);
+  const r = Calc.calculatorForNode(calculators, 'strategic.logistics.roll');
+  const t32 = table('32').tables.find((x) => x.id === r.table.tableId);
+  const rules = readJson(`data/rules/${r.rules}`);
+  const ok = Calc.compute(r, { table: t32, rules }, { sides: { A: { level: 'B', currentForce: 3, printedForceLimit: 5, roll: 6 } } });
+  assert.equal(ok.sides.A.success, true);
+  assert.match(ok.sides.A.explanation.join(' '), /de 3 a 4/);
+  ['torpedo-vs-surface-damage', 'army-logistics-resupply'].forEach((id) => assert.ok(tableHotspots.tables.some((g) => g.tableId === id), `sin rejilla: ${id}`));
+});
+
+test('sin tirada se marca ya la columna; con la tirada, además la fila y la celda (indicación del mantenedor)', () => {
+  const s = Calc.calculatorForNode(calculators, 'asw.attack.sub_result');
+  const t30 = table('30').tables.find((t) => t.id === s.table.tableId);
+  const r = Calc.computeWithColumn(s, { table: t30 }, { sides: { A: { position: 'P3', signature: 1, moving: 'yes', torpedoType: 'circle', attack: 7, roll: '' } } });
+  assert.equal(r.sides.A.status, 'column');
+  assert.equal(r.sides.A.columnLabel, '7');
+  assert.equal(r.sides.A.rowIndex, undefined);
+  const geometry = Calc.geometryFor(tableHotspots, 'page-30.json', s.table.tableId);
+  const rects = Calc.markRects(geometry, r.sides.A);
+  assert.ok(rects.column && rects.header);
+  assert.equal(rects.cell, null);
+  // Con un dato que no sea la tirada sin rellenar, todavía no hay columna.
+  const none = Calc.computeWithColumn(s, { table: t30 }, { sides: { A: { position: 'P3', signature: '', moving: 'yes', torpedoType: 'circle', attack: 7, roll: '' } } });
+  assert.equal(none.sides.A.status, 'incomplete');
+  // WVR con los dos bandos sin tirar: columna de cada uno.
+  const w = Calc.calculatorForNode(calculators, 'air.intercept.round');
+  const wt = table('17').tables.find((t) => t.id === w.table.tableId);
+  const choices = Calc.resolveChoices(readJson(`data/workflows/${w.choices.workflow}`), w.choices);
+  const wr = Calc.computeWithColumn(w, { table: wt, choices }, { shared: {}, sides: { A: { groupType: 'cap', airCombatValue: 9, roll: '' }, B: { groupType: 'intercept', airCombatValue: 9, roll: '' } } });
+  assert.deepEqual([wr.sides.A.status, wr.sides.B.status], ['column', 'column']);
+});
+
+test('ataque terrestre guiado (página 5): método, desplazamiento por intensidad, Móvil/Fijo y 9 natural', () => {
+  const g = Calc.calculatorForNode(calculators, 'land.guided.roll9');
+  const t5 = table('05').tables.find((t) => t.id === g.table.tableId);
+  const wf = readJson(`data/workflows/${g.choices.workflow}`);
+  const methods = Calc.resolveChoices(wf, g.choices);
+  assert.equal(methods.length, 4);
+  const ln = methods.find((m) => m.columnScheme === 'normal_ataque').value;
+  // [L] Normal, Valor 8, -2 columnas → columna «6»; Móvil, tirada 5 → fila «5»: celda impresa 5.
+  const r = Calc.compute(g, { table: t5, choices: methods, workflow: wf }, { sides: { A: { method: ln, target: 'mobile', attack: 8, intensity: -2, roll: 5 } } });
+  assert.equal(r.sides.A.columnLabel, '6');
+  assert.equal(r.sides.A.impacts, 5);
+  // Un 9 natural cancela la modificación: columna «8».
+  const nine = Calc.compute(g, { table: t5, choices: methods, workflow: wf }, { sides: { A: { method: ln, target: 'mobile', attack: 8, intensity: -2, roll: 9 } } });
+  assert.equal(nine.sides.A.columnLabel, '8');
+  assert.equal(Calc.columnShiftFromEffects([{ text: 'Modificador -5 columnas.' }, { text: 'Modificador Básico -2 columnas.' }, { text: 'Añadir +2.' }]), -7);
+  assert.ok(Calc.geometryFor(tableHotspots, 'page-05.json', g.table.tableId));
+});
+
+test('ataque terrestre no guiado (página 9) y antirradiación (página 13)', () => {
+  const u = Calc.calculatorForNode(calculators, 'land.unguided.roll9');
+  const t9 = table('09').tables.find((t) => t.id === u.table.tableId);
+  const wf = readJson(`data/workflows/${u.choices.workflow}`);
+  const methods = Calc.resolveChoices(wf, u.choices);
+  const canon = methods.find((m) => m.columnScheme === null);
+  // Persecución (plan no ligero): fila canónica; Valor 12 → «11~15»; -2 → «6~8»; Móvil, tirada 6 → celda impresa 4.
+  const r = Calc.compute(u, { table: t9, choices: methods, workflow: wf }, { sides: { A: { method: canon.value, target: 'mobile', attack: 12, intensity: -2, roll: 6 } } });
+  assert.equal(r.sides.A.columnScheme, 'canonical');
+  assert.equal(r.sides.A.columnLabel, '6~8');
+  const a = Calc.calculatorForNode(calculators, 'land.arm.roll9');
+  const t13 = table('13').tables.find((t) => t.id === a.table.tableId);
+  // [L] Ligero, Valor 10, -5 → columna «5»; tirada 4 → celda impresa 4.
+  const arm = Calc.compute(a, { table: t13 }, { sides: { A: { light: 'yes', attack: 10, intensity: -5, roll: 4 } } });
+  assert.equal(arm.sides.A.columnScheme, 'L_ligero');
+  assert.equal(arm.sides.A.columnLabel, '5');
+  assert.equal(arm.sides.A.impacts, 4);
+  ['page-09.json', 'page-13.json'].forEach((p, i) => assert.ok(Calc.geometryFor(tableHotspots, p, [u, a][i].table.tableId)));
+});
+
+test('antibuque guiado (tabla final, página 22) y no guiado (página 25)', () => {
+  const g = Calc.calculatorForNode(calculators, 'surface.guided.counter');
+  const t22 = table('22').tables.find((t) => t.id === g.table.tableId);
+  // Supersónico, Valor 4 × 3 = 12 → columna «11~12»; tirada 5, lectura SUB/SUP → fila «5»: celda impresa 4.
+  const r = Calc.compute(g, { table: t22 }, { sides: { A: { method: 'supersonic', attack: 4, multiplier: '3', roll: 5 } } });
+  assert.equal(r.sides.A.columnLabel, '11~12');
+  assert.equal(r.sides.A.impacts, 4);
+  // Subsónico: 2d10, la mayor (2 y 7 → 7).
+  const sub = Calc.compute(g, { table: t22 }, { sides: { A: { method: 'subsonic', attack: 4, multiplier: '3', roll: 2, roll2: 7 } } });
+  assert.equal(sub.sides.A.rowValue, 7);
+  const u = Calc.calculatorForNode(calculators, 'surface.unguided.roll9');
+  const t25 = table('25').tables.find((t) => t.id === u.table.tableId);
+  // Fila inferior, Valor 12 → «11~15», -3 → «5~6»; tirada 4 → celda impresa 1.
+  const n = Calc.compute(u, { table: t25 }, { sides: { A: { light: 'no', attack: 12, intensity: -3, roll: 4 } } });
+  assert.equal(n.sides.A.columnLabel, '5~6');
+  assert.equal(n.sides.A.impacts, 1);
+  ['page-22.json', 'page-25.json'].forEach((p, i) => assert.ok(Calc.geometryFor(tableHotspots, p, [g, u][i].table.tableId)));
+});

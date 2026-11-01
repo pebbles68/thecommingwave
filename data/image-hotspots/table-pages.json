@@ -254,6 +254,770 @@
       "reviewStatus": "verified",
       "reviewedBy": "Mantenedor (Pablo)",
       "reviewedAt": "2026-11-01"
+    },
+    {
+      "page": 29,
+      "tableId": "asw-surface-air-attack-damage",
+      "image": "images/tablas/page-29.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "2adcd69beae37338c673ad88f3f9674a17b011c71610eec21c8589c55fda3d33",
+      "frame": [
+        0.16425,
+        0.45698,
+        0.82528,
+        0.85356
+      ],
+      "columnEdges": [
+        0.40097,
+        0.4537,
+        0.50644,
+        0.55918,
+        0.61192,
+        0.66465,
+        0.71739,
+        0.77013,
+        0.82287
+      ],
+      "rowEdges": [
+        0.57664,
+        0.60416,
+        0.63168,
+        0.6592,
+        0.68672,
+        0.71425,
+        0.74177,
+        0.76929,
+        0.79681,
+        0.82433,
+        0.85185
+      ],
+      "valuesTop": 0.49288,
+      "headerBands": {
+        "band_1": [
+          0.49288,
+          0.5208
+        ],
+        "band_2": [
+          0.5208,
+          0.54872
+        ],
+        "band_3": [
+          0.54872,
+          0.57664
+        ]
+      },
+      "fit": {
+        "columns": 1.5,
+        "rows": 3.8
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 30,
+      "tableId": "asw-submarine-vs-submarine-damage",
+      "image": "images/tablas/page-30.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "9c4eb5081810b790a08e1a707a75d1528195c78b1f6f42c0a04368e81cfc7c54",
+      "frame": [
+        0.15459,
+        0.37607,
+        0.83575,
+        0.69117
+      ],
+      "columnEdges": [
+        0.41063,
+        0.46347,
+        0.5163,
+        0.56914,
+        0.62198,
+        0.67482,
+        0.72766,
+        0.7805,
+        0.83333
+      ],
+      "rowEdges": [
+        0.49744,
+        0.52487,
+        0.5523,
+        0.57973,
+        0.60716,
+        0.6346,
+        0.66203,
+        0.68946
+      ],
+      "valuesTop": 0.41311,
+      "headerBands": {
+        "band_1": [
+          0.41311,
+          0.44122
+        ],
+        "band_2": [
+          0.44122,
+          0.46933
+        ],
+        "band_3": [
+          0.46933,
+          0.49744
+        ]
+      },
+      "fit": {
+        "columns": 1.2,
+        "rows": 2.1
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 33,
+      "tableId": "asw-signature-difference-search",
+      "image": "images/tablas/page-33.png",
+      "imageSize": [
+        1755,
+        1242
+      ],
+      "sha256": "e338cbe195ec15b2bdf369915c575ed92b00ba822f12e96cb8dacfd2edc816ee",
+      "frame": [
+        0.0416,
+        0.14412,
+        0.9567,
+        0.68277
+      ],
+      "columnEdges": [
+        0.09402,
+        0.13077,
+        0.16781,
+        0.20541,
+        0.24245,
+        0.28063,
+        0.31709,
+        0.35527,
+        0.39117,
+        0.42991,
+        0.46695,
+        0.50456,
+        0.5416,
+        0.57977,
+        0.61624,
+        0.65442,
+        0.69145,
+        0.72906,
+        0.76553,
+        0.81339,
+        0.86068,
+        0.90855,
+        0.95499
+      ],
+      "rowEdges": [
+        0.28986,
+        0.3289,
+        0.36795,
+        0.407,
+        0.44605,
+        0.4851,
+        0.52415,
+        0.5632,
+        0.60225,
+        0.6413,
+        0.68035
+      ],
+      "valuesTop": 0.25121,
+      "headerBands": {
+        "_title": [
+          0.25121,
+          0.28019
+        ],
+        "canonical": [
+          0.28019,
+          0.28986
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 1.5
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 34,
+      "tableId": "asw-air-search-routine",
+      "image": "images/tablas/page-34.png",
+      "imageSize": [
+        1755,
+        1242
+      ],
+      "sha256": "c53f3e815deb02d4efe5f5407777ab01934d52df11ab447cb97f458e5d776f6e",
+      "frame": [
+        0.10427,
+        0.1256,
+        0.89858,
+        0.47987
+      ],
+      "columnEdges": [
+        0.20057,
+        0.24245,
+        0.28632,
+        0.3302,
+        0.37407,
+        0.41681,
+        0.46068,
+        0.50399,
+        0.54786,
+        0.59174,
+        0.63561,
+        0.67949,
+        0.72336,
+        0.7661,
+        0.80997,
+        0.85385,
+        0.89687
+      ],
+      "rowEdges": [
+        0.2818,
+        0.32093,
+        0.36006,
+        0.39919,
+        0.43833,
+        0.47746
+      ],
+      "valuesTop": 0.20451,
+      "headerBands": {
+        "_title": [
+          0.20451,
+          0.26248
+        ],
+        "canonical": [
+          0.26248,
+          0.2818
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 2.1
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 34,
+      "tableId": "asw-air-search-post-attack",
+      "image": "images/tablas/page-34.png",
+      "imageSize": [
+        1755,
+        1242
+      ],
+      "sha256": "c53f3e815deb02d4efe5f5407777ab01934d52df11ab447cb97f458e5d776f6e",
+      "frame": [
+        0.10427,
+        0.52979,
+        0.89744,
+        0.90419
+      ],
+      "columnEdges": [
+        0.19943,
+        0.24245,
+        0.28519,
+        0.32906,
+        0.37293,
+        0.41681,
+        0.45954,
+        0.50342,
+        0.54672,
+        0.59174,
+        0.63447,
+        0.67835,
+        0.72222,
+        0.7661,
+        0.80883,
+        0.85271,
+        0.89573
+      ],
+      "rowEdges": [
+        0.70612,
+        0.74525,
+        0.78438,
+        0.82351,
+        0.86264,
+        0.90177
+      ],
+      "valuesTop": 0.62882,
+      "headerBands": {
+        "_title": [
+          0.62882,
+          0.6868
+        ],
+        "canonical": [
+          0.6868,
+          0.70612
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 2.1
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 27,
+      "tableId": "torpedo-vs-surface-damage",
+      "image": "images/tablas/page-27.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "e7ce9aa4bd8a0414ce333a513ce39e3750da32d2bd71b68ccc48aa658e779b9d",
+      "frame": [
+        0.05878,
+        0.64103,
+        0.93237,
+        0.95897
+      ],
+      "columnEdges": [
+        0.40419,
+        0.45676,
+        0.50934,
+        0.56192,
+        0.61449,
+        0.66707,
+        0.71965,
+        0.77222,
+        0.8248,
+        0.87738,
+        0.92995
+      ],
+      "rowEdges": [
+        0.74188,
+        0.76581,
+        0.78974,
+        0.81368,
+        0.83761,
+        0.86154,
+        0.88547,
+        0.9094,
+        0.93333,
+        0.95726
+      ],
+      "valuesTop": 0.66838,
+      "headerBands": {
+        "exposed": [
+          0.66838,
+          0.69288
+        ],
+        "hidden": [
+          0.69288,
+          0.71738
+        ],
+        "canonical": [
+          0.71738,
+          0.74188
+        ]
+      },
+      "fit": {
+        "columns": 1.8,
+        "rows": 3.5
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 32,
+      "tableId": "army-logistics-resupply",
+      "image": "images/tablas/page-32.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "10e58861f8db8c6ea7fc1d7ab8b7a796fe58fb61f581238433e2d72680aa0afd",
+      "frame": [
+        0.33575,
+        0.7453,
+        0.64412,
+        0.95214
+      ],
+      "columnEdges": [
+        0.3905,
+        0.4533,
+        0.5161,
+        0.5789,
+        0.64171
+      ],
+      "rowEdges": [
+        0.81311,
+        0.84057,
+        0.86803,
+        0.8955,
+        0.92296,
+        0.95043
+      ],
+      "valuesTop": 0.7453,
+      "headerBands": {
+        "_title": [
+          0.7453,
+          0.7905
+        ],
+        "canonical": [
+          0.7905,
+          0.81311
+        ]
+      },
+      "fit": {
+        "columns": 0.5,
+        "rows": 1.9
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 5,
+      "tableId": "ground-precision-attack-damage",
+      "image": "images/tablas/page-05.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "d041d709a4dd8d1bccce6431ec305e4b68f69859305082dc1226fa6270168b11",
+      "frame": [
+        0.05878,
+        0.54245,
+        0.94605,
+        0.95897
+      ],
+      "columnEdges": [
+        0.25242,
+        0.2806,
+        0.30717,
+        0.33615,
+        0.36272,
+        0.3901,
+        0.41828,
+        0.44646,
+        0.47222,
+        0.50201,
+        0.52858,
+        0.55757,
+        0.58414,
+        0.61151,
+        0.63969,
+        0.66787,
+        0.69364,
+        0.72343,
+        0.75,
+        0.77899,
+        0.80556,
+        0.83374,
+        0.86111,
+        0.88929,
+        0.91667,
+        0.94364
+      ],
+      "rowEdges": [
+        0.68148,
+        0.70906,
+        0.73664,
+        0.76422,
+        0.79179,
+        0.81937,
+        0.84695,
+        0.87453,
+        0.90211,
+        0.92969,
+        0.95726
+      ],
+      "valuesTop": 0.57094,
+      "headerBands": {
+        "normal_ataque": [
+          0.57094,
+          0.59858
+        ],
+        "persecucion_ataque": [
+          0.59858,
+          0.65385
+        ],
+        "persecucion_objetivo": [
+          0.65385,
+          0.68148
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 2.9
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 9,
+      "tableId": "ground-unguided-attack-damage",
+      "image": "images/tablas/page-09.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "c02d3f167a45b19eb4485480185138cba81fc537e3f516f0f4371340ef5a8340",
+      "frame": [
+        0.05878,
+        0.08661,
+        0.93639,
+        0.4963
+      ],
+      "columnEdges": [
+        0.27013,
+        0.3128,
+        0.35306,
+        0.39493,
+        0.4368,
+        0.47866,
+        0.51892,
+        0.56079,
+        0.60266,
+        0.64452,
+        0.68478,
+        0.72665,
+        0.76852,
+        0.81039,
+        0.85064,
+        0.89251,
+        0.93398
+      ],
+      "rowEdges": [
+        0.22792,
+        0.25459,
+        0.28125,
+        0.30792,
+        0.33459,
+        0.36125,
+        0.38792,
+        0.41459,
+        0.44125,
+        0.46792,
+        0.49459
+      ],
+      "valuesTop": 0.11738,
+      "headerBands": {
+        "normal_ataque": [
+          0.11738,
+          0.14501
+        ],
+        "persecucion_ataque": [
+          0.14501,
+          0.20028
+        ],
+        "canonical": [
+          0.20028,
+          0.22792
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 2.5
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 13,
+      "tableId": "anti-radiation-target-damage",
+      "image": "images/tablas/page-13.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "f746059f9790df93f87607068b6be921ddaa652b13f0c7f3783a4dbf5f08a620",
+      "frame": [
+        0.05878,
+        0.52365,
+        0.93961,
+        0.88775
+      ],
+      "columnEdges": [
+        0.16626,
+        0.20894,
+        0.25242,
+        0.29589,
+        0.33776,
+        0.38124,
+        0.42311,
+        0.46659,
+        0.50845,
+        0.55113,
+        0.593,
+        0.63808,
+        0.67995,
+        0.72343,
+        0.7653,
+        0.80878,
+        0.85064,
+        0.89412,
+        0.9372
+      ],
+      "rowEdges": [
+        0.61026,
+        0.63783,
+        0.66541,
+        0.69299,
+        0.72057,
+        0.74815,
+        0.77573,
+        0.8033,
+        0.83088,
+        0.85846,
+        0.88604
+      ],
+      "valuesTop": 0.55442,
+      "headerBands": {
+        "L_ligero": [
+          0.55442,
+          0.58234
+        ],
+        "canonical": [
+          0.58234,
+          0.61026
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 2.9
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 22,
+      "tableId": "antiship-guided-final-damage",
+      "image": "images/tablas/page-22.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "87aa6c3d2d0d7df918e430371ba55596836f766872c482daad71f840b1fddfed",
+      "frame": [
+        0.05878,
+        0.07123,
+        0.94283,
+        0.48319
+      ],
+      "columnEdges": [
+        0.13728,
+        0.17512,
+        0.21055,
+        0.24678,
+        0.28382,
+        0.32085,
+        0.35789,
+        0.39171,
+        0.42955,
+        0.46659,
+        0.50362,
+        0.53905,
+        0.57609,
+        0.61151,
+        0.64936,
+        0.68478,
+        0.72182,
+        0.75886,
+        0.79589,
+        0.83052,
+        0.86755,
+        0.90459,
+        0.94042
+      ],
+      "rowEdges": [
+        0.17835,
+        0.20591,
+        0.23346,
+        0.26102,
+        0.28858,
+        0.31614,
+        0.34369,
+        0.37125,
+        0.39881,
+        0.42637,
+        0.45392,
+        0.48148
+      ],
+      "valuesTop": 0.12251,
+      "headerBands": {
+        "canonical": [
+          0.12251,
+          0.17835
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 3.2
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
+    },
+    {
+      "page": 25,
+      "tableId": "antiship-unguided-damage-and-naval-artillery",
+      "image": "images/tablas/page-25.png",
+      "imageSize": [
+        1242,
+        1755
+      ],
+      "sha256": "31607c11c8aa4e60474328fbc403048e90aefa804b44b829529b08345bb10f68",
+      "frame": [
+        0.08535,
+        0.4735,
+        0.91948,
+        0.85242
+      ],
+      "columnEdges": [
+        0.22907,
+        0.28221,
+        0.33615,
+        0.38768,
+        0.44163,
+        0.49235,
+        0.5471,
+        0.59944,
+        0.65177,
+        0.70491,
+        0.75886,
+        0.81039,
+        0.86433,
+        0.91707
+      ],
+      "rowEdges": [
+        0.5755,
+        0.60302,
+        0.63054,
+        0.65806,
+        0.68558,
+        0.71311,
+        0.74063,
+        0.76815,
+        0.79567,
+        0.82319,
+        0.85071
+      ],
+      "valuesTop": 0.50427,
+      "headerBands": {
+        "L": [
+          0.50427,
+          0.53989
+        ],
+        "canonical": [
+          0.53989,
+          0.5755
+        ]
+      },
+      "fit": {
+        "columns": 0.0,
+        "rows": 3.8
+      },
+      "confidence": "grid-checked",
+      "reviewStatus": "needs_review"
     }
   ],
   "unmatched": []

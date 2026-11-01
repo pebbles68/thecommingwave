@@ -2,6 +2,25 @@
 
 ## Estado actual
 
+### Cálculo dentro del asistente: ataques terrestres, antibuque y columna antes de la tirada — 2026-11-01
+
+- Estado: `in_progress`, **pendiente de comprobación del mantenedor**; subido a master el 2026-11-01 a petición del mantenedor (junto con los cálculos de submarinos, torpedos y reabastecimiento).
+- **Columna antes de la tirada (indicación del mantenedor):** con todos los datos salvo la tirada (o las dos tiradas del subsónico) se marca ya la columna con su cabecera; la tirada añade la fila y la celda (`DecisionGraphCalculators.computeWithColumn`).
+- **Cálculos nuevos:** ataque terrestre guiado (p. 5, `land.guided.roll9`) y no guiado (p. 9, `land.unguided.roll9`) con el método de `finalResolution.methodRows`, desplazamiento por la Modificación de Intensidad (propuesto con la suma de los «-N columnas» que ya aplicó el árbol) y lectura Móvil/Fijo; antirradiación (p. 13, `land.arm.roll9`, -5 por defecto); antibuque guiado, tabla final (p. 22, `surface.guided.counter`: Valor × multiplicador del V.E.F., lectura SUB/SUP o PAR/E.C., subsónico con la mayor de dos tiradas) y no guiado (p. 25, `surface.unguided.roll9`). Rejillas de las páginas 5, 9, 13, 22 y 25 calibradas (`skipLines` para saltar columnas de etiquetas), `needs_review`.
+- **Validación:** `npm test` 836/836, cada cálculo comprobado contra la página impresa.
+- **Visible en la web: sí.** `#/decision/land.guided.roll9`, `land.unguided.roll9`, `land.arm.roll9`, `surface.guided.counter`, `surface.unguided.roll9`.
+- **Pendiente:** acciones estratégicas (p. 31-32); el combate naval cercano con artillería (lectura izquierda de la p. 25) no está en este cálculo.
+
+### Cálculo dentro del asistente: submarinos, torpedos y reabastecimiento — 2026-11-01
+
+- Estado: `in_progress`, **pendiente de comprobación del mantenedor**; sin commit.
+- **Cálculos nuevos** (`data/routing/decision-graph-calculators.json`, `public/js/decision-graph-calculators.js`, reutilizando los motores de los wizards): ataque ASW de superficie/aéreo (p. 29, `asw.attack.roll`), submarino contra submarino (p. 30, `asw.attack.sub_result`), búsqueda por diferencia de firma (p. 33, `asw.signature.roll`, con la celda de rango marcada aparte), búsqueda aérea ASW (p. 34, `asw.air.roll`, la tabla cambia según el evento), torpedos contra superficie (p. 27, `surface.torpedo.result`, con la segunda tirada del asterisco) y reabastecimiento de campo (p. 32, `strategic.logistics.roll`). Todos marcan columna, fila y celda sobre la tabla real.
+- **Mecanismos nuevos:** `sides` por cálculo (una sola unidad que actúa), `options` por campo, `showIf` (`equals` / `notEquals`), `optional`, `rules` (archivo de data/rules/), `extraCells` y tabla elegida por el resultado (`tableId`). Nuevas ayudas visuales en `wizard-visual-refs.json`: ASW de buque, Ruido y torpedos de submarino, Iniciativa terrestre.
+- **Rejillas:** 7 tablas más calibradas (p. 27, 29, 30, 32, 33 y las dos de la 34), `needs_review` hasta revisarlas en `#/revision`. El calibrador admite `columnEdges: "detected"` (columnas de ancho distinto, líneas por gradiente Sobel), `separatorIndex` y líneas finas claras, oscuras o negras.
+- **Validación:** `npm test` 832/832; cada cálculo comprobado contra la página impresa en `test/decision-graph.test.js`.
+- **Visible en la web: sí.** `#/decision/asw.attack.roll`, `asw.attack.sub_result`, `asw.signature.roll`, `asw.air.roll`, `surface.torpedo.result`, `strategic.logistics.roll`.
+- **Pendiente:** ataques terrestres (p. 5, 9, 13), antibuque (p. 22, 25) y acciones estratégicas (p. 31-32).
+
 ### Página de revisión de fichas y tablas (#/revision) — 2026-11-01
 
 - Estado: `done` (revisión aplicada). Commit `6fd9593`, subido a master el 2026-11-01 junto con todo el asistente de combate (Fase 25) a petición del mantenedor; las imágenes de `images/` no se suben.

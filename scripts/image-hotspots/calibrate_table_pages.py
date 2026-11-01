@@ -76,7 +76,9 @@ def calibrate(profile):
     hthick = [r for r in runs(box.sum(axis=1) >= 0.85 * w) if 6 < r[0] < h - 6]
     if not vthick or not hthick:
         return None, 'sin separadores gruesos interiores'
-    vx = x + vthick[0][1] + 1           # inicio de la zona de valores
+    # `separatorIndex`: qué separador grueso vertical marca el inicio de los valores (por defecto el primero; la página 27
+    # tiene dos columnas de etiquetas separadas también por una línea gruesa).
+    vx = x + vthick[profile.get('separatorIndex', 0)][1] + 1           # inicio de la zona de valores
     hy = y + hthick[-1][1] + 1          # inicio de las filas de la tirada
     right, bottom = x + w - 3, y + h - 3
     ncols, nrows = profile['columns'], profile['rows']
@@ -86,7 +88,7 @@ def calibrate(profile):
     # rosa o verde), sin el texto negro.
     zone = gray[hy:bottom, vx:right]
     bg = float(np.median(zone))
-    area = ((zone < bg - 10) & (zone > 60)).astype(np.uint8)
+    area = (np.abs(zone.astype(int) - bg) > 10).astype(np.uint8)  # líneas finas claras u oscuras (también negras)
     vlines = [vx + (a + b) / 2 for a, b in runs(area.sum(axis=0) >= 0.6 * area.shape[0])]
     hlines = [hy + (a + b) / 2 for a, b in runs(area.sum(axis=1) >= 0.6 * area.shape[1])]
     def worst(edges, lines):
@@ -96,6 +98,37 @@ def calibrate(profile):
         if not lines:
             return 999
         return max(min(abs(e - l) for l in lines) for e in inner)
+    if profile.get('columnEdges') == 'detected':
+        # Columnas de anchos distintos (p. ej. página 33): los bordes son las líneas detectadas, finas o gruesas.
+        # Con fondos de varios tonos por columna, una línea se ve como un salto de intensidad vertical (Sobel x).
+        gx = np.abs(cv2.Sobel(zone.astype(np.float32), cv2.CV_32F, 1, 0, ksize=3))
+        edge_x = [vx + (a + b) / 2 for a, b in runs((gx > 25).sum(axis=0) >= 0.6 * zone.shape[0])]
+        thick_x = [x + (a + b) / 2 for a, b in vthick if x + a > vx]
+        lines = sorted(vlines + thick_x + edge_x)
+        lines = [l for l in lines if vx + 4 < l < right - 4]
+        merged = []
+        for l in lines:
+            if not merged or l - merged[-1] > 9:
+                merged.append(l)
+        # Un trazo de cifra alineado en vertical (p. ej. una columna de «1» y «4») cae a mitad de una celda: se
+        # descarta la línea que queda a menos de 0,6 veces la separación típica de sus dos vecinas.
+        # `skipLines`: líneas de etiquetas que quedan entre el separador grueso y los valores (página 5: columna del icono).
+        skip = profile.get('skipLines', 0)
+        if skip:
+            vx = merged[skip - 1]
+            merged = merged[skip:]
+            zone = gray[hy:bottom, int(vx):right]
+        if len(merged) > 2:
+            gaps = sorted(b - a for a, b in zip([vx] + merged, merged + [right]))
+            typical = gaps[len(gaps) // 2]
+            pts = [vx] + merged + [right]
+            merged = [pts[i] for i in range(1, len(pts) - 1) if not (pts[i] - pts[i - 1] < 0.6 * typical and pts[i + 1] - pts[i] < 0.6 * typical)]
+        if len(merged) != ncols - 1:
+            return None, f'se esperaban {ncols - 1} líneas de columna y se detectaron {len(merged)}: {[round(m) for m in merged]}'
+        col_edges = [vx] + merged + [right]
+        vlines = merged
+        gy = np.abs(cv2.Sobel(zone.astype(np.float32), cv2.CV_32F, 0, 1, ksize=3))
+        hlines = [hy + (a + b) / 2 for a, b in runs((gy > 25).sum(axis=1) >= 0.6 * zone.shape[1])]
     fit = {'columns': round(worst(col_edges, vlines), 1), 'rows': round(worst(row_edges, hlines), 1)}
     if fit['columns'] > MAX_DEVIATION or fit['rows'] > MAX_DEVIATION:
         return None, f'la rejilla no coincide con las líneas de la imagen (desviación {fit})'

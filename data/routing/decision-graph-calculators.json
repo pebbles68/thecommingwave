@@ -1,6 +1,6 @@
 {
   "id": "decision-graph-calculators",
-  "description": "Cálculos que el asistente de combate hace dentro de una pregunta del árbol (roadmap Fase 25): qué factores pide a cada bando (con la ficha y el factor donde se leen), qué tabla de data/tables/ cruza y en qué página real marca la columna, la fila y la celda de cada bando (data/image-hotspots/table-pages.json). La lógica está en public/js/decision-graph-calculators.js y reutiliza los motores ya probados de los wizards; «choices» dice de qué workflow sale la lista de la pregunta de elección (value, label y columnScheme de la fila de la tabla); aquí solo se declaran los datos. `visualTemplate` fija la plantilla de ficha que abre el botón del campo (en el combate aéreo, la de avión de combate). `choices.options` declara la lista en el propio archivo cuando no sale de un workflow; `extraTables` son otras tablas de la misma página que el cálculo también marca (p. ej. la de guerra electrónica).",
+  "description": "Cálculos que el asistente de combate hace dentro de una pregunta del árbol (roadmap Fase 25): qué factores pide a cada bando (con la ficha y el factor donde se leen), qué tabla de data/tables/ cruza y en qué página real marca la columna, la fila y la celda de cada bando (data/image-hotspots/table-pages.json). La lógica está en public/js/decision-graph-calculators.js y reutiliza los motores ya probados de los wizards; «choices» dice de qué workflow sale la lista de la pregunta de elección (value, label y columnScheme de la fila de la tabla); aquí solo se declaran los datos. `visualTemplate` fija la plantilla de ficha que abre el botón del campo (en el combate aéreo, la de avión de combate). `choices.options` declara la lista en el propio archivo cuando no sale de un workflow; `extraTables` son otras tablas de la misma página que el cálculo también marca (p. ej. la de guerra electrónica). Un cálculo puede declarar sus propios `sides` (p. ej. una sola unidad que ataca) y un campo de elección sus propias `options`. Un campo con `showIf` solo se pide cuando otro campo tiene ese valor; un cálculo puede elegir tabla según una respuesta (el resultado trae `tableId`) y marcar celdas adicionales (`extraCells`, p. ej. el rango de detección). `optional` marca un campo que no hace falta para calcular (p. ej. la segunda tirada); `rules` es un archivo de data/rules/ que el cálculo necesita (p. ej. el texto de la celda de éxito). `prefill: \"columnShift\"` propone como valor inicial la suma de los desplazamientos de columna («-N columnas») de lo que el árbol ya ha aplicado; se puede cambiar. `default` es el valor inicial de un campo cuando la regla lo fija (p. ej. -5 del ataque antirradiación, Tablas p. 13).",
   "sourceRefs": [
     {
       "document": "Tablas-de-combate 5.pdf",
@@ -191,6 +191,977 @@
         }
       ],
       "afterResult": "Con los impactos recibidos, cada bando mira el umbral de Derrota en la tabla de bajas (nivel de reacción y Tamaño de Fuerza antes del combate): es la pregunta siguiente del asistente."
+    },
+    "asw-attack": {
+      "title": "Ataque ASW de superficie o aéreo",
+      "nodes": [
+        "asw.attack.roll"
+      ],
+      "engine": "asw-attack",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Unidad que ataca",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-29.json",
+        "tableId": "asw-surface-air-attack-damage"
+      },
+      "intro": "Cada unidad ataca al submarino por separado. La profundidad de su casilla y su Firma (Ruido, +1 si se mueve) eligen la fila de la cabecera; el Valor de Ataque ASW de la unidad elige la columna en esa fila, y la tirada 1d10 da los impactos.",
+      "fields": [
+        {
+          "id": "position",
+          "label": "Profundidad de la casilla del submarino",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "P4",
+              "label": "Aguas profundas (P. 4)"
+            },
+            {
+              "value": "P3",
+              "label": "P. 3"
+            },
+            {
+              "value": "P2_P1",
+              "label": "P. 2 / 1 (aguas someras)"
+            }
+          ]
+        },
+        {
+          "id": "signature",
+          "label": "Firma (Ruido) del submarino",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "submarine-noise",
+          "visualTemplate": "submarine-exposed"
+        },
+        {
+          "id": "moving",
+          "label": "¿El submarino está En Movimiento?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí, se está moviendo (+1 a la Firma)"
+            }
+          ]
+        },
+        {
+          "id": "attack",
+          "label": "Valor de Ataque ASW de la unidad",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "ship-asw",
+          "visualTemplate": "ship-combat"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "Si los impactos igualan o superan la Protección del submarino, queda hundido."
+    },
+    "asw-submarine": {
+      "title": "Ataque con torpedos de submarino contra submarino",
+      "nodes": [
+        "asw.attack.sub_result"
+      ],
+      "engine": "asw-submarine",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Submarino que ataca",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-30.json",
+        "tableId": "asw-submarine-vs-submarine-damage"
+      },
+      "intro": "La profundidad de la casilla del objetivo y su Firma (Ruido, +1 si se mueve) eligen la fila de la cabecera; el Valor de Ataque con Torpedos del atacante elige la columna y la tirada da el resultado. Con torpedos de hexágono, solo tiene efecto un resultado con *.",
+      "fields": [
+        {
+          "id": "position",
+          "label": "Profundidad de la casilla del objetivo",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "P4",
+              "label": "Aguas profundas (P. 4)"
+            },
+            {
+              "value": "P3",
+              "label": "P. 3"
+            },
+            {
+              "value": "P2_P1",
+              "label": "P. 2 / 1 (aguas someras)"
+            }
+          ]
+        },
+        {
+          "id": "signature",
+          "label": "Firma (Ruido) del submarino objetivo",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "submarine-noise",
+          "visualTemplate": "submarine-exposed"
+        },
+        {
+          "id": "moving",
+          "label": "¿El objetivo está En Movimiento?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí, se está moviendo (+1 a la Firma)"
+            }
+          ]
+        },
+        {
+          "id": "torpedoType",
+          "label": "Símbolo del torpedo",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "circle",
+              "label": "Círculo"
+            },
+            {
+              "value": "hexagon",
+              "label": "Hexágono"
+            }
+          ]
+        },
+        {
+          "id": "attack",
+          "label": "Valor de Ataque con Torpedos",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "submarine-torpedoes",
+          "visualTemplate": "submarine-exposed"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "«NO DISPARAR»: no se hace búsqueda tras el ataque. Si los impactos igualan o superan la Protección del objetivo, queda hundido."
+    },
+    "asw-signature-search": {
+      "title": "Búsqueda por diferencia de firma",
+      "nodes": [
+        "asw.signature.roll"
+      ],
+      "engine": "asw-signature-search",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Unidad que busca",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-33.json",
+        "tableId": "asw-signature-difference-search"
+      },
+      "intro": "La columna sale del buscador: un submarino por su Firma; una unidad de superficie por la forma del marco de su Valor ASW y la profundidad. En esa columna se busca la Firma del objetivo (+1 si se mueve) y, en esa fila, la columna de rango según el evento y la distancia da la tirada necesaria.",
+      "fields": [
+        {
+          "id": "searcherKind",
+          "label": "Unidad que busca",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "surface",
+              "label": "Unidad de superficie"
+            },
+            {
+              "value": "submarine",
+              "label": "Submarino"
+            }
+          ]
+        },
+        {
+          "id": "searcherSignature",
+          "label": "Firma (Ruido) del submarino que busca",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "submarine-noise-searcher",
+          "visualTemplate": "submarine-exposed",
+          "showIf": {
+            "field": "searcherKind",
+            "equals": "submarine"
+          }
+        },
+        {
+          "id": "frame",
+          "label": "Forma del marco del Valor ASW",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "1",
+              "label": "Hexagonal (marco 1)"
+            },
+            {
+              "value": "2",
+              "label": "Rectangular o cuadrado (marco 2)"
+            },
+            {
+              "value": "3",
+              "label": "Rombo (marco 3)"
+            }
+          ],
+          "showIf": {
+            "field": "searcherKind",
+            "equals": "surface"
+          }
+        },
+        {
+          "id": "depth",
+          "label": "Profundidad",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "P4",
+              "label": "Aguas profundas (P. 4)"
+            },
+            {
+              "value": "P3",
+              "label": "P. 3"
+            },
+            {
+              "value": "P2",
+              "label": "P. 2 (aguas someras)"
+            }
+          ],
+          "showIf": {
+            "field": "searcherKind",
+            "equals": "surface"
+          }
+        },
+        {
+          "id": "trigger",
+          "label": "Qué activa la búsqueda",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "routine_movement",
+              "label": "Rutina, movimiento o emboscada"
+            },
+            {
+              "value": "after_attack_evasion",
+              "label": "Después del ataque o antes de evadir"
+            }
+          ]
+        },
+        {
+          "id": "distance",
+          "label": "Distancia al objetivo",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "hex",
+              "label": "Misma casilla"
+            },
+            {
+              "value": "adjacent",
+              "label": "Casilla adyacente"
+            }
+          ]
+        },
+        {
+          "id": "targetSignature",
+          "label": "Firma (Ruido) del submarino objetivo",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "submarine-noise",
+          "visualTemplate": "submarine-hidden"
+        },
+        {
+          "id": "moving",
+          "label": "¿El objetivo está En Movimiento?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí, se está moviendo (+1 a la Firma)"
+            }
+          ]
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "Si se detecta, el submarino Oculto pasa a Expuesto."
+    },
+    "asw-air-search": {
+      "title": "Búsqueda aérea ASW",
+      "nodes": [
+        "asw.air.roll"
+      ],
+      "engine": "asw-air-search",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Búsqueda aérea",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-34.json",
+        "tableId": "asw-air-search-routine"
+      },
+      "extraTables": [
+        {
+          "page": "page-34.json",
+          "tableId": "asw-air-search-post-attack"
+        }
+      ],
+      "intro": "Se suma el Valor de búsqueda aérea ASW de las unidades que buscan en la casilla (columna) y se cruza con la Firma del objetivo (+1 si se mueve) en la columna de su profundidad (fila). La tabla depende del evento.",
+      "fields": [
+        {
+          "id": "trigger",
+          "label": "Qué activa la búsqueda",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "routine",
+              "label": "Movimiento submarino, rutina o pre-emboscada"
+            },
+            {
+              "value": "post_attack",
+              "label": "Después del ataque o antes de evadir"
+            }
+          ]
+        },
+        {
+          "id": "depth",
+          "label": "Profundidad de la casilla del objetivo",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "P4",
+              "label": "Aguas profundas (P. 4)"
+            },
+            {
+              "value": "P3",
+              "label": "P. 3"
+            },
+            {
+              "value": "P2",
+              "label": "P. 2 (aguas someras)"
+            }
+          ]
+        },
+        {
+          "id": "signature",
+          "label": "Firma (Ruido) del submarino objetivo",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "submarine-noise",
+          "visualTemplate": "submarine-hidden"
+        },
+        {
+          "id": "moving",
+          "label": "¿El objetivo está En Movimiento?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí, se está moviendo (+1 a la Firma)"
+            }
+          ]
+        },
+        {
+          "id": "airValue",
+          "label": "Suma del Valor de búsqueda aérea ASW de las unidades que buscan",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "asw-air-detection"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "Si se detecta, el submarino queda Expuesto."
+    },
+    "torpedo-surface": {
+      "title": "Ataque con torpedos contra superficie",
+      "nodes": [
+        "surface.torpedo.result"
+      ],
+      "engine": "torpedo-surface",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Submarino que ataca",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-27.json",
+        "tableId": "torpedo-vs-surface-damage"
+      },
+      "intro": "La fila de la cabecera depende de si en la casilla objetivo hay una unidad de superficie capaz de búsqueda por diferencia de firma o un MPA con su Zona Central (y entonces, de si el submarino está Expuesto u Oculto); el Valor de Ataque del Torpedo da la columna. Si todos los buques objetivo tienen velocidad impresa 3 o menos, la tirada se fija en 9.",
+      "fields": [
+        {
+          "id": "aswContext",
+          "label": "¿Hay en la casilla objetivo una unidad de superficie con búsqueda por diferencia de firma o la Zona Central de un MPA?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "surface_search_or_mpa",
+              "label": "Sí"
+            },
+            {
+              "value": "none",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "attackerState",
+          "label": "Estado del submarino que ataca",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "exposed",
+              "label": "Expuesto"
+            },
+            {
+              "value": "hidden",
+              "label": "Oculto"
+            }
+          ],
+          "showIf": {
+            "field": "aswContext",
+            "equals": "surface_search_or_mpa"
+          }
+        },
+        {
+          "id": "torpedoType",
+          "label": "Símbolo del torpedo",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "circle",
+              "label": "Círculo"
+            },
+            {
+              "value": "hexagon",
+              "label": "Hexágono"
+            }
+          ]
+        },
+        {
+          "id": "attack",
+          "label": "Valor de Ataque del Torpedo",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "submarine-torpedoes",
+          "visualTemplate": "submarine-hidden"
+        },
+        {
+          "id": "slowTargets",
+          "label": "¿Todos los buques objetivo tienen velocidad impresa 3 o menos?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "showIf": {
+            "field": "slowTargets",
+            "notEquals": "yes"
+          }
+        },
+        {
+          "id": "followUpRoll",
+          "label": "Segunda tirada 1d10, si el resultado la pide",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "optional": true
+        }
+      ],
+      "afterResult": "Por cada impacto: un buque con resistencia de símbolo simple queda hundido; con símbolo enmarcado recibe 3 daños. «No atacó»: no hay búsqueda posterior y no se gasta munición."
+    },
+    "army-resupply": {
+      "title": "Reabastecimiento de campo del ejército",
+      "nodes": [
+        "strategic.logistics.roll"
+      ],
+      "engine": "army-resupply",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Unidad principal",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-32.json",
+        "tableId": "army-logistics-resupply"
+      },
+      "rules": "army-resupply.json",
+      "intro": "Cada unidad principal se reabastece por separado: su Nivel de Iniciativa (A a D) da la columna y la tirada la fila. Con «Éxito» aumenta su fuerza en 1, sin pasar de su límite impreso. Tenga éxito o no, la unidad pasa a su lado «Movida».",
+      "fields": [
+        {
+          "id": "level",
+          "label": "Nivel de Iniciativa de la unidad",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "A",
+              "label": "A"
+            },
+            {
+              "value": "B",
+              "label": "B"
+            },
+            {
+              "value": "C",
+              "label": "C"
+            },
+            {
+              "value": "D",
+              "label": "D"
+            }
+          ],
+          "visualRef": "ground-initiative",
+          "visualTemplate": "ground-main"
+        },
+        {
+          "id": "currentForce",
+          "label": "Tamaño de fuerza actual",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "printedForceLimit",
+          "label": "Límite de fuerza impreso en la ficha",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "ground-force-size",
+          "visualTemplate": "ground-main"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ]
+    },
+    "ground-guided": {
+      "title": "Ataque terrestre guiado: tabla de precisión",
+      "nodes": [
+        "land.guided.roll9"
+      ],
+      "engine": "ground-guided",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Método de ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-05.json",
+        "tableId": "ground-precision-attack-damage"
+      },
+      "choices": {
+        "workflow": "02_ataque_terrestre_guiado.json",
+        "key": "finalResolution",
+        "list": "methodRows"
+      },
+      "intro": "Cada método de ataque se resuelve por separado. El método (plan Ligero o no, munición Normal o Persecución) elige la fila de la cabecera; el Valor de Ataque que queda tras las defensas, desplazado tantas columnas a la izquierda como indique la Modificación de Intensidad (saltando las columnas «·»; un valor positivo cuenta como 0), da la columna. Un objetivo Fijo lee la tirada una fila más abajo que uno Móvil. Con un 9 natural se cancela la Modificación. El Valor de Ataque máximo es 13.",
+      "fields": [
+        {
+          "id": "method",
+          "label": "Método de ataque",
+          "kind": "choice"
+        },
+        {
+          "id": "target",
+          "label": "Tipo de objetivo",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "mobile",
+              "label": "Móvil (unidad principal o técnica)"
+            },
+            {
+              "value": "fixed",
+              "label": "Instalación fija"
+            }
+          ]
+        },
+        {
+          "id": "attack",
+          "label": "Valor de Ataque tras la defensa aérea y la interceptación",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "attack-base-value"
+        },
+        {
+          "id": "intensity",
+          "label": "Modificación de Intensidad total (columnas; negativa a la izquierda)",
+          "kind": "number",
+          "prefill": "columnShift"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "Los impactos de todos los métodos se suman. Después, la pregunta siguiente del asistente trata el contraataque a baja altura y el daño en el objetivo."
+    },
+    "ground-unguided": {
+      "title": "Ataque terrestre no guiado: tabla de daño",
+      "nodes": [
+        "land.unguided.roll9"
+      ],
+      "engine": "ground-guided",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Método de ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-09.json",
+        "tableId": "ground-unguided-attack-damage"
+      },
+      "choices": {
+        "workflow": "03_ataque_terrestre_no_guiado.json",
+        "key": "finalResolution",
+        "list": "methodRows"
+      },
+      "intro": "Igual que el guiado, con la tabla de la página 9: el método elige la fila de la cabecera, el Valor de Ataque tras la intercepción, desplazado por la Modificación de Intensidad (saltando «·»; positiva cuenta como 0), da la columna, y la tirada se lee como objetivo Móvil o Fijo. Un 9 natural cancela la Modificación.",
+      "fields": [
+        {
+          "id": "method",
+          "label": "Método de ataque",
+          "kind": "choice"
+        },
+        {
+          "id": "target",
+          "label": "Tipo de objetivo",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "mobile",
+              "label": "Móvil (unidad principal o técnica)"
+            },
+            {
+              "value": "fixed",
+              "label": "Instalación fija"
+            }
+          ]
+        },
+        {
+          "id": "attack",
+          "label": "Valor de Ataque tras la defensa aérea y la interceptación",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "attack-base-value"
+        },
+        {
+          "id": "intensity",
+          "label": "Modificación de Intensidad total (columnas; negativa a la izquierda)",
+          "kind": "number",
+          "prefill": "columnShift"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "Los impactos de todos los métodos se suman. Después vienen el contraataque a baja altura y el daño en el objetivo."
+    },
+    "anti-radiation": {
+      "title": "Ataque antirradiación: tabla de daño",
+      "nodes": [
+        "land.arm.roll9"
+      ],
+      "engine": "anti-radiation",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Método de ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-13.json",
+        "tableId": "anti-radiation-target-damage"
+      },
+      "intro": "Los planes de ataque [L] usan la fila [L] Ligero; los demás, la fila Normal. El Valor de Ataque se desplaza 5 columnas a la izquierda (sistema de detección activado), saltando las columnas «·»; un 9 natural cancela el desplazamiento. El Valor de Ataque máximo es 13.",
+      "fields": [
+        {
+          "id": "light",
+          "label": "¿El plan de ataque es [L] (Ligero)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No: fila Normal"
+            },
+            {
+              "value": "yes",
+              "label": "Sí: fila [L] Ligero"
+            }
+          ]
+        },
+        {
+          "id": "attack",
+          "label": "Valor de Ataque tras la defensa aérea y la interceptación",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "attack-base-value"
+        },
+        {
+          "id": "intensity",
+          "label": "Modificación de Intensidad (columnas; con el sistema de detección activado es -5)",
+          "kind": "number",
+          "default": "-5"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "El objetivo no recibe bonificación de protección por el terreno. Después viene el contraataque a baja altura."
+    },
+    "antiship-guided-final": {
+      "title": "Ataque antibuque guiado: tabla final de daño",
+      "nodes": [
+        "surface.guided.counter"
+      ],
+      "engine": "antiship-guided-final",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Método de ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-22.json",
+        "tableId": "antiship-guided-final-damage"
+      },
+      "intro": "El Valor de Ataque Final es el Valor de Ataque que queda tras las defensas multiplicado por el multiplicador del V.E.F. (página 21); da la columna. El método elige cómo se lee la tirada: subsónico y supersónico en la columna SUB/SUP, balístico y espacio cercano en PAR/E.C. El subsónico tira 2d10 y se queda con el mayor.",
+      "fields": [
+        {
+          "id": "method",
+          "label": "Método de ataque",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "subsonic",
+              "label": "Subsónico (2d10, el mayor)",
+              "rowScheme": "sub_sup",
+              "dice": "max2"
+            },
+            {
+              "value": "supersonic",
+              "label": "Supersónico (1d10)",
+              "rowScheme": "sub_sup",
+              "dice": "one"
+            },
+            {
+              "value": "ballistic",
+              "label": "Trayectoria balística (1d10)",
+              "rowScheme": "par_ec",
+              "dice": "one"
+            },
+            {
+              "value": "near_space",
+              "label": "Trayectoria de espacio cercano (1d10)",
+              "rowScheme": "par_ec",
+              "dice": "one"
+            }
+          ]
+        },
+        {
+          "id": "attack",
+          "label": "Valor de Ataque tras la defensa aérea y la interceptación",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "attack-base-value"
+        },
+        {
+          "id": "multiplier",
+          "label": "Multiplicador por el V.E.F. (página 21)",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "1",
+              "label": "x1"
+            },
+            {
+              "value": "2",
+              "label": "x2"
+            },
+            {
+              "value": "3",
+              "label": "x3"
+            },
+            {
+              "value": "4",
+              "label": "x4"
+            },
+            {
+              "value": "5",
+              "label": "x5"
+            },
+            {
+              "value": "6",
+              "label": "x6"
+            }
+          ]
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        },
+        {
+          "id": "roll2",
+          "label": "Segunda tirada 1d10 (subsónico)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "showIf": {
+            "field": "method",
+            "equals": "subsonic"
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 21 (método de resolución por tipo de munición) y página 22 (tabla final)."
+        }
+      ],
+      "afterResult": "Por cada impacto: subsónico 1 daño, supersónico 2 daños; balístico o de espacio cercano según el Valor de Resistencia del buque. Después vienen el contraataque a baja altura y, si el buque está en puerto, sus efectos."
+    },
+    "antiship-unguided": {
+      "title": "Ataque antibuque no guiado: tabla de daño",
+      "nodes": [
+        "surface.unguided.roll9"
+      ],
+      "engine": "antiship-unguided",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Método de ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-25.json",
+        "tableId": "antiship-unguided-damage-and-naval-artillery"
+      },
+      "intro": "Los planes [L] usan la fila superior de la cabecera; los demás, la fila inferior. El Valor de Ataque que queda tras la intercepción, desplazado por la Modificación de Intensidad de la distancia (saltando las columnas «·»), da la columna. Un 9 natural cancela la Modificación.",
+      "fields": [
+        {
+          "id": "light",
+          "label": "¿El plan de ataque es [L] (Ligero)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No: fila inferior"
+            },
+            {
+              "value": "yes",
+              "label": "Sí: fila [L]"
+            }
+          ]
+        },
+        {
+          "id": "attack",
+          "label": "Valor de Ataque tras la interceptación",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "attack-base-value"
+        },
+        {
+          "id": "intensity",
+          "label": "Modificación de Intensidad (columnas; por la distancia: 0, -3 u -8)",
+          "kind": "number",
+          "prefill": "columnShift"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "afterResult": "Por cada impacto: Valor de Protección simple, 1 daño; enmarcado, 2 daños. Una unidad múltiple (x2…) con 1 daño cuenta como 1 hundido."
     }
   }
 }

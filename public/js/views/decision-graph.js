@@ -160,9 +160,10 @@
       const shrink = (r) => ({ x: r.x + inset / W, y: r.y + inset / H, w: r.w - (2 * inset) / W, h: r.h - (2 * inset) / H });
       rect(rects.column, { fill: side.color, 'fill-opacity': 0.12, stroke: side.color, 'stroke-width': 3 });
       if (rects.header) rect(shrink(rects.header), { fill: 'none', stroke: side.color, 'stroke-width': 4 });
-      rect(rects.row, { fill: side.color, 'fill-opacity': 0.08, stroke: 'none' });
-      rect(shrink(rects.cell), { fill: 'none', stroke: side.color, 'stroke-width': 6 });
-      labels.push(marksOverride ? `${side.label}: celda marcada` : `${side.label}: columna ${result.sides[side.id].columnLabel}, fila ${result.sides[side.id].rowValue}`);
+      if (rects.row) rect(rects.row, { fill: side.color, 'fill-opacity': 0.08, stroke: 'none' });
+      if (rects.cell) rect(shrink(rects.cell), { fill: 'none', stroke: side.color, 'stroke-width': 6 });
+      (rects.extraCells || []).forEach((c) => rect(shrink(c), { fill: side.color, 'fill-opacity': 0.15, stroke: side.color, 'stroke-width': 6 }));
+      labels.push(marksOverride ? `${side.label}: celda marcada` : `${side.label}: columna ${result.sides[side.id].columnLabel}${rects.cell ? `, fila ${result.sides[side.id].rowValue}` : ''}`);
     });
     svg.setAttribute('aria-label', `Tabla real con lo marcado. ${labels.join('. ')}`);
     return svg;
@@ -174,32 +175,43 @@
   function loadCalcInputs() { try { return JSON.parse(sessionStorage.getItem(CALC_KEY) || '{}'); } catch (err) { return {}; } }
   function saveCalcInputs(all) { try { sessionStorage.setItem(CALC_KEY, JSON.stringify(all)); } catch (err) { /* sin almacenamiento */ } }
 
-  async function calculatorBlock(data, calc, stateKey, roundNumber) {
+  async function calculatorBlock(data, calc, stateKey, roundNumber, effects) {
     const box = el('section', 'decision-graph__calc');
     box.appendChild(el('h3', 'decision-graph__subtitle', roundNumber > 1 ? `${calc.title}: ronda ${roundNumber}` : calc.title));
     if (calc.intro) box.appendChild(el('p', 'phase-view__desc', calc.intro));
     let table;
     let choices = [];
+    let workflow = null;
     const extra = {};
+    let rules = null;
     try {
       const page = await loadJsonOnce(data.tableData, `/data/tables/${calc.table.page}`);
       table = page.tables.find((t) => t.id === calc.table.tableId);
+      if (calc.rules) rules = await loadJsonOnce(data.tableData, `/data/rules/${calc.rules}`);
       for (const x of calc.extraTables || []) {
         const p = await loadJsonOnce(data.tableData, `/data/tables/${x.page}`);
         extra[x.tableId] = p.tables.find((t) => t.id === x.tableId);
       }
       if (calc.choices) {
         const wf = calc.choices.workflow ? await loadJsonOnce(data.workflows, `/data/workflows/${calc.choices.workflow}`) : null;
+        workflow = wf;
         choices = DecisionGraphCalculators.resolveChoices(wf, calc.choices);
       }
     } catch (err) {
       box.appendChild(el('p', 'pending-note', err.message));
       return box;
     }
-    const sides = data.calculators.sides || [];
+    const sides = calc.sides || data.calculators.sides || [];
     const all = loadCalcInputs();
     const inputs = all[stateKey] || { shared: {}, sides: {} };
     sides.forEach((s) => { inputs.sides[s.id] = inputs.sides[s.id] || {}; });
+    // Campos que se proponen a partir de lo que el árbol ya ha aplicado (se pueden cambiar).
+    calc.fields.filter((d) => d.default !== undefined).forEach((d) => {
+      sides.forEach((s) => { if (inputs.sides[s.id][d.id] === undefined) inputs.sides[s.id][d.id] = d.default; });
+    });
+    calc.fields.filter((d) => d.prefill === 'columnShift').forEach((d) => {
+      sides.forEach((s) => { if (inputs.sides[s.id][d.id] === undefined) inputs.sides[s.id][d.id] = String(DecisionGraphCalculators.columnShiftFromEffects(effects)); });
+    });
     const resultHost = el('div', 'decision-graph__calc-result');
 
     const field = (def, value, onChange, sideLabel) => {
@@ -209,7 +221,7 @@
       if (def.kind === 'choice') {
         input = el('select');
         input.appendChild(Object.assign(el('option', null, 'Elige…'), { value: '' }));
-        choices.forEach((g) => input.appendChild(Object.assign(el('option', null, g.label), { value: g.value })));
+        (def.options || choices).forEach((g) => input.appendChild(Object.assign(el('option', null, g.label), { value: g.value })));
       } else {
         input = el('input');
         input.type = 'number';
@@ -227,6 +239,7 @@
       return row;
     };
 
+    const conditional = [];
     const grid = el('div', 'decision-graph__calc-sides');
     sides.forEach((side) => {
       const fs = el('fieldset', 'decision-graph__side');
@@ -234,21 +247,30 @@
       const legend = el('legend', null, side.label);
       legend.style.color = side.color;
       fs.appendChild(legend);
-      calc.fields.forEach((def) => fs.appendChild(field(def, inputs.sides[side.id][def.id], (v) => { inputs.sides[side.id][def.id] = v; update(); }, side.label)));
+      calc.fields.forEach((def) => {
+        const row = field(def, inputs.sides[side.id][def.id], (v) => { inputs.sides[side.id][def.id] = v; update(); }, side.label);
+        // Campo condicional: se enseña solo cuando se cumple su `showIf` (lo reevalúa cada cambio).
+        if (def.showIf) conditional.push({ row, def, values: inputs.sides[side.id] });
+        fs.appendChild(row);
+      });
       grid.appendChild(fs);
     });
     box.appendChild(grid);
     (calc.sharedFields || []).forEach((def) => box.appendChild(field(def, inputs.shared[def.id], (v) => { inputs.shared[def.id] = v; update(); })));
     box.appendChild(resultHost);
 
-    const geometry = DecisionGraphCalculators.geometryFor(data.tableHotspots, calc.table.page, calc.table.tableId);
+    const geometryOf = (tableId) => DecisionGraphCalculators.geometryFor(data.tableHotspots, calc.table.page, tableId);
     const withImage = await AppVisuals.privateImagesAvailable();
     function update() {
+      conditional.forEach((c) => { c.row.hidden = !DecisionGraphCalculators.fieldApplies(c.def, c.values); });
       all[stateKey] = inputs;
       saveCalcInputs(all);
       resultHost.textContent = '';
-      const result = DecisionGraphCalculators.compute(calc, { table, choices, extra }, inputs);
-      const anyOk = sides.some((s) => result.sides[s.id].status === 'ok');
+      const result = DecisionGraphCalculators.computeWithColumn(calc, { table, choices, extra, rules, workflow }, inputs);
+      const anyOk = sides.some((s) => ['ok', 'column'].includes(result.sides[s.id].status));
+      const anyResult = sides.some((s) => result.sides[s.id].status === 'ok');
+      // Un cálculo puede elegir la tabla según una respuesta (p. ej. el evento de la búsqueda aérea).
+      const geometry = geometryOf(result.tableId || calc.table.tableId);
       sides.forEach((side) => {
         const r = result.sides[side.id];
         const card = el('div', 'decision-graph__side-result');
@@ -278,7 +300,7 @@
         fig.appendChild(el('figcaption', 'source-refs', `Tabla real, página ${g.page}: ${(extra[xm.tableId] || {}).title || xm.tableId}.`));
         resultHost.appendChild(fig);
       });
-      if (anyOk && calc.afterResult) resultHost.appendChild(el('p', 'phase-view__desc', calc.afterResult));
+      if (anyResult && calc.afterResult) resultHost.appendChild(el('p', 'phase-view__desc', calc.afterResult));
     }
     update();
     return box;
@@ -388,7 +410,7 @@
       if (calcDef) {
         const host = el('div');
         body.appendChild(host);
-        calculatorBlock(data, calcDef, `${node.id}#${repeats}`, repeats + 1).then((block) => host.appendChild(block));
+        calculatorBlock(data, calcDef, `${node.id}#${repeats}`, repeats + 1, DecisionGraphEngine.accumulatedEffects(session)).then((block) => host.appendChild(block));
       }
       // Pregunta en la que se cruza una tabla: el cálculo de ese paso, sin perder el recorrido (la sesión se recuerda).
       const calc = DecisionGraphEngine.nodeLinks(links, node.id);
