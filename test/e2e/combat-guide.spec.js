@@ -17,7 +17,7 @@ test('Resolver combate ofrece la guía y se recorre paso a paso hasta el wizard 
   await expect(page.getByText('Paso 3 de 4')).toBeVisible();
   await expect(page.getByText(/misma tirada que la de penetración/)).toBeVisible();
   await page.getByRole('button', { name: /Resolver el combate aéreo BVR/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/air-combat-bvr$/);
+  await expect(page).toHaveURL(/#\/decision\/e\/air-intercept$/);
 });
 
 test('volver al paso anterior y saltar con los pasos numerados', async ({ page }) => {
@@ -33,5 +33,5 @@ test('la guía de reacción terrestre se recorre y lleva al wizard de reacciones
   await expect(page.getByText('Paso 1 de 4')).toBeVisible();
   await page.getByRole('button', { name: /^4\. Qué reacción toca/ }).click();
   await page.getByRole('button', { name: /Resolver un ataque de reacción/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/ground-reaction$/);
+  await expect(page).toHaveURL(/#\/decision\/ext\.reaction\.kind$/);
 });

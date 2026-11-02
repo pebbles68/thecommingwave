@@ -92,8 +92,8 @@ test('la Intercepción Final suma los impactos de consumo Bajo y Alto; el plan L
   await expect(page.getByText('Derivado del tipo de ataque del paso anterior: Sí (plan Ligero: -3 a la tirada).')).toBeVisible();
 });
 
-test('"Combate por tipo" ofrece el wizard de ataque terrestre no guiado', async ({ page }) => {
+test('"Combate por tipo" del ataque terrestre no guiado abre el asistente en su pregunta', async ({ page }) => {
   await page.goto('/#/ayuda/combate/ground_unguided');
-  await page.getByRole('button', { name: /Resolver con el wizard de combate/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/ground-unguided$/);
+  await page.getByRole('button', { name: /Resolver con el asistente de combate/ }).click();
+  await expect(page).toHaveURL(/#\/decision\/e\/land-unguided$/);
 });

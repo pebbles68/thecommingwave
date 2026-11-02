@@ -109,10 +109,10 @@ test('misión sin fila en la tabla con CA > 0: el ataque queda pendiente y no se
   await expect(page.getByText('Paso 2 de 3: Rondas de combate cercano')).toBeVisible();
 });
 
-test('"Combate por tipo" de combate aéreo ofrece también el wizard WVR', async ({ page }) => {
+test('"Combate por tipo" de combate aéreo lleva el combate cercano WVR al asistente', async ({ page }) => {
   await page.goto('/#/ayuda/combate/air_combat');
   await page.getByRole('button', { name: /Resolver el combate aéreo cercano \(WVR\)/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/air-combat-wvr$/);
+  await expect(page).toHaveURL(/#\/decision\/air\.intercept\.wvr$/);
 });
 
 test('una unidad que se retiró o salió de combate en el BVR no participa en el WVR ni cuenta para el CA', async ({ page }) => {

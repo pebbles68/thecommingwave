@@ -320,7 +320,6 @@
 
   async function renderDecisionGraph(startNodeId, entryId) {
     const navToken = Router.currentToken();
-    AppCore.clearLastTurnContext();
     setBreadcrumb(['TCW Assistant', 'Asistente de combate']);
     viewRoot.innerHTML = '<p class="loading">Cargando…</p>';
     let data;
@@ -490,6 +489,25 @@
     return card;
   }
 
+  // Punto del asistente que sustituye a un wizard antiguo (data/routing/decision-entrypoints.json, `wizards`).
+  async function assistantHash(kind, key) {
+    let data;
+    try { data = await loadData(); } catch (err) { return null; }
+    if (kind === 'wizards') {
+      const target = (data.entrypoints.wizards || {})[key];
+      if (!target) return null;
+      return target.entry ? `#/decision/e/${target.entry}` : `#/decision/${target.node}`;
+    }
+    const entryId = DecisionGraphEngine.entryForContext(data.entrypoints, kind, key);
+    return entryId ? `#/decision/e/${entryId}` : null;
+  }
+
+  // Igual que assistantHash('wizards', …) pero a partir del enlace antiguo (#/wizard/<id>).
+  async function assistantHashForWizardHash(hash) {
+    const key = Object.keys(AppCore.WORKFLOW_WIZARD_HASHES || {}).find((k) => AppCore.WORKFLOW_WIZARD_HASHES[k] === hash);
+    return key ? assistantHash('wizards', key) : null;
+  }
+
   root.Views = root.Views || {};
-  root.Views.DecisionGraph = { renderDecisionGraph, entryCard };
+  root.Views.DecisionGraph = { renderDecisionGraph, entryCard, assistantHash, assistantHashForWizardHash };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -2,6 +2,16 @@
 
 ## Estado actual
 
+### El asistente sustituye a los wizards en la ayuda contextual y en Inicio (AD-004) — 2026-11-02
+
+- Estado: `in_progress`, **pendiente de comprobación del mantenedor**; sin commit.
+- **Lo que vio el mantenedor:** el asistente estaba en «Resolver combate», pero la ayuda contextual del Turno guiado seguía ofreciendo los wizards viejos.
+- **Cambios:** `data/routing/decision-entrypoints.json` gana `wizards` (cada wizard antiguo → entrada o pregunta del asistente que lo sustituye); `Views.DecisionGraph.assistantHash`; la ayuda contextual del Turno guiado (`renderContextualHelpLinks`) y los atajos del Turno Comentado abren el asistente (los tipos de combate ya no van a «Combate por tipo»); las tarjetas de «Resolver combate» en Inicio abren el asistente en el punto de cada tipo. Las rutas `#/wizard/...` siguen existiendo como cálculo detallado al que enlazan los resultados del asistente.
+- **Todos los accesos (2026-11-02, indicación del mantenedor: «sustituir todos los wizards de resolución y empezar en la pregunta correcta según el origen»):** también «Combate por tipo» (un único botón «Resolver con el asistente de combate» y sus accesos relacionados), el router de tablas y las guías de pasos abren el asistente en el punto del tipo de combate (`Views.DecisionGraph.assistantHash` / `assistantHashForWizardHash`). Ya no queda ningún acceso de entrada a un wizard fuera de los resultados del asistente (cálculo detallado).
+- El asistente ya no borra el nodo del turno: un cálculo (wizard) abierto desde él sigue ligado a la subfase de origen (TUR-013/015). Pruebas E2E adaptadas: `turno.spec.js`, `wizard-drafts.spec.js`, `submarine-ambush.spec.js`, `player-language.spec.js`, `touch-smoke.spec.js`.
+- **Validación:** `npm test` 838/838; Playwright 371/372 (la que falla en la pasada completa cambia según la carga del equipo y pasa sola: `touch-smoke.spec.js` 4/4). 8 pruebas más adaptadas a los accesos nuevos (Combate por tipo, router de tablas, guías).
+- **Visible en la web: sí.** `#/turno/fase/1/air-1/salidas_combate` (ayuda contextual), el Turno Comentado y Inicio › Resolver combate.
+
 ### Ramas del árbol para los procedimientos que no cubría (AD-005) — 2026-11-01
 
 - Estado: `done`, **pendiente de revisión del mantenedor**; subido a master.

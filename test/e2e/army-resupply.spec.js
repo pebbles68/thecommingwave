@@ -69,8 +69,8 @@ test('condiciones: sin Línea de Suministro, ya Actuada o con unidad principal e
   await expect(page.getByText('Paso 1 de 3: Unidad y condiciones')).toBeVisible();
 });
 
-test('el router de tablas "Estratégico > Logística" ofrece el wizard', async ({ page }) => {
+test('el router de tablas "Estratégico > Logística" abre el asistente en el reabastecimiento', async ({ page }) => {
   await page.goto('/#/ayuda/tablas/router/estrategico/logistica');
-  await page.getByRole('button', { name: /Resolver con el wizard/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/army-resupply$/);
+  await page.getByRole('button', { name: /Resolver con el asistente de combate/ }).click();
+  await expect(page).toHaveURL(/#\/decision\/e\/strategic-logistics$/);
 });

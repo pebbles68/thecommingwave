@@ -59,8 +59,10 @@ test('un borrador con esquema incompatible o corrupto no rompe el wizard y se ex
 
 async function startFromSubphase(page) {
   await page.goto('/#/turno/fase/1/ground/combate_terrestre');
-  await page.getByRole('button', { name: 'Combate cercano terrestre', exact: false }).click();
-  await page.getByRole('button', { name: '▶ Resolver con el wizard de combate' }).click();
+  await page.getByRole('button', { name: '▶ Combate cercano terrestre', exact: false }).click();
+  await expect(page).toHaveURL(/#\/decision\/e\/land-close/);
+  // El cálculo detallado se abre desde el asistente (sus enlaces «Resolver este paso»); conserva el nodo del turno.
+  await page.evaluate(() => { location.hash = '#/wizard/ground-close-combat'; });
   await expect(page).toHaveURL(/#\/wizard\/ground-close-combat/);
   await expect(page.getByText('Paso 1 de 5')).toBeVisible();
 }

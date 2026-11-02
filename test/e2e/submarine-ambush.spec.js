@@ -62,9 +62,12 @@ test('sin munición el submarino nuclear emboscará a una formación adyacente, 
   await expect(page.getByText(/no puede realizar ataques que consuman munición/)).toBeVisible();
 });
 
-test('desde el Combate de Superficie del turno se llega al wizard de la Emboscada', async ({ page }) => {
+test('desde el Combate de Superficie del turno se llega a la Emboscada en el asistente y de ahí a su cálculo', async ({ page }) => {
   await page.goto('/#/turno/fase/1/surface/combate_superficie');
   await page.getByRole('button', { name: /▶ Emboscada de submarino/ }).click();
+  await expect(page).toHaveURL(/#\/decision\/ext\.ambush\.event$/);
+  await page.getByRole('button', { name: 'Entra en la zona' }).click();
+  await page.getByRole('button', { name: /^Emboscada de submarino/ }).click();
   await expect(page).toHaveURL(/#\/wizard\/submarine-ambush$/);
   await expect(page.getByRole('heading', { name: 'Emboscada de submarino' })).toBeVisible();
 });

@@ -611,29 +611,32 @@
 
     if (relatedWorkflowIds && relatedWorkflowIds.length) {
       const index = await loadWorkflowsIndex();
-      relatedWorkflowIds.forEach((wfId) => {
+      // Fase 25: cada tipo de combate abre el asistente en su punto del árbol (antes, «Combate por tipo»).
+      for (const wfId of relatedWorkflowIds) {
         const wf = index.files.find((f) => f.id === wfId);
-        if (!wf) return;
+        if (!wf) continue;
+        const hash = (Views.DecisionGraph && await Views.DecisionGraph.assistantHash('workflows', wfId)) || `#/ayuda/combate/${wf.id}`;
         const card = el('button', 'help-card help-card--highlight');
         card.type = 'button';
-        card.appendChild(el('span', 'help-card__title', `→ ${wf.title}`));
-        card.appendChild(el('span', 'help-card__source', 'Combate por tipo'));
-        card.addEventListener('click', () => { location.hash = `#/ayuda/combate/${wf.id}`; });
+        card.appendChild(el('span', 'help-card__title', `▶ ${wf.title}`));
+        card.appendChild(el('span', 'help-card__source', hash.startsWith('#/decision') ? 'Asistente de combate' : 'Combate por tipo'));
+        card.addEventListener('click', () => { location.hash = hash; });
         list.appendChild(card);
-      });
+      }
     }
 
     // Atajos directos a wizards propios de esta fase/subfase (reacciones, resultado de ataque, reabastecimiento...).
-    (wizardLinks || []).forEach((link) => {
-      const hash = AppCore.WORKFLOW_WIZARD_HASHES[link.wizard];
-      if (!hash) return;
+    for (const link of wizardLinks || []) {
+      // Fase 25: el atajo abre el asistente en el punto que sustituye al wizard; si no hay, el wizard.
+      const hash = (Views.DecisionGraph && await Views.DecisionGraph.assistantHash('wizards', link.wizard)) || AppCore.WORKFLOW_WIZARD_HASHES[link.wizard];
+      if (!hash) continue;
       const card = el('button', 'help-card help-card--highlight');
       card.type = 'button';
       card.appendChild(el('span', 'help-card__title', `▶ ${link.title}`));
       if (link.description) card.appendChild(el('span', 'help-card__source', link.description));
       card.addEventListener('click', () => { location.hash = hash; });
       list.appendChild(card);
-    });
+    }
 
     [
       { title: 'Tablas', hashId: 'tablas' },

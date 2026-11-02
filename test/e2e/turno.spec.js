@@ -190,9 +190,10 @@ test('la migración desde el progreso anterior conserva el dato, avisa una sola 
 // COR02-003: un wizard abierto DESDE una subfase queda vinculado a su nodo; «Terminar» avisa y se puede cancelar.
 async function startGroundWizardFrom(page, hash) {
   await page.goto(hash);
-  await page.getByRole('button', { name: 'Combate cercano terrestre', exact: false }).click();
-  await expect(page.getByRole('heading', { name: 'Combate cercano terrestre' })).toBeVisible();
-  await page.getByRole('button', { name: '▶ Resolver con el wizard de combate' }).click();
+  await page.getByRole('button', { name: '▶ Combate cercano terrestre', exact: false }).click();
+  await expect(page).toHaveURL(/#\/decision\/e\/land-close/);
+  // El cálculo detallado se abre desde el asistente (sus enlaces «Resolver este paso»); conserva el nodo del turno.
+  await page.evaluate(() => { location.hash = '#/wizard/ground-close-combat'; });
   await expect(page).toHaveURL(/#\/wizard\/ground-close-combat/);
   await expect(page.getByText('Paso 1 de 5')).toBeVisible();
 }
@@ -297,6 +298,10 @@ test('TUR-013: cada segmento lista los combates que le corresponden y los atajos
 test('TUR-013: abrir un wizard desde el turno conserva y muestra banda, día, fase, segmento y subfase de origen, también en el historial', async ({ page }) => {
   await page.goto('/#/turno/fase/4/ground/ataques_terrestres');
   await page.getByRole('button', { name: /Ataque de reacción \(CF, AS, KB, BAI\)/ }).click();
+  // Fase 25: el atajo abre el asistente; desde su resultado se abre el cálculo, ligado al mismo nodo del turno.
+  await expect(page).toHaveURL(/#\/decision\/ext\.reaction\.kind/);
+  await page.locator('.decision-graph__option').first().click();
+  await page.getByRole('button', { name: /^Ataques de reacción terrestres/ }).click();
   await expect(page).toHaveURL(/#\/wizard\/ground-reaction/);
   await expect(page.getByText('Origen en el turno: Banda 1 · Día 2 (par) · 4.ª fase, mañana · Tierra · Ataques terrestres')).toBeVisible();
   const pending = await page.evaluate(() => JSON.parse(localStorage.getItem('tcw-progress')).pendingResolutions);
@@ -352,7 +357,7 @@ test('Aire I termina con el recordatorio opcional «Parálisis» que enlaza al c
   await expect(page.getByRole('heading', { name: 'Parálisis' })).toBeVisible();
   await expect(page.getByText(/retírale la parálisis en este momento/)).toBeVisible();
   await page.getByRole('button', { name: /Ataque cibernético/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/cyber-attack$/);
+  await expect(page).toHaveURL(/#\/decision\/e\/strategic-cyber$/);
   await page.goto('/#/turno/fase/1/air-2');
   await expect(page.getByRole('button', { name: /Parálisis/ })).toHaveCount(0);
 });

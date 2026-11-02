@@ -1,6 +1,6 @@
 {
   "id": "decision-entrypoints",
-  "description": "Punto de entrada del asistente de combate (data/routing/decision-graph.json) según la página desde la que se abre (roadmap Fase 25, AD-003). Cada entrada es la lista de respuestas que se dan por puestas desde el inicio del árbol: el asistente las enseña como respuestas ya dadas, que el jugador puede cambiar. Las subfases del turno, las fichas de «Combate por tipo» y las páginas de «Tablas» remiten a una entrada por su id. Una subfase con combates de varios dominios entra por el inicio del árbol.",
+  "description": "Punto de entrada del asistente de combate (data/routing/decision-graph.json) según la página desde la que se abre (roadmap Fase 25, AD-003). Cada entrada es la lista de respuestas que se dan por puestas desde el inicio del árbol: el asistente las enseña como respuestas ya dadas, que el jugador puede cambiar. Las subfases del turno, las fichas de «Combate por tipo» y las páginas de «Tablas» remiten a una entrada por su id. Una subfase con combates de varios dominios entra por el inicio del árbol. `wizards` da, para cada wizard antiguo (id de AppCore.WORKFLOW_WIZARD_HASHES), el punto del asistente que lo sustituye en la ayuda contextual del turno y en Inicio: una entrada (`entry`) o una pregunta del árbol (`node`). Los wizards siguen disponibles como cálculo detallado desde los resultados del asistente.",
   "sourceRefs": [
     {
       "document": "Grafo de decisión/routemap.json",
@@ -226,5 +226,73 @@
     "page-07.json": "land-unguided",
     "page-08.json": "land-unguided",
     "page-09.json": "land-unguided"
+  },
+  "wizards": {
+    "antiship_guided": {
+      "entry": "surface-guided"
+    },
+    "antiship_unguided": {
+      "entry": "surface-unguided"
+    },
+    "ground_close_combat": {
+      "entry": "land-close"
+    },
+    "ground_guided": {
+      "entry": "land-guided"
+    },
+    "ground_unguided": {
+      "entry": "land-unguided"
+    },
+    "anti_radiation": {
+      "entry": "land-arm"
+    },
+    "ground_attack_result": {
+      "node": "land.damage.kind"
+    },
+    "ground_reaction": {
+      "node": "ext.reaction.kind"
+    },
+    "torpedo_vs_surface": {
+      "entry": "surface-torpedo"
+    },
+    "submarine_ambush": {
+      "node": "ext.ambush.event"
+    },
+    "asw_surface_air": {
+      "entry": "asw-attack"
+    },
+    "asw_submarine": {
+      "entry": "asw-attack-sub"
+    },
+    "asw_search_support": {
+      "entry": "asw-air-search"
+    },
+    "asw_signature_search": {
+      "entry": "asw-signature"
+    },
+    "air_combat": {
+      "entry": "air-intercept"
+    },
+    "air_combat_wvr": {
+      "node": "air.intercept.wvr"
+    },
+    "air_intercept_targets": {
+      "node": "ext.air.organize"
+    },
+    "army_resupply": {
+      "entry": "strategic-logistics"
+    },
+    "logistics_guarantee": {
+      "node": "ext.guarantee.unit"
+    },
+    "port_logistics": {
+      "node": "ext.port.operation"
+    },
+    "cyber_attack": {
+      "entry": "strategic-cyber"
+    },
+    "space_war": {
+      "entry": "strategic-space"
+    }
   }
 }

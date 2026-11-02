@@ -75,5 +75,6 @@ test('Inicio ofrece cuatro entradas principales, con el Turno guiado la última 
   await expect(page.getByRole('button', { name: /^Combate aéreo BVR/ })).toBeHidden();
   await page.getByRole('button', { name: /^Resolver combate/ }).click();
   await page.getByRole('button', { name: /^Combate aéreo BVR/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/air-combat-bvr$/);
+  // Fase 25: las tarjetas de «Resolver combate» abren el asistente en el punto de cada tipo.
+  await expect(page).toHaveURL(/#\/decision\/e\/air-intercept$/);
 });

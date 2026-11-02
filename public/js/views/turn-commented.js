@@ -273,10 +273,11 @@
         section.appendChild(card);
       });
       const links = el('div', 'turn-commented__items');
-      sub.wizardLinks.forEach((link) => {
-        const hash = AppCore.WORKFLOW_WIZARD_HASHES[link.wizard];
+      // Fase 25: los atajos abren el asistente en el punto que sustituye al wizard (si no hay, el wizard).
+      for (const link of sub.wizardLinks) {
+        const hash = (Views.DecisionGraph && await Views.DecisionGraph.assistantHash('wizards', link.wizard)) || AppCore.WORKFLOW_WIZARD_HASHES[link.wizard];
         if (hash) links.appendChild(linkButton(`▶ ${link.title}`, hash));
-      });
+      }
       links.appendChild(linkButton('Ver esta subfase en el Turno guiado (marcarla como terminada)', sub.guidedHash));
       section.appendChild(links);
       wrap.appendChild(section);

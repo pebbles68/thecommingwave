@@ -22,7 +22,11 @@
     card.type = 'button';
     card.appendChild(el('span', 'help-card__title', title));
     if (description) card.appendChild(el('span', 'help-card__source', description));
-    card.addEventListener('click', () => { location.hash = hash; });
+    // Fase 25: un enlace a un wizard de combate abre el asistente en el punto que lo sustituye.
+    card.addEventListener('click', async () => {
+      const target = hash.startsWith('#/wizard/') && Views.DecisionGraph ? await Views.DecisionGraph.assistantHashForWizardHash(hash) : null;
+      location.hash = target || hash;
+    });
     return card;
   }
 

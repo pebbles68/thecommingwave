@@ -94,10 +94,10 @@ test('Ataque antibuque no guiado: Intercepción Final + Interceptación de Munic
   await expect(page.getByText('Atacante 1 (Protección 3, tirada 6): 3 impacto(s) — destruida.')).toBeVisible();
 });
 
-test('Ataque antibuque no guiado: enlazado desde "Combate por tipo" (WORKFLOW_WIZARD_HASHES)', async ({ page }) => {
+test('Ataque antibuque no guiado: «Combate por tipo» abre el asistente en su pregunta', async ({ page }) => {
   await page.goto('/#/ayuda/combate/antiship_unguided');
   await expect(page.getByRole('heading', { name: 'Ataque antibuque no guiado' })).toBeVisible();
-  await page.getByRole('button', { name: '▶ Resolver con el wizard de combate' }).click();
-  await expect(page).toHaveURL(/#\/wizard\/antiship-unguided/);
-  await expect(page.getByText('Paso 1 de 5')).toBeVisible();
+  await page.getByRole('button', { name: '▶ Resolver con el asistente de combate' }).click();
+  await expect(page).toHaveURL(/#\/decision\/e\/surface-unguided/);
+  await expect(page.getByRole('heading', { name: '¿La flota tiene capacidad de interceptación final?' })).toBeVisible();
 });

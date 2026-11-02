@@ -75,8 +75,8 @@ test('restricciones: Alta Velocidad no puede hacer Rutina; la casilla adyacente 
   await expect(page.getByText(/El alcance es de 1 hex solo en Aguas Profundas/)).toBeVisible();
 });
 
-test('"Combate por tipo" de la búsqueda ASW ofrece también el wizard de Diferencia de Firma', async ({ page }) => {
+test('"Combate por tipo" de la búsqueda ASW lleva la Diferencia de Firma al asistente', async ({ page }) => {
   await page.goto('/#/ayuda/combate/asw_search_support');
   await page.getByRole('button', { name: /Resolver la Búsqueda por Diferencia de Firma/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/asw-signature-search$/);
+  await expect(page).toHaveURL(/#\/decision\/e\/asw-signature$/);
 });

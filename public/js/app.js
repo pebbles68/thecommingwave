@@ -22,44 +22,44 @@
   // Atajos a los wizards de resolución, agrupados por dominio (AJ-006: texto en
   // lenguaje de juego; la trazabilidad de cada wizard va dentro de él).
   const COMBAT_ENTRY_GROUPS = [
-    { title: 'Asistente de combate (nuevo)', entries: [
-      ['Asistente de combate', 'Una pregunta cada vez hasta el procedimiento y la tabla que corresponden, para cualquier tipo de combate. Sustituirá a los wizards de abajo.', '#/decision']
+    { title: 'Asistente de combate', entries: [
+      ['Asistente de combate', 'Una pregunta cada vez hasta el procedimiento y la tabla que corresponden, para cualquier tipo de combate.', '#/decision']
     ] },
     { title: 'Ataque y combate terrestre', entries: [
       ['Guía: reaccionar a una unidad terrestre', 'Si no sabes cuándo puedes reaccionar: qué acción ocurrió, si se detecta, quién puede reaccionar y qué reacción toca.', '#/guia/ground-reaction'],
-      ['Combate cercano terrestre', 'Fuerza de combate, guerra electrónica y umbral de Derrota.', '#/wizard/ground-close-combat'],
-      ['Ataque terrestre guiado', 'Defensas, modificación por tipo de objetivo y tabla de ataque de precisión (página 5).', '#/wizard/ground-guided'],
-      ['Ataque terrestre no guiado', 'Intercepción, modificación contra unidades móviles y tabla de la página 9.', '#/wizard/ground-unguided'],
-      ['Ataque antirradiación (ARM)', 'Defensas, modificación -5, fila [L]/Normal de la página 13 y contraataque a baja altura.', '#/wizard/anti-radiation'],
-      ['Ataques de reacción terrestres', 'Contrabatería, Contrafuegos, Persecución Aérea e Interdicción de Batalla: quién puede atacar, objetivos y orden, y consecuencias.', '#/wizard/ground-reaction'],
-      ['Resultado del ataque terrestre', 'Qué hacen los impactos sobre una unidad terrestre, un puerto con sus buques o un aeródromo.', '#/wizard/ground-attack-result']
+      ['Combate cercano terrestre', 'Fuerza de combate, guerra electrónica y umbral de Derrota.', '#/decision/e/land-close'],
+      ['Ataque terrestre guiado', 'Defensas, modificación por tipo de objetivo y tabla de ataque de precisión (página 5).', '#/decision/e/land-guided'],
+      ['Ataque terrestre no guiado', 'Intercepción, modificación contra unidades móviles y tabla de la página 9.', '#/decision/e/land-unguided'],
+      ['Ataque antirradiación (ARM)', 'Defensas, modificación -5, fila [L]/Normal de la página 13 y contraataque a baja altura.', '#/decision/e/land-arm'],
+      ['Ataques de reacción terrestres', 'Contrabatería, Contrafuegos, Persecución Aérea e Interdicción de Batalla: quién puede atacar, objetivos y orden, y consecuencias.', '#/decision/ext.reaction.kind'],
+      ['Resultado del ataque terrestre', 'Qué hacen los impactos sobre una unidad terrestre, un puerto con sus buques o un aeródromo.', '#/decision/land.damage.kind']
     ] },
     { title: 'Combate aéreo', entries: [
       ['Guía: ataque aéreo paso a paso', 'Si no sabes por dónde empezar: qué mirar, en orden, hasta llegar al combate BVR y al combate cercano.', '#/guia/air-attack'],
-      ['Grupo de misión aéreo', 'Los dos bandos y sus unidades, compartidos por la asignación de objetivos y el combate cercano; recoge retiradas y bajas.', '#/wizard/air-mission-group'],
-      ['Asignación de objetivos BVR', 'Orden de selección, duelos 1 contra 1 y retirada antes del BVR.', '#/wizard/air-intercept-targets'],
-      ['Combate aéreo BVR', 'Iniciativa, tipo de combate y ataque 1 contra 1 (página 16).', '#/wizard/air-combat-bvr'],
-      ['Combate aéreo cercano WVR', 'Patrulla en red, escolta electrónica, rondas y absorción de impactos (página 17).', '#/wizard/air-combat-wvr']
+      ['Grupo de misión aéreo', 'Los dos bandos y sus unidades, compartidos por la asignación de objetivos y el combate cercano; recoge retiradas y bajas.', '#/decision/ext.air.organize'],
+      ['Asignación de objetivos BVR', 'Orden de selección, duelos 1 contra 1 y retirada antes del BVR.', '#/decision/ext.air.organize'],
+      ['Combate aéreo BVR', 'Iniciativa, tipo de combate y ataque 1 contra 1 (página 16).', '#/decision/e/air-intercept'],
+      ['Combate aéreo cercano WVR', 'Patrulla en red, escolta electrónica, rondas y absorción de impactos (página 17).', '#/decision/air.intercept.wvr']
     ] },
     { title: 'Ataque a buques y submarinos', entries: [
-      ['Ataque guiado a superficie', 'Resuelve el ataque paso a paso hasta la tabla final.', '#/wizard/antiship-guided'],
-      ['Ataque antibuque no guiado', 'Intercepción final, interceptación de munición y modificación de intensidad.', '#/wizard/antiship-unguided'],
-      ['Efectos del impacto antibuque', 'Daño crítico, portaeronaves y transportes.', '#/wizard/ship-impact-effects'],
-      ['Torpedos contra superficie', 'Tipo de torpedo, estado del submarino y segundo dado.', '#/wizard/torpedo-surface'],
-      ['Ataque ASW (superficie y aéreas)', 'Alcance, profundidad, Firma del submarino y tabla de la página 29.', '#/wizard/asw-surface-air'],
-      ['Ataque ASW (submarinos)', 'Torpedos de submarino contra submarino expuesto (página 30).', '#/wizard/asw-submarine'],
-      ['Búsqueda por Diferencia de Firma', 'Columna por Firma o marco del Valor ASW y rango de descubrimiento (página 33).', '#/wizard/asw-signature-search'],
-      ['Búsqueda Aérea ASW', 'Suma de detección aérea, Firma por profundidad y rango de descubrimiento (página 34).', '#/wizard/asw-air-search'],
-      ['Emboscada de submarino', 'Quién puede emboscar, Zona de Emboscada y secuencia de resolución (Decision Book 9.16).', '#/wizard/submarine-ambush']
+      ['Ataque guiado a superficie', 'Resuelve el ataque paso a paso hasta la tabla final.', '#/decision/e/surface-guided'],
+      ['Ataque antibuque no guiado', 'Intercepción final, interceptación de munición y modificación de intensidad.', '#/decision/e/surface-unguided'],
+      ['Efectos del impacto antibuque', 'Daño crítico, portaeronaves y transportes.', '#/decision/ext.impact.hull'],
+      ['Torpedos contra superficie', 'Tipo de torpedo, estado del submarino y segundo dado.', '#/decision/e/surface-torpedo'],
+      ['Ataque ASW (superficie y aéreas)', 'Alcance, profundidad, Firma del submarino y tabla de la página 29.', '#/decision/e/asw-attack'],
+      ['Ataque ASW (submarinos)', 'Torpedos de submarino contra submarino expuesto (página 30).', '#/decision/e/asw-attack-sub'],
+      ['Búsqueda por Diferencia de Firma', 'Columna por Firma o marco del Valor ASW y rango de descubrimiento (página 33).', '#/decision/e/asw-signature'],
+      ['Búsqueda Aérea ASW', 'Suma de detección aérea, Firma por profundidad y rango de descubrimiento (página 34).', '#/decision/e/asw-air-search'],
+      ['Emboscada de submarino', 'Quién puede emboscar, Zona de Emboscada y secuencia de resolución (Decision Book 9.16).', '#/decision/ext.ambush.event']
     ] },
     { title: 'Logística', entries: [
-      ['Logística de puerto y munición', 'Reabastecimiento de munición, reparación de buques, reparaciones de emergencia y agotamiento de munición.', '#/wizard/port-logistics'],
-      ['Garantía logística', 'Nodos de Suministro, Líneas de Comunicación y consecuencias de perder el suministro.', '#/wizard/logistics-guarantee'],
-      ['Reabastecimiento de Campo del Ejército', 'Condiciones, tirada por Nivel de Iniciativa y aumento de fuerza de una unidad principal (página 32).', '#/wizard/army-resupply']
+      ['Logística de puerto y munición', 'Reabastecimiento de munición, reparación de buques, reparaciones de emergencia y agotamiento de munición.', '#/decision/ext.port.operation'],
+      ['Garantía logística', 'Nodos de Suministro, Líneas de Comunicación y consecuencias de perder el suministro.', '#/decision/ext.guarantee.unit'],
+      ['Reabastecimiento de Campo del Ejército', 'Condiciones, tirada por Nivel de Iniciativa y aumento de fuerza de una unidad principal (página 32).', '#/decision/e/strategic-logistics']
     ] },
     { title: 'Acciones estratégicas (regla opcional)', entries: [
-      ['Ataque cibernético', 'Capacidad de Guerra Cibernética, tiradas de ataque y defensa y efecto según el sistema atacado (Decision Book 14.2-14.4).', '#/wizard/cyber-attack'],
-      ['Guerra espacial', 'Orden de acciones, apoyo, destrucción y garantía espacial y escombros (Decision Book 14.5-14.9).', '#/wizard/space-war']
+      ['Ataque cibernético', 'Capacidad de Guerra Cibernética, tiradas de ataque y defensa y efecto según el sistema atacado (Decision Book 14.2-14.4).', '#/decision/e/strategic-cyber'],
+      ['Guerra espacial', 'Orden de acciones, apoyo, destrucción y garantía espacial y escombros (Decision Book 14.5-14.9).', '#/decision/e/strategic-space']
     ] }
   ];
 
@@ -211,6 +211,8 @@
     if (parts[0] === 'turno') return; // lo gestionan las vistas del turno
     if (parts[0] === 'ayuda' && parts[1] === 'combate') return;
     if (parts[0] === 'wizard') return;
+    // El asistente conserva el nodo del turno: un cálculo abierto desde él queda ligado a la subfase de origen.
+    if (parts[0] === 'decision') return;
     AppCore.clearLastTurnContext();
   }
 

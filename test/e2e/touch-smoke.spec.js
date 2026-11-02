@@ -4,17 +4,15 @@
 // controles que solo funcionan con ratón.
 const { test, expect } = require('./fixtures');
 
-test('con toque: Inicio → Resolver combate → wizard → opciones → siguiente paso', async ({ page }) => {
+test('con toque: Inicio → Resolver combate → asistente → respuesta → pregunta siguiente', async ({ page }) => {
   await page.goto('/#/');
   await page.getByRole('button', { name: /^Resolver combate/ }).tap();
   await page.getByRole('button', { name: /^Ataque terrestre guiado/ }).tap();
-  await expect(page).toHaveURL(/#\/wizard\/ground-guided$/);
-  await page.getByLabel('Valor de Ataque base del plan de ataque').fill('4');
-  await page.getByLabel('Valor de Ataque base del plan de ataque').press('Tab');
-  await page.locator('.wizard-question', { hasText: 'Tipo de ataque:' }).getByRole('button', { name: 'No', exact: true }).tap();
-  await page.locator('.wizard-question', { hasText: 'Tipo de munición:' }).getByRole('button', { name: 'Persecución' }).tap();
-  await page.getByRole('button', { name: 'Siguiente →' }).tap();
-  await expect(page.getByText('Distancia de ataque (hexágonos)')).toBeVisible();
+  await expect(page).toHaveURL(/#\/decision\/e\/land-guided$/);
+  await page.getByRole('button', { name: 'Instalación fija' }).tap();
+  await expect(page.getByRole('heading', { name: '¿Cuál es el Valor Electrónico de la instalación fija?' })).toBeVisible();
+  await page.getByRole('button', { name: /^Cambiar la respuesta: ¿Qué clase de objetivo/ }).tap();
+  await expect(page.getByRole('heading', { name: '¿Qué clase de objetivo recibe el ataque terrestre guiado?' })).toBeVisible();
 });
 
 test('con toque: panel de ayuda, categorías y ayuda «¿Dónde se lee este valor?»', async ({ page }) => {

@@ -119,23 +119,28 @@
       wrap.appendChild(iconsRow);
     }
 
+    // Fase 25: se resuelve con el asistente de combate, que entra en la pregunta de este tipo (los wizards quedan
+    // como cálculo detallado desde sus resultados).
     if (WORKFLOW_WIZARD_HASHES[workflowId]) {
-      const wizardHash = WORKFLOW_WIZARD_HASHES[workflowId];
+      const target = (Views.DecisionGraph && await Views.DecisionGraph.assistantHash('workflows', workflowId)) || WORKFLOW_WIZARD_HASHES[workflowId];
+      if (!Router.isCurrent(navToken)) return;
       const wizardCard = el('button', 'help-card help-card--highlight');
       wizardCard.type = 'button';
-      wizardCard.appendChild(el('span', 'help-card__title', '▶ Resolver con el wizard de combate'));
-      wizardCard.appendChild(el('span', 'help-card__source', 'Pregunta los modificadores y llega a la tabla final ya posicionada.'));
-      wizardCard.addEventListener('click', () => { location.hash = wizardHash; });
+      wizardCard.appendChild(el('span', 'help-card__title', '▶ Resolver con el asistente de combate'));
+      wizardCard.appendChild(el('span', 'help-card__source', 'Empieza en la pregunta de este tipo de combate y llega a la tabla real marcada.'));
+      wizardCard.addEventListener('click', () => { location.hash = target; });
       wrap.appendChild(wizardCard);
     }
-    (RELATED_WORKFLOW_WIZARDS[workflowId] || []).forEach((extra) => {
+    for (const extra of RELATED_WORKFLOW_WIZARDS[workflowId] || []) {
+      const target = (Views.DecisionGraph && await Views.DecisionGraph.assistantHashForWizardHash(extra.hash)) || extra.hash;
+      if (!Router.isCurrent(navToken)) return;
       const card = el('button', 'help-card help-card--highlight');
       card.type = 'button';
       card.appendChild(el('span', 'help-card__title', extra.title));
       card.appendChild(el('span', 'help-card__source', extra.desc));
-      card.addEventListener('click', () => { location.hash = extra.hash; });
+      card.addEventListener('click', () => { location.hash = target; });
       wrap.appendChild(card);
-    });
+    }
 
     (workflow.stages || []).forEach((stage) => {
       wrap.appendChild(el('h2', null, `${stage.order}. ${stage.title}`));
@@ -169,10 +174,12 @@
     }
     if (workflow.finalTableReference) wrap.appendChild(el('p', 'source-refs', `Tabla final: ${workflow.finalTableReference}`));
 
-    // Fase 25 (AD-003): abrir el asistente de combate en el punto del árbol de este tipo de combate.
-    const launch = Views.DecisionGraph ? await Views.DecisionGraph.entryCard('workflows', [workflowId]) : null;
-    if (!Router.isCurrent(navToken)) return;
-    if (launch) wrap.appendChild(launch);
+    // Fase 25 (AD-003): el acceso al asistente de este tipo de combate está arriba, en lugar del wizard.
+    if (!WORKFLOW_WIZARD_HASHES[workflowId]) {
+      const launch = Views.DecisionGraph ? await Views.DecisionGraph.entryCard('workflows', [workflowId]) : null;
+      if (!Router.isCurrent(navToken)) return;
+      if (launch) wrap.appendChild(launch);
+    }
 
     const relatedPages = tablesIdx.pages.filter((p) => (p.workflowRefs || []).includes(workflowId));
     if (relatedPages.length) {

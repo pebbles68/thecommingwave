@@ -73,32 +73,37 @@
       if (walk.leaf.tableReference) wrap.appendChild(el('p', 'turn-view__desc', walk.leaf.tableReference));
       if (walk.leaf.note) wrap.appendChild(el('p', 'source-refs', walk.leaf.note));
 
+      // Fase 25: se resuelve con el asistente de combate, que entra en la pregunta de este tipo de combate.
+      const assistant = Views.DecisionGraph;
       if (WORKFLOW_WIZARD_HASHES[walk.leaf.workflowId]) {
-        const wizardHash = WORKFLOW_WIZARD_HASHES[walk.leaf.workflowId];
+        const target = (assistant && await assistant.assistantHash('workflows', walk.leaf.workflowId)) || WORKFLOW_WIZARD_HASHES[walk.leaf.workflowId];
         const wizardCard = el('button', 'help-card help-card--highlight');
         wizardCard.type = 'button';
-        wizardCard.appendChild(el('span', 'help-card__title', '▶ Resolver con el wizard de combate'));
-        wizardCard.appendChild(el('span', 'help-card__source', 'Pregunta los modificadores y llega a la tabla final ya posicionada.'));
-        wizardCard.addEventListener('click', () => { location.hash = wizardHash; });
+        wizardCard.appendChild(el('span', 'help-card__title', '▶ Resolver con el asistente de combate'));
+        wizardCard.appendChild(el('span', 'help-card__source', 'Empieza en la pregunta de este tipo de combate y llega a la tabla real marcada.'));
+        wizardCard.addEventListener('click', () => { location.hash = target; });
         wrap.appendChild(wizardCard);
       }
-      (RELATED_WORKFLOW_WIZARDS[walk.leaf.workflowId] || []).forEach((extra) => {
+      for (const extra of RELATED_WORKFLOW_WIZARDS[walk.leaf.workflowId] || []) {
+        const target = (assistant && await assistant.assistantHashForWizardHash(extra.hash)) || extra.hash;
         const card = el('button', 'help-card help-card--highlight');
         card.type = 'button';
         card.appendChild(el('span', 'help-card__title', extra.title));
         card.appendChild(el('span', 'help-card__source', extra.desc));
-        card.addEventListener('click', () => { location.hash = extra.hash; });
+        card.addEventListener('click', () => { location.hash = target; });
         wrap.appendChild(card);
-      });
+      }
 
       if (walk.leaf.wizardHash) {
+        const target = (assistant && await assistant.assistantHashForWizardHash(walk.leaf.wizardHash)) || walk.leaf.wizardHash;
         const wizardCard = el('button', 'help-card help-card--highlight');
         wizardCard.type = 'button';
-        wizardCard.appendChild(el('span', 'help-card__title', '▶ Resolver con el wizard'));
+        wizardCard.appendChild(el('span', 'help-card__title', '▶ Resolver con el asistente de combate'));
         wizardCard.appendChild(el('span', 'help-card__source', 'Comprueba las condiciones, tira por el Nivel de Iniciativa y aplica el resultado.'));
-        wizardCard.addEventListener('click', () => { location.hash = walk.leaf.wizardHash; });
+        wizardCard.addEventListener('click', () => { location.hash = target; });
         wrap.appendChild(wizardCard);
       }
+      if (!Router.isCurrent(navToken)) return;
 
       const links = await findTablesForLeaf(walk.leaf);
       if (!Router.isCurrent(navToken)) return;

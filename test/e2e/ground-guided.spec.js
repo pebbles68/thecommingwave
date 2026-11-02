@@ -90,8 +90,8 @@ test('unidad técnica suma las modificaciones de objetivo móvil y las suyas; la
   await expect(page.getByText('Modificación de Fuerza de Ataque: +2 → neto 0 (las positivas solo compensan negativas)')).toBeVisible();
 });
 
-test('"Combate por tipo" y el router de tablas ofrecen el wizard de ataque terrestre guiado', async ({ page }) => {
+test('"Combate por tipo" del ataque terrestre guiado abre el asistente en su pregunta', async ({ page }) => {
   await page.goto('/#/ayuda/combate/ground_guided');
-  await page.getByRole('button', { name: /Resolver con el wizard de combate/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/ground-guided$/);
+  await page.getByRole('button', { name: /Resolver con el asistente de combate/ }).click();
+  await expect(page).toHaveURL(/#\/decision\/e\/land-guided$/);
 });
