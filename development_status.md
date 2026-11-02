@@ -2,6 +2,13 @@
 
 ## Estado actual
 
+### Valor de Ataque del plan con las defensas ya restadas — 2026-11-02
+
+- Estado: `done`, pendiente de comprobación del mantenedor. Indicación del mantenedor: «haz el paso 4».
+- Las tablas de daño guiado, no guiado, antirradiación y antibuque tienen el campo «Valor de Ataque del plan (antes de las defensas)» con «Tomar del plan de ataque»; al rellenarlo, el Valor de Ataque se calcula solo restando las reducciones de la defensa aérea de área y de la interceptación de munición ya calculadas en este recorrido (`defenseNodes`, `DecisionGraphCalculators.defenseReductions`). Solo cuentan las preguntas contestadas «Sí»; si una está en «Sí» sin cálculo, no se resta nada y se avisa. El Valor de Ataque sigue siendo editable.
+- **Validación:** `npm test` 851/851; Playwright 197/197 (la primera pasada tuvo 2 fallos intermitentes que pasan al repetir).
+- **Visible en la web: sí.** `#/decision/land.guided.area`: calcula la defensa de área, «Sí», la interceptación, «Sí», sigue hasta «¿El resultado natural del d10 de ataque es 9?» y elige un plan: el Valor de Ataque aparece ya con las reducciones restadas.
+
 ### Wizards retirados: todo pasa al asistente de combate (AD-004, AD-006, AD-008) — 2026-11-02
 
 - Estado: `done`, **pendiente de comprobación del mantenedor (CP-AD8)**; sin commit. Indicación del mantenedor: «pasarlo todo al nuevo y retirarlo».

@@ -773,3 +773,16 @@ test('planes de ataque: el valor de cada plan sale de los datos transcritos (car
   assert.ok(Calc.planChoices(sp.units[0], 'antiShip').every((c) => typeof c.value === 'number'));
   Object.values(calculators.calculators).forEach((c) => (c.fields || []).concat(c.sharedFields || []).filter((f) => f.planSource).forEach((f) => assert.ok(['attack-value', 'naval-artillery'].includes(f.planSource))));
 });
+
+test('Valor de Ataque del plan menos las defensas ya calculadas en el recorrido; una defensa «Sí» sin cálculo queda pendiente', () => {
+  const calc = calculators.calculators['ground-guided'];
+  const history = [{ nodeId: 'land.guided.area', answer: 'Sí' }, { nodeId: 'land.guided.munition', answer: 'Sí' }];
+  const saved = { 'land.guided.area#0': { outcome: { reduction: -2 } }, 'land.guided.munition#0': { outcome: { reduction: -1 } } };
+  const r = Calc.defenseReductions(calc, history, saved);
+  assert.equal(r.total, -3);
+  assert.equal(r.pending, false);
+  const no = Calc.defenseReductions(calc, [{ nodeId: 'land.guided.area', answer: 'No' }, { nodeId: 'land.guided.munition', answer: 'Sí' }], saved);
+  assert.equal(no.total, -1);
+  assert.equal(Calc.defenseReductions(calc, history, { 'land.guided.area#0': { outcome: { reduction: -2 } } }).pending, true);
+  assert.ok(calc.fields.find((f) => f.id === 'attackPlan').derives === 'attack');
+});

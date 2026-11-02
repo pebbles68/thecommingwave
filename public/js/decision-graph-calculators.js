@@ -1136,6 +1136,24 @@
     return out;
   }
 
+  // Reducciones del Valor de Ataque ya calculadas en las preguntas de defensa de este recorrido (`defenseNodes`): solo
+  // cuentan las preguntas contestadas «Sí»; una contestada «Sí» sin cálculo hecho queda pendiente (no se supone 0).
+  // `history`: respuestas de la sesión; `saved`: lo guardado de cada cálculo por `<nodo>#<ronda>` (su `outcome`).
+  function defenseReductions(calculator, history, saved) {
+    const lines = [];
+    let total = 0;
+    let pending = false;
+    (calculator.defenseNodes || []).forEach((d) => {
+      const step = (history || []).find((h) => h.nodeId === d.node);
+      if (!step || step.answer !== 'Sí') return;
+      const outcome = ((saved || {})[`${d.node}#0`] || {}).outcome;
+      if (!outcome || typeof outcome.reduction !== 'number') { pending = true; lines.push(`${d.label}: falta hacer su cálculo`); return; }
+      total += outcome.reduction;
+      lines.push(`${d.label} ${outcome.reduction}`);
+    });
+    return { total, pending, lines };
+  }
+
   function compute(calculator, context, inputs) {
     if (calculator.engine === 'bvr-initiative') return computeBvrInitiative(calculator, context.table, inputs, context.workflow, context.extra || {});
     if (calculator.engine === 'attack-intensity') return computeIntensity(calculator, inputs, context.workflow);
@@ -1235,5 +1253,5 @@
     return ((hotspots && hotspots.tables) || []).find((t) => t.page === n && t.tableId === tableId) || null;
   }
 
-  return { planChoices, calculatorForNode, calculatorsForNode, computeBvrInitiative, computeIntensity, computeReaction, computeAmbush, computePortLogistics, computeGuarantee, computeCyberAttack, computeSpace, computeBvrSelection, computeFleetImpact, computeWvrAbsorption, computeEwEscort, computeLowAltitude, computeNavalArtillery, computeGroundUnitHit, computePortAttack, computeAirfield, computeShipImpact, findKey, resolveChoices, fieldApplies, fieldOptions, fieldModifiers, computeAreaReduction, computeMunitionInterception, computeFinalInterception, computeVefMultiplier, computeAreaShot, computeWvrRound, computeBvrAttack, computeGroundCloseCombat, computeAsw, computeSignatureSearch, computeAirSearch, computeTorpedo, computeArmyResupply, computeGroundGuided, computeAntiRadiation, computeAntishipGuidedFinal, computeAntishipUnguided, computeStrategicRolls, columnShiftFromEffects, compute, computeWithColumn, markRects, geometryFor };
+  return { defenseReductions, planChoices, calculatorForNode, calculatorsForNode, computeBvrInitiative, computeIntensity, computeReaction, computeAmbush, computePortLogistics, computeGuarantee, computeCyberAttack, computeSpace, computeBvrSelection, computeFleetImpact, computeWvrAbsorption, computeEwEscort, computeLowAltitude, computeNavalArtillery, computeGroundUnitHit, computePortAttack, computeAirfield, computeShipImpact, findKey, resolveChoices, fieldApplies, fieldOptions, fieldModifiers, computeAreaReduction, computeMunitionInterception, computeFinalInterception, computeVefMultiplier, computeAreaShot, computeWvrRound, computeBvrAttack, computeGroundCloseCombat, computeAsw, computeSignatureSearch, computeAirSearch, computeTorpedo, computeArmyResupply, computeGroundGuided, computeAntiRadiation, computeAntishipGuidedFinal, computeAntishipUnguided, computeStrategicRolls, columnShiftFromEffects, compute, computeWithColumn, markRects, geometryFor };
 });

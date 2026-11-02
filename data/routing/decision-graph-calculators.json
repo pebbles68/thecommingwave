@@ -882,14 +882,22 @@
           ]
         },
         {
+          "id": "attackPlan",
+          "label": "Valor de Ataque del plan (antes de las defensas)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "planSource": "attack-value",
+          "planDomain": "landAttack",
+          "derives": "attack",
+          "visualRef": "attack-base-value"
+        },
+        {
           "id": "attack",
           "label": "Valor de Ataque tras la defensa aérea y la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value",
-          "planSource": "attack-value",
-          "planDomain": "landAttack",
-          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
+          "visualRef": "attack-base-value"
         },
         {
           "id": "intensity",
@@ -905,7 +913,17 @@
           "max": 9
         }
       ],
-      "afterResult": "Los impactos de todos los métodos se suman. Después, la pregunta siguiente del asistente trata el contraataque a baja altura y el daño en el objetivo."
+      "afterResult": "Los impactos de todos los métodos se suman. Después, la pregunta siguiente del asistente trata el contraataque a baja altura y el daño en el objetivo.",
+      "defenseNodes": [
+        {
+          "node": "land.guided.area",
+          "label": "Defensa aérea de área"
+        },
+        {
+          "node": "land.guided.munition",
+          "label": "Interceptación de munición"
+        }
+      ]
     },
     "ground-unguided": {
       "title": "Ataque terrestre no guiado: tabla de daño",
@@ -952,14 +970,22 @@
           ]
         },
         {
+          "id": "attackPlan",
+          "label": "Valor de Ataque del plan (antes de las defensas)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "planSource": "attack-value",
+          "planDomain": "landAttack",
+          "derives": "attack",
+          "visualRef": "attack-base-value"
+        },
+        {
           "id": "attack",
           "label": "Valor de Ataque tras la defensa aérea y la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value",
-          "planSource": "attack-value",
-          "planDomain": "landAttack",
-          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
+          "visualRef": "attack-base-value"
         },
         {
           "id": "intensity",
@@ -975,7 +1001,13 @@
           "max": 9
         }
       ],
-      "afterResult": "Los impactos de todos los métodos se suman. Después vienen el contraataque a baja altura y el daño en el objetivo."
+      "afterResult": "Los impactos de todos los métodos se suman. Después vienen el contraataque a baja altura y el daño en el objetivo.",
+      "defenseNodes": [
+        {
+          "node": "land.unguided.munition",
+          "label": "Interceptación de munición"
+        }
+      ]
     },
     "anti-radiation": {
       "title": "Ataque antirradiación: tabla de daño",
@@ -1012,14 +1044,22 @@
           ]
         },
         {
+          "id": "attackPlan",
+          "label": "Valor de Ataque del plan (antes de las defensas)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "planSource": "attack-value",
+          "planDomain": "landAttack",
+          "derives": "attack",
+          "visualRef": "attack-base-value"
+        },
+        {
           "id": "attack",
           "label": "Valor de Ataque tras la defensa aérea y la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value",
-          "planSource": "attack-value",
-          "planDomain": "landAttack",
-          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
+          "visualRef": "attack-base-value"
         },
         {
           "id": "intensity",
@@ -1035,7 +1075,17 @@
           "max": 9
         }
       ],
-      "afterResult": "El objetivo no recibe bonificación de protección por el terreno. Después viene el contraataque a baja altura."
+      "afterResult": "El objetivo no recibe bonificación de protección por el terreno. Después viene el contraataque a baja altura.",
+      "defenseNodes": [
+        {
+          "node": "land.arm.area",
+          "label": "Defensa aérea de área"
+        },
+        {
+          "node": "land.arm.munition",
+          "label": "Interceptación de munición"
+        }
+      ]
     },
     "antiship-guided-final": {
       "title": "Ataque antibuque guiado: tabla final de daño",
@@ -1088,14 +1138,22 @@
           ]
         },
         {
+          "id": "attackPlan",
+          "label": "Valor de Ataque del plan (antes de las defensas)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "planSource": "attack-value",
+          "planDomain": "antiShip",
+          "derives": "attack",
+          "visualRef": "attack-base-value"
+        },
+        {
           "id": "attack",
           "label": "Valor de Ataque tras la defensa aérea y la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value",
-          "planSource": "attack-value",
-          "planDomain": "antiShip",
-          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
+          "visualRef": "attack-base-value"
         },
         {
           "id": "multiplier",
@@ -1153,7 +1211,17 @@
           "description": "Página 21 (método de resolución por tipo de munición) y página 22 (tabla final)."
         }
       ],
-      "afterResult": "Por cada impacto: subsónico 1 daño, supersónico 2 daños; balístico o de espacio cercano según el Valor de Resistencia del buque. Después vienen el contraataque a baja altura y, si el buque está en puerto, sus efectos."
+      "afterResult": "Por cada impacto: subsónico 1 daño, supersónico 2 daños; balístico o de espacio cercano según el Valor de Resistencia del buque. Después vienen el contraataque a baja altura y, si el buque está en puerto, sus efectos.",
+      "defenseNodes": [
+        {
+          "node": "surface.guided.area",
+          "label": "Defensa aérea de área"
+        },
+        {
+          "node": "surface.guided.munition",
+          "label": "Interceptación de munición"
+        }
+      ]
     },
     "antiship-unguided": {
       "title": "Ataque antibuque no guiado: tabla de daño",
@@ -1190,14 +1258,22 @@
           ]
         },
         {
+          "id": "attackPlan",
+          "label": "Valor de Ataque del plan (antes de las defensas)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "planSource": "attack-value",
+          "planDomain": "antiShip",
+          "derives": "attack",
+          "visualRef": "attack-base-value"
+        },
+        {
           "id": "attack",
           "label": "Valor de Ataque tras la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value",
-          "planSource": "attack-value",
-          "planDomain": "antiShip",
-          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
+          "visualRef": "attack-base-value"
         },
         {
           "id": "intensity",
@@ -1213,7 +1289,13 @@
           "max": 9
         }
       ],
-      "afterResult": "Por cada impacto: Valor de Protección simple, 1 daño; enmarcado, 2 daños. Una unidad múltiple (x2…) con 1 daño cuenta como 1 hundido."
+      "afterResult": "Por cada impacto: Valor de Protección simple, 1 daño; enmarcado, 2 daños. Una unidad múltiple (x2…) con 1 daño cuenta como 1 hundido.",
+      "defenseNodes": [
+        {
+          "node": "surface.unguided.munition",
+          "label": "Interceptación de munición"
+        }
+      ]
     },
     "strategic-cyber": {
       "title": "Guerra cibernética: tiradas de ataque",
@@ -1338,7 +1420,8 @@
           "description": "Página 3."
         }
       ],
-      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición."
+      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición.",
+      "outcome": "reduction"
     },
     "area-defense-anti-radiation": {
       "title": "Defensa aérea de área: reducción del Valor de Ataque",
@@ -1390,7 +1473,8 @@
           "description": "Página 11."
         }
       ],
-      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición."
+      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición.",
+      "outcome": "reduction"
     },
     "area-defense-antiship-guided": {
       "title": "Defensa aérea de área: reducción del Valor de Ataque",
@@ -1461,7 +1545,8 @@
           "description": "Página 19."
         }
       ],
-      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición."
+      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición.",
+      "outcome": "reduction"
     },
     "munition-land-guided": {
       "title": "Interceptación de munición: reducción del Valor de Ataque",
@@ -1591,7 +1676,8 @@
           "description": "Página 4."
         }
       ],
-      "afterResult": "Resta la reducción total al Valor de Ataque."
+      "afterResult": "Resta la reducción total al Valor de Ataque.",
+      "outcome": "reduction"
     },
     "munition-anti-radiation": {
       "title": "Interceptación de munición: reducción del Valor de Ataque",
@@ -1694,7 +1780,8 @@
           "description": "Página 12."
         }
       ],
-      "afterResult": "Resta la reducción total al Valor de Ataque."
+      "afterResult": "Resta la reducción total al Valor de Ataque.",
+      "outcome": "reduction"
     },
     "munition-antiship-guided": {
       "title": "Interceptación de munición: reducción del Valor de Ataque",
@@ -1824,7 +1911,8 @@
           "description": "Página 20."
         }
       ],
-      "afterResult": "Resta la reducción total al Valor de Ataque."
+      "afterResult": "Resta la reducción total al Valor de Ataque.",
+      "outcome": "reduction"
     },
     "munition-land-unguided": {
       "title": "Interceptación de munición: reducción del Valor de Ataque",
@@ -1921,7 +2009,8 @@
         }
       ],
       "afterResult": "Resta la reducción total al Valor de Ataque.",
-      "columnCap": 9
+      "columnCap": 9,
+      "outcome": "reduction"
     },
     "munition-antiship-unguided": {
       "title": "Interceptación de munición: reducción del Valor de Ataque",
@@ -2018,7 +2107,8 @@
         }
       ],
       "afterResult": "Resta la reducción total al Valor de Ataque.",
-      "columnCap": 9
+      "columnCap": 9,
+      "outcome": "reduction"
     },
     "final-interception-land": {
       "title": "Interceptación final: impactos contra el atacante",

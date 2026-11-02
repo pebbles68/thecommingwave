@@ -182,7 +182,7 @@
   function loadCalcInputs() { try { return JSON.parse(sessionStorage.getItem(CALC_KEY) || '{}'); } catch (err) { return {}; } }
   function saveCalcInputs(all) { try { sessionStorage.setItem(CALC_KEY, JSON.stringify(all)); } catch (err) { /* sin almacenamiento */ } }
 
-  async function calculatorBlock(data, calc, stateKey, roundNumber, effects, onResult) {
+  async function calculatorBlock(data, calc, stateKey, roundNumber, effects, onResult, history) {
     const box = el('section', 'decision-graph__calc');
     box.appendChild(el('h3', 'decision-graph__subtitle', roundNumber > 1 ? `${calc.title}: ronda ${roundNumber}` : calc.title));
     if (calc.intro) box.appendChild(el('p', 'phase-view__desc', calc.intro));
@@ -223,6 +223,8 @@
       sides.forEach((s) => { if (inputs.sides[s.id][d.id] === undefined) inputs.sides[s.id][d.id] = String(DecisionGraphCalculators.columnShiftFromEffects(effects)); });
     });
     const resultHost = el('div', 'decision-graph__calc-result');
+    const defenses = DecisionGraphCalculators.defenseReductions(calc, history, all);
+    const inputEls = {};
 
     const field = (def, value, onChange, sideLabel) => {
       const wrap = el('label', 'decision-graph__field');
@@ -247,6 +249,11 @@
       row.appendChild(wrap);
       if (def.visualRef) { const b = openFactorButton(data, def.visualRef, def.visualTemplate); if (b) row.appendChild(b); }
       if (def.planSource) row.appendChild(planPicker(def, input));
+      if (def.derives && (calc.defenseNodes || []).length) {
+        row.appendChild(el('p', 'source-refs decision-graph__derived', defenses.lines.length
+          ? `Defensas de este recorrido: ${defenses.lines.join(', ')}.${defenses.pending ? '' : ` Se restan solas: Valor de Ataque = plan ${defenses.total < 0 ? '−' : '+'} ${Math.abs(defenses.total)}.`}`
+          : 'Ninguna defensa contestada «Sí» en este recorrido: el Valor de Ataque es el del plan.'));
+      }
       return row;
     };
 
@@ -259,7 +266,18 @@
       legend.style.color = side.color;
       fs.appendChild(legend);
       calc.fields.forEach((def) => {
-        const row = field(def, inputs.sides[side.id][def.id], (v) => { inputs.sides[side.id][def.id] = v; update(); }, side.label);
+        const row = field(def, inputs.sides[side.id][def.id], (v) => {
+          inputs.sides[side.id][def.id] = v;
+          // Un campo que deriva otro (el Valor del plan) rellena el destino con las defensas ya restadas.
+          if (def.derives && v !== '' && !defenses.pending) {
+            const target = inputEls[`${side.id}:${def.derives}`];
+            const value = String(Math.max(0, Number(v) + defenses.total));
+            inputs.sides[side.id][def.derives] = value;
+            if (target) target.value = value;
+          }
+          update();
+        }, side.label);
+        inputEls[`${side.id}:${def.id}`] = row.querySelector('input, select');
         // Campo condicional: se enseña solo cuando se cumple su `showIf` (lo reevalúa cada cambio).
         if (def.showIf) conditional.push({ row, def, values: inputs.sides[side.id] });
         fs.appendChild(row);
@@ -278,6 +296,11 @@
       saveCalcInputs(all);
       resultHost.textContent = '';
       const result = DecisionGraphCalculators.computeWithColumn(calc, { table, choices, extra, rules, workflow }, inputs);
+      if (calc.outcome === 'reduction') {
+        const done = sides.filter((s) => result.sides[s.id].status === 'ok');
+        inputs.outcome = done.length ? { reduction: done.reduce((sum, s) => sum + (result.sides[s.id].reduction || 0), 0) } : undefined;
+        saveCalcInputs(all);
+      }
       const anyOk = sides.some((s) => ['ok', 'column'].includes(result.sides[s.id].status));
       const anyResult = sides.some((s) => result.sides[s.id].status === 'ok') || ((result.summary || []).length > 0 && !result.pending);
       // Un cálculo puede elegir la tabla según una respuesta (p. ej. el evento de la búsqueda aérea).
@@ -572,7 +595,7 @@
         const host = el('div');
         body.appendChild(host);
         const key = calcDef.id === DecisionGraphCalculators.calculatorForNode(data.calculators, node.id).id ? `${node.id}#${repeats}` : `${node.id}:${calcDef.id}#${repeats}`;
-        calculatorBlock(data, calcDef, key, repeats + 1, DecisionGraphEngine.accumulatedEffects(session), linkToTurn).then((block) => host.appendChild(block));
+        calculatorBlock(data, calcDef, key, repeats + 1, DecisionGraphEngine.accumulatedEffects(session), linkToTurn, session.history).then((block) => host.appendChild(block));
       });
     }
 
