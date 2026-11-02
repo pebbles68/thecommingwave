@@ -187,22 +187,21 @@ test('la migración desde el progreso anterior conserva el dato, avisa una sola 
   expect(stored.legacy.processRuns[1]['proceso_campana:1'].finishedPhases).toEqual(['acciones_aereas']);
 });
 
-// COR02-003: un wizard abierto DESDE una subfase queda vinculado a su nodo; «Terminar» avisa y se puede cancelar.
-async function startGroundWizardFrom(page, hash) {
+// COR02-003 (Fase 25: con el asistente): una resolución abierta DESDE una subfase queda vinculada a su nodo; «Terminar»
+// avisa y se puede cancelar.
+async function startAssistantFrom(page, hash) {
   await page.goto(hash);
   await page.getByRole('button', { name: '▶ Combate cercano terrestre', exact: false }).click();
   await expect(page).toHaveURL(/#\/decision\/e\/land-close/);
-  // El cálculo detallado se abre desde el asistente (sus enlaces «Resolver este paso»); conserva el nodo del turno.
-  await page.evaluate(() => { location.hash = '#/wizard/ground-close-combat'; });
-  await expect(page).toHaveURL(/#\/wizard\/ground-close-combat/);
-  await expect(page.getByText('Paso 1 de 5')).toBeVisible();
+  // La resolución se liga al turno con la primera respuesta.
+  await page.locator('.decision-graph__option').first().click();
 }
 
-test('un wizard abierto desde una subfase queda vinculado a su segmento, «Terminar» avisa y se puede cancelar', async ({ page }) => {
-  await startGroundWizardFrom(page, '/#/turno/fase/1/ground/combate_terrestre');
+test('una resolución del asistente abierta desde una subfase queda vinculada a su segmento, «Terminar» avisa y se puede cancelar', async ({ page }) => {
+  await startAssistantFrom(page, '/#/turno/fase/1/ground/combate_terrestre');
 
   await page.goto('/#/turno/fase/1/ground');
-  await expect(page.getByText('⏳ Resolución activa: Combate cercano terrestre')).toBeVisible();
+  await expect(page.getByText('⏳ Resolución activa: Asistente de combate: Combate cercano terrestre')).toBeVisible();
   // No aparece en otro segmento ni en otra fase.
   await page.goto('/#/turno/fase/4/ground');
   await expect(page.getByText('⏳ Resolución activa')).toHaveCount(0);
@@ -211,32 +210,24 @@ test('un wizard abierto desde una subfase queda vinculado a su segmento, «Termi
   let dialogMessage = '';
   page.once('dialog', (dialog) => { dialogMessage = dialog.message(); dialog.dismiss(); });
   await page.getByRole('button', { name: 'Terminar fase' }).click();
-  expect(dialogMessage).toContain('resolución(es) activa(s) sin guardar: Combate cercano terrestre');
-  await expect(page.getByText('⏳ Resolución activa: Combate cercano terrestre')).toBeVisible();
+  expect(dialogMessage).toContain('resolución(es) activa(s) sin guardar: Asistente de combate: Combate cercano terrestre');
 
   page.once('dialog', (dialog) => dialog.accept());
   await page.getByRole('button', { name: '✕ Cancelar resolución' }).click();
   await expect(page.getByText('⏳ Resolución activa')).toHaveCount(0);
 });
 
-test('dos resoluciones del mismo wizard abiertas en fases distintas no se pisan y cada una recupera su borrador (TUR-015)', async ({ page }) => {
-  await startGroundWizardFrom(page, '/#/turno/fase/1/ground/combate_terrestre');
-  await startGroundWizardFrom(page, '/#/turno/fase/4/ground/combate_terrestre');
+test('dos resoluciones abiertas en fases distintas no se pisan y «Volver a la resolución» abre el asistente (TUR-015)', async ({ page }) => {
+  await startAssistantFrom(page, '/#/turno/fase/1/ground/combate_terrestre');
+  await startAssistantFrom(page, '/#/turno/fase/4/ground/combate_terrestre');
 
-  await page.goto('/#/turno/fase/1/ground');
-  await expect(page.getByText('⏳ Resolución activa: Combate cercano terrestre')).toHaveCount(1);
-  await page.goto('/#/turno/fase/4/ground');
-  await expect(page.getByText('⏳ Resolución activa: Combate cercano terrestre')).toHaveCount(1);
   const pending = await page.evaluate(() => JSON.parse(localStorage.getItem('tcw-progress')).pendingResolutions);
   expect(pending.map((r) => r.nodeId).sort()).toEqual(['phase-1/ground/combate_terrestre', 'phase-4/ground/combate_terrestre']);
-  const drafts = await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('tcw-wizard-drafts') || '{}')));
-  expect(drafts.filter((k) => k.startsWith('ground-close-combat@')).sort()).toEqual(['ground-close-combat@phase-1/ground/combate_terrestre', 'ground-close-combat@phase-4/ground/combate_terrestre']);
 
-  // Retomar la de la 1.ª fase (distinta de la que está en memoria) recupera su propio borrador.
   await page.goto('/#/turno/fase/1/ground');
   await page.getByRole('button', { name: '↩ Volver a la resolución' }).click();
-  await expect(page).toHaveURL(/#\/wizard\/ground-close-combat/);
-  await expect(page.getByText('↩ Resolución en curso recuperada')).toBeVisible();
+  await expect(page).toHaveURL(/#\/decision\/e\/land-close/);
+  await expect(page.getByText(/Origen en el turno: Banda 1 · Día 1 \(impar\) · 1\.ª fase/)).toBeVisible();
 });
 
 test('Refuerzos abre cada fase antes de Aire I y Recuperación de Mando va antes de cada día; ambos consultables y no bloqueantes', async ({ page }) => {
@@ -277,7 +268,7 @@ test('Refuerzos abre cada fase antes de Aire I y Recuperación de Mando va antes
   expect(iRec2).toBeLessThan(iFourth);
 });
 
-test('TUR-013: cada segmento lista los combates que le corresponden y los atajos de wizard', async ({ page }) => {
+test('TUR-013: cada segmento lista los combates que le corresponden y sus accesos al asistente', async ({ page }) => {
   await page.goto('/#/turno/fase/1/surface');
   await expect(page.getByRole('button', { name: /Ataque antibuque guiado/ })).toBeVisible();
   await expect(page.getByRole('button', { name: /Ataque antibuque no guiado/ })).toBeVisible();
@@ -295,25 +286,28 @@ test('TUR-013: cada segmento lista los combates que le corresponden y los atajos
   await expect(page.getByRole('button', { name: /Verificación de garantía logística/ })).toBeVisible();
 });
 
-test('TUR-013: abrir un wizard desde el turno conserva y muestra banda, día, fase, segmento y subfase de origen, también en el historial', async ({ page }) => {
+test('TUR-013: abrir el asistente desde el turno conserva y muestra banda, día, fase, segmento y subfase de origen, también en el historial', async ({ page }) => {
   await page.goto('/#/turno/fase/4/ground/ataques_terrestres');
   await page.getByRole('button', { name: /Ataque de reacción \(CF, AS, KB, BAI\)/ }).click();
-  // Fase 25: el atajo abre el asistente; desde su resultado se abre el cálculo, ligado al mismo nodo del turno.
   await expect(page).toHaveURL(/#\/decision\/ext\.reaction\.kind/);
-  await page.locator('.decision-graph__option').first().click();
-  await page.getByRole('button', { name: /^Ataques de reacción terrestres/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/ground-reaction/);
   await expect(page.getByText('Origen en el turno: Banda 1 · Día 2 (par) · 4.ª fase, mañana · Tierra · Ataques terrestres')).toBeVisible();
+  await page.locator('.decision-graph__option').first().click();
   const pending = await page.evaluate(() => JSON.parse(localStorage.getItem('tcw-progress')).pendingResolutions);
   expect(pending.map((r) => r.nodeId)).toEqual(['phase-4/ground/ataques_terrestres']);
 
-  // Tras recargar dentro del wizard el origen se conserva.
+  // Tras recargar el origen se conserva.
   await page.reload();
   await expect(page.getByText(/Origen en el turno: Banda 1 · Día 2 \(par\) · 4\.ª fase/)).toBeVisible();
+  // Guardar al final lo lleva al historial con su origen y lo quita de las resoluciones activas.
+  await page.getByRole('button', { name: '💾 Guardar en el historial' }).click();
+  await page.goto('/#/historial');
+  await expect(page.getByText(/Origen: Banda 1 · Día 2 \(par\) · 4\.ª fase/)).toBeVisible();
+  const after = await page.evaluate(() => JSON.parse(localStorage.getItem('tcw-progress')).pendingResolutions);
+  expect(after).toEqual([]);
 
-  // Un wizard abierto fuera del turno no muestra origen.
+  // El asistente abierto fuera del turno no muestra origen.
   await page.goto('/#/');
-  await page.goto('/#/wizard/ground-close-combat');
+  await page.goto('/#/decision');
   await expect(page.getByText('Origen en el turno')).toHaveCount(0);
 });
 

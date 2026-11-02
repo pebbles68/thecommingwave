@@ -30,7 +30,7 @@
     {
       "id": "antiship-unguided-damage-and-naval-artillery",
       "title": "Daño de Ataque No Guiado / Combate Naval Cercano con Artillería — impactos según Valor de Ataque/Artillería Naval",
-      "rowAxis": { "label": "Tirada (d10) — con doble lectura (·/Artillería Naval)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9*"] },
+      "rowAxis": { "label": "Tirada (d10) — con doble lectura (·/Artillería Naval)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9*"], "alternateLabelSets": { "artillery": [null, "0", "1", "2", "3", "4", "5", "6", "7", "8~9"] }, "schemeNotes": { "artillery": "Columna izquierda de tiradas (fila «Artillería Naval» de la cabecera): ·, 0, 1… 7, 8~9. La tirada del Combate Naval Cercano con artillería se lee en ella (añadida el 2026-11-02 al pasar el cálculo al asistente)." } },
       "columnAxis": {
         "label": "Valor de Ataque / Valor de Artillería Naval",
         "alternateLabelSets": { "L": ["3~5", "6~8", "9~11", "12~17", "18~20", "21~30", "31~40", "41~50", "51~65", "66+", null, null, null] },

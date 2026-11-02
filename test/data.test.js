@@ -943,31 +943,21 @@ test('ammunition/source-pages/index.json: las 6 categorías de país tienen al m
   }
 });
 
-// --- Identificación visual en el Wizard (AGENTS.md §9.2) ---
+// --- Identificación visual en el asistente (AGENTS.md §9.2; Fase 25: los wizards se han retirado) ---
 
-test('public/js/**/*.js: cada appendFactorIdentificationHint(...) apunta a un template/factor real de factor-map.json', () => {
-  // COR-005 paso 4: appendFactorIdentificationHint vive en core.js, pero sus
-  // llamadas están en las vistas que lo consumen (hoy solo el wizard de
-  // ataque guiado) — se recorre todo public/js/ en vez de solo app.js para
-  // no perder cobertura cuando una llamada cambia de archivo.
-  const jsDir = path.join(__dirname, '..', 'public', 'js');
-  const jsFiles = fs.readdirSync(jsDir, { recursive: true })
-    .filter((f) => f.endsWith('.js'))
-    .map((f) => path.join(jsDir, f));
-  const calls = [];
-  jsFiles.forEach((filePath) => {
-    const src = fs.readFileSync(filePath, 'utf8');
-    for (const m of src.matchAll(/appendFactorIdentificationHint\(\s*\w+\s*,\s*'([^']+)'\s*,\s*'([^']+)'\s*\)/g)) {
-      calls.push(m);
-    }
-  });
-  assert.ok(calls.length > 0, 'no se encontró ninguna llamada a appendFactorIdentificationHint en public/js/');
+test('asistente: cada campo con ficha fija (visualTemplate) apunta a una plantilla real que tiene el factor de su ayuda', () => {
+  const calculators = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'routing', 'decision-graph-calculators.json'), 'utf8')).calculators;
+  const refs = readJson('rules/wizard-visual-refs.json').entries;
   const data = readJson('counters/factor-map.json');
-  for (const [, templateId, factorId] of calls) {
-    const tpl = data.counterTemplates.find((t) => t.id === templateId);
-    assert.ok(tpl, `appendFactorIdentificationHint: template "${templateId}" no existe en factor-map.json`);
-    assert.ok(tpl.factors.some((f) => f.factor === factorId), `appendFactorIdentificationHint: template "${templateId}" no tiene el factor "${factorId}"`);
-  }
+  const fields = Object.entries(calculators).flatMap(([id, c]) => (c.fields || []).concat(c.sharedFields || []).map((fd) => ({ id, fd }))).filter(({ fd }) => fd.visualTemplate);
+  assert.ok(fields.length > 10, 'se esperaban campos con ficha fija');
+  fields.forEach(({ id, fd }) => {
+    const tpl = data.counterTemplates.find((t) => t.id === fd.visualTemplate);
+    assert.ok(tpl, `${id}/${fd.id}: plantilla «${fd.visualTemplate}» inexistente`);
+    const ref = refs.find((e) => e.id === fd.visualRef);
+    assert.ok(ref, `${id}/${fd.id}: ayuda «${fd.visualRef}» inexistente`);
+    if (ref.entityRef && ref.entityRef.factorId) assert.ok(tpl.factors.some((x) => x.factor === ref.entityRef.factorId), `${id}/${fd.id}: «${fd.visualTemplate}» no tiene el factor «${ref.entityRef.factorId}»`);
+  });
 });
 
 // --- Recorte por unidad de armamento (data/ammunition/source-pages/unit-regions.json) ---

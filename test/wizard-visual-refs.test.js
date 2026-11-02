@@ -15,32 +15,6 @@ const tablesIndex = readJson('data/tables/index.json');
 const catalog = readJson('data/visual-help/entities.json');
 const VisualHelp = require('../public/js/visual-help-engine.js');
 
-const VIEWS = path.join(ROOT, 'public', 'js', 'views');
-
-// Fichero -> wizard que lo renderiza ('*' = pasos compartidos por varios).
-function wizardOf(file) {
-  if (file === 'core-wizard-steps.js') return '*';
-  if (file.startsWith('antiship-guided-')) return 'antiship-guided';
-  return file.replace(/-wizard\.js$/, '');
-}
-
-function numericLabels() {
-  const found = [];
-  const files = fs.readdirSync(VIEWS).filter((f) => /-wizard\.js$/.test(f) || /^antiship-guided-(steps|result)\.js$/.test(f))
-    .map((f) => ({ file: f, full: path.join(VIEWS, f) }));
-  files.push({ file: 'core-wizard-steps.js', full: path.join(ROOT, 'public', 'js', 'core-wizard-steps.js') });
-  for (const { file, full } of files) {
-    const src = fs.readFileSync(full, 'utf8');
-    const re = /makeNumberField\(\s*(['`])((?:(?!\1).)+)\1/g;
-    let m;
-    while ((m = re.exec(src))) {
-      const sample = m[2].replace(/\$\{[^}]*\}/g, (x) => (/idx|\bn\b/.test(x) ? '1' : 'X'));
-      found.push({ wizard: wizardOf(file), raw: m[2], sample, file });
-    }
-  }
-  return found;
-}
-
 test('wizard-visual-refs: estructura, tipos válidos y razones obligatorias', () => {
   const kinds = Object.keys(refs.kinds);
   const ids = new Set();
@@ -75,15 +49,17 @@ test('wizard-visual-refs: los factores de ficha y las tablas referenciados exist
   });
 });
 
-test('wizard-visual-refs: ningún campo numérico de los wizards carece de ayuda visual declarada', () => {
-  const labels = numericLabels();
-  assert.ok(labels.length > 40, `se esperaban más de 40 campos numéricos, hay ${labels.length}`);
-  const missing = labels.filter((l) => {
-    const wizard = l.wizard === '*' ? '*' : l.wizard;
-    // Para pasos compartidos basta con que alguna entrada comodín encaje.
-    return !findEntry(refs, wizard, l.sample);
-  });
-  assert.deepEqual(missing.map((l) => `${l.file}: ${l.raw}`), [], 'campos numéricos sin entrada en data/rules/wizard-visual-refs.json');
+// Fase 25: los wizards se han retirado; los campos que se leen en una ficha están en los cálculos del asistente.
+const calculators = readJson('data/routing/decision-graph-calculators.json').calculators;
+const PRINTED = /Valor de (Protección|Defensa Aérea|Combate Aéreo|Artillería)|Valor Electrónico|Protección del|Iniciativa|Tamaño de Fuerza|Firma \(Ruido\)/;
+test('asistente: todo campo numérico que se lee en una ficha declara su ayuda visual, y la ayuda existe', () => {
+  const ids = new Set(refs.entries.map((e) => e.id));
+  const fields = Object.entries(calculators).flatMap(([id, c]) => (c.fields || []).concat(c.sharedFields || []).map((f) => ({ id, f })));
+  const printed = fields.filter(({ f }) => (f.kind === 'number' || f.kind === 'text') && PRINTED.test(f.label));
+  assert.ok(printed.length > 20, `se esperaban más de 20 campos de ficha, hay ${printed.length}`);
+  fields.filter(({ f }) => f.visualRef).forEach(({ id, f }) => assert.ok(ids.has(f.visualRef), `${id}/${f.id}: ayuda ${f.visualRef} inexistente`));
+  const missing = printed.filter(({ f }) => !f.visualRef && !/sumado|agrupado|total/i.test(f.label));
+  assert.deepEqual(missing.map(({ id, f }) => `${id}/${f.id}: ${f.label}`), [], 'campos de ficha sin ayuda visual');
 });
 
 test('wizard-visual-refs: los campos de factor de ficha que piden Protección, Defensa Aérea, Valor Electrónico y Tamaño de fuerza muestran dónde se leen', () => {
@@ -107,48 +83,6 @@ test('wizard-visual-refs: los campos de factor de ficha que piden Protección, D
 test('wizardIdFromHash', () => {
   assert.equal(wizardIdFromHash('#/wizard/ground-guided'), 'ground-guided');
   assert.equal(wizardIdFromHash('#/ayuda/tablas'), null);
-});
-
-// --- TUR-012: ID estable por campo, sin depender del texto de la etiqueta ---
-
-const { scanCall, labelOf, wizardOf: wizardOfFile } = require('../scripts/visual-refs-codemod.js');
-const { findEntryById } = require('../public/js/core-visual-refs.js');
-
-function declaredFields() {
-  const out = [];
-  const files = fs.readdirSync(VIEWS).filter((f) => /-wizard\.js$/.test(f) || /^antiship-guided-(steps|result)\.js$/.test(f)).map((f) => ({ file: f, full: path.join(VIEWS, f) }));
-  files.push({ file: 'core-wizard-steps.js', full: path.join(ROOT, 'public', 'js', 'core-wizard-steps.js') });
-  for (const { file, full } of files) {
-    const src = fs.readFileSync(full, 'utf8');
-    const re = /makeNumberField\(/g;
-    let m = re.exec(src);
-    while (m) {
-      const { args } = scanCall(src, m.index + 'makeNumberField'.length);
-      const label = labelOf(args[0].text);
-      if (label !== null) {
-        const decl = /visualRef:\s*'([a-z0-9-]+)'/.exec(args.slice(1).map((a) => a.text).join(','));
-        out.push({ file, wizard: wizardOfFile(file), label, id: decl ? decl[1] : null });
-      }
-      m = re.exec(src);
-    }
-  }
-  return out;
-}
-
-test('wizard-visual-refs: todo campo numérico de los wizards declara el ID estable de su ayuda y existe para ese wizard', () => {
-  const fields = declaredFields();
-  assert.ok(fields.length >= 55, `se esperaban al menos 55 campos, hay ${fields.length}`);
-  const undeclared = fields.filter((f) => !f.id).map((f) => `${f.file}: ${f.label}`);
-  assert.deepEqual(undeclared, [], 'campos sin visualRef');
-  fields.forEach((f) => assert.ok(findEntryById(refs, f.wizard, f.id), `${f.file}: «${f.label}» declara ${f.id}, que no existe o no aplica a ese wizard`));
-});
-
-test('wizard-visual-refs: el ID declarado coincide con la entrada que cubría el texto (migración sin cambios de comportamiento)', () => {
-  declaredFields().forEach((f) => {
-    const sample = f.label.replace(/\$\{[^}]*\}/g, (x) => (/idx|\bn\b/.test(x) ? '1' : 'X'));
-    const byPattern = findEntry(refs, f.wizard, sample);
-    assert.equal(f.id, byPattern.id, `${f.file}: «${f.label}»`);
-  });
 });
 
 test('resolveEntry: un campo con ID declarado usa esa entrada aunque el texto de su etiqueta cambie; sin ID, el patrón', () => {

@@ -11,7 +11,7 @@
     {
       "id": "air_combat",
       "label": "Combate aéreo",
-      "summary": "Valor de Combate Aéreo (CA): fuerza de la unidad en el combate aéreo BVR y WVR; da la columna de las tablas de daño de combate aéreo. Sin este valor no combate.",
+      "summary": "Valor de Combate Aéreo (CA): fuerza de la unidad en el combate aéreo BVR y WVR; da la columna de las tablas de daño de combate aéreo. Sin este valor no combate. El número pequeño en superíndice es la Iniciativa de la unidad (BVR).",
       "status": "generated",
       "basicOrExpansion": "basic",
       "sourceRefs": [
@@ -25,7 +25,8 @@
           "section": "Combate BVR y WVR",
           "pages": "16, 17"
         }
-      ]
+      ],
+      "note": "Que el superíndice es la Iniciativa lo indicó el mantenedor (2026-11-02)."
     },
     {
       "id": "model",
@@ -392,7 +393,7 @@
     {
       "id": "support",
       "label": "Apoyo",
-      "summary": "Valor de Apoyo de Combate (SUP) del buque: bonificación que da a las unidades terrestres propias en un combate terrestre. Su marco indica el ataque: borde = capacidad antibuque; fondo = capacidad de ataque a tierra.",
+      "summary": "Valor de apoyo a tierra del buque (bombardeo costero): bonificación a las unidades terrestres propias en un combate terrestre. Su marco indica el ataque: borde = antibuque; fondo = ataque a tierra.",
       "status": "generated",
       "basicOrExpansion": "basic",
       "sourceRefs": [
@@ -401,7 +402,8 @@
           "section": "9.1.1 Buques de combate (SUP e Indicador de Ataque)",
           "pages": "190"
         }
-      ]
+      ],
+      "note": "Indicación del mantenedor (2026-11-02): el Apoyo de la ficha de buque es el valor de apoyo a tierra para bombardeo costero; la Artillería Naval es el número arriba a la derecha del perfil del barco en su plan de ataque."
     },
     {
       "id": "one_unit_capacity",

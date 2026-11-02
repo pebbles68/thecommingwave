@@ -233,7 +233,8 @@
     wrap.appendChild(el('h1', 'help-detail__title', unit.name + (nameExtra ? ` — ${nameExtra}` : '')));
     wrap.appendChild(el('p', 'turn-view__desc', [unit.class, unit.role, unit.sourceSheet].filter(Boolean).join(' · ')));
     if (unit.hasFullDamagedRows === false) wrap.appendChild(el('p', 'source-refs', 'Esta unidad no tiene distinción de unidad completa/dañada en la hoja: una sola fila de valores.'));
-    if (unit.shipBadge !== undefined) wrap.appendChild(el('p', 'source-refs', `N.º de ficha: ${unit.shipBadge} (su significado exacto está pendiente de validar).`));
+    // El número arriba a la derecha del perfil del barco es su Valor de Artillería Naval (indicación del mantenedor, 2026-11-02).
+    if (unit.shipBadge !== undefined) wrap.appendChild(el('p', 'source-refs', `Artillería Naval: ${unit.shipBadge} (número arriba a la derecha del perfil del barco).`));
     if (unit.cruiseMissileMarker) {
       const cm = unit.cruiseMissileMarker;
       wrap.appendChild(el('p', 'source-refs', `Marcador de misil de crucero (${cm.type}): ${cm.flightData ? cm.flightData.raw : ''}`));

@@ -64,7 +64,9 @@ test('rule-profile.json: un interruptor por cada marca que entiende el motor, co
 });
 
 test('las marcas de perfil solo aparecen en archivos de datos conocidos y siempre como booleano verdadero', () => {
-  const known = new Set(['counters/factor-map.json', 'rules/decision-book-excerpts.json', 'rules/port-logistics.json', 'rules/cyber-attack.json', 'rules/space-war.json', 'phases/turn-template.json']);
+  const known = new Set(['counters/factor-map.json', 'rules/decision-book-excerpts.json', 'rules/port-logistics.json', 'rules/cyber-attack.json', 'rules/space-war.json', 'phases/turn-template.json',
+    // Generado desde rules/port-logistics.json (scripts/build-decision-extensions.js): la reparación opcional de buques.
+    'routing/decision-graph-extensions.json']);
   const found = new Set();
   const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).forEach((d) => {
     const full = path.join(dir, d.name);

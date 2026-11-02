@@ -89,7 +89,8 @@ nodes['ext.port.operation'] = {
   type: 'decision',
   question: '¿Qué operación de puerto o de munición se resuelve?',
   source: ['Reglas 9.9.4', 'Reglas 9.9.5', 'Reglas 11.6'],
-  routes: port.operations.map((o) => ({ answer: o.label, to: `ext.port.${o.value}` }))
+  // Una operación de regla opcional solo se ofrece si el perfil de reglas la activa (RuleProfileEngine).
+  routes: port.operations.map((o) => ({ answer: o.label, to: `ext.port.${o.value}`, ...(o.optionalRule ? { optionalRule: true } : {}) }))
 };
 port.operations.forEach((o) => {
   nodes[`ext.port.${o.value}`] = { type: 'terminal', title: o.label, instructions: [o.summary].filter(Boolean), source: ['Reglas 9.9.4-9.9.5', 'Reglas 11.6'] };

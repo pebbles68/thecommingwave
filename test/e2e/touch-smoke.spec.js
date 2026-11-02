@@ -16,13 +16,9 @@ test('con toque: Inicio → Resolver combate → asistente → respuesta → pre
 });
 
 test('con toque: panel de ayuda, categorías y ayuda «¿Dónde se lee este valor?»', async ({ page }) => {
-  await page.goto('/#/wizard/ground-attack-result');
-  await page.getByLabel('Puntos de Impacto finales').fill('10');
-  await page.getByLabel('Puntos de Impacto finales').press('Tab');
-  await page.locator('.wizard-question', { hasText: '¿Qué se ataca?' }).getByRole('button', { name: 'Unidad terrestre (principal o técnica)' }).tap();
-  await page.getByRole('button', { name: 'Siguiente →' }).tap();
+  await page.goto('/#/decision/location.mobile.cover');
   const help = page.locator('#visual-help-panel');
-  await page.locator('label.table-viewer__field', { hasText: 'Valor de Protección de la unidad' }).locator('xpath=following-sibling::div[1][contains(@class,"visual-ref")]').getByRole('button').tap();
+  await page.getByRole('button', { name: /^Ver en la ficha: Protección/ }).first().tap();
   await expect(help.locator('.ihv__hit').first()).toBeVisible();
   await help.locator('.ihv__list-btn').first().tap();
   await expect(help.locator('.ihv__popover')).toBeVisible();
@@ -53,11 +49,9 @@ test('con toque: zoom de iconos, «Volver arriba» y navegación de turno', asyn
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 });
 
-test('con toque: el primer toque en «Siguiente» tras escribir un número no se pierde', async ({ page }) => {
-  await page.goto('/#/wizard/ground-guided');
-  await page.locator('.wizard-question', { hasText: 'Tipo de ataque:' }).getByRole('button', { name: 'No', exact: true }).tap();
-  await page.locator('.wizard-question', { hasText: 'Tipo de munición:' }).getByRole('button', { name: 'Persecución' }).tap();
-  await page.getByLabel('Valor de Ataque base del plan de ataque').fill('4');
-  await page.getByRole('button', { name: 'Siguiente →' }).tap();
-  await expect(page.getByText('Distancia de ataque (hexágonos)')).toBeVisible({ timeout: 3000 });
+test('con toque: el primer toque en una respuesta tras escribir un número no se pierde', async ({ page }) => {
+  await page.goto('/#/decision/surface.guided.vef');
+  await page.getByLabel('Defensa: Valor Electrónico más alto de los buques de la flota').fill('4');
+  await page.getByRole('button', { name: '1-8', exact: true }).tap();
+  await expect(page.getByRole('heading', { name: '¿El atacante está a baja altura y algún buque elegible puede contraatacar?' })).toBeVisible({ timeout: 3000 });
 });

@@ -176,8 +176,15 @@
       "wizards": [
         "air-combat-bvr"
       ],
-      "kind": "pending-visual",
-      "reason": "La iniciativa (IN) del grupo de misión aérea no figura en el mapa de factores de ficha transcrito."
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "air-unit",
+        "scope": "generic",
+        "factorId": "air_combat"
+      },
+      "buttonLabel": "Ver en la ficha: Iniciativa",
+      "fieldLabel": "Iniciativa: es el número pequeño en superíndice junto al Combate aéreo",
+      "note": "Indicación del mantenedor (2026-11-02): la Iniciativa aérea se lee en el superíndice del factor de Combate aéreo; se recuadra la zona del Combate aéreo, que incluye el superíndice."
     },
     {
       "id": "asw-air-detection",
@@ -502,6 +509,48 @@
         "scope": "generic",
         "factorId": "initiative"
       }
+    },
+    {
+      "id": "ground-aa",
+      "pattern": "^(?!)",
+      "wizards": [
+        "*"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "ground-unit",
+        "scope": "generic",
+        "factorId": "aa"
+      }
+    },
+    {
+      "id": "ship-electronic",
+      "pattern": "^(?!)",
+      "wizards": [
+        "*"
+      ],
+      "kind": "counter-factor",
+      "entityRef": {
+        "entityType": "surface-unit",
+        "scope": "generic",
+        "factorId": "electronic"
+      }
+    },
+    {
+      "id": "ship-naval-artillery",
+      "pattern": "^(?!)",
+      "wizards": [
+        "*"
+      ],
+      "kind": "plan-crop",
+      "entityRef": {
+        "entityType": "attack-plan",
+        "scope": "generic"
+      },
+      "buttonLabel": "Ver en el plan de ataque: Artillería Naval",
+      "fieldLabel": "Artillería Naval: número arriba a la derecha del perfil del barco",
+      "note": "Indicación del mantenedor (2026-11-02): el número arriba a la derecha del perfil del barco en su plan de ataque es el Valor de Artillería Naval (combate naval cercano con artillería, página 25, y contraataque a baja altura de la flota, páginas 22 y 26).",
+      "reason": "Sale del plan de ataque naval del buque (Ayuda rápida → Planes de ataque y municiones): el número arriba a la derecha del perfil del barco."
     }
   ]
 }

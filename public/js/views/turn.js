@@ -88,7 +88,7 @@
       resumeBtn.addEventListener('click', () => {
         // El wizard recupera su borrador por el nodo exacto en que se inició.
         AppCore.setLastTurnContext(resolution.nodeId ? ctxFor(resolution) : null);
-        location.hash = AppCore.WORKFLOW_WIZARD_HASHES[resolution.type] || '#/';
+        location.hash = resolution.resumeHash || AppCore.WORKFLOW_WIZARD_HASHES[resolution.type] || '#/';
       });
       actionsRow.appendChild(resumeBtn);
       const cancelBtn = el('button', 'btn btn--secondary', '✕ Cancelar resolución');

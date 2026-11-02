@@ -16,8 +16,8 @@ test('Resolver combate ofrece el asistente y se recorre hasta el resultado con s
   await page.locator('.decision-graph__option').nth(1).click();
   await page.locator('.decision-graph__option').nth(0).click();
   await expect(page.getByRole('heading', { name: 'Reabastecimiento resuelto' })).toBeVisible();
-  await page.getByRole('button', { name: /^Reabastecimiento de Campo del Ejército/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/army-resupply$/);
+  // Fase 25: ya no hay wizards; el resultado se guarda en el historial desde el asistente.
+  await expect(page.getByRole('button', { name: '💾 Guardar en el historial' })).toBeVisible();
 });
 
 test('cambiar una respuesta anterior descarta lo posterior', async ({ page }) => {
@@ -51,14 +51,12 @@ test('una subfase del turno abre el asistente en su punto del árbol', async ({ 
 
 test('cada ronda WVR ofrece resolverla con la tabla y el cálculo antes de seguir', async ({ page }) => {
   await page.goto('/#/decision/air.intercept.round');
-  await expect(page.getByRole('heading', { name: 'Resolver este paso' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Absorción de los impactos de la ronda' })).toBeVisible();
   await page.getByRole('button', { name: 'Sí', exact: true }).click();
   await expect(page.locator('.decision-graph__round')).toContainText('Ronda 2');
-  await expect(page.getByRole('heading', { name: 'Resolver la ronda 2' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Absorción de los impactos de la ronda: ronda 2' })).toBeVisible();
   await expect(page.locator('.decision-graph__table').first()).toHaveAttribute('open', '');
   await expect(page.locator('.decision-graph__answer-question').first()).toContainText('Ronda 1:');
-  await page.getByRole('button', { name: /^Combate aéreo cercano WVR/ }).click();
-  await expect(page).toHaveURL(/#\/wizard\/air-combat-wvr$/);
 });
 
 test('la ronda WVR pide los factores de cada bando y marca su columna en la tabla real', async ({ page }) => {

@@ -115,6 +115,31 @@
           "kind": "number",
           "min": 0,
           "max": 9
+        },
+        {
+          "id": "targetProtection",
+          "label": "Protección del avión enemigo (para calcular el daño)",
+          "kind": "number",
+          "min": 1,
+          "optional": true,
+          "visualRef": "air-protection",
+          "visualTemplate": "aircraft-combat-tactical"
+        },
+        {
+          "id": "targetIsCaps",
+          "label": "¿El avión enemigo es de una CAP?",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí: solo absorbe 1 punto y sale de combate"
+            }
+          ]
         }
       ],
       "afterResult": "Cada Valor de Protección del avión que recibe absorbe un punto de impacto y le causa un punto de daño; un avión de Patrulla Aérea (CAPs) solo recibe 1 y sale temporalmente del combate. El reparto detallado está en el cálculo del combate BVR."
@@ -251,7 +276,9 @@
               "value": "yes",
               "label": "Sí, se está moviendo (+1 a la Firma)"
             }
-          ]
+          ],
+          "questionId": "target_moving",
+          "modifier": "target_signature"
         },
         {
           "id": "attack",
@@ -269,7 +296,8 @@
           "max": 9
         }
       ],
-      "afterResult": "Si los impactos igualan o superan la Protección del submarino, queda hundido."
+      "afterResult": "Si los impactos igualan o superan la Protección del submarino, queda hundido.",
+      "workflow": "10_ataque_asw_superficie_aereo.json"
     },
     "asw-submarine": {
       "title": "Ataque con torpedos de submarino contra submarino",
@@ -330,7 +358,9 @@
               "value": "yes",
               "label": "Sí, se está moviendo (+1 a la Firma)"
             }
-          ]
+          ],
+          "questionId": "target_moving",
+          "modifier": "target_signature"
         },
         {
           "id": "torpedoType",
@@ -363,7 +393,8 @@
           "max": 9
         }
       ],
-      "afterResult": "«NO DISPARAR»: no se hace búsqueda tras el ataque. Si los impactos igualan o superan la Protección del objetivo, queda hundido."
+      "afterResult": "«NO DISPARAR»: no se hace búsqueda tras el ataque. Si los impactos igualan o superan la Protección del objetivo, queda hundido.",
+      "workflow": "11_ataque_asw_submarino.json"
     },
     "asw-signature-search": {
       "title": "Búsqueda por diferencia de firma",
@@ -508,7 +539,9 @@
               "value": "yes",
               "label": "Sí, se está moviendo (+1 a la Firma)"
             }
-          ]
+          ],
+          "questionId": "target_moving",
+          "modifier": "target_signature"
         },
         {
           "id": "roll",
@@ -518,7 +551,8 @@
           "max": 9
         }
       ],
-      "afterResult": "Si se detecta, el submarino Oculto pasa a Expuesto."
+      "afterResult": "Si se detecta, el submarino Oculto pasa a Expuesto.",
+      "workflow": "13_busqueda_asw_apoyo.json"
     },
     "asw-air-search": {
       "title": "Búsqueda aérea ASW",
@@ -600,7 +634,9 @@
               "value": "yes",
               "label": "Sí, se está moviendo (+1 a la Firma)"
             }
-          ]
+          ],
+          "questionId": "target_moving",
+          "modifier": "target_signature"
         },
         {
           "id": "airValue",
@@ -617,7 +653,8 @@
           "max": 9
         }
       ],
-      "afterResult": "Si se detecta, el submarino queda Expuesto."
+      "afterResult": "Si se detecta, el submarino queda Expuesto.",
+      "workflow": "13_busqueda_asw_apoyo.json"
     },
     "torpedo-surface": {
       "title": "Ataque con torpedos contra superficie",
@@ -849,7 +886,10 @@
           "label": "Valor de Ataque tras la defensa aérea y la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value"
+          "visualRef": "attack-base-value",
+          "planSource": "attack-value",
+          "planDomain": "landAttack",
+          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
         },
         {
           "id": "intensity",
@@ -916,7 +956,10 @@
           "label": "Valor de Ataque tras la defensa aérea y la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value"
+          "visualRef": "attack-base-value",
+          "planSource": "attack-value",
+          "planDomain": "landAttack",
+          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
         },
         {
           "id": "intensity",
@@ -973,7 +1016,10 @@
           "label": "Valor de Ataque tras la defensa aérea y la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value"
+          "visualRef": "attack-base-value",
+          "planSource": "attack-value",
+          "planDomain": "landAttack",
+          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
         },
         {
           "id": "intensity",
@@ -1046,7 +1092,10 @@
           "label": "Valor de Ataque tras la defensa aérea y la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value"
+          "visualRef": "attack-base-value",
+          "planSource": "attack-value",
+          "planDomain": "antiShip",
+          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
         },
         {
           "id": "multiplier",
@@ -1145,7 +1194,10 @@
           "label": "Valor de Ataque tras la interceptación",
           "kind": "number",
           "min": 0,
-          "visualRef": "attack-base-value"
+          "visualRef": "attack-base-value",
+          "planSource": "attack-value",
+          "planDomain": "antiShip",
+          "planNote": "El valor del plan es antes de las defensas: réstale lo que hayan reducido la defensa aérea y la interceptación."
         },
         {
           "id": "intensity",
@@ -1214,6 +1266,4507 @@
           "id": "rolls",
           "label": "Tiradas 1d10, separadas por espacios (p. ej. «3 7 0 9»)",
           "kind": "text"
+        }
+      ]
+    },
+    "area-defense-land-guided": {
+      "title": "Defensa aérea de área: reducción del Valor de Ataque",
+      "nodes": [
+        "land.guided.area"
+      ],
+      "engine": "area-air-defense-reduction",
+      "workflow": "02_ataque_terrestre_guiado.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Defensa",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-03.json",
+        "tableId": "ground-guided-area-air-defense"
+      },
+      "intro": "Solo contra munición marcada CM o BM. Las unidades que disparan juntas suman su Valor de Defensa Aérea (columna). La tirada, con sus modificadores, da la fila; la celda es lo que se resta al Valor de Ataque. Con trayectoria de espacio cercano se tiran 2d10 y vale la menor.",
+      "fields": [
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea agrupado de las unidades que disparan",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-tech-antiair"
+        },
+        {
+          "id": "detected",
+          "label": "¿El defensor ha detectado al atacante?",
+          "kind": "choice",
+          "questionId": "attacker_detected",
+          "stage": "area_air_defense",
+          "modifier": "area_air_defense_roll"
+        },
+        {
+          "id": "nearSpace",
+          "label": "¿La munición usa trayectoria de espacio cercano?",
+          "kind": "choice",
+          "questionId": "near_space_trajectory",
+          "stage": "area_air_defense",
+          "modifier": "area_air_defense_roll"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        },
+        {
+          "id": "roll2",
+          "label": "Segunda tirada 1d10 (espacio cercano: vale la menor)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "showIf": {
+            "field": "nearSpace",
+            "equals": "yes"
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 3."
+        }
+      ],
+      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición."
+    },
+    "area-defense-anti-radiation": {
+      "title": "Defensa aérea de área: reducción del Valor de Ataque",
+      "nodes": [
+        "land.arm.area"
+      ],
+      "engine": "area-air-defense-reduction",
+      "workflow": "04_ataque_antirradiacion.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Defensa",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-11.json",
+        "tableId": "ground-guided-area-air-defense"
+      },
+      "intro": "Solo contra munición marcada CM o BM. Las unidades que disparan juntas suman su Valor de Defensa Aérea (columna). La tirada, con sus modificadores, da la fila; la celda es lo que se resta al Valor de Ataque.",
+      "fields": [
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea agrupado de las unidades que disparan",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-tech-antiair"
+        },
+        {
+          "id": "detected",
+          "label": "¿El defensor ha detectado al atacante?",
+          "kind": "choice",
+          "questionId": "attacker_detected",
+          "stage": "area_air_defense",
+          "modifier": "area_air_defense_roll"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 11."
+        }
+      ],
+      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición."
+    },
+    "area-defense-antiship-guided": {
+      "title": "Defensa aérea de área: reducción del Valor de Ataque",
+      "nodes": [
+        "surface.guided.area"
+      ],
+      "engine": "area-air-defense-reduction",
+      "workflow": "07_ataque_antibuque_guiado.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Defensa",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-19.json",
+        "tableId": "ground-guided-area-air-defense"
+      },
+      "intro": "Solo contra munición marcada CM o BM. Las unidades que disparan juntas suman su Valor de Defensa Aérea (columna). La tirada, con sus modificadores, da la fila; la celda es lo que se resta al Valor de Ataque. Con trayectoria de espacio cercano se tiran 2d10 y vale la menor.",
+      "fields": [
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea agrupado de las unidades que disparan",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ship-aa-own",
+          "visualTemplate": "ship-combat"
+        },
+        {
+          "id": "detected",
+          "label": "¿El defensor ha detectado al atacante?",
+          "kind": "choice",
+          "questionId": "attacker_detected",
+          "stage": "area_air_defense",
+          "modifier": "area_air_defense_roll"
+        },
+        {
+          "id": "nearSpace",
+          "label": "¿La munición usa trayectoria de espacio cercano?",
+          "kind": "choice",
+          "questionId": "near_space_trajectory",
+          "stage": "area_air_defense",
+          "modifier": "area_air_defense_roll"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        },
+        {
+          "id": "roll2",
+          "label": "Segunda tirada 1d10 (espacio cercano: vale la menor)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "showIf": {
+            "field": "nearSpace",
+            "equals": "yes"
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 19."
+        }
+      ],
+      "afterResult": "Resta la reducción al Valor de Ataque y pasa a la interceptación de munición."
+    },
+    "munition-land-guided": {
+      "title": "Interceptación de munición: reducción del Valor de Ataque",
+      "nodes": [
+        "land.guided.munition"
+      ],
+      "engine": "munition-interception",
+      "workflow": "02_ataque_terrestre_guiado.json",
+      "sides": [
+        {
+          "id": "I1",
+          "label": "Interceptor 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "I2",
+          "label": "Interceptor 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "I3",
+          "label": "Interceptor 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-04.json",
+        "tableId": "munition-interception-standard"
+      },
+      "intro": "Cada interceptor dispara por separado con su propio Valor de Defensa Aérea (columna, en la fila de su consumo) y su tirada con modificadores (fila). Si el objetivo y el atacante están en el mismo hex o Zona Central no se intercepta. Se suman las reducciones.",
+      "fields": [
+        {
+          "id": "consumption",
+          "label": "Consumo de munición antiaérea del interceptor",
+          "kind": "choice",
+          "default": "high",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto (fila «Alto»: 1-9)"
+            },
+            {
+              "value": "low",
+              "label": "Bajo (fila «Bajo»: 2~3, 4~5…)"
+            }
+          ]
+        },
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea propio del interceptor",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-tech-antiair"
+        },
+        {
+          "id": "performance",
+          "label": "Rendimiento de la interceptación",
+          "kind": "choice",
+          "questionId": "interception_performance",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "detection",
+          "label": "¿Qué ha detectado el defensor?",
+          "kind": "choice",
+          "questionId": "detection_state",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "earlyWarning",
+          "label": "¿Hay alerta temprana (AEW en el hex o Zona Central del objetivo, o ataque balístico)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No: sin las columnas de «Más allá del horizonte»"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "ballistic",
+          "label": "¿Es un ataque balístico (BM)?",
+          "kind": "choice",
+          "default": "no",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí: 2d10, la menor, solo consumo Bajo"
+            }
+          ]
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        },
+        {
+          "id": "roll2",
+          "label": "Segunda tirada 1d10 (balístico: vale la menor)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "showIf": {
+            "field": "ballistic",
+            "equals": "yes"
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 4."
+        }
+      ],
+      "afterResult": "Resta la reducción total al Valor de Ataque."
+    },
+    "munition-anti-radiation": {
+      "title": "Interceptación de munición: reducción del Valor de Ataque",
+      "nodes": [
+        "land.arm.munition"
+      ],
+      "engine": "munition-interception",
+      "workflow": "04_ataque_antirradiacion.json",
+      "sides": [
+        {
+          "id": "I1",
+          "label": "Interceptor 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "I2",
+          "label": "Interceptor 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "I3",
+          "label": "Interceptor 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-12.json",
+        "tableId": "munition-interception-standard"
+      },
+      "intro": "Cada interceptor dispara por separado con su propio Valor de Defensa Aérea (columna, en la fila de su consumo) y su tirada con modificadores (fila). Si el objetivo y el atacante están en el mismo hex o Zona Central no se intercepta. Se suman las reducciones.",
+      "fields": [
+        {
+          "id": "consumption",
+          "label": "Consumo de munición antiaérea del interceptor",
+          "kind": "choice",
+          "default": "high",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto (fila «Alto»: 1-9)"
+            },
+            {
+              "value": "low",
+              "label": "Bajo (fila «Bajo»: 2~3, 4~5…)"
+            }
+          ]
+        },
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea propio del interceptor",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-tech-antiair"
+        },
+        {
+          "id": "performance",
+          "label": "Rendimiento de la interceptación",
+          "kind": "choice",
+          "questionId": "interception_performance",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "detection",
+          "label": "¿Qué ha detectado el defensor?",
+          "kind": "choice",
+          "questionId": "detection_state",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "earlyWarning",
+          "label": "¿Hay alerta temprana (AEW en el hex o Zona Central del objetivo, o ataque balístico)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No: sin las columnas de «Más allá del horizonte»"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 12."
+        }
+      ],
+      "afterResult": "Resta la reducción total al Valor de Ataque."
+    },
+    "munition-antiship-guided": {
+      "title": "Interceptación de munición: reducción del Valor de Ataque",
+      "nodes": [
+        "surface.guided.munition"
+      ],
+      "engine": "munition-interception",
+      "workflow": "07_ataque_antibuque_guiado.json",
+      "sides": [
+        {
+          "id": "I1",
+          "label": "Interceptor 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "I2",
+          "label": "Interceptor 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "I3",
+          "label": "Interceptor 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-20.json",
+        "tableId": "munition-interception-standard"
+      },
+      "intro": "Cada interceptor dispara por separado con su propio Valor de Defensa Aérea (columna, en la fila de su consumo) y su tirada con modificadores (fila). Si el objetivo y el atacante están en el mismo hex o Zona Central no se intercepta. Se suman las reducciones.",
+      "fields": [
+        {
+          "id": "consumption",
+          "label": "Consumo de munición antiaérea del interceptor",
+          "kind": "choice",
+          "default": "high",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto (fila «Alto»: 1-9)"
+            },
+            {
+              "value": "low",
+              "label": "Bajo (fila «Bajo»: 2~3, 4~5…)"
+            }
+          ]
+        },
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea propio del interceptor",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ship-aa-own",
+          "visualTemplate": "ship-combat"
+        },
+        {
+          "id": "performance",
+          "label": "Rendimiento de la interceptación",
+          "kind": "choice",
+          "questionId": "interception_performance",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "detection",
+          "label": "¿Qué ha detectado el defensor?",
+          "kind": "choice",
+          "questionId": "detection_state",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "earlyWarning",
+          "label": "¿Hay alerta temprana (AEW en el hex o Zona Central del objetivo, o ataque balístico)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No: sin las columnas de «Más allá del horizonte»"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "ballistic",
+          "label": "¿Es un ataque balístico (BM)?",
+          "kind": "choice",
+          "default": "no",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí: 2d10, la menor, solo consumo Bajo"
+            }
+          ]
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        },
+        {
+          "id": "roll2",
+          "label": "Segunda tirada 1d10 (balístico: vale la menor)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "showIf": {
+            "field": "ballistic",
+            "equals": "yes"
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 20."
+        }
+      ],
+      "afterResult": "Resta la reducción total al Valor de Ataque."
+    },
+    "munition-land-unguided": {
+      "title": "Interceptación de munición: reducción del Valor de Ataque",
+      "nodes": [
+        "land.unguided.munition"
+      ],
+      "engine": "munition-interception",
+      "workflow": "03_ataque_terrestre_no_guiado.json",
+      "sides": [
+        {
+          "id": "I1",
+          "label": "Interceptor 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "I2",
+          "label": "Interceptor 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "I3",
+          "label": "Interceptor 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-08.json",
+        "tableId": "munition-interception-unguided"
+      },
+      "intro": "Cada interceptor dispara por separado con su propio Valor de Defensa Aérea (columna, en la fila de su consumo) y su tirada con modificadores (fila). Si el objetivo y el atacante están en el mismo hex o Zona Central no se intercepta. Se suman las reducciones. La última columna de consumo Alto impresa es «9+».",
+      "fields": [
+        {
+          "id": "consumption",
+          "label": "Consumo de munición antiaérea del interceptor",
+          "kind": "choice",
+          "default": "high",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto (fila «Alto»: 1-9)"
+            },
+            {
+              "value": "low",
+              "label": "Bajo (fila «Bajo»: 2~3, 4~5…)"
+            }
+          ]
+        },
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea propio del interceptor",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-tech-antiair"
+        },
+        {
+          "id": "performance",
+          "label": "Rendimiento de la interceptación",
+          "kind": "choice",
+          "questionId": "interception_performance",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "detection",
+          "label": "¿Qué ha detectado el defensor?",
+          "kind": "choice",
+          "questionId": "detection_state",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "unguidedIcon",
+          "label": "¿El tipo de ataque lleva el icono de cohete (-3)?",
+          "kind": "choice",
+          "questionId": "unguided_icon_type",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 8."
+        }
+      ],
+      "afterResult": "Resta la reducción total al Valor de Ataque.",
+      "columnCap": 9
+    },
+    "munition-antiship-unguided": {
+      "title": "Interceptación de munición: reducción del Valor de Ataque",
+      "nodes": [
+        "surface.unguided.munition"
+      ],
+      "engine": "munition-interception",
+      "workflow": "08_ataque_antibuque_no_guiado.json",
+      "sides": [
+        {
+          "id": "I1",
+          "label": "Interceptor 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "I2",
+          "label": "Interceptor 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "I3",
+          "label": "Interceptor 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-24.json",
+        "tableId": "munition-interception-unguided"
+      },
+      "intro": "Cada interceptor dispara por separado con su propio Valor de Defensa Aérea (columna, en la fila de su consumo) y su tirada con modificadores (fila). Si el objetivo y el atacante están en el mismo hex o Zona Central no se intercepta. Se suman las reducciones. La última columna de consumo Alto impresa es «9+».",
+      "fields": [
+        {
+          "id": "consumption",
+          "label": "Consumo de munición antiaérea del interceptor",
+          "kind": "choice",
+          "default": "high",
+          "options": [
+            {
+              "value": "high",
+              "label": "Alto (fila «Alto»: 1-9)"
+            },
+            {
+              "value": "low",
+              "label": "Bajo (fila «Bajo»: 2~3, 4~5…)"
+            }
+          ]
+        },
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea propio del interceptor",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ship-aa-own",
+          "visualTemplate": "ship-combat"
+        },
+        {
+          "id": "performance",
+          "label": "Rendimiento de la interceptación",
+          "kind": "choice",
+          "questionId": "interception_performance",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "detection",
+          "label": "¿Qué ha detectado el defensor?",
+          "kind": "choice",
+          "questionId": "detection_state",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "unguidedIcon",
+          "label": "¿El tipo de ataque lleva el icono de cohete (-3)?",
+          "kind": "choice",
+          "questionId": "unguided_icon_type",
+          "stage": "munition_interception",
+          "modifier": "munition_interception_roll"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 24."
+        }
+      ],
+      "afterResult": "Resta la reducción total al Valor de Ataque.",
+      "columnCap": 9
+    },
+    "final-interception-land": {
+      "title": "Interceptación final: impactos contra el atacante",
+      "nodes": [
+        "land.unguided.final"
+      ],
+      "engine": "final-interception",
+      "sides": [
+        {
+          "id": "low",
+          "label": "Consumo Bajo",
+          "color": "#2f80ed",
+          "optional": true
+        },
+        {
+          "id": "high",
+          "label": "Consumo Alto",
+          "color": "#eb3b3b",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-07.json",
+        "tableId": "ground-unguided-final-interception"
+      },
+      "intro": "Una sola interceptación final por ataque. Se suma el Valor de Defensa Aérea de todas las unidades de cada consumo: el total de consumo Bajo se lee en la fila «Bajo» de la cabecera y el de consumo Alto en la fila «Alto». La misma tirada vale para los dos y se suman los impactos.",
+      "fields": [
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea total de este consumo (vacío si no hay)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "visualRef": "ship-aa-own"
+        }
+      ],
+      "sharedFields": [
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9), una para los dos consumos",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 7."
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§6.4.1-§6.4.2: misma tirada para los dos consumos, se suman los impactos."
+        }
+      ],
+      "afterResult": "El atacante aplica estos impactos antes de lanzar su ataque, que usa el Valor de Ataque que le quede."
+    },
+    "final-interception-surface": {
+      "title": "Interceptación final: impactos contra el atacante",
+      "nodes": [
+        "surface.unguided.final"
+      ],
+      "engine": "final-interception",
+      "sides": [
+        {
+          "id": "low",
+          "label": "Consumo Bajo",
+          "color": "#2f80ed",
+          "optional": true
+        },
+        {
+          "id": "high",
+          "label": "Consumo Alto",
+          "color": "#eb3b3b",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-23.json",
+        "tableId": "ground-unguided-final-interception"
+      },
+      "intro": "Una sola interceptación final por ataque. Se suma el Valor de Defensa Aérea de todas las unidades de cada consumo: el total de consumo Bajo se lee en la fila «Bajo» de la cabecera y el de consumo Alto en la fila «Alto». La misma tirada vale para los dos y se suman los impactos.",
+      "fields": [
+        {
+          "id": "aa",
+          "label": "Valor de Defensa Aérea total de este consumo (vacío si no hay)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "visualRef": "ship-aa-own"
+        }
+      ],
+      "sharedFields": [
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9), una para los dos consumos",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 23."
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§6.4.1-§6.4.2: misma tirada para los dos consumos, se suman los impactos."
+        }
+      ],
+      "afterResult": "El atacante aplica estos impactos antes de lanzar su ataque, que usa el Valor de Ataque que le quede."
+    },
+    "vef-multiplier": {
+      "title": "Resistencia electrónica de la flota: multiplicador",
+      "nodes": [
+        "surface.guided.vef"
+      ],
+      "engine": "vef-multiplier",
+      "workflow": "07_ataque_antibuque_guiado.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Defensa",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-21.json",
+        "tableId": "antiship-guided-vef-modifier"
+      },
+      "extraTables": [
+        {
+          "page": "page-21.json",
+          "tableId": "antiship-guided-attack-multiplier"
+        }
+      ],
+      "intro": "V.E.F. = Valor Electrónico más alto de los buques de la flota + modificadores (la distancia se cuenta desde la ficha del atacante). La fila del V.E.F. da el modificador de la tirada; la tirada modificada da el multiplicador del Valor de Ataque.",
+      "fields": [
+        {
+          "id": "electronic",
+          "label": "Valor Electrónico más alto de los buques de la flota",
+          "kind": "number",
+          "visualRef": "ship-electronic",
+          "visualTemplate": "ship-combat"
+        },
+        {
+          "id": "distance",
+          "label": "Distancia de ataque",
+          "kind": "choice",
+          "questionId": "attack_distance",
+          "stage": "fleet_electronic_resistance",
+          "modifier": "vef_modifier"
+        },
+        {
+          "id": "detection",
+          "label": "Detección del atacante y del guía/designador",
+          "kind": "choice",
+          "questionId": "detection_state",
+          "stage": "fleet_electronic_resistance",
+          "modifier": "vef_modifier"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 21."
+        }
+      ],
+      "afterResult": "Lleva este multiplicador a la tabla final de daño (página 22). Varios métodos de ataque iguales usan el mismo multiplicador; cada método distinto se calcula por separado."
+    },
+    "area-defense-air-shot": {
+      "title": "Defensa aérea de área contra aviones: puntos de daño",
+      "nodes": [
+        "air.area.escort"
+      ],
+      "engine": "area-air-defense-shot",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Defensa",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-18.json",
+        "tableId": "area-air-defense-concentrated-damage"
+      },
+      "intro": "Varios sistemas de defensa aérea o buques disparan de forma concentrada contra aviones, helicópteros o UAV. Su Valor de Combate Aéreo agrupado da la columna en la fila de su consumo (Bajo: convencional, baja altitud o espacio cercano; Alto: solo convencional); la tirada da la fila.",
+      "fields": [
+        {
+          "id": "consumption",
+          "label": "Consumo",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "low",
+              "label": "Bajo (convencional, baja altitud o espacio cercano)"
+            },
+            {
+              "value": "high",
+              "label": "Alto (solo convencional)"
+            }
+          ]
+        },
+        {
+          "id": "aa",
+          "label": "Valor de Combate Aéreo agrupado de los sistemas que disparan",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-tech-antiair"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 18."
+        }
+      ],
+      "afterResult": "Si hay escolta electrónica con protección, sus aviones absorben los impactos primero (Reglas 7.10.4)."
+    },
+    "low-altitude-land-guided": {
+      "title": "Contraataque a baja altura",
+      "nodes": [
+        "land.guided.counter"
+      ],
+      "engine": "low-altitude-counterattack",
+      "sides": [
+        {
+          "id": "U1",
+          "label": "Unidad de baja altura 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "U2",
+          "label": "Unidad de baja altura 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "U3",
+          "label": "Unidad de baja altura 3",
+          "color": "#d97706",
+          "optional": true
+        },
+        {
+          "id": "U4",
+          "label": "Unidad de baja altura 4",
+          "color": "#9333ea",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-06.json",
+        "tableId": "low-altitude-counterattack"
+      },
+      "intro": "Dispara la unidad que ha recibido el ataque, una vez por cada unidad de baja altura atacante en el mismo hex (el defensor elige el orden). Su Valor de Defensa Aérea da la columna en la fila de su tipo; si los impactos alcanzan la Protección del atacante, queda destruido.",
+      "defenderLabel": "Valor de Defensa Aérea de la unidad atacada",
+      "sharedFields": [
+        {
+          "id": "defenderKind",
+          "label": "Unidad que recibe el ataque y dispara",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "canonical",
+              "label": "Unidad principal (1, 2~3… 8+)"
+            },
+            {
+              "value": "air_defense_system",
+              "label": "Sistema de Defensa Aérea (1, 2+)"
+            }
+          ]
+        },
+        {
+          "id": "defender",
+          "label": "Valor de Defensa Aérea de la unidad atacada",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-main"
+        }
+      ],
+      "fields": [
+        {
+          "id": "protection",
+          "label": "Valor de Protección de esta unidad atacante",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "low-altitude-attacker-protection",
+          "visualTemplate": "low-altitude-flying"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 6."
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§6.6.1-§6.6.2."
+        }
+      ],
+      "afterResult": "No consume munición de defensa aérea. Solo dispara contra plataformas de baja altura que estén en el mismo hex."
+    },
+    "low-altitude-land-unguided": {
+      "title": "Contraataque a baja altura",
+      "nodes": [
+        "land.unguided.counter"
+      ],
+      "engine": "low-altitude-counterattack",
+      "sides": [
+        {
+          "id": "U1",
+          "label": "Unidad de baja altura 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "U2",
+          "label": "Unidad de baja altura 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "U3",
+          "label": "Unidad de baja altura 3",
+          "color": "#d97706",
+          "optional": true
+        },
+        {
+          "id": "U4",
+          "label": "Unidad de baja altura 4",
+          "color": "#9333ea",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-10.json",
+        "tableId": "low-altitude-counterattack"
+      },
+      "intro": "Dispara la unidad que ha recibido el ataque, una vez por cada unidad de baja altura atacante en el mismo hex (el defensor elige el orden). Su Valor de Defensa Aérea da la columna en la fila de su tipo; si los impactos alcanzan la Protección del atacante, queda destruido.",
+      "defenderLabel": "Valor de Defensa Aérea de la unidad atacada",
+      "sharedFields": [
+        {
+          "id": "defenderKind",
+          "label": "Unidad que recibe el ataque y dispara",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "canonical",
+              "label": "Unidad principal (1, 2~3… 8+)"
+            },
+            {
+              "value": "air_defense_system",
+              "label": "Sistema de Defensa Aérea (1, 2+)"
+            }
+          ]
+        },
+        {
+          "id": "defender",
+          "label": "Valor de Defensa Aérea de la unidad atacada",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-main"
+        }
+      ],
+      "fields": [
+        {
+          "id": "protection",
+          "label": "Valor de Protección de esta unidad atacante",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "low-altitude-attacker-protection",
+          "visualTemplate": "low-altitude-flying"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 10."
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§6.6.1-§6.6.2."
+        }
+      ],
+      "afterResult": "No consume munición de defensa aérea. Solo dispara contra plataformas de baja altura que estén en el mismo hex."
+    },
+    "low-altitude-anti-radiation": {
+      "title": "Contraataque a baja altura",
+      "nodes": [
+        "land.arm.counter"
+      ],
+      "engine": "low-altitude-counterattack",
+      "sides": [
+        {
+          "id": "U1",
+          "label": "Unidad de baja altura 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "U2",
+          "label": "Unidad de baja altura 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "U3",
+          "label": "Unidad de baja altura 3",
+          "color": "#d97706",
+          "optional": true
+        },
+        {
+          "id": "U4",
+          "label": "Unidad de baja altura 4",
+          "color": "#9333ea",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-14.json",
+        "tableId": "anti-radiation-low-altitude-counterattack"
+      },
+      "intro": "Dispara el Sistema de Defensa Aérea atacado, una vez por cada unidad de baja altura atacante en el mismo hex. Su Valor de Defensa Aérea da la columna (1 o 2+); si los impactos alcanzan la Protección del atacante, queda destruido.",
+      "defenderLabel": "Valor de Defensa Aérea del sistema atacado",
+      "sharedFields": [
+        {
+          "id": "defender",
+          "label": "Valor de Defensa Aérea del sistema atacado",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-aa",
+          "visualTemplate": "ground-tech-antiair"
+        }
+      ],
+      "fields": [
+        {
+          "id": "protection",
+          "label": "Valor de Protección de esta unidad atacante",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "low-altitude-attacker-protection",
+          "visualTemplate": "low-altitude-flying"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 14."
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§6.6.1-§6.6.2."
+        }
+      ],
+      "afterResult": "No consume munición de defensa aérea. Solo dispara contra plataformas de baja altura que estén en el mismo hex."
+    },
+    "low-altitude-antiship-guided": {
+      "title": "Contraataque a baja altura",
+      "nodes": [
+        "surface.guided.counter"
+      ],
+      "engine": "low-altitude-counterattack",
+      "sides": [
+        {
+          "id": "U1",
+          "label": "Unidad de baja altura 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "U2",
+          "label": "Unidad de baja altura 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "U3",
+          "label": "Unidad de baja altura 3",
+          "color": "#d97706",
+          "optional": true
+        },
+        {
+          "id": "U4",
+          "label": "Unidad de baja altura 4",
+          "color": "#9333ea",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-22.json",
+        "tableId": "surface-artillery-low-altitude-counterattack"
+      },
+      "intro": "La flota bajo ataque dispara con su Artillería Naval contra cada unidad de baja altura atacante; cada buque dispara por separado (los buques con el icono de daño no pueden). Si los impactos alcanzan la Protección del atacante, queda destruido.",
+      "defenderLabel": "Valor de Artillería Naval del buque que dispara",
+      "sharedFields": [
+        {
+          "id": "defender",
+          "label": "Valor de Artillería Naval del buque que dispara",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ship-naval-artillery",
+          "planSource": "naval-artillery"
+        }
+      ],
+      "fields": [
+        {
+          "id": "protection",
+          "label": "Valor de Protección de esta unidad atacante",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "low-altitude-attacker-protection",
+          "visualTemplate": "low-altitude-flying"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 22."
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§6.6.1-§6.6.2."
+        }
+      ],
+      "afterResult": "No consume munición de defensa aérea. Solo dispara contra plataformas de baja altura que estén en el mismo hex."
+    },
+    "low-altitude-antiship-unguided": {
+      "title": "Contraataque a baja altura",
+      "nodes": [
+        "surface.unguided.counter"
+      ],
+      "engine": "low-altitude-counterattack",
+      "sides": [
+        {
+          "id": "U1",
+          "label": "Unidad de baja altura 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "U2",
+          "label": "Unidad de baja altura 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "U3",
+          "label": "Unidad de baja altura 3",
+          "color": "#d97706",
+          "optional": true
+        },
+        {
+          "id": "U4",
+          "label": "Unidad de baja altura 4",
+          "color": "#9333ea",
+          "optional": true
+        }
+      ],
+      "table": {
+        "page": "page-26.json",
+        "tableId": "surface-artillery-low-altitude-counterattack"
+      },
+      "intro": "La flota bajo ataque dispara con su Artillería Naval contra cada unidad de baja altura atacante; cada buque dispara por separado (los buques con el icono de daño no pueden). Si los impactos alcanzan la Protección del atacante, queda destruido.",
+      "defenderLabel": "Valor de Artillería Naval del buque que dispara",
+      "sharedFields": [
+        {
+          "id": "defender",
+          "label": "Valor de Artillería Naval del buque que dispara",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ship-naval-artillery",
+          "planSource": "naval-artillery"
+        }
+      ],
+      "fields": [
+        {
+          "id": "protection",
+          "label": "Valor de Protección de esta unidad atacante",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "low-altitude-attacker-protection",
+          "visualTemplate": "low-altitude-flying"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 26."
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§6.6.1-§6.6.2."
+        }
+      ],
+      "afterResult": "No consume munición de defensa aérea. Solo dispara contra plataformas de baja altura que estén en el mismo hex."
+    },
+    "naval-artillery": {
+      "title": "Combate naval cercano con artillería",
+      "nodes": [
+        "surface.close.target"
+      ],
+      "engine": "naval-artillery",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Flota atacante",
+          "color": "#2f80ed"
+        }
+      ],
+      "table": {
+        "page": "page-25.json",
+        "tableId": "antiship-unguided-damage-and-naval-artillery"
+      },
+      "intro": "Las flotas en el mismo hex entran en combate naval cercano. El Valor de Ataque es la suma del valor de combate de todas las unidades participantes de la flota atacante; da la columna en la fila «Artillería Naval». La tirada se lee en la columna izquierda de tiradas (·, 0, 1… 7, 8~9).",
+      "fields": [
+        {
+          "id": "artillery",
+          "label": "Valor de Artillería Naval sumado de la flota atacante",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ship-naval-artillery",
+          "planSource": "naval-artillery",
+          "planSum": true
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (0 a 9)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 25: reglas del Combate Naval Cercano con Artillería y lectura izquierda de la tabla."
+        }
+      ],
+      "afterResult": "El atacante reparte los impactos entre las unidades de la flota enemiga: Protección ? 1 daño por impacto, Protección [?] 2 daños; en una unidad múltiple de bajo tonelaje (x2…) cada daño es 1 buque hundido."
+    },
+    "ground-unit-hit": {
+      "title": "Resultado sobre la unidad terrestre",
+      "nodes": [
+        "location.mobile.cover",
+        "terminal.land.attack"
+      ],
+      "engine": "ground-unit-hit",
+      "rules": "ground-attack-results.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Resultado",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Con los Puntos de Impacto finales de la tabla de resolución. En un ataque normal, si los impactos alcanzan Protección + Terreno, la unidad pierde 1 punto (máximo 1 por ataque). En una Persecución Aérea pierde 1 punto por cada vez que los impactos alcanzan su Protección, sin límite.",
+      "fields": [
+        {
+          "id": "kind",
+          "label": "Tipo de ataque",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Ataque normal"
+            },
+            {
+              "value": "no_terrain",
+              "label": "Interdicción Aérea o Ataque Anti-Radiación (sin protección del terreno)"
+            },
+            {
+              "value": "air_pursuit",
+              "label": "Persecución Aérea"
+            }
+          ]
+        },
+        {
+          "id": "impacts",
+          "label": "Puntos de Impacto finales",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "protection",
+          "label": "Valor de Protección de la unidad",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ground-protection",
+          "visualTemplate": "ground-main"
+        },
+        {
+          "id": "terrain",
+          "label": "Valor de Terreno del hexágono (0 si no hay)",
+          "kind": "number",
+          "min": 0,
+          "default": "0",
+          "showIf": {
+            "field": "kind",
+            "equals": "normal"
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§5.15.1."
+        },
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 6: objetivos terrestres móviles."
+        }
+      ]
+    },
+    "port-attack": {
+      "title": "Resultado sobre el puerto y los buques",
+      "nodes": [
+        "location.port.part"
+      ],
+      "engine": "port-attack",
+      "rules": "ground-attack-results.json",
+      "sides": [
+        {
+          "id": "S1",
+          "label": "Buque 1",
+          "color": "#2f80ed",
+          "optional": true
+        },
+        {
+          "id": "S2",
+          "label": "Buque 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "S3",
+          "label": "Buque 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "intro": "El atacante reparte los Puntos de Impacto entre el puerto y los buques que hay dentro. Puerto: cada vez que los impactos alcanzan su Protección, 1 instalación paralizada. Buque de superficie: cada impacto es 1 punto de daño. Submarino: con 1 impacto queda destruido.",
+      "sharedFields": [
+        {
+          "id": "totalImpacts",
+          "label": "Puntos de Impacto finales",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "portImpacts",
+          "label": "Impactos asignados al puerto (0 si ninguno)",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "portProtection",
+          "label": "Valor de Protección del puerto",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "port-protection"
+        }
+      ],
+      "fields": [
+        {
+          "id": "type",
+          "label": "Tipo de buque",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "surface",
+              "label": "Unidad de superficie"
+            },
+            {
+              "value": "submarine",
+              "label": "Unidad submarina"
+            }
+          ]
+        },
+        {
+          "id": "impacts",
+          "label": "Impactos asignados a este buque",
+          "kind": "number",
+          "min": 0
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§5.15.2."
+        },
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 6: puerto y barcos dentro del puerto."
+        }
+      ]
+    },
+    "airfield-runway": {
+      "title": "Aeródromo: pista",
+      "nodes": [
+        "location.airfield.part"
+      ],
+      "engine": "airfield",
+      "part": "runway",
+      "rules": "ground-attack-results.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Resultado",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Cada 2 Puntos de Impacto asignados a la pista bajan su calidad un nivel (A la mejor, E la peor; no baja de E).",
+      "fields": [
+        {
+          "id": "letter",
+          "label": "Calidad actual de la pista",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "A",
+              "label": "A"
+            },
+            {
+              "value": "B",
+              "label": "B"
+            },
+            {
+              "value": "C",
+              "label": "C"
+            },
+            {
+              "value": "D",
+              "label": "D"
+            },
+            {
+              "value": "E",
+              "label": "E"
+            }
+          ]
+        },
+        {
+          "id": "impacts",
+          "label": "Impactos asignados a la pista",
+          "kind": "number",
+          "min": 0
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§5.15.3."
+        }
+      ]
+    },
+    "airfield-apron": {
+      "title": "Aeródromo: áreas de estacionamiento (apron)",
+      "nodes": [
+        "location.airfield.part"
+      ],
+      "engine": "airfield",
+      "part": "apron",
+      "rules": "ground-attack-results.json",
+      "sides": [
+        {
+          "id": "U1",
+          "label": "Unidad en el apron 1",
+          "color": "#2f80ed"
+        },
+        {
+          "id": "U2",
+          "label": "Unidad en el apron 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "U3",
+          "label": "Unidad en el apron 3",
+          "color": "#d97706",
+          "optional": true
+        },
+        {
+          "id": "U4",
+          "label": "Unidad en el apron 4",
+          "color": "#9333ea",
+          "optional": true
+        }
+      ],
+      "intro": "Las unidades en el orden en que el defensor las elige. Cada unidad cuya Protección efectiva alcanzan los impactos restantes sufre 1 punto de daño y se le restan; si no la alcanzan, los impactos pasan a la siguiente. Como máximo tantas unidades como la Capacidad de Hangares usan la Protección del aeródromo; las demás tienen Protección 1.",
+      "sharedFields": [
+        {
+          "id": "impacts",
+          "label": "Impactos asignados al apron",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "airfieldProtection",
+          "label": "Valor de Protección del aeródromo",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "airfield-protection"
+        },
+        {
+          "id": "hangarCapacity",
+          "label": "Capacidad de Hangares",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "airfield-capacity"
+        }
+      ],
+      "fields": [
+        {
+          "id": "shelter",
+          "label": "¿Usa la Protección del aeródromo (hangar)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "fragile",
+          "label": "¿No puede sobrevivir a un punto de daño (sin lado dañado)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§5.15.3."
+        }
+      ]
+    },
+    "airfield-logistics": {
+      "title": "Aeródromo: instalaciones logísticas (regla opcional)",
+      "nodes": [
+        "location.airfield.part"
+      ],
+      "engine": "airfield",
+      "part": "logistics",
+      "rules": "ground-attack-results.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Resultado",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Regla opcional: cada 2 impactos asignados a la logística reducen 1 el Valor de Preparación.",
+      "fields": [
+        {
+          "id": "readiness",
+          "label": "Valor de Preparación actual",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "airfield-readiness"
+        },
+        {
+          "id": "impacts",
+          "label": "Impactos asignados a la logística",
+          "kind": "number",
+          "min": 0
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§5.15.3."
+        }
+      ]
+    },
+    "ship-impact-single": {
+      "title": "Efecto del punto de daño",
+      "nodes": [
+        "ext.impact.single"
+      ],
+      "engine": "ship-impact",
+      "hullType": "single",
+      "rules": "ship-impact-effects.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Unidad impactada",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Buque único: se da la vuelta y, sin escudo, comprueba el daño crítico (tirada ≤ Resistencia al Hundimiento: hundido).",
+      "fields": [
+        {
+          "id": "hasDamagedSide",
+          "label": "¿El reverso de la ficha tiene contenido (lado dañado)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "alreadyDamaged",
+          "label": "¿Ya estaba en su lado dañado antes de este impacto?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "amphibious",
+          "label": "¿Es un Buque de Asalto Anfibio?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "hasShield",
+          "label": "¿Tiene el símbolo de escudo en su Valor de Protección?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "carrier",
+          "label": "¿Es una unidad portaeronaves (transporta unidades aéreas o de baja altitud)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "transport",
+          "label": "¿Es una unidad de transporte (convoy, buque de asalto anfibio, flota de desembarco)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "sinkingResistance",
+          "label": "Valor de Resistencia al Hundimiento (si hay que comprobar el daño crítico)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "visualRef": "ship-sink-value"
+        },
+        {
+          "id": "criticalRoll",
+          "label": "Tirada de daño crítico 1d10 (si se pide)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "optional": true
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "Efectos del impacto sobre unidades de superficie (data/rules/ship-impact-effects.json)."
+        }
+      ]
+    },
+    "ship-impact-double": {
+      "title": "Efecto del punto de daño",
+      "nodes": [
+        "ext.impact.double"
+      ],
+      "engine": "ship-impact",
+      "hullType": "double",
+      "rules": "ship-impact-effects.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Unidad impactada",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Doble buque: el primer punto de daño le da la vuelta; si ya estaba dañado, queda eliminado.",
+      "fields": [
+        {
+          "id": "hasDamagedSide",
+          "label": "¿El reverso de la ficha tiene contenido (lado dañado)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "alreadyDamaged",
+          "label": "¿Ya estaba en su lado dañado antes de este impacto?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "carrier",
+          "label": "¿Es una unidad portaeronaves (transporta unidades aéreas o de baja altitud)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "transport",
+          "label": "¿Es una unidad de transporte (convoy, buque de asalto anfibio, flota de desembarco)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "Efectos del impacto sobre unidades de superficie (data/rules/ship-impact-effects.json)."
+        }
+      ]
+    },
+    "ship-impact-multi": {
+      "title": "Efecto del punto de daño",
+      "nodes": [
+        "ext.impact.multi"
+      ],
+      "engine": "ship-impact",
+      "hullType": "multi",
+      "rules": "ship-impact-effects.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Unidad impactada",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Multi-buque: cada punto de daño reduce el tamaño de la flota en 1; con el último barco, queda eliminada.",
+      "fields": [
+        {
+          "id": "fleetSize",
+          "label": "Barcos que le quedaban antes del impacto",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ship-count-before-hit"
+        },
+        {
+          "id": "carrier",
+          "label": "¿Es una unidad portaeronaves (transporta unidades aéreas o de baja altitud)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "transport",
+          "label": "¿Es una unidad de transporte (convoy, buque de asalto anfibio, flota de desembarco)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "Efectos del impacto sobre unidades de superficie (data/rules/ship-impact-effects.json)."
+        }
+      ]
+    },
+    "wvr-absorption": {
+      "title": "Absorción de los impactos de la ronda",
+      "nodes": [
+        "air.intercept.round"
+      ],
+      "engine": "wvr-absorption",
+      "intro": "Cada bando reparte los impactos que recibe entre sus unidades en combate: cada punto de daño consume la Protección de la unidad que lo recibe, y hay que seguir absorbiendo mientras lo que quede alcance la Protección de alguna unidad. Los impactos sobrantes se ignoran.",
+      "fields": [
+        {
+          "id": "impacts",
+          "label": "Impactos que recibe este bando",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "protections",
+          "label": "Protección de sus unidades en combate (cifras separadas por espacios)",
+          "kind": "text",
+          "visualRef": "air-protection",
+          "visualTemplate": "aircraft-combat-tactical"
+        },
+        {
+          "id": "damage",
+          "label": "Daño que recibe cada una, en el mismo orden (vacío = ninguno)",
+          "kind": "text",
+          "optional": true
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§7.16.4 (absorción de impactos en el combate cercano)."
+        }
+      ]
+    },
+    "ew-escort": {
+      "title": "Escolta electrónica: absorción prioritaria",
+      "nodes": [
+        "air.area.escort"
+      ],
+      "engine": "ew-escort",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Grupo atacado",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Si el grupo lleva escolta electrónica con protección, el avión de guerra electrónica absorbe primero los impactos de la defensa aérea; lo que quede pasa a la siguiente unidad.",
+      "fields": [
+        {
+          "id": "impacts",
+          "label": "Puntos de daño de la defensa aérea contra el grupo",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "ewProtection",
+          "label": "Protección del avión de guerra electrónica",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ew-escort-protection"
+        },
+        {
+          "id": "otherProtection",
+          "label": "Protección de la siguiente unidad del grupo (opcional)",
+          "kind": "number",
+          "min": 1,
+          "optional": true,
+          "visualRef": "air-protection"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§7.10.4."
+        },
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 18: escolta electrónica."
+        }
+      ]
+    },
+    "fleet-impact": {
+      "title": "Reparto de los impactos en la flota",
+      "nodes": [
+        "terminal.surface.guided",
+        "terminal.surface.unguided",
+        "terminal.surface.close"
+      ],
+      "engine": "fleet-impact",
+      "sides": [
+        {
+          "id": "S1",
+          "label": "Buque 1",
+          "color": "#2f80ed",
+          "optional": false
+        },
+        {
+          "id": "S2",
+          "label": "Buque 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "S3",
+          "label": "Buque 3",
+          "color": "#d97706",
+          "optional": true
+        },
+        {
+          "id": "S4",
+          "label": "Buque 4",
+          "color": "#9333ea",
+          "optional": true
+        },
+        {
+          "id": "S5",
+          "label": "Buque 5",
+          "color": "#0891b2",
+          "optional": true
+        }
+      ],
+      "intro": "Escribe los buques de la flota en el orden de la hoja de flota (de izquierda a derecha). La tirada elige el buque: se cuenta de 0 a 9 entre los que siguen a flote, volviendo a empezar por la izquierda. El buque absorbe impactos hasta que el daño alcanza su Protección y queda dañado; entonces tira por hundimiento.",
+      "sharedFields": [
+        {
+          "id": "impacts",
+          "label": "Impactos que quedan por repartir",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "perImpact",
+          "label": "Daño por impacto",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "1",
+              "label": "1 (subsónico, no guiado con Protección ?)"
+            },
+            {
+              "value": "2",
+              "label": "2 (supersónico, Protección [?])"
+            }
+          ]
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 para elegir el buque",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        },
+        {
+          "id": "sinkingRoll",
+          "label": "Tirada 1d10 de hundimiento (si queda dañado)",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "fields": [
+        {
+          "id": "protection",
+          "label": "Valor de Protección",
+          "kind": "number",
+          "min": 1,
+          "visualRef": "ship-protection",
+          "visualTemplate": "ship-combat"
+        },
+        {
+          "id": "sinking",
+          "label": "Valor de Hundimiento (lado dañado)",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "visualRef": "ship-sink-value"
+        },
+        {
+          "id": "sunk",
+          "label": "¿Ya hundido?",
+          "kind": "choice",
+          "default": "no",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TWC Flotas Castellano.docx",
+          "description": "Hoja de flota: posición de las naves por tirada."
+        },
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§5.6.5 y §5.9."
+        },
+        {
+          "document": "TCW_-_Hoja_de_Ayuda_-_Ataque_Guiado_Superficie.pdf",
+          "description": "Pasos 5-6."
+        }
+      ],
+      "afterResult": "Balístico o espacio cercano no se reparte así: con Resistencia ? el primer impacto hunde, con [?] causa 6 daños (página 21)."
+    },
+    "reaction-cf": {
+      "title": "Operaciones de Contrabatería (CF): quién puede atacar",
+      "nodes": [
+        "ext.reaction.cf"
+      ],
+      "engine": "reaction",
+      "reaction": "cf",
+      "rules": "ground-reactions.json",
+      "sides": [
+        {
+          "id": "R1",
+          "label": "Unidad atacante 1",
+          "color": "#2f80ed",
+          "optional": false
+        },
+        {
+          "id": "R2",
+          "label": "Unidad atacante 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "R3",
+          "label": "Unidad atacante 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "intro": "Objetivo: La unidad de artillería que asignó su Apoyo de Combate (cae en estado Brevemente Detectable) y que ha sido detectada. Comprueba cada unidad que quiera atacar.",
+      "sharedFields": [
+        {
+          "id": "targetDetected",
+          "label": "¿Las unidades de detección han detectado al objetivo mientras está Brevemente Detectable?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "id": "kind",
+          "label": "Tipo de unidad atacante",
+          "kind": "choice",
+          "optionsFromRules": "attackerKinds"
+        },
+        {
+          "id": "inPosition",
+          "label": "¿Se cumple la condición de posición de esta unidad?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "usesCas",
+          "label": "¿Esta artillería está realizando Apoyo de Fuego Cercano (CAS)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "hasAmmo",
+          "label": "¿Tiene al menos 1 punto de munición?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "alreadyDidCf",
+          "label": "¿Ya ha realizado una Operación de Contrabatería en este enfrentamiento terrestre?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "alreadyDynamic",
+          "label": "¿Ya ha ejecutado un ataque dinámico (CAS, Contrabatería, Interdicción de Batalla, Persecución Aérea o Contrafuegos) en esta salida o fase?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "in": [
+              "air_on_call",
+              "low_altitude_operational"
+            ]
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§5.16.1."
+        }
+      ]
+    },
+    "reaction-as": {
+      "title": "Ataque de Contrafuegos (AS): quién puede atacar",
+      "nodes": [
+        "ext.reaction.as"
+      ],
+      "engine": "reaction",
+      "reaction": "as",
+      "rules": "ground-reactions.json",
+      "sides": [
+        {
+          "id": "R1",
+          "label": "Unidad atacante 1",
+          "color": "#2f80ed",
+          "optional": false
+        },
+        {
+          "id": "R2",
+          "label": "Unidad atacante 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "R3",
+          "label": "Unidad atacante 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "intro": "Objetivo: La unidad de artillería o de defensa aérea que acaba de disparar (cae en estado de Detección Breve) y que ha sido detectada. Comprueba cada unidad que quiera atacar.",
+      "sharedFields": [
+        {
+          "id": "targetDetected",
+          "label": "¿Las unidades de detección han detectado al objetivo mientras está Brevemente Detectable?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "id": "kind",
+          "label": "Tipo de unidad atacante",
+          "kind": "choice",
+          "optionsFromRules": "attackerKinds"
+        },
+        {
+          "id": "inPosition",
+          "label": "¿Se cumple la condición de posición de esta unidad?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "usesCas",
+          "label": "¿Esta artillería está realizando Apoyo de Fuego Cercano (CAS)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "hasAmmo",
+          "label": "¿Tiene al menos 1 punto de munición?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "alreadyDidCf",
+          "label": "¿Ya ha realizado una Operación de Contrabatería en este enfrentamiento terrestre?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "alreadyDynamic",
+          "label": "¿Ya ha ejecutado un ataque dinámico (CAS, Contrabatería, Interdicción de Batalla, Persecución Aérea o Contrafuegos) en esta salida o fase?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "in": [
+              "air_on_call",
+              "low_altitude_operational"
+            ]
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§5.16.2."
+        }
+      ]
+    },
+    "reaction-kb": {
+      "title": "Persecución Aérea (KB): quién puede atacar",
+      "nodes": [
+        "ext.reaction.kb"
+      ],
+      "engine": "reaction",
+      "reaction": "kb",
+      "rules": "ground-reactions.json",
+      "sides": [
+        {
+          "id": "R1",
+          "label": "Unidad atacante 1",
+          "color": "#2f80ed",
+          "optional": false
+        },
+        {
+          "id": "R2",
+          "label": "Unidad atacante 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "R3",
+          "label": "Unidad atacante 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "intro": "Objetivo: Las unidades principales «Derrotadas» del enfrentamiento terrestre, una vez identificadas todas. Comprueba cada unidad que quiera atacar.",
+      "sharedFields": [
+        {
+          "id": "targetDetected",
+          "label": "¿Las unidades de detección han detectado al objetivo mientras está Brevemente Detectable?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "id": "kind",
+          "label": "Tipo de unidad atacante",
+          "kind": "choice",
+          "optionsFromRules": "attackerKinds"
+        },
+        {
+          "id": "inPosition",
+          "label": "¿Se cumple la condición de posición de esta unidad?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "usesCas",
+          "label": "¿Esta artillería está realizando Apoyo de Fuego Cercano (CAS)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "hasAmmo",
+          "label": "¿Tiene al menos 1 punto de munición?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "alreadyDidCf",
+          "label": "¿Ya ha realizado una Operación de Contrabatería en este enfrentamiento terrestre?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "alreadyDynamic",
+          "label": "¿Ya ha ejecutado un ataque dinámico (CAS, Contrabatería, Interdicción de Batalla, Persecución Aérea o Contrafuegos) en esta salida o fase?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "in": [
+              "air_on_call",
+              "low_altitude_operational"
+            ]
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§8.7.8."
+        }
+      ]
+    },
+    "reaction-bai": {
+      "title": "Interdicción de Batalla (BAI): quién puede atacar",
+      "nodes": [
+        "ext.reaction.bai"
+      ],
+      "engine": "reaction",
+      "reaction": "bai",
+      "rules": "ground-reactions.json",
+      "sides": [
+        {
+          "id": "R1",
+          "label": "Unidad atacante 1",
+          "color": "#2f80ed",
+          "optional": false
+        },
+        {
+          "id": "R2",
+          "label": "Unidad atacante 2",
+          "color": "#16a34a",
+          "optional": true
+        },
+        {
+          "id": "R3",
+          "label": "Unidad atacante 3",
+          "color": "#d97706",
+          "optional": true
+        }
+      ],
+      "intro": "Objetivo: La unidad terrestre en movimiento, en el hexágono donde empieza a moverse o en uno al que acaba de entrar. Comprueba cada unidad que quiera atacar.",
+      "sharedFields": [
+        {
+          "id": "targetDetected",
+          "label": "¿Las unidades de detección han detectado al objetivo mientras está Brevemente Detectable?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "id": "kind",
+          "label": "Tipo de unidad atacante",
+          "kind": "choice",
+          "optionsFromRules": "attackerKinds"
+        },
+        {
+          "id": "inPosition",
+          "label": "¿Se cumple la condición de posición de esta unidad?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "usesCas",
+          "label": "¿Esta artillería está realizando Apoyo de Fuego Cercano (CAS)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "hasAmmo",
+          "label": "¿Tiene al menos 1 punto de munición?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "alreadyDidCf",
+          "label": "¿Ya ha realizado una Operación de Contrabatería en este enfrentamiento terrestre?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "equals": "artillery_fire"
+          }
+        },
+        {
+          "id": "alreadyDynamic",
+          "label": "¿Ya ha ejecutado un ataque dinámico (CAS, Contrabatería, Interdicción de Batalla, Persecución Aérea o Contrafuegos) en esta salida o fase?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "kind",
+            "in": [
+              "air_on_call",
+              "low_altitude_operational"
+            ]
+          }
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§8.5.6."
+        }
+      ]
+    },
+    "submarine-ambush": {
+      "title": "Emboscada: ¿puede iniciarla?",
+      "nodes": [
+        "ext.ambush.event"
+      ],
+      "engine": "ambush",
+      "rules": "submarine-ambush.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Submarino",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Una Emboscada es una acción de reacción que ocurre durante la Fase de Acciones de Superficie: no consume el límite de ataques de la unidad submarina, pero cada submarino solo puede hacer una por Fase de Acciones de Superficie. Solo pueden iniciarla los submarinos en estado Oculto.",
+      "fields": [
+        {
+          "id": "subState",
+          "label": "Estado del submarino",
+          "kind": "choice",
+          "optionsFromRules": "subStates"
+        },
+        {
+          "id": "subType",
+          "label": "Propulsión",
+          "kind": "choice",
+          "optionsFromRules": "subTypes"
+        },
+        {
+          "id": "alreadyAmbushed",
+          "label": "¿Ya ha hecho una Emboscada en esta Fase de Acciones de Superficie?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "relation",
+          "label": "¿Dónde está la formación de superficie?",
+          "kind": "choice",
+          "optionsFromRules": "relations"
+        },
+        {
+          "id": "event",
+          "label": "¿Qué hace la formación respecto a la zona?",
+          "kind": "choice",
+          "optionsFromRules": "events"
+        },
+        {
+          "id": "hasAmmo",
+          "label": "¿Tiene la munición correspondiente?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Sí"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§9.16."
+        }
+      ]
+    },
+    "port-ammo-resupply": {
+      "title": "Reabastecer munición en puerto",
+      "nodes": [
+        "ext.port.ammo_resupply"
+      ],
+      "engine": "port-logistics",
+      "operation": "ammo_resupply",
+      "rules": "port-logistics.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Puerto",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "inWaitingArea",
+          "label": "¿Las unidades están en el área «Buques/Flota en Espera»?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "units",
+          "label": "Unidades que quieren reabastecerse",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "portValue",
+          "label": "Valor de Reabastecimiento de Munición del puerto",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "port-logistics-values"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§9.9.4, §9.9.5, §11.2.2, §11.6."
+        }
+      ]
+    },
+    "port-ship-repair": {
+      "title": "Reparar un buque dañado (opcional)",
+      "nodes": [
+        "ext.port.ship_repair"
+      ],
+      "engine": "port-logistics",
+      "operation": "ship_repair",
+      "rules": "port-logistics.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Buque",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "inPort",
+          "label": "¿El buque está dentro de un puerto?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "damaged",
+          "label": "¿Está en su lado Dañado?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "multiShip",
+          "label": "¿Es una unidad multi-barco (X2, X3…)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "alreadyTried",
+          "label": "¿Ya lo ha intentado en esta Fase de Logística?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "shipsInDock",
+          "label": "Buques en el Dique Seco (contando este)",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "docks",
+          "label": "Diques (DOCK) del puerto",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "port-logistics-values"
+        },
+        {
+          "id": "rep",
+          "label": "Valor de Reparación (REP) del puerto",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "port-logistics-values"
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 (1 a 10)",
+          "kind": "number",
+          "min": 1,
+          "max": 10
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§9.9.4, §9.9.5, §11.2.2, §11.6."
+        }
+      ]
+    },
+    "port-emergency-repair": {
+      "title": "Reparaciones de emergencia del puerto",
+      "nodes": [
+        "ext.port.emergency_repair"
+      ],
+      "engine": "port-logistics",
+      "operation": "emergency_repair",
+      "rules": "port-logistics.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Puerto",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "rr",
+          "label": "Valor de Reparación Rápida (RR) del puerto",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "port-logistics-values"
+        },
+        {
+          "id": "markers",
+          "label": "Marcadores de «Instalaciones Inutilizadas»",
+          "kind": "number",
+          "min": 0
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§9.9.4, §9.9.5, §11.2.2, §11.6."
+        }
+      ]
+    },
+    "port-ammo-depletion": {
+      "title": "Agotamiento de munición",
+      "nodes": [
+        "ext.port.ammo_depletion"
+      ],
+      "engine": "port-logistics",
+      "operation": "ammo_depletion",
+      "rules": "port-logistics.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "remaining",
+          "label": "Munición que queda de ese tipo",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "attackValue",
+          "label": "Valor de Ataque del plan",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "attack-base-value",
+          "planSource": "attack-value"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§9.9.4, §9.9.5, §11.2.2, §11.6."
+        }
+      ]
+    },
+    "port-node-decay": {
+      "title": "Desgaste de un Nodo de Suministro Ordinario",
+      "nodes": [
+        "ext.port.supply_node_decay"
+      ],
+      "engine": "port-logistics",
+      "operation": "supply_node_decay",
+      "rules": "port-logistics.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Nodo",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "level",
+          "label": "Nivel actual del nodo",
+          "kind": "number",
+          "min": 0
+        },
+        {
+          "id": "providedSupply",
+          "label": "¿Dio garantía logística a alguna unidad, puerto o aeródromo en esta fase?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§9.9.4, §9.9.5, §11.2.2, §11.6."
+        }
+      ]
+    },
+    "guarantee-ground_main": {
+      "title": "Garantía logística: Unidad terrestre principal",
+      "nodes": [
+        "ext.guarantee.ground_main"
+      ],
+      "engine": "logistics-guarantee",
+      "unitType": "ground_main",
+      "rules": "logistics-guarantee.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Unidad terrestre principal",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "nodeKind",
+          "label": "Nodo de Suministro del que parte la Línea de Comunicación.",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "advanced",
+              "label": "Nodo de Suministro Avanzado"
+            },
+            {
+              "value": "ordinary",
+              "label": "Nodo de Suministro Ordinario (nivel 1 o más)"
+            },
+            {
+              "value": "none",
+              "label": "Ninguno (o Ordinario de nivel 0 / eliminado)"
+            }
+          ]
+        },
+        {
+          "id": "nodeEnemyControlled",
+          "label": "¿El hexágono del Nodo de Suministro está controlado por el enemigo?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "blockedEdge",
+          "label": "¿La Línea de Comunicación atraviesa un borde de hexágono con Restricción de Movimiento (Pasaje) de \"No\" o \"-\"?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "enemyUnitsOnPath",
+          "label": "¿La línea tendría que pasar a través de un hexágono con unidades enemigas (sin contar el hexágono de destino)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "tacticalContainment",
+          "label": "¿Una unidad aliada puede realizar Contención Táctica (§8.5.5) en ese hexágono?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "enemyUnitsOnPath",
+            "equals": "yes"
+          }
+        },
+        {
+          "id": "enemyControlledOnPath",
+          "label": "¿La línea tendría que pasar a través de un hexágono controlado por el enemigo (sin contar el hexágono de destino)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§11.2-§11.5."
+        }
+      ]
+    },
+    "guarantee-ground_technical": {
+      "title": "Garantía logística: Unidad técnica terrestre",
+      "nodes": [
+        "ext.guarantee.ground_technical"
+      ],
+      "engine": "logistics-guarantee",
+      "unitType": "ground_technical",
+      "rules": "logistics-guarantee.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Unidad técnica terrestre",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "nodeKind",
+          "label": "Nodo de Suministro del que parte la Línea de Comunicación.",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "advanced",
+              "label": "Nodo de Suministro Avanzado"
+            },
+            {
+              "value": "ordinary",
+              "label": "Nodo de Suministro Ordinario (nivel 1 o más)"
+            },
+            {
+              "value": "none",
+              "label": "Ninguno (o Ordinario de nivel 0 / eliminado)"
+            }
+          ]
+        },
+        {
+          "id": "nodeEnemyControlled",
+          "label": "¿El hexágono del Nodo de Suministro está controlado por el enemigo?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "blockedEdge",
+          "label": "¿La Línea de Comunicación atraviesa un borde de hexágono con Restricción de Movimiento (Pasaje) de \"No\" o \"-\"?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "enemyUnitsOnPath",
+          "label": "¿La línea tendría que pasar a través de un hexágono con unidades enemigas (sin contar el hexágono de destino)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "tacticalContainment",
+          "label": "¿Una unidad aliada puede realizar Contención Táctica (§8.5.5) en ese hexágono?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "enemyUnitsOnPath",
+            "equals": "yes"
+          }
+        },
+        {
+          "id": "enemyControlledOnPath",
+          "label": "¿La línea tendría que pasar a través de un hexágono controlado por el enemigo (sin contar el hexágono de destino)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§11.2-§11.5."
+        }
+      ]
+    },
+    "guarantee-airfield": {
+      "title": "Garantía logística: Aeródromo / Base Aérea",
+      "nodes": [
+        "ext.guarantee.airfield"
+      ],
+      "engine": "logistics-guarantee",
+      "unitType": "airfield",
+      "rules": "logistics-guarantee.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Aeródromo / Base Aérea",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "carrier",
+          "label": "¿Es el aeródromo de un portaaviones o buque de asalto anfibio?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "nodeKind",
+          "label": "Nodo de Suministro del que parte la Línea de Comunicación.",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "advanced",
+              "label": "Nodo de Suministro Avanzado"
+            },
+            {
+              "value": "ordinary",
+              "label": "Nodo de Suministro Ordinario (nivel 1 o más)"
+            },
+            {
+              "value": "none",
+              "label": "Ninguno (o Ordinario de nivel 0 / eliminado)"
+            }
+          ]
+        },
+        {
+          "id": "nodeEnemyControlled",
+          "label": "¿El hexágono del Nodo de Suministro está controlado por el enemigo?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "blockedEdge",
+          "label": "¿La Línea de Comunicación atraviesa un borde de hexágono con Restricción de Movimiento (Pasaje) de \"No\" o \"-\"?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "enemyUnitsOnPath",
+          "label": "¿La línea tendría que pasar a través de un hexágono con unidades enemigas (sin contar el hexágono de destino)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "tacticalContainment",
+          "label": "¿Una unidad aliada puede realizar Contención Táctica (§8.5.5) en ese hexágono?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "enemyUnitsOnPath",
+            "equals": "yes"
+          }
+        },
+        {
+          "id": "enemyControlledOnPath",
+          "label": "¿La línea tendría que pasar a través de un hexágono controlado por el enemigo (sin contar el hexágono de destino)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§11.2-§11.5."
+        }
+      ]
+    },
+    "guarantee-port": {
+      "title": "Garantía logística: Puerto",
+      "nodes": [
+        "ext.guarantee.port"
+      ],
+      "engine": "logistics-guarantee",
+      "unitType": "port",
+      "rules": "logistics-guarantee.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Puerto",
+          "color": "#2f80ed"
+        }
+      ],
+      "fields": [
+        {
+          "id": "nodeKind",
+          "label": "Nodo de Suministro del que parte la Línea de Comunicación.",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "advanced",
+              "label": "Nodo de Suministro Avanzado"
+            },
+            {
+              "value": "ordinary",
+              "label": "Nodo de Suministro Ordinario (nivel 1 o más)"
+            },
+            {
+              "value": "none",
+              "label": "Ninguno (o Ordinario de nivel 0 / eliminado)"
+            }
+          ]
+        },
+        {
+          "id": "nodeEnemyControlled",
+          "label": "¿El hexágono del Nodo de Suministro está controlado por el enemigo?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "blockedEdge",
+          "label": "¿La Línea de Comunicación atraviesa un borde de hexágono con Restricción de Movimiento (Pasaje) de \"No\" o \"-\"?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "enemyUnitsOnPath",
+          "label": "¿La línea tendría que pasar a través de un hexágono con unidades enemigas (sin contar el hexágono de destino)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "tacticalContainment",
+          "label": "¿Una unidad aliada puede realizar Contención Táctica (§8.5.5) en ese hexágono?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ],
+          "showIf": {
+            "field": "enemyUnitsOnPath",
+            "equals": "yes"
+          }
+        },
+        {
+          "id": "enemyControlledOnPath",
+          "label": "¿La línea tendría que pasar a través de un hexágono controlado por el enemigo (sin contar el hexágono de destino)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§11.2-§11.5."
+        }
+      ]
+    },
+    "cyber-attack": {
+      "title": "Ataque cibernético: tiradas de defensa y de ataque",
+      "nodes": [
+        "strategic.cyber.compare"
+      ],
+      "engine": "cyber-attack",
+      "rules": "cyber-attack.json",
+      "extraTables": [
+        {
+          "page": "page-32.json",
+          "tableId": "strategic-actions-outcome"
+        }
+      ],
+      "sides": [
+        {
+          "id": "A",
+          "label": "Ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Cada punto de Capacidad de Guerra Cibernética da 3 tiradas. La defensa tira primero: cada éxito suyo quita una tirada al atacante y cada fallo le da una más. Se clasifican con la columna «Guerra Cibernética» de la página 32; el ataque tiene éxito si hay más éxitos que fallos.",
+      "fields": [
+        {
+          "id": "attackPoints",
+          "label": "Puntos de Capacidad de Guerra Cibernética del atacante",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "cyber-capacity-points"
+        },
+        {
+          "id": "defenseUsed",
+          "label": "¿El defensor invierte Capacidad para defenderse?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "defensePoints",
+          "label": "Puntos invertidos por el defensor",
+          "kind": "number",
+          "min": 0,
+          "showIf": {
+            "field": "defenseUsed",
+            "equals": "yes"
+          }
+        },
+        {
+          "id": "defenseRolls",
+          "label": "Tiradas de la defensa (cifras separadas por espacios)",
+          "kind": "text",
+          "optional": true,
+          "showIf": {
+            "field": "defenseUsed",
+            "equals": "yes"
+          }
+        },
+        {
+          "id": "attackRolls",
+          "label": "Tiradas del atacante (cifras separadas por espacios)",
+          "kind": "text",
+          "optional": true
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§14.2-§14.4."
+        },
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 32."
+        }
+      ]
+    },
+    "space-order": {
+      "title": "Guerra espacial: quién actúa primero",
+      "nodes": [
+        "strategic.space.type"
+      ],
+      "engine": "space",
+      "part": "order",
+      "intro": "Actúa primero el bando con menos recursos de lanzamiento; con empate, el que tiene más recursos orbitales; si también empatan, cada uno tira 1d10 y el ganador decide.",
+      "fields": [
+        {
+          "id": "launch",
+          "label": "Recursos de lanzamiento disponibles",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "space-war-resources"
+        },
+        {
+          "id": "orbital",
+          "label": "Recursos orbitales disponibles",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "space-war-resources"
+        },
+        {
+          "id": "tieRoll",
+          "label": "Tirada 1d10 de desempate (solo si empatan)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "optional": true
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§14.5.3."
+        }
+      ]
+    },
+    "space-destruction": {
+      "title": "Guerra espacial: efecto de la destrucción",
+      "nodes": [
+        "strategic.space.result"
+      ],
+      "engine": "space",
+      "part": "destruction",
+      "extraTables": [
+        {
+          "page": "page-32.json",
+          "tableId": "strategic-actions-outcome"
+        }
+      ],
+      "sides": [
+        {
+          "id": "A",
+          "label": "Atacante",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Ataque duro y orbital tiran 3 dados (−2 si el defensor hace Maniobra Orbital); el blando, 1. Cada éxito destruye (o consume, el blando) un recurso orbital enemigo; éxitos y fallos generan escombros.",
+      "fields": [
+        {
+          "id": "kind",
+          "label": "Tipo de ataque",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "soft",
+              "label": "Blando"
+            },
+            {
+              "value": "hard",
+              "label": "Duro"
+            },
+            {
+              "value": "orbital",
+              "label": "Orbital"
+            }
+          ]
+        },
+        {
+          "id": "maneuver",
+          "label": "¿El defensor reacciona con Maniobra Orbital?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "rolls",
+          "label": "Tiradas (cifras separadas por espacios)",
+          "kind": "text"
+        },
+        {
+          "id": "enemyOrbital",
+          "label": "Recursos orbitales que tiene el enemigo",
+          "kind": "number",
+          "min": 0,
+          "optional": true
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§14.7-§14.8."
+        },
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 32."
+        }
+      ]
+    },
+    "space-debris": {
+      "title": "Guerra espacial: escombros",
+      "nodes": [
+        "terminal.strategic.space"
+      ],
+      "engine": "space",
+      "part": "debris",
+      "extraTables": [
+        {
+          "page": "page-32.json",
+          "tableId": "strategic-actions-outcome"
+        }
+      ],
+      "sides": [
+        {
+          "id": "A",
+          "label": "Órbita",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Tormenta de Escombros: 1d10 + escombros en órbita; «impacto» en la tabla es una colisión. Al inicio de cada Fase Espacial se tira 1d10 y desaparecen los escombros que indique la tabla.",
+      "fields": [
+        {
+          "id": "debris",
+          "label": "Escombros en órbita",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "space-war-debris"
+        },
+        {
+          "id": "stormRoll",
+          "label": "Tirada 1d10 de la Tormenta de Escombros",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        },
+        {
+          "id": "vanishRoll",
+          "label": "Tirada 1d10 de desaparición (inicio de la Fase Espacial)",
+          "kind": "number",
+          "min": 0,
+          "max": 9,
+          "optional": true
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§14.9."
+        }
+      ]
+    },
+    "bvr-selection": {
+      "title": "Orden de elección de objetivos BVR",
+      "nodes": [
+        "ext.air.organize",
+        "air.intercept.band"
+      ],
+      "engine": "bvr-selection",
+      "sides": [
+        {
+          "id": "P1",
+          "label": "Avión 1",
+          "color": "#2f80ed",
+          "optional": false
+        },
+        {
+          "id": "P2",
+          "label": "Avión 2",
+          "color": "#16a34a",
+          "optional": false
+        },
+        {
+          "id": "P3",
+          "label": "Avión 3",
+          "color": "#d97706",
+          "optional": true
+        },
+        {
+          "id": "P4",
+          "label": "Avión 4",
+          "color": "#9333ea",
+          "optional": true
+        },
+        {
+          "id": "P5",
+          "label": "Avión 5",
+          "color": "#0891b2",
+          "optional": true
+        },
+        {
+          "id": "P6",
+          "label": "Avión 6",
+          "color": "#db2777",
+          "optional": true
+        }
+      ],
+      "intro": "Quién elige primero el oponente de cada duelo BVR. Con escolta electrónica (EEA) en un solo bando, elige ese bando; si no, por prioridad: primero los no detectados y, dentro, el Valor Electrónico más alto.",
+      "sharedFields": [
+        {
+          "id": "context",
+          "label": "Tipo de interceptación",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "air_combat",
+              "label": "Interceptación de combate aéreo"
+            },
+            {
+              "value": "penetration",
+              "label": "Interceptación de penetración"
+            }
+          ]
+        },
+        {
+          "id": "eeaA",
+          "label": "¿El bando A lleva escolta electrónica (EEA)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "eeaB",
+          "label": "¿El bando B lleva escolta electrónica (EEA)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "initiatorSide",
+          "label": "Bando que inicia la interceptación",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "A",
+              "label": "A"
+            },
+            {
+              "value": "B",
+              "label": "B"
+            }
+          ]
+        },
+        {
+          "id": "penetratorSide",
+          "label": "Bando que penetra (solo en penetración)",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "A",
+              "label": "A"
+            },
+            {
+              "value": "B",
+              "label": "B"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "id": "side",
+          "label": "Bando",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "A",
+              "label": "A"
+            },
+            {
+              "value": "B",
+              "label": "B"
+            }
+          ]
+        },
+        {
+          "id": "electronic",
+          "label": "Valor Electrónico",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "air-electronic-value",
+          "visualTemplate": "aircraft-combat-tactical"
+        },
+        {
+          "id": "detected",
+          "label": "¿Ha sido detectado?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "ew",
+          "label": "¿Es el avión de guerra electrónica (EW)?",
+          "kind": "choice",
+          "default": "no",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§7.16.1 y §7.10.4."
+        }
+      ],
+      "order": 1
+    },
+    "intensity-land-guided": {
+      "title": "Modificación de la Intensidad del Ataque",
+      "nodes": [
+        "land.guided.roll9"
+      ],
+      "order": -1,
+      "engine": "attack-intensity",
+      "workflow": "02_ataque_terrestre_guiado.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Suma las condiciones que se aplican (página 5). Un valor negativo es el número de columnas que se desplaza a la izquierda en la tabla de daño.",
+      "fields": [
+        {
+          "id": "target_type",
+          "label": "Tipo de objetivo",
+          "kind": "choice",
+          "questionId": "target_type",
+          "stage": "attack_intensity",
+          "modifier": "attack_intensity"
+        },
+        {
+          "id": "attack_distance_band",
+          "label": "Distancia de ataque (unidad móvil principal)",
+          "kind": "choice",
+          "questionId": "attack_distance_band",
+          "stage": "attack_intensity",
+          "modifier": "attack_intensity",
+          "showIf": {
+            "field": "target_type",
+            "equals": "mobile_main"
+          }
+        },
+        {
+          "id": "technical_electronic",
+          "label": "Valor Electrónico de la unidad técnica",
+          "kind": "choice",
+          "questionId": "technical_electronic",
+          "stage": "attack_intensity",
+          "modifier": "attack_intensity",
+          "showIf": {
+            "field": "target_type",
+            "equals": "technical"
+          },
+          "visualRef": "ground-electronic"
+        },
+        {
+          "id": "fixed_electronic",
+          "label": "Valor Electrónico de la instalación fija",
+          "kind": "choice",
+          "questionId": "fixed_electronic",
+          "stage": "attack_intensity",
+          "modifier": "attack_intensity",
+          "showIf": {
+            "field": "target_type",
+            "equals": "fixed"
+          }
+        },
+        {
+          "id": "high_penetration_supersonic",
+          "label": "¿Munición de alta penetración y supersónica?",
+          "kind": "choice",
+          "questionId": "high_penetration_supersonic",
+          "stage": "attack_intensity",
+          "modifier": "attack_intensity"
+        },
+        {
+          "id": "force_size_excess",
+          "label": "Bloques completos de 5 puntos de Tamaño de Fuerza que exceden el límite (+2 cada uno)",
+          "shortLabel": "Exceso de Tamaño de Fuerza",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "modifier": "attack_intensity",
+          "factor": 2,
+          "visualRef": "ground-force-size"
+        },
+        {
+          "id": "guidance_modifier",
+          "label": "Modificador de guiado (+?) si lo hay",
+          "shortLabel": "Guiado",
+          "kind": "number",
+          "optional": true,
+          "modifier": "attack_intensity",
+          "visualRef": "designation-correction"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 5."
+        }
+      ]
+    },
+    "intensity-land-unguided": {
+      "title": "Modificación de la Intensidad del Ataque",
+      "nodes": [
+        "land.unguided.roll9"
+      ],
+      "order": -1,
+      "engine": "attack-intensity",
+      "workflow": "03_ataque_terrestre_no_guiado.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Solo contra unidades móviles (página 8). Un valor negativo es el número de columnas que se desplaza a la izquierda en la tabla de daño.",
+      "fields": [
+        {
+          "id": "distance",
+          "label": "Distancia de ataque",
+          "kind": "choice",
+          "questionId": "distance",
+          "stage": "attack_intensity",
+          "modifier": "attack_intensity"
+        },
+        {
+          "id": "force_size_excess",
+          "label": "Bloques completos de 5 puntos de Tamaño de Fuerza que exceden el límite (+2 cada uno)",
+          "shortLabel": "Exceso de Tamaño de Fuerza",
+          "kind": "number",
+          "min": 0,
+          "optional": true,
+          "modifier": "attack_intensity",
+          "factor": 2,
+          "visualRef": "ground-force-size"
+        },
+        {
+          "id": "guidance_modifier",
+          "label": "Modificador de guiado (+?) si lo hay",
+          "shortLabel": "Guiado",
+          "kind": "number",
+          "optional": true,
+          "modifier": "attack_intensity",
+          "visualRef": "designation-correction"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 8."
+        }
+      ]
+    },
+    "intensity-antiship-unguided": {
+      "title": "Modificación de la Intensidad del Ataque",
+      "nodes": [
+        "surface.unguided.roll9"
+      ],
+      "order": -1,
+      "engine": "attack-intensity",
+      "workflow": "08_ataque_antibuque_no_guiado.json",
+      "sides": [
+        {
+          "id": "A",
+          "label": "Ataque",
+          "color": "#2f80ed"
+        }
+      ],
+      "intro": "Por la distancia a la flota objetivo (página 24). Un valor negativo es el número de columnas que se desplaza a la izquierda en la tabla de daño.",
+      "fields": [
+        {
+          "id": "distance",
+          "label": "Distancia de ataque",
+          "kind": "choice",
+          "questionId": "distance",
+          "stage": "attack_intensity",
+          "modifier": "attack_intensity"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 24."
+        }
+      ]
+    },
+    "bvr-initiative": {
+      "title": "Iniciativa y tipo de combate BVR",
+      "nodes": [
+        "air.intercept.initiative",
+        "air.intercept.band"
+      ],
+      "engine": "bvr-initiative",
+      "workflow": "05_combate_aereo.json",
+      "table": {
+        "page": "page-15.json",
+        "tableId": "air-combat-initiative-drm"
+      },
+      "extraTables": [
+        {
+          "page": "page-15.json",
+          "tableId": "air-combat-bvr-outcome"
+        }
+      ],
+      "intro": "Cada bando suma +1 a su Iniciativa si un AWACS propio detecta al objetivo. La diferencia da el DRM; tira 1d10 el bando con ventaja y el total da el tipo de combate BVR según el contexto.",
+      "fields": [
+        {
+          "id": "initiative",
+          "label": "Iniciativa de la unidad (superíndice del Combate aéreo)",
+          "kind": "number",
+          "min": 0,
+          "visualRef": "bvr-initiative",
+          "visualTemplate": "aircraft-combat-tactical"
+        },
+        {
+          "id": "awacs",
+          "label": "¿Un AWACS propio detecta al objetivo?",
+          "kind": "choice",
+          "questionId": "awacs_detects_target",
+          "stage": "initiative",
+          "modifier": "initiative"
+        }
+      ],
+      "sharedFields": [
+        {
+          "id": "context",
+          "label": "Tipo de interceptación",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "penetration",
+              "label": "Interceptación de penetración"
+            },
+            {
+              "value": "air_combat",
+              "label": "Interceptación de combate aéreo"
+            }
+          ]
+        },
+        {
+          "id": "penetratorSide",
+          "label": "Bando que penetra (en penetración)",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "A",
+              "label": "Bando azul"
+            },
+            {
+              "value": "B",
+              "label": "Bando rojo"
+            }
+          ]
+        },
+        {
+          "id": "penetratorStealth",
+          "label": "¿La unidad que penetra es sigilosa (Firma aérea 1 o LF-CM)?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "bothStealth",
+          "label": "¿Las dos unidades del duelo son sigilosas?",
+          "kind": "choice",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Sí"
+            }
+          ]
+        },
+        {
+          "id": "roll",
+          "label": "Tirada 1d10 del bando con ventaja",
+          "kind": "number",
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "sourceRefs": [
+        {
+          "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
+          "description": "§7.16.2."
+        },
+        {
+          "document": "Tablas-de-combate 5.pdf",
+          "description": "Página 15."
         }
       ]
     }

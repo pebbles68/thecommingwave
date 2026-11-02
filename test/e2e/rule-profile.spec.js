@@ -4,10 +4,10 @@ const { test, expect } = require('./fixtures');
 const { chooseOption } = require('./wizard-helpers');
 
 test('por defecto solo reglas básicas: la reparación de buques está oculta; al activar las reglas opcionales aparece y se recuerda', async ({ page }) => {
-  await page.goto('/#/wizard/port-logistics');
-  const group = page.locator('.wizard-question', { hasText: '¿Qué quieres comprobar?' });
-  await expect(group.getByRole('button', { name: 'Reabastecer munición en puerto', exact: true })).toBeVisible();
-  await expect(group.getByRole('button', { name: /Reparar un buque dañado/ })).toHaveCount(0);
+  await page.goto('/#/decision/ext.port.operation');
+  const options = page.locator('.decision-graph__options');
+  await expect(options.getByRole('button', { name: 'Reabastecer munición en puerto', exact: true })).toBeVisible();
+  await expect(options.getByRole('button', { name: /Reparar un buque dañado/ })).toHaveCount(0);
   await page.getByRole('button', { name: 'Cambiar el perfil de reglas' }).click();
 
   await expect(page).toHaveURL(/#\/perfil-reglas$/);
@@ -17,8 +17,8 @@ test('por defecto solo reglas básicas: la reparación de buques está oculta; a
 
   await page.reload();
   await expect(page.getByText('Perfil actual: reglas básicas, con reglas opcionales')).toBeVisible();
-  await page.goto('/#/wizard/port-logistics');
-  await expect(page.locator('.wizard-question', { hasText: '¿Qué quieres comprobar?' }).getByRole('button', { name: /Reparar un buque dañado/ })).toBeVisible();
+  await page.goto('/#/decision/ext.port.operation');
+  await expect(page.locator('.decision-graph__options').getByRole('button', { name: /Reparar un buque dañado/ })).toBeVisible();
 
   await page.goto('/#/perfil-reglas');
   await chooseOption(page, '¿Juegas con el contenido de la expansión?', 'Sí');

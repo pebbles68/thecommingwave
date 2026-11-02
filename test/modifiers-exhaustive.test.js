@@ -44,6 +44,8 @@ modifiers.forEach((m) => {
   });
 });
 
+const calculatorTargets = new Set(Object.values(JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'routing', 'decision-graph-calculators.json'), 'utf8')).calculators).flatMap((c) => (c.fields || []).concat(c.sharedFields || []).map((f) => f.modifier).filter(Boolean)));
+
 test('cada destino de modificador lo consume el código o es una excepción documentada', () => {
   const src = jsSources();
   const targets = [...new Set(modifiers.map((m) => m.effect.target))];
@@ -51,7 +53,8 @@ test('cada destino de modificador lo consume el código o es una excepción docu
     if (NOT_CONSUMED[t]) {
       assert.ok(ambiguities.includes(NOT_CONSUMED[t]), `${t}: la excepción citada no consta en known-ambiguities.md`);
     } else {
-      assert.ok(src.includes(`'${t}'`), `el destino de modificador «${t}» no lo consume ningún código`);
+      // Fase 25: el asistente consume los modificadores declarados en sus cálculos (`modifier` de cada campo).
+      assert.ok(src.includes(`'${t}'`) || calculatorTargets.has(t), `el destino de modificador «${t}» no lo consume ningún código ni ningún cálculo del asistente`);
     }
   });
   Object.keys(NOT_CONSUMED).forEach((t) => assert.ok(targets.includes(t), `excepción ${t} obsoleta: ya no hay modificadores con ese destino`));

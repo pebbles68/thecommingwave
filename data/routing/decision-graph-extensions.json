@@ -284,7 +284,8 @@
         },
         {
           "answer": "Reparar un buque dañado (opcional)",
-          "to": "ext.port.ship_repair"
+          "to": "ext.port.ship_repair",
+          "optionalRule": true
         },
         {
           "answer": "Reparaciones de emergencia del puerto",

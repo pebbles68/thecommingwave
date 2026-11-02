@@ -31,11 +31,23 @@ test('workflow-coverage: las etapas cubiertas y no cubiertas son exactamente las
   });
 });
 
-test('workflow-coverage: cada wizard declarado existe como ruta de la aplicación', () => {
+// Fase 25 (AD-004): los wizards se han retirado; la ruta de cada uno abre el punto del asistente que lo sustituye.
+test('workflow-coverage: la ruta de cada wizard declarado lleva a un punto existente del asistente', () => {
+  const coreJs = fs.readFileSync(path.join(ROOT, 'public', 'js', 'core.js'), 'utf8');
+  const entrypoints = readJson('data/routing/decision-entrypoints.json');
+  const Engine = require('../public/js/decision-graph-engine.js');
+  const graph = Engine.mergeExtensions(readJson('data/routing/decision-graph.json'), readJson('data/routing/decision-graph-extensions.json'));
+  assert.ok(appJs.includes("if (parts[0] === 'wizard') return Views.DecisionGraph.redirectFromWizard(parts[1]);"));
   const wizards = new Set();
   coverage.workflows.forEach((w) => w.wizards.concat(w.embeddedIn || []).forEach((id) => wizards.add(id)));
   coverage.supportWizards.forEach((w) => wizards.add(w.wizard));
-  wizards.forEach((id) => assert.ok(appJs.includes(`parts[1] === '${id}'`), `la ruta #/wizard/${id} no existe en app.js`));
+  wizards.forEach((id) => {
+    const m = new RegExp(`(\\w+): '#/wizard/${id}'`).exec(coreJs);
+    assert.ok(m, `#/wizard/${id}: sin clave en WORKFLOW_WIZARD_HASHES`);
+    const target = entrypoints.wizards[m[1]];
+    assert.ok(target, `#/wizard/${id}: sin punto del asistente en decision-entrypoints.json`);
+    assert.ok(target.entry ? entrypoints.entries[target.entry] : graph.nodes[target.node], `#/wizard/${id}: destino inexistente`);
+  });
 });
 
 test('workflow-coverage: estados válidos, coherentes con los huecos, y «done» sin huecos', () => {

@@ -45,7 +45,10 @@
       "low-altitude-attacker-protection"
     ],
     "air.intercept.initiative": [
-      "bvr-initiative"
+      {
+        "ref": "bvr-initiative",
+        "templateId": "aircraft-combat-tactical"
+      }
     ],
     "air.intercept.bvr": [
       {

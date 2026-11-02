@@ -293,6 +293,12 @@
     },
     "space_war": {
       "entry": "strategic-space"
+    },
+    "ship_impact_effects": {
+      "node": "ext.impact.hull"
+    },
+    "air_mission_group": {
+      "node": "ext.air.organize"
     }
   }
 }

@@ -8,8 +8,7 @@
 // ninguna vista tuvo que cambiar sus llamadas:
 //   - core-data.js          (AppData)        cargadores de datos y caches, sin DOM;
 //   - core-widgets.js       (AppWidgets)     constructores de DOM y widgets de formulario;
-//   - core-visuals.js       (AppVisuals)     galerías/recortes/visor de fichas con imágenes;
-//   - core-wizard-steps.js  (AppWizardSteps) pasos de wizard reutilizables.
+//   - core-visuals.js       (AppVisuals)     galerías/recortes/visor de fichas con imágenes.
 // Lo que pertenece a un único dominio de pantalla vive en public/js/views/*.js.
 (function (root) {
   'use strict';
@@ -125,7 +124,10 @@
     cyber_attack: '#/wizard/cyber-attack',
     space_war: '#/wizard/space-war',
     ground_reaction: '#/wizard/ground-reaction',
-    anti_radiation: '#/wizard/anti-radiation'
+    anti_radiation: '#/wizard/anti-radiation',
+    // Rutas antiguas sin workflow propio: solo para redirigirlas al asistente (Fase 25).
+    ship_impact_effects: '#/wizard/ship-impact-effects',
+    air_mission_group: '#/wizard/air-mission-group'
   };
 
   // Wizards adicionales de un mismo workflow (una etapa con su propio
@@ -321,6 +323,7 @@
     RELATED_WORKFLOW_WIZARDS,
     setLastTurnContext,
     getLastTurnContext,
+    mountTurnOrigin,
     clearLastTurnContext,
     loadRoster,
     loadRuleProfile,
@@ -342,5 +345,5 @@
     recordRecentHelp,
     setBreadcrumb,
     renderNotFound
-  }, AppData, AppWidgets, AppVisuals, AppWizardSteps, AppMission, AppStageQuestions);
+  }, AppData, AppWidgets, AppVisuals);
 })(typeof window !== 'undefined' ? window : globalThis);

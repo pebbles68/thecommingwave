@@ -525,16 +525,18 @@ test('resolveFinalInterceptionShot: consumo Bajo Y Alto simultáneos suman sus i
   const finalTable = table(page07, 'ground-unguided-final-interception');
   const shot = engine.resolveFinalInterceptionShot(finalTable, tableEngine, { roll: 4, aaTotalLow: 5, aaTotalHigh: 12 });
   assert.equal(shot.shots.low.rawCell, '1');
-  assert.equal(shot.shots.high.rawCell, '3');
-  assert.equal(shot.totalImpacts, 4);
+  // Consumo Alto: fila «Alto» de la cabecera (·, 1, 2… 9+): 12 cae en «9+».
+  assert.equal(shot.shots.high.columnLabel, '9+');
+  assert.equal(shot.shots.high.rawCell, '4');
+  assert.equal(shot.totalImpacts, 5);
 });
 
 test('resolveFinalInterceptionShot: aaTotalLow=0/ausente no se resuelve (se omite, no se consulta columna "1")', () => {
   const finalTable = table(page07, 'ground-unguided-final-interception');
   const shot = engine.resolveFinalInterceptionShot(finalTable, tableEngine, { roll: 4, aaTotalHigh: 12 });
   assert.equal(shot.shots.low, undefined);
-  assert.equal(shot.shots.high.rawCell, '3');
-  assert.equal(shot.totalImpacts, 3);
+  assert.equal(shot.shots.high.rawCell, '4');
+  assert.equal(shot.totalImpacts, 4);
 });
 
 test('resolveFinalInterceptionShot: celda "." cuenta como 0 impactos, no rompe la suma', () => {
@@ -544,10 +546,13 @@ test('resolveFinalInterceptionShot: celda "." cuenta como 0 impactos, no rompe l
   assert.equal(shot.totalImpacts, 0);
 });
 
-test('resolveFinalInterceptionShot: A.A. total por encima del límite (25) se resuelve en el bucket abierto "18+" sin tope adicional', () => {
+test('resolveFinalInterceptionShot: A.A. total por encima del límite se resuelve en el bucket abierto sin tope adicional', () => {
   const finalTable = table(page07, 'ground-unguided-final-interception');
+  const low = engine.resolveFinalInterceptionShot(finalTable, tableEngine, { roll: 9, aaTotalLow: 25 });
+  assert.equal(low.shots.low.columnLabel, '18+');
+  assert.equal(low.shots.low.rawCell, '7');
   const shot = engine.resolveFinalInterceptionShot(finalTable, tableEngine, { roll: 9, aaTotalHigh: 25 });
-  assert.equal(shot.shots.high.columnLabel, '18+');
+  assert.equal(shot.shots.high.columnLabel, '9+');
   assert.equal(shot.shots.high.rawCell, '7');
   assert.equal(shot.totalImpacts, 7);
 });

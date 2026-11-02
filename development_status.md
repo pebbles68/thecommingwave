@@ -2,6 +2,29 @@
 
 ## Estado actual
 
+### Wizards retirados: todo pasa al asistente de combate (AD-004, AD-006, AD-008) — 2026-11-02
+
+- Estado: `done`, **pendiente de comprobación del mantenedor (CP-AD8)**; sin commit. Indicación del mantenedor: «pasarlo todo al nuevo y retirarlo».
+- **1. Defensas** (motores en `public/js/decision-graph-calculators.js` sobre `CombatWizardEngine`): defensa aérea de área contra la munición (págs. 3, 11, 19), interceptación de munición con hasta tres interceptores y suma de reducciones (págs. 4, 12, 20; no guiado 8 y 24), interceptación final con las filas de cabecera Bajo/Alto (págs. 7 y 23), resistencia electrónica de la flota y multiplicador (pág. 21, dos tablas marcadas) y defensa de área contra aviones (pág. 18).
+- **2. Daño y efectos:** contraataque a baja altura (págs. 6, 10, 14, 22, 26; cabecera «Sistema de Defensa Aérea» añadida a `page-06.json`), combate naval cercano con artillería (lectura izquierda de la pág. 25, `rowAxis.alternateLabelSets.artillery`), resultado sobre unidad terrestre, puerto y aeródromo (pista, apron, logística), efecto del punto de daño en buques (único, doble, multi), reparto de impactos en la flota por tirada, absorción WVR, escolta electrónica y daño BVR por la Protección.
+- **3. Procedimientos sin tabla:** reacciones CF/AS/KB/BAI (quién puede atacar, ajustes y consecuencias), emboscada, las cinco operaciones de logística de puerto, garantía logística por tipo de unidad, ciberataque con dados de defensa y ataque, guerra espacial (orden, destrucción, escombros), orden de elección de objetivos BVR, iniciativa y tipo de combate BVR (pág. 15) y modificación de la intensidad del ataque (págs. 5, 8, 24). Opciones y modificadores salen de los workflows (`questionId`, `stage`, `modifier`) o de `data/rules/` (`optionsFromRules`); el +1 de la Firma en movimiento sale del workflow. El perfil de reglas oculta la reparación opcional de buques.
+- **4. Historial y turno:** abierto desde una subfase, el asistente muestra el origen, se registra como «Resolución activa» al primer paso (con `resumeHash` para «Volver a la resolución») y al final «💾 Guardar en el historial» guarda respuestas, efectos y cálculos y la quita de las activas; «↻ Repetir» del historial la vuelve a abrir con los mismos datos.
+- **5. Retirada:** fuera las 26 vistas de wizard y los módulos `core-wizard-steps.js`, `core-stage-questions.js`, `core-mission.js` y `scripts/visual-refs-codemod.js`; `#/wizard/<id>` redirige al punto del asistente (`Views.DecisionGraph.redirectFromWizard`). Los motores puros siguen (los usan los cálculos y sus pruebas).
+- **Revisión del mantenedor aplicada (2026-11-02):** las 37 rejillas de tablas y las 175 zonas de fichas reales pasan a `verified` (`scripts/image-hotspots/profiles/image-review.json`).
+- **Rejillas calibradas** (revisadas): 20 tablas más en `data/image-hotspots/table-pages.json`; el calibrador acepta `headerIndex`.
+- **Corrección de transcripción:** la interceptación final (`page-07.json`, también pág. 23) no tenía la fila «Alto» de la cabecera; añadida como `alternateLabelSets.high` y usada por `resolveFinalInterceptionShot` (anotado en `docs/rules/known-ambiguities.md`).
+- **Unidad y plan de ataque (2026-11-02):** los campos de Valor de Ataque y de Artillería Naval tienen «Tomar del plan de ataque»: país, tipo de unidad, unidad y plan (con carga ligera/pesada y unidad dañada) rellenan el valor transcrito de `data/ammunition/` (`DecisionGraphCalculators.planChoices`); en el combate naval cercano se suma buque a buque. «Apoyo» de la ficha de buque = apoyo a tierra (bombardeo costero), anotado en el concepto `support`.
+- **No migrado (se escribe a mano):** el contexto de misión aérea y el grupo de misión guardado. **Artillería Naval** (indicación del mantenedor): número arriba a la derecha del perfil del barco en su plan de ataque; `ship-naval-artillery` abre los planes de ataque, `meaning: "naval_artillery"` en `data/ammunition/naval-plans/*.json`, la ayuda de munición lo nombra así y la ambigüedad `shipBadge` queda resuelta.
+- **Validación:** `npm test` 849/849 (pruebas nuevas con valores comprobados contra las páginas impresas); Playwright 197/197: pruebas de wizards sustituidas por las del asistente (historial, turno, perfil de reglas, táctil, lenguaje y calidad de texto).
+- **Visible en la web: sí.** `#/decision/surface.guided.munition`, `#/decision/surface.guided.vef`, `#/decision/land.unguided.final`, `#/decision/location.airfield.part`, `#/decision/surface.close.same_hex`, `#/decision/ext.reaction.cf`, `#/decision/air.intercept.band`; desde `#/turno/fase/1/air-1/salidas_combate` abrir un combate, contestar y volver a la subfase (Resolución activa); `#/wizard/ground-close-combat` abre el asistente.
+
+### Iniciativa aérea = superíndice del Combate aéreo — 2026-11-02
+
+- Estado: `done`, sin commit.
+- **Indicación del mantenedor:** la Iniciativa del combate aéreo se lee en el superíndice del factor de Combate aéreo. `bvr-initiative` (`data/rules/wizard-visual-refs.json`) deja de ser `pending-visual`: abre la ficha de avión de combate con la zona del Combate aéreo (que incluye el superíndice) recuadrada y la nota «número pequeño en superíndice»; la pregunta `air.intercept.initiative` del asistente y el campo del wizard BVR lo usan. Concepto `air_combat` con la nota.
+- **Validación:** `npm test` 838/838.
+- **Visible en la web: sí.** `#/decision/air.intercept.initiative` → «Ver en la ficha: Iniciativa».
+
 ### El asistente sustituye a los wizards en la ayuda contextual y en Inicio (AD-004) — 2026-11-02
 
 - Estado: `in_progress`, **pendiente de comprobación del mantenedor**; sin commit.

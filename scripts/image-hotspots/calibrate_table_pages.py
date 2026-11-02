@@ -78,8 +78,12 @@ def calibrate(profile):
         return None, 'sin separadores gruesos interiores'
     # `separatorIndex`: qué separador grueso vertical marca el inicio de los valores (por defecto el primero; la página 27
     # tiene dos columnas de etiquetas separadas también por una línea gruesa).
+    if profile.get('separatorIndex', 0) >= len(vthick):
+        return None, f'solo hay {len(vthick)} separadores gruesos verticales'
     vx = x + vthick[profile.get('separatorIndex', 0)][1] + 1           # inicio de la zona de valores
-    hy = y + hthick[-1][1] + 1          # inicio de las filas de la tirada
+    # `headerIndex`: qué separador grueso horizontal cierra la cabecera (por defecto el último; en las tablas pequeñas de la
+    # página 21 todas las líneas son gruesas y la cabecera acaba en la primera).
+    hy = y + hthick[profile.get('headerIndex', -1)][1] + 1          # inicio de las filas de la tirada
     right, bottom = x + w - 3, y + h - 3
     ncols, nrows = profile['columns'], profile['rows']
     col_edges = [vx + (right - vx) * i / ncols for i in range(ncols + 1)]
@@ -133,7 +137,7 @@ def calibrate(profile):
     if fit['columns'] > MAX_DEVIATION or fit['rows'] > MAX_DEVIATION:
         return None, f'la rejilla no coincide con las líneas de la imagen (desviación {fit})'
     # Cabeceras de columna: una banda por esquema de columnas, entre el separador horizontal superior y el de la tirada.
-    head_top = y + (hthick[0][1] + 1 if len(hthick) > 1 else 0)
+    head_top = y + (hthick[0][1] + 1 if len(hthick) > 1 and profile.get('headerIndex', -1) != 0 else 0)
     # Cada entrada es un esquema o {"schemes": [...], "span": n} cuando varios esquemas comparten una fila de cabecera
     # de n líneas impresas (p. ej. página 16: «Intercepción / DdE*» y «CAPs + AWACS» en la misma fila).
     entries = [e if isinstance(e, dict) else {'schemes': [e], 'span': 1} for e in profile.get('headerSchemes', [])]

@@ -47,7 +47,9 @@
       "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
       "columnAxis": {
         "label": "Valor de Defensa Aérea (Unidad principal)",
-        "values": ["1", "2~3", "4~5", "6~7", "8+"]
+        "values": ["1", "2~3", "4~5", "6~7", "8+"],
+        "alternateLabelSets": { "air_defense_system": ["1", "2+", null, null, null] },
+        "schemeNotes": { "air_defense_system": "Fila «Sistema de Defensa Aérea» de la cabecera (1, 2+ y «·» en el resto): mismas celdas que la tabla de la página 14. Añadida el 2026-11-02 al pasar el contraataque al asistente." }
       },
       "cellLegend": { ".": "Sin impactos" },
       "cells": [

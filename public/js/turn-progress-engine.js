@@ -161,7 +161,9 @@
       status: resolution.status || 'in-progress',
       startedAt: resolution.startedAt || new Date().toISOString(),
       label: resolution.label || resolution.type,
-      ...(resolution.legacyRunKey ? { legacyRunKey: resolution.legacyRunKey } : {})
+      ...(resolution.legacyRunKey ? { legacyRunKey: resolution.legacyRunKey } : {}),
+      // El asistente de combate guarda la ruta exacta para volver a la resolución.
+      ...(resolution.resumeHash ? { resumeHash: resolution.resumeHash } : {})
     };
     return { ...progress, pendingResolutions: [...listPendingResolutions(progress).filter((r) => r.id !== id), entry] };
   }
@@ -221,7 +223,8 @@
       startedAt: typeof raw.startedAt === 'string' ? raw.startedAt : new Date().toISOString(),
       label: typeof raw.label === 'string' ? raw.label : raw.type,
       ...(typeof raw.runKey === 'string' && !nodeId ? { legacyRunKey: raw.runKey } : {}),
-      ...(typeof raw.legacyRunKey === 'string' ? { legacyRunKey: raw.legacyRunKey } : {})
+      ...(typeof raw.legacyRunKey === 'string' ? { legacyRunKey: raw.legacyRunKey } : {}),
+      ...(typeof raw.resumeHash === 'string' && raw.resumeHash.startsWith('#/') ? { resumeHash: raw.resumeHash } : {})
     };
   }
 

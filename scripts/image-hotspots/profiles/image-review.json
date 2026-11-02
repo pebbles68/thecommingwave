@@ -3,7 +3,7 @@
   "note": "Revisión del mantenedor desde #/revision. Lo aplican calibrate_real_counters.py y calibrate_table_pages.py: «ok» pasa a verified; «wrong» queda needs_review con la nota.",
   "review": {
     "by": "Mantenedor (Pablo)",
-    "at": "2026-11-01"
+    "at": "2026-11-02"
   },
   "counters": {
     "aircraft-combat-tactical": {
@@ -588,6 +588,161 @@
         "status": "ok"
       },
       "ground-close-combat-electronic-warfare": {
+        "status": "ok"
+      }
+    },
+    "page-29": {
+      "asw-surface-air-attack-damage": {
+        "status": "ok"
+      }
+    },
+    "page-30": {
+      "asw-submarine-vs-submarine-damage": {
+        "status": "ok"
+      }
+    },
+    "page-33": {
+      "asw-signature-difference-search": {
+        "status": "ok"
+      }
+    },
+    "page-34": {
+      "asw-air-search-routine": {
+        "status": "ok"
+      },
+      "asw-air-search-post-attack": {
+        "status": "ok"
+      }
+    },
+    "page-27": {
+      "torpedo-vs-surface-damage": {
+        "status": "ok"
+      }
+    },
+    "page-32": {
+      "army-logistics-resupply": {
+        "status": "ok"
+      },
+      "strategic-actions-outcome": {
+        "status": "ok"
+      }
+    },
+    "page-05": {
+      "ground-precision-attack-damage": {
+        "status": "ok"
+      }
+    },
+    "page-09": {
+      "ground-unguided-attack-damage": {
+        "status": "ok"
+      }
+    },
+    "page-13": {
+      "anti-radiation-target-damage": {
+        "status": "ok"
+      }
+    },
+    "page-22": {
+      "antiship-guided-final-damage": {
+        "status": "ok"
+      },
+      "surface-artillery-low-altitude-counterattack": {
+        "status": "ok"
+      }
+    },
+    "page-25": {
+      "antiship-unguided-damage-and-naval-artillery": {
+        "status": "ok"
+      }
+    },
+    "page-03": {
+      "ground-guided-area-air-defense": {
+        "status": "ok"
+      }
+    },
+    "page-11": {
+      "ground-guided-area-air-defense": {
+        "status": "ok"
+      }
+    },
+    "page-19": {
+      "ground-guided-area-air-defense": {
+        "status": "ok"
+      }
+    },
+    "page-04": {
+      "munition-interception-standard": {
+        "status": "ok"
+      }
+    },
+    "page-12": {
+      "munition-interception-standard": {
+        "status": "ok"
+      }
+    },
+    "page-20": {
+      "munition-interception-standard": {
+        "status": "ok"
+      }
+    },
+    "page-08": {
+      "munition-interception-unguided": {
+        "status": "ok"
+      }
+    },
+    "page-24": {
+      "munition-interception-unguided": {
+        "status": "ok"
+      }
+    },
+    "page-07": {
+      "ground-unguided-final-interception": {
+        "status": "ok"
+      }
+    },
+    "page-23": {
+      "ground-unguided-final-interception": {
+        "status": "ok"
+      }
+    },
+    "page-18": {
+      "area-air-defense-concentrated-damage": {
+        "status": "ok"
+      }
+    },
+    "page-21": {
+      "antiship-guided-vef-modifier": {
+        "status": "ok"
+      },
+      "antiship-guided-attack-multiplier": {
+        "status": "ok"
+      }
+    },
+    "page-06": {
+      "low-altitude-counterattack": {
+        "status": "ok"
+      }
+    },
+    "page-10": {
+      "low-altitude-counterattack": {
+        "status": "ok"
+      }
+    },
+    "page-14": {
+      "anti-radiation-low-altitude-counterattack": {
+        "status": "ok"
+      }
+    },
+    "page-26": {
+      "surface-artillery-low-altitude-counterattack": {
+        "status": "ok"
+      }
+    },
+    "page-15": {
+      "air-combat-initiative-drm": {
+        "status": "ok"
+      },
+      "air-combat-bvr-outcome": {
         "status": "ok"
       }
     }

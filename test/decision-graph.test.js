@@ -238,7 +238,8 @@ test('fichas: cada pregunta con factor apunta a nodos y entradas de ayuda visual
     });
   });
   assert.deepEqual(nodeRefs['land.close.ew'], ['ground-electronic']);
-  assert.ok(nodeRefs['air.intercept.initiative'].includes('bvr-initiative'));
+  // La Iniciativa aérea es el superíndice del Combate aéreo (indicación del mantenedor, 2026-11-02).
+  assert.deepEqual(nodeRefs['air.intercept.initiative'], [{ ref: 'bvr-initiative', templateId: 'aircraft-combat-tactical' }]);
   // En el combate aéreo solo combaten aviones de combate: el botón abre esa ficha y no las del resto del grupo.
   assert.ok(nodeRefs['air.intercept.bvr'].every((x) => x.templateId === 'aircraft-combat-tactical'));
   assert.ok(calculators.calculators['bvr-attack'].fields.filter((f) => f.visualRef).every((f) => f.visualTemplate === 'aircraft-combat-tactical'));
@@ -285,14 +286,29 @@ test('marcado: la columna de cada bando cae en su cabecera y dentro del marco ca
   assert.equal(Calc.markRects(geometry, { status: 'incomplete' }), null);
 });
 
+// Una página que repite la tabla de otra (`reusesTable`) la toma de donde está transcrita, como hace la vista.
+function tableOf(pageFile, tableId) {
+  const p = readJson(`data/tables/${pageFile}`);
+  const t = (p.tables || []).find((x) => x.id === tableId);
+  if (t || !p.reusesTable || p.reusesTable.id !== tableId) return t;
+  return tableOf(p.reusesTable.definedIn.split('/').pop(), tableId);
+}
+
+const fullGraph = Engine.mergeExtensions(graph, readJson('data/routing/decision-graph-extensions.json'));
+
 test('cálculos: cada uno apunta a preguntas, tablas, rejillas y ayudas visuales existentes', () => {
   const visual = new Set(readJson('data/rules/wizard-visual-refs.json').entries.map((e) => e.id));
   Object.entries(calculators.calculators).forEach(([id, c]) => {
-    c.nodes.forEach((n) => assert.equal(graph.nodes[n].type, 'decision', `${id}: ${n}`));
-    const t = readJson(`data/tables/${c.table.page}`).tables.find((x) => x.id === c.table.tableId);
-    assert.ok(t, `${id}: tabla inexistente`);
+    c.nodes.forEach((n) => assert.ok(fullGraph.nodes[n], `${id}: ${n}`));
+    // Un procedimiento sin tabla (puerto, aeródromo, efectos del impacto) solo necesita sus reglas.
+    if (!c.table) { if (c.rules) assert.ok(fs.existsSync(path.join(root, 'data/rules', c.rules)), `${id}: reglas ${c.rules}`); return; }
+    assert.ok(tableOf(c.table.page, c.table.tableId), `${id}: tabla inexistente`);
     assert.ok(Calc.geometryFor(tableHotspots, c.table.page, c.table.tableId), `${id}: sin rejilla calibrada`);
+    (c.extraTables || []).forEach((x) => assert.ok(tableOf(x.page, x.tableId), `${id}: tabla extra ${x.tableId}`));
     c.fields.filter((f) => f.visualRef).forEach((f) => assert.ok(visual.has(f.visualRef), `${id}: ayuda visual ${f.visualRef}`));
+    // Un campo que es una pregunta del workflow tiene opciones (y su modificador sale de ellas).
+    const wf = c.workflow ? readJson(`data/workflows/${c.workflow}`) : null;
+    c.fields.filter((f) => f.questionId).forEach((f) => assert.ok((Calc.fieldOptions(f, wf) || []).length, `${id}: pregunta ${f.questionId}`));
   });
 });
 
@@ -545,4 +561,215 @@ test('extensiones: el árbol ampliado cumple los invariantes y sus textos salen 
   s = Engine.choose(full, s, full.nodes['land.kind'].routes.findIndex((r) => r.to === 'ext.reaction.kind'));
   s = Engine.choose(full, s, 0);
   assert.equal(Engine.isFinished(full, s), true);
+});
+
+// Defensas (2026-11-02): valores comprobados contra las páginas impresas de Tablas-de-combate 5.pdf.
+function ctx(calcId) {
+  const c = calculators.calculators[calcId];
+  const extra = {};
+  (c.extraTables || []).forEach((x) => { extra[x.tableId] = tableOf(x.page, x.tableId); });
+  return { calc: { id: calcId, ...c }, context: { table: c.table ? tableOf(c.table.page, c.table.tableId) : null, workflow: c.workflow ? readJson(`data/workflows/${c.workflow}`) : null, extra } };
+}
+
+test('defensa aérea de área (páginas 3, 11, 19): A.A. agrupado, modificadores y la menor de dos tiradas', () => {
+  const { calc, context } = ctx('area-defense-land-guided');
+  assert.equal(Calc.calculatorForNode(calculators, 'land.guided.area').id, 'area-defense-land-guided');
+  const r = Calc.compute(calc, context, { sides: { A: { aa: '6', detected: 'no', nearSpace: 'no', roll: '5' } } });
+  assert.equal(r.sides.A.columnLabel, '6~7');
+  assert.equal(r.sides.A.rowValue, 3);
+  assert.equal(r.sides.A.reduction, -2);
+  const n = Calc.compute(calc, context, { sides: { A: { aa: '6', detected: 'yes', nearSpace: 'yes', roll: '7', roll2: '4' } } });
+  assert.equal(n.sides.A.rowValue, 1);
+  assert.equal(n.sides.A.reduction, -1);
+  // Sin la tirada ya se marca la columna.
+  const col = Calc.computeWithColumn(calc, context, { sides: { A: { aa: '6', detected: 'yes', nearSpace: 'no' } } });
+  assert.equal(col.sides.A.status, 'column');
+  assert.equal(col.sides.A.columnIndex, 3);
+});
+
+test('interceptación de munición (páginas 4 y 8): un disparo por interceptor, fila de su consumo y suma de reducciones', () => {
+  const { calc, context } = ctx('munition-land-guided');
+  const r = Calc.compute(calc, context, { sides: {
+    I1: { consumption: 'high', aa: '3', performance: 'medium', detection: 'attacker', earlyWarning: 'no', ballistic: 'no', roll: '6' },
+    I2: { consumption: 'low', aa: '5', performance: 'high', detection: 'neither', earlyWarning: 'no', ballistic: 'no', roll: '9' },
+    I3: { consumption: 'high' }
+  } });
+  assert.equal(r.sides.I1.reduction, -1);
+  assert.equal(r.sides.I2.columnScheme, 'low');
+  assert.equal(r.sides.I2.columnLabel, '4~5');
+  assert.equal(r.sides.I2.reduction, -1);
+  assert.equal(r.sides.I3.status, 'unused');
+  assert.match(r.summary[0], /-2/);
+  // Sin alerta temprana, las columnas «Más allá del horizonte» (6-9) se leen en la 5.
+  const cap = Calc.compute(calc, context, { sides: { I1: { consumption: 'high', aa: '8', performance: 'high', detection: 'attacker', earlyWarning: 'no', ballistic: 'no', roll: '9' } } });
+  assert.equal(cap.sides.I1.columnLabel, '5');
+  assert.equal(cap.sides.I1.reduction, -4);
+  const u = ctx('munition-land-unguided');
+  const ug = Calc.compute(u.calc, u.context, { sides: { I1: { consumption: 'high', aa: '12', performance: 'low', detection: 'attacker', unguidedIcon: 'yes', roll: '9' } } });
+  assert.equal(ug.sides.I1.columnLabel, '9');
+  assert.equal(ug.sides.I1.rowValue, 4);
+  assert.equal(ug.sides.I1.reduction, -5);
+});
+
+test('interceptación final (página 7): la misma tirada en la fila Bajo y en la fila Alto, se suman los impactos', () => {
+  const { calc, context } = ctx('final-interception-land');
+  const r = Calc.compute(calc, context, { shared: { roll: '6' }, sides: { low: { aa: '5' }, high: { aa: '4' } } });
+  assert.equal(r.sides.low.columnLabel, '4~5');
+  assert.equal(r.sides.low.impacts, 1);
+  assert.equal(r.sides.high.columnScheme, 'high');
+  assert.equal(r.sides.high.columnIndex, 4);
+  assert.equal(r.sides.high.impacts, 3);
+  assert.match(r.summary[0], /4/);
+  const col = Calc.compute(calc, context, { shared: { roll: '' }, sides: { low: { aa: '5' }, high: { aa: '' } } });
+  assert.equal(col.sides.low.status, 'column');
+  assert.equal(col.sides.high.status, 'unused');
+  assert.ok(Calc.geometryFor(tableHotspots, 'page-07.json', 'ground-unguided-final-interception').headerBands.high);
+});
+
+test('resistencia electrónica de la flota (página 21): modificador del V.E.F. y multiplicador', () => {
+  const { calc, context } = ctx('vef-multiplier');
+  const r = Calc.compute(calc, context, { sides: { A: { electronic: '5', distance: '3_5', detection: 'designator_only', roll: '9' } } });
+  assert.equal(r.sides.A.rowValue, 5);
+  assert.equal(r.sides.A.multiplier, 2);
+  assert.equal(r.extraMarks[0].tableId, 'antiship-guided-attack-multiplier');
+  const low = Calc.compute(calc, context, { sides: { A: { electronic: '0', distance: '0_2', detection: 'neither', roll: '2' } } });
+  assert.equal(low.sides.A.multiplier, 6);
+  const pending = Calc.compute(calc, context, { sides: { A: { electronic: '5', distance: '0_2', detection: 'attacker_detected', roll: '' } } });
+  assert.equal(pending.pending, true);
+  assert.equal(pending.extraMarks.length, 0);
+});
+
+test('defensa aérea de área contra aviones (página 18): fila de cabecera por el consumo', () => {
+  const { calc, context } = ctx('area-defense-air-shot');
+  assert.equal(Calc.compute(calc, context, { sides: { A: { consumption: 'low', aa: '6', roll: '4' } } }).sides.A.impacts, 2);
+  const high = Calc.compute(calc, context, { sides: { A: { consumption: 'high', aa: '6', roll: '4' } } }).sides.A;
+  assert.equal(high.columnScheme, 'canonical');
+  assert.equal(high.impacts, 3);
+});
+
+// Daño y efectos (2026-11-02): valores comprobados contra las páginas impresas y las reglas transcritas.
+test('contraataque a baja altura (páginas 6 y 22): fila de cabecera del defensor y destrucción por Protección', () => {
+  const { calc, context } = ctx('low-altitude-land-guided');
+  const r = Calc.compute(calc, context, { shared: { defenderKind: 'air_defense_system', defender: '5' }, sides: { U1: { protection: '3', roll: '9' }, U2: { protection: '4', roll: '9' }, U3: {}, U4: {} } });
+  assert.equal(r.sides.U1.columnLabel, '2+');
+  assert.equal(r.sides.U1.impacts, 3);
+  assert.match(r.sides.U1.explanation[2], /destruida/);
+  assert.match(r.sides.U2.explanation[2], /sin efecto/);
+  assert.equal(r.sides.U3.status, 'unused');
+  assert.match(r.summary[0], /1/);
+  const main = Calc.compute(calc, context, { shared: { defenderKind: 'canonical', defender: '5' }, sides: { U1: { protection: '3', roll: '9' } } });
+  assert.equal(main.sides.U1.columnLabel, '4~5');
+  const s = ctx('low-altitude-antiship-guided');
+  assert.equal(Calc.compute(s.calc, s.context, { shared: { defender: '2' }, sides: { U1: { protection: '1', roll: '2' } } }).sides.U1.impacts, 1);
+  assert.equal(Calc.calculatorsForNode(calculators, 'surface.guided.counter').length, 2);
+});
+
+test('combate naval cercano con artillería (página 25): columna izquierda de tiradas', () => {
+  const { calc, context } = ctx('naval-artillery');
+  const r = Calc.compute(calc, context, { sides: { A: { artillery: '12', roll: '0' } } });
+  assert.equal(r.sides.A.columnLabel, '11~15');
+  assert.equal(r.sides.A.rowIndex, 1);
+  assert.equal(r.sides.A.impacts, 2);
+  assert.equal(Calc.compute(calc, context, { sides: { A: { artillery: '12', roll: '9' } } }).sides.A.impacts, 7);
+});
+
+test('resultado del ataque terrestre: unidad, puerto, pista, apron y efecto del impacto en un buque', () => {
+  const rules = readJson('data/rules/ground-attack-results.json');
+  const unit = calculators.calculators['ground-unit-hit'];
+  assert.match(Calc.compute(unit, { rules }, { sides: { A: { kind: 'normal', impacts: '4', protection: '2', terrain: '1' } } }).sides.A.explanation[2], /pierde 1/);
+  assert.match(Calc.compute(unit, { rules }, { sides: { A: { kind: 'air_pursuit', impacts: '7', protection: '2' } } }).sides.A.explanation[2], /pierde 3/);
+  const port = Calc.compute(calculators.calculators['port-attack'], { rules }, { shared: { totalImpacts: '6', portImpacts: '4', portProtection: '2' }, sides: { S1: { type: 'submarine', impacts: '1' }, S2: {}, S3: {} } });
+  assert.match(port.summary[1], /2 instalación/);
+  assert.match(port.sides.S1.explanation[0], /destruido/);
+  const runway = Calc.compute({ ...calculators.calculators['airfield-runway'] }, { rules }, { sides: { A: { letter: 'B', impacts: '5' } } });
+  assert.match(runway.sides.A.explanation[1], /pista D/);
+  const apron = Calc.compute(calculators.calculators['airfield-apron'], { rules }, { shared: { impacts: '3', airfieldProtection: '2', hangarCapacity: '1' }, sides: { U1: { shelter: 'yes', fragile: 'no' }, U2: { shelter: 'no', fragile: 'yes' }, U3: {}, U4: {} } });
+  assert.match(apron.sides.U1.explanation[1], /dañada/);
+  assert.match(apron.sides.U2.explanation[1], /eliminada/);
+  const shipRules = readJson('data/rules/ship-impact-effects.json');
+  const single = calculators.calculators['ship-impact-single'];
+  const need = Calc.compute(single, { rules: shipRules }, { sides: { A: { hasDamagedSide: 'yes', alreadyDamaged: 'no', amphibious: 'no', hasShield: 'no', carrier: 'no', transport: 'no' } } });
+  assert.equal(need.sides.A.status, 'incomplete');
+  const sunk = Calc.compute(single, { rules: shipRules }, { sides: { A: { hasDamagedSide: 'yes', alreadyDamaged: 'no', amphibious: 'no', hasShield: 'no', carrier: 'no', transport: 'no', sinkingResistance: '3', criticalRoll: '2' } } });
+  assert.match(sunk.sides.A.explanation.slice(-1)[0], /Hundida/);
+  const multi = Calc.compute(calculators.calculators['ship-impact-multi'], { rules: shipRules }, { sides: { A: { fleetSize: '3', carrier: 'no', transport: 'no' } } });
+  assert.match(multi.sides.A.explanation.slice(-1)[0], /quedan 2/);
+});
+
+test('absorción WVR, escolta electrónica y daño BVR por la Protección', () => {
+  const w = calculators.calculators['wvr-absorption'];
+  const ok = Calc.compute(w, {}, { sides: { A: { impacts: '5', protections: '2 3', damage: '1 1' } } });
+  assert.equal(ok.sides.A.status, 'ok');
+  const more = Calc.compute(w, {}, { sides: { A: { impacts: '5', protections: '2 3', damage: '1 0' } } });
+  assert.match(more.sides.A.explanation[1], /hay que asignar más/);
+  const ew = Calc.compute(calculators.calculators['ew-escort'], {}, { sides: { A: { impacts: '5', ewProtection: '2', otherProtection: '3' } } });
+  assert.match(ew.sides.A.explanation[1], /recibe 1 punto/);
+  const bvr = Calc.calculatorForNode(calculators, 'air.intercept.bvr');
+  const conditions = Calc.resolveChoices(readJson(`data/workflows/${bvr.choices.workflow}`), bvr.choices);
+  const r = Calc.compute(bvr, { table: table('16').tables.find((t) => t.id === bvr.table.tableId), choices: conditions }, { sides: { A: { condition: 'cap', airCombatValue: 9, electronic: 5, roll: 9, targetProtection: '1', targetIsCaps: 'yes' }, B: { condition: 'cap', airCombatValue: 1, electronic: 3, roll: 0 } } });
+  if (r.sides.A.impacts > 1) assert.match(r.sides.A.explanation.slice(-1)[0], /sale temporalmente/);
+});
+
+test('reparto de impactos en la flota: la tirada elige el buque entre los que siguen a flote (hoja de ayuda: 4 entre 3 → el segundo)', () => {
+  const c = calculators.calculators['fleet-impact'];
+  const r = Calc.compute(c, {}, { shared: { impacts: '5', perImpact: '1', roll: '4', sinkingRoll: '4' }, sides: { S1: { protection: '3', sunk: 'no' }, S2: { protection: '2', sinking: '4', sunk: 'no' }, S3: { protection: '3', sunk: 'no' }, S4: { sunk: 'no' }, S5: { sunk: 'no' } } });
+  assert.equal(r.sides.S2.status, 'ok');
+  assert.match(r.sides.S2.explanation[1], /Absorbe 2/);
+  assert.match(r.sides.S2.explanation[2], /se hunde/);
+  assert.match(r.summary[0], /Quedan 3/);
+});
+
+test('procedimientos sin tabla: reacción, emboscada, logística de puerto, garantía, ciberataque, guerra espacial y orden BVR', () => {
+  const C = calculators.calculators;
+  const rr = readJson('data/rules/ground-reactions.json');
+  const cf = Calc.compute(C['reaction-cf'], { rules: rr }, { shared: { targetDetected: 'yes' }, sides: { R1: { kind: 'artillery_fire', inPosition: 'yes', usesCas: 'yes', hasAmmo: 'yes', alreadyDidCf: 'no' }, R2: { kind: 'air_on_call', inPosition: 'yes', alreadyDynamic: 'no' }, R3: {} } });
+  assert.equal(cf.sides.R1.status, 'no-effect');
+  assert.equal(cf.sides.R2.status, 'ok');
+  assert.ok(cf.summary.length > 1);
+  const amb = readJson('data/rules/submarine-ambush.json');
+  assert.equal(Calc.compute(C['submarine-ambush'], { rules: amb }, { sides: { A: { subState: 'hidden', subType: 'nuclear', alreadyAmbushed: 'no', relation: 'adjacent', event: 'enters', hasAmmo: 'no' } } }).sides.A.status, 'ok');
+  assert.equal(Calc.compute(C['submarine-ambush'], { rules: amb }, { sides: { A: { subState: 'hidden', subType: 'conventional', alreadyAmbushed: 'no', relation: 'adjacent', event: 'enters', hasAmmo: 'yes' } } }).sides.A.status, 'no-effect');
+  const pl = readJson('data/rules/port-logistics.json');
+  assert.match(Calc.compute(C['port-ammo-resupply'], { rules: pl }, { sides: { A: { inWaitingArea: 'yes', units: '5', portValue: '3' } } }).sides.A.explanation[0], /3 unidad.*quedan 2/);
+  assert.match(Calc.compute(C['port-ammo-depletion'], { rules: pl }, { sides: { A: { remaining: '2', attackValue: '5' } } }).sides.A.explanation[0], /efectivo: 2/);
+  const lg = readJson('data/rules/logistics-guarantee.json');
+  assert.equal(Calc.compute(C['guarantee-port'], { rules: lg }, { sides: { A: { nodeKind: 'advanced', nodeEnemyControlled: 'no', blockedEdge: 'no', enemyUnitsOnPath: 'no', enemyControlledOnPath: 'no' } } }).sides.A.status, 'ok');
+  const t32 = { 'strategic-actions-outcome': table('32').tables.find((t) => t.id === 'strategic-actions-outcome') };
+  const cy = Calc.compute(C['cyber-attack'], { rules: readJson('data/rules/cyber-attack.json'), extra: t32 }, { sides: { A: { attackPoints: '1', defenseUsed: 'no', attackRolls: '9 9 9' } } });
+  assert.equal(cy.sides.A.status, 'ok');
+  assert.match(cy.sides.A.explanation.join(' '), /Tiradas del atacante: 3/);
+  const order = Calc.compute(C['space-order'], {}, { sides: { A: { launch: '2', orbital: '1' }, B: { launch: '3', orbital: '1' } } });
+  assert.match(order.summary[0], /primero/);
+  const de = Calc.compute(C['space-destruction'], { extra: t32 }, { sides: { A: { kind: 'hard', maneuver: 'yes', rolls: '5' } } });
+  assert.equal(de.sides.A.status, 'ok');
+  const sel = Calc.compute(C['bvr-selection'], {}, { shared: { context: 'air_combat', eeaA: 'no', eeaB: 'no', initiatorSide: 'A' }, sides: { P1: { side: 'A', electronic: '3', detected: 'yes', ew: 'no' }, P2: { side: 'B', electronic: '5', detected: 'yes', ew: 'no' }, P3: { ew: 'no' }, P4: {}, P5: {}, P6: {} } });
+  assert.match(sel.sides.P2.explanation[0], /1\.º/);
+  assert.match(sel.sides.P1.explanation[0], /2\.º/);
+});
+
+test('modificación de la intensidad (página 5): condiciones del workflow y valores escritos', () => {
+  const { calc, context } = ctx('intensity-land-guided');
+  const r = Calc.compute(calc, context, { sides: { A: { target_type: 'mobile_main', attack_distance_band: '1', high_penetration_supersonic: 'yes', force_size_excess: '1', guidance_modifier: '' } } });
+  assert.equal(r.sides.A.intensity, -5 + 2 + 2);
+  assert.equal(Calc.calculatorForNode(calculators, 'land.guided.roll9').id, 'ground-guided');
+  assert.equal(Calc.calculatorsForNode(calculators, 'land.guided.roll9')[0].id, 'intensity-land-guided');
+});
+
+test('iniciativa BVR (página 15): AWACS +1, DRM de la diferencia y tipo de combate según el contexto', () => {
+  const { calc, context } = ctx('bvr-initiative');
+  const r = Calc.compute(calc, context, { shared: { context: 'air_combat', roll: '4' }, sides: { A: { initiative: '3', awacs: 'yes' }, B: { initiative: '2', awacs: 'no' } } });
+  assert.match(r.summary[0], /Diferencia de Iniciativa: 2 → DRM \+5/);
+  assert.match(r.summary[1], /= 9/);
+  assert.match(r.summary[2], /simultáneamente/);
+  assert.equal(r.extraMarks[0].mark.columnIndex, 1);
+});
+
+test('planes de ataque: el valor de cada plan sale de los datos transcritos (carga, unidad dañada) y sin valor no se ofrece', () => {
+  const us = readJson('data/ammunition/attack-plans/us.json');
+  const choices = Calc.planChoices(us.units[0], 'landAttack');
+  assert.ok(choices.some((c) => c.letter === 'C' && c.load === 'light' && !c.damaged && c.value === 12));
+  assert.ok(choices.some((c) => c.letter === 'B' && c.damaged && c.value === 2));
+  const sp = readJson('data/ammunition/special-unit-plans/us.json');
+  assert.ok(Calc.planChoices(sp.units[0], 'antiShip').every((c) => typeof c.value === 'number'));
+  Object.values(calculators.calculators).forEach((c) => (c.fields || []).concat(c.sharedFields || []).filter((f) => f.planSource).forEach((f) => assert.ok(['attack-value', 'naval-artillery'].includes(f.planSource))));
 });

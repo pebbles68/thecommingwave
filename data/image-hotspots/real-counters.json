@@ -32,7 +32,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -47,7 +47,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "signature",
@@ -62,7 +62,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -77,7 +77,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "air_search",
@@ -92,7 +92,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -107,7 +107,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "runway",
@@ -117,7 +117,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -132,7 +132,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "no_refuel",
@@ -142,7 +142,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "combat_support",
@@ -157,7 +157,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -172,7 +172,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -187,7 +187,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -215,7 +215,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -230,7 +230,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "signature",
@@ -245,7 +245,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -260,7 +260,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "air_search",
@@ -275,7 +275,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -290,7 +290,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "runway",
@@ -305,7 +305,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -320,7 +320,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "no_refuel",
@@ -330,7 +330,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "capacity",
@@ -345,7 +345,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -360,7 +360,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -375,7 +375,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -403,7 +403,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -418,7 +418,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "hull_number",
@@ -428,7 +428,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -443,7 +443,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "anti_jamming_air_search",
@@ -458,7 +458,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -473,7 +473,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "port_level",
@@ -483,7 +483,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -498,7 +498,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "support",
@@ -513,7 +513,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "asw",
@@ -528,7 +528,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -543,7 +543,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -558,7 +558,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -586,7 +586,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "skill",
@@ -596,7 +596,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -611,7 +611,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "size",
@@ -626,7 +626,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -641,7 +641,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -656,7 +656,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "attack",
@@ -671,7 +671,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "defense",
@@ -686,7 +686,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -701,7 +701,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "initiative",
@@ -716,7 +716,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -744,7 +744,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -759,7 +759,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "air_detection",
@@ -774,7 +774,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "signature",
@@ -789,7 +789,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "anti_jamming",
@@ -804,7 +804,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -832,7 +832,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "aa",
@@ -847,7 +847,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -862,7 +862,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "ballistic_defense",
@@ -877,7 +877,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "anti_jamming",
@@ -892,7 +892,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -907,7 +907,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "low_altitude_detection",
@@ -922,7 +922,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -937,7 +937,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "mobile_or_fixed",
@@ -952,7 +952,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -980,7 +980,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -995,7 +995,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -1010,7 +1010,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "signature",
@@ -1025,7 +1025,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -1040,7 +1040,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "type",
@@ -1055,7 +1055,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -1070,7 +1070,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -1085,7 +1085,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -1113,7 +1113,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "ambush",
@@ -1128,7 +1128,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -1143,7 +1143,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "torpedoes",
@@ -1158,7 +1158,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "noise",
@@ -1173,7 +1173,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -1188,7 +1188,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -1216,7 +1216,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "ambush",
@@ -1231,7 +1231,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -1246,7 +1246,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -1261,7 +1261,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "torpedoes",
@@ -1276,7 +1276,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "noise",
@@ -1291,7 +1291,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -1306,7 +1306,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -1321,7 +1321,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -1349,7 +1349,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -1364,7 +1364,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -1379,7 +1379,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "anti_jamming_air_search",
@@ -1394,7 +1394,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -1409,7 +1409,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "port_level",
@@ -1424,7 +1424,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -1439,7 +1439,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "runway",
@@ -1454,7 +1454,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "asw",
@@ -1469,7 +1469,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -1484,7 +1484,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -1499,7 +1499,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -1527,7 +1527,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -1542,7 +1542,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -1557,7 +1557,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -1572,7 +1572,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "type",
@@ -1587,7 +1587,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "signature",
@@ -1602,7 +1602,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -1630,7 +1630,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -1645,7 +1645,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -1660,7 +1660,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -1675,7 +1675,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "function_support",
@@ -1690,7 +1690,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -1705,7 +1705,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "mobile_or_fixed",
@@ -1720,7 +1720,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -1748,7 +1748,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -1763,7 +1763,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -1778,7 +1778,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -1793,7 +1793,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -1808,7 +1808,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "function_type",
@@ -1823,7 +1823,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -1838,7 +1838,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "mobile_or_fixed",
@@ -1853,7 +1853,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -1881,7 +1881,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -1896,7 +1896,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -1911,7 +1911,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "initiative",
@@ -1926,7 +1926,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -1954,7 +1954,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "skill",
@@ -1969,7 +1969,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -1984,7 +1984,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "anti_jamming",
@@ -1999,7 +1999,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -2014,7 +2014,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "low_altitude_detection",
@@ -2029,7 +2029,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -2044,7 +2044,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "mobile_or_fixed",
@@ -2059,7 +2059,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -2087,7 +2087,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "skill_2",
@@ -2097,7 +2097,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -2107,7 +2107,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -2122,7 +2122,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "signature",
@@ -2137,7 +2137,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "type",
@@ -2147,7 +2147,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "asw",
@@ -2157,7 +2157,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "operational_category",
@@ -2172,7 +2172,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -2200,7 +2200,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -2215,7 +2215,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "hull_number",
@@ -2225,7 +2225,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -2240,7 +2240,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "anti_jamming_air_search",
@@ -2255,7 +2255,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -2270,7 +2270,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "port_level",
@@ -2280,7 +2280,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -2295,7 +2295,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "one_unit_capacity",
@@ -2310,7 +2310,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "max_capacity",
@@ -2325,7 +2325,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -2340,7 +2340,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -2355,7 +2355,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -2383,7 +2383,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -2398,7 +2398,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "hull_number",
@@ -2408,7 +2408,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -2423,7 +2423,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "anti_jamming_air_search",
@@ -2438,7 +2438,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -2453,7 +2453,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "port_level",
@@ -2463,7 +2463,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -2473,7 +2473,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "one_unit_capacity",
@@ -2488,7 +2488,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "max_capacity",
@@ -2503,7 +2503,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -2518,7 +2518,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "unload",
@@ -2533,7 +2533,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -2561,7 +2561,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -2576,7 +2576,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "signature",
@@ -2591,7 +2591,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "anti_jamming_air_search",
@@ -2601,7 +2601,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -2616,7 +2616,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "runway",
@@ -2631,7 +2631,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "logistics",
@@ -2646,7 +2646,7 @@
           "confidence": 0.8,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "no_refuel",
@@ -2656,7 +2656,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "operational_category",
@@ -2671,7 +2671,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "protection",
@@ -2686,7 +2686,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "movement",
@@ -2701,7 +2701,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     },
@@ -2729,7 +2729,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "surface_detection",
@@ -2739,7 +2739,7 @@
           "confidence": 1,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "electronic",
@@ -2754,7 +2754,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "model",
@@ -2769,7 +2769,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "capacity",
@@ -2784,7 +2784,7 @@
           "confidence": 0.6,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         },
         {
           "id": "signature",
@@ -2799,7 +2799,7 @@
           "confidence": 0.7,
           "reviewStatus": "verified",
           "reviewedBy": "Mantenedor (Pablo)",
-          "reviewedAt": "2026-11-01"
+          "reviewedAt": "2026-11-02"
         }
       ]
     }

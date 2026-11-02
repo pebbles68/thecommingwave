@@ -14,6 +14,11 @@ Formato sugerido por entrada:
 
 ## Pendientes
 
+### Interceptación final (páginas 7 y 23): faltaba la fila «Alto» de la cabecera — resuelto (2026-11-02)
+
+- Al calibrar la página real se vio que la cabecera tiene dos filas: «Bajo» (1, 2~3… 18+) y «Alto» (·, 1, 2… 8, 9+). La transcripción solo tenía la de Bajo y el A.A. total de consumo Alto se leía con ella (p. ej. Alto 12 caía en «12~13» en vez de «9+»).
+- No es una discrepancia entre fuentes sino una fila omitida al transcribir: se añade `alternateLabelSets.high` en `data/tables/page-07.json` y `resolveFinalInterceptionShot` la usa para el consumo Alto.
+
 ### Combate BVR (página 16): ¿qué fila usar si la tirada + modificador electrónico supera 9? — resuelto (2026-10-07)
 
 - **Tema (2026-10-04):** el Decision Book §7.16.3 Paso 1 dice que el bando con el Valor Electrónico mayor *"aumenta su tirada en la diferencia entre los Valores Electrónicos"*, pero la tabla de daño BVR (`air-combat-bvr-damage`, `Tablas-de-combate 5.pdf` p.16) solo tiene filas de tirada 0-9. Ninguna de las dos fuentes dice qué fila usar cuando la tirada modificada pasa de 9 (otras tablas del proyecto, p.ej. la de Interceptación de Munición, tampoco lo definen).
@@ -117,7 +122,9 @@ Formato sugerido por entrada:
 - **Estado:** `resolved`.
 - **Autoridad:** `TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf`, §5.12/§6.3-§6.3.3 (pp. 74, 95-98), localizadas con `pdftotext -layout` (2026-09-27).
 
-### Insignia numérica junto al icono del buque (`shipBadge`)
+### Insignia numérica junto al icono del buque (`shipBadge`) — resuelto (2026-11-02)
+
+- **Resolución (indicación del mantenedor, 2026-11-02):** en el plan de ataque naval, el número arriba a la derecha del perfil del barco es el **Valor de Artillería Naval** (combate naval cercano con artillería, pág. 25; contraataque a baja altura de la flota, págs. 22 y 26). Anotado como `meaning: "naval_artillery"` en `data/ammunition/naval-plans/*.json` y usado por la ayuda `ship-naval-artillery` del asistente. Lo que sigue es el historial de la búsqueda.
 
 - **Tema:** cada buque de superficie lleva un número junto a su icono (valores vistos: 1, 2, 16 en EEUU; fracciones como `2/1`, `10/5`, `6/3` en China).
 - **Avance (2026-09-24):** `data/counters/factor-map.json` localiza la posición/etiqueta exacta de este dato en la ficha: es el factor **`N.º`** de las plantillas `ship-combat` y `surface-transport-*` (`Resumen counters - Español.pdf`). Queda resuelto *dónde* está el dato en la ficha; sigue sin confirmar *qué representa* numéricamente.

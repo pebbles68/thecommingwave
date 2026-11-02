@@ -2,15 +2,18 @@
   "country": "US",
   "countryName": "Estados Unidos",
   "status": "partial",
-  "transcribedSheets": ["EEUU 3"],
-  "pendingSheets": ["EEUU 1", "EEUU 2", "EEUU 4"],
-
+  "transcribedSheets": [
+    "EEUU 3"
+  ],
+  "pendingSheets": [
+    "EEUU 1",
+    "EEUU 2",
+    "EEUU 4"
+  ],
   "schemaNote": "Plantilla propia, distinta de data/ammunition/attack-plans/. Los buques de superficie SI tienen distincion completa/danada (dos filas, verificado a 900 DPI en TD y BS-CT); las plataformas submarinas NO la tienen (una sola fila, verificado a 900 DPI en VG y VG B3). Todos los valores son loadFormat 'single' (nunca heavy/light en esta hoja).",
-
   "valueFormat": {
     "single": "Un valor + superindice opcional: damage + range. Ausencia de superindice = range 0."
   },
-
   "sourceRefs": [
     {
       "document": "Tablas de Armamento/EEUU 3.pdf",
@@ -24,7 +27,6 @@
       "sheetTitle": "Plataformas submarinas (seccion inferior de la misma pagina)"
     }
   ],
-
   "unmappedFactors": {
     "leadingColumn": {
       "note": "Cada buque de superficie (no las plataformas submarinas) lleva una celda 'FICHA_ICONO <=4' antes de sus columnas de armamento. Resuelto contra data/counters/factor-map.json#ship-combat: es el factor 'ASW' de la ficha (icono de pez/delfin saltando); '<=4' es el tope de ese factor.",
@@ -33,10 +35,11 @@
     },
     "shipBadge": {
       "note": "Numero en circulo junto al icono del buque (visto: 1, 2, 16). Resuelto en posicion/etiqueta contra data/counters/factor-map.json#ship-combat: es el factor 'N.º'. Su significado numerico (unidades de la clase vs. celdas VLS) sigue sin confirmar contra el reglamento (docs/rules/known-ambiguities.md).",
-      "resolvedFactor": "hull_number"
+      "resolvedFactor": "hull_number",
+      "meaning": "naval_artillery",
+      "meaningNote": "Indicación del mantenedor (2026-11-02): el número arriba a la derecha del perfil del barco en su plan de ataque es el Valor de Artillería Naval (combate naval cercano con artillería, página 25, y contraataque a baja altura de la flota, páginas 22 y 26)."
     }
   },
-
   "surfaceShips": [
     {
       "id": "us-td",
@@ -47,14 +50,53 @@
       "hasFullDamagedRows": true,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single",
-                 "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 4, "range": 17 }, "damaged": { "damage": 3, "range": 17 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            },
+            "damaged": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 4,
+              "range": 17
+            },
+            "damaged": {
+              "damage": 3,
+              "range": 17
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 4, "range": 17 }, "damaged": { "damage": 3, "range": 17 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 4,
+              "range": 17
+            },
+            "damaged": {
+              "damage": 3,
+              "range": 17
+            }
+          }
         }
       }
     },
@@ -68,14 +110,53 @@
       "shipBadge": 2,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single",
-                 "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            },
+            "damaged": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         }
       }
     },
@@ -89,14 +170,53 @@
       "shipBadge": 2,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single",
-                 "full": { "damage": 1, "range": 2 }, "damaged": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            },
+            "damaged": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         }
       },
       "note": "Los valores coinciden exactamente con BS-AB F1 en esta hoja; verificado visualmente, no es un error de copia."
@@ -111,12 +231,38 @@
       "shipBadge": 2,
       "plans": {
         "antiShip": {
-          "A": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         }
       },
       "note": "A diferencia de F1/F2, esta hoja no lista columna Harpoon II para F2A."
@@ -131,12 +277,38 @@
       "shipBadge": 2,
       "plans": {
         "antiShip": {
-          "A": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 20 }, "damaged": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         }
       },
       "note": "Igual que F2A: sin columna Harpoon II en esta hoja."
@@ -151,8 +323,22 @@
       "shipBadge": 1,
       "plans": {
         "antiShip": {
-          "A": { "munition": "NSM", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
-                 "full": { "damage": 2, "range": 3 }, "damaged": { "damage": 2, "range": 3 } }
+          "A": {
+            "munition": "NSM",
+            "icons": [
+              "attack_high_penetration",
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 2,
+              "range": 3
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 3
+            }
+          }
         },
         "landAttack": {}
       },
@@ -168,8 +354,22 @@
       "shipBadge": 1,
       "plans": {
         "antiShip": {
-          "A": { "munition": "NSM", "icons": ["attack_high_penetration", "munition_subsonic"], "loadFormat": "single",
-                 "full": { "damage": 1, "range": 3 }, "damaged": { "damage": 1, "range": 3 } }
+          "A": {
+            "munition": "NSM",
+            "icons": [
+              "attack_high_penetration",
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 3
+            },
+            "damaged": {
+              "damage": 1,
+              "range": 3
+            }
+          }
         },
         "landAttack": {}
       },
@@ -185,8 +385,21 @@
       "shipBadge": 1,
       "plans": {
         "antiShip": {
-          "A": { "munition": "HELLFIRE", "icons": ["munition_subsonic"], "loadFormat": "single",
-                 "full": { "damage": 3, "range": 0 }, "damaged": { "damage": 2, "range": 0 } }
+          "A": {
+            "munition": "HELLFIRE",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 3,
+              "range": 0
+            },
+            "damaged": {
+              "damage": 2,
+              "range": 0
+            }
+          }
         },
         "landAttack": {}
       }
@@ -199,20 +412,47 @@
       "class": "destroyer",
       "hasFullDamagedRows": true,
       "shipBadge": 16,
-      "restrictions": ["无法低空反击 (No puede realizar contraataque a baja altura)."],
+      "restrictions": [
+        "无法低空反击 (No puede realizar contraataque a baja altura)."
+      ],
       "plans": {
         "antiShip": {
-          "A": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 6, "range": 20 }, "damaged": { "damage": 4, "range": 20 } }
+          "A": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 6,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 4,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single",
-                 "full": { "damage": 6, "range": 20 }, "damaged": { "damage": 4, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 6,
+              "range": 20
+            },
+            "damaged": {
+              "damage": 4,
+              "range": 20
+            }
+          }
         }
       }
     }
   ],
-
   "submarines": [
     {
       "id": "us-sw-b1",
@@ -223,11 +463,41 @@
       "hasFullDamagedRows": false,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 6,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 6,
+              "range": 20
+            }
+          }
         }
       }
     },
@@ -240,11 +510,41 @@
       "hasFullDamagedRows": false,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 6,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 6,
+              "range": 20
+            }
+          }
         }
       }
     },
@@ -257,11 +557,41 @@
       "hasFullDamagedRows": false,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 20
+            }
+          }
         }
       }
     },
@@ -274,11 +604,41 @@
       "hasFullDamagedRows": false,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 1, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 20
+            }
+          }
         }
       }
     },
@@ -291,11 +651,41 @@
       "hasFullDamagedRows": false,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 5, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 5,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 5, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 5,
+              "range": 20
+            }
+          }
         }
       }
     },
@@ -308,11 +698,41 @@
       "hasFullDamagedRows": false,
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 2, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 2,
+              "range": 20
+            }
+          }
         }
       }
     },
@@ -323,14 +743,46 @@
       "nameEn": "Ohio",
       "class": "cruise-missile-submarine",
       "hasFullDamagedRows": false,
-      "restrictions": ["拥有6组巡航导弹 (Dispone de 6 grupos de misiles de crucero)."],
+      "restrictions": [
+        "拥有6组巡航导弹 (Dispone de 6 grupos de misiles de crucero)."
+      ],
       "plans": {
         "antiShip": {
-          "A": { "munition": "Harpoon II", "icons": ["munition_subsonic"], "loadFormat": "single", "full": { "damage": 1, "range": 2 } },
-          "B": { "munition": "MST", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+          "A": {
+            "munition": "Harpoon II",
+            "icons": [
+              "munition_subsonic"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 1,
+              "range": 2
+            }
+          },
+          "B": {
+            "munition": "MST",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 6,
+              "range": 20
+            }
+          }
         },
         "landAttack": {
-          "A": { "munition": "Tomahawk", "icons": ["marker_cruise_missile"], "loadFormat": "single", "full": { "damage": 6, "range": 20 } }
+          "A": {
+            "munition": "Tomahawk",
+            "icons": [
+              "marker_cruise_missile"
+            ],
+            "loadFormat": "single",
+            "full": {
+              "damage": 6,
+              "range": 20
+            }
+          }
         }
       }
     }

@@ -14,11 +14,8 @@ const ROUTES = [
   '/#/ayuda/counters/ground/ground-main', '/#/ayuda/municion/jp/attack-plans', '/#/ayuda/municion/jp/attack-plans/jp-f-2ab',
   '/#/turno/fase/1/air-1/preparacion_aerodromo',
   '/#/ayuda/reglas', '/#/ayuda/buscar', '/#/unidades', '/#/historial',
-  '/#/wizard/antiship-guided', '/#/wizard/antiship-unguided', '/#/wizard/ground-close-combat', '/#/wizard/ground-guided',
-  '/#/wizard/ground-unguided', '/#/wizard/ground-attack-result', '/#/wizard/torpedo-surface', '/#/wizard/asw-surface-air',
-  '/#/wizard/asw-submarine', '/#/wizard/asw-air-search', '/#/wizard/asw-signature-search', '/#/wizard/air-intercept-targets',
-  '/#/wizard/air-combat-bvr', '/#/wizard/air-combat-wvr', '/#/wizard/anti-radiation', '/#/wizard/ship-impact-effects',
-  '/#/wizard/army-resupply', '/#/wizard/logistics-guarantee', '/#/wizard/submarine-ambush', '/#/wizard/port-logistics', '/#/wizard/cyber-attack', '/#/wizard/space-war', '/#/wizard/air-mission-group', '/#/perfil-reglas', '/#/wizard/ground-reaction'
+  '/#/perfil-reglas',
+  '/#/decision', '/#/decision/surface.guided.munition', '/#/decision/location.airfield.part', '/#/decision/ext.reaction.cf', '/#/decision/strategic.space.type', '/#/decision/ext.air.organize', '/#/decision/land.guided.roll9', '/#/decision/air.intercept.band', '/#/decision/terminal.surface.guided'
 ];
 
 const SELECTOR = 'button, a[href], input:not([type=hidden]), select, textarea, summary, [role=button], [role=link], [tabindex]:not([tabindex="-1"])';
@@ -67,12 +64,8 @@ for (const route of ROUTES) {
 }
 
 test('los recuadros-botón de factor de ficha y el zoom de iconos cumplen 48 px, también dentro de la ayuda «¿Dónde se lee este valor?»', async ({ page }) => {
-  const { chooseOption, fillField } = require('./wizard-helpers');
-  await page.goto('/#/wizard/ground-attack-result');
-  await fillField(page, 'Puntos de Impacto finales', '10');
-  await chooseOption(page, '¿Qué se ataca?', 'Unidad terrestre (principal o técnica)');
-  await page.getByRole('button', { name: 'Siguiente →' }).click();
-  await page.locator('label.table-viewer__field', { hasText: 'Valor de Protección de la unidad' }).locator('xpath=following-sibling::div[1][contains(@class,"visual-ref")]').getByRole('button').click();
+  await page.goto('/#/decision/location.mobile.cover');
+  await page.getByRole('button', { name: /^Ver en la ficha: Protección/ }).first().click();
   const help = page.locator('#visual-help-panel');
   await expect(help.locator('.ihv__hit').first()).toBeVisible();
   // El visor ajusta el área táctil (48 px) tras medir su tamaño renderizado: se espera a que termine antes de medir.

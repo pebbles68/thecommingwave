@@ -7,6 +7,8 @@
   'use strict';
 
   const { viewRoot, setBreadcrumb, el, renderNotFound, backRow } = AppCore;
+  // Último resultado de cada cálculo de la sesión (por pregunta y ronda), para el resumen que se guarda en el historial.
+  const calcSummaries = new Map();
   const STORAGE_KEY = 'tcw.decisionGraph.session';
 
   let cache = null;
@@ -113,11 +115,11 @@
     const ref = entry.entityRef;
     const factorLabel = ref && ref.factorId && vocab[ref.factorId] ? vocab[ref.factorId].label : null;
     if (!ref) return el('p', 'pending-note', `Ayuda visual pendiente: ${entry.reason || ''}`);
-    const btn = el('button', 'btn btn--secondary decision-graph__factor', factorLabel ? `Ver en la ficha: ${factorLabel}` : 'Ver dónde se lee');
+    const btn = el('button', 'btn btn--secondary decision-graph__factor', entry.buttonLabel || (factorLabel ? `Ver en la ficha: ${factorLabel}` : 'Ver dónde se lee'));
     btn.type = 'button';
     btn.setAttribute('aria-haspopup', 'true');
     // Con plantilla fija (p. ej. avión de combate) el panel abre solo esa ficha, sin las demás del grupo.
-    btn.addEventListener('click', () => { AppVisualHelp.open({ ...ref, ...(templateId ? { scope: undefined, templateId } : {}), fieldLabel: factorLabel || '', refId: entry.id }, btn); });
+    btn.addEventListener('click', () => { AppVisualHelp.open({ ...ref, ...(templateId ? { scope: undefined, templateId } : {}), fieldLabel: entry.fieldLabel || factorLabel || '', refId: entry.id }, btn); });
     return btn;
   }
 
@@ -140,6 +142,8 @@
     const svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('viewBox', `${fx - pad} ${fy - pad} ${fw + pad * 2} ${fh + pad * 2}`);
     svg.setAttribute('class', 'decision-graph__marked-table');
+    // Una tabla pequeña (p. ej. las de la página 21) no se amplía más allá de 1,5 veces su tamaño en la página.
+    svg.style.maxWidth = `${Math.round((fw + pad * 2) * 1.5)}px`;
     svg.setAttribute('role', 'img');
     if (withImage) {
       const image = document.createElementNS(NS, 'image');
@@ -178,7 +182,7 @@
   function loadCalcInputs() { try { return JSON.parse(sessionStorage.getItem(CALC_KEY) || '{}'); } catch (err) { return {}; } }
   function saveCalcInputs(all) { try { sessionStorage.setItem(CALC_KEY, JSON.stringify(all)); } catch (err) { /* sin almacenamiento */ } }
 
-  async function calculatorBlock(data, calc, stateKey, roundNumber, effects) {
+  async function calculatorBlock(data, calc, stateKey, roundNumber, effects, onResult) {
     const box = el('section', 'decision-graph__calc');
     box.appendChild(el('h3', 'decision-graph__subtitle', roundNumber > 1 ? `${calc.title}: ronda ${roundNumber}` : calc.title));
     if (calc.intro) box.appendChild(el('p', 'phase-view__desc', calc.intro));
@@ -187,19 +191,22 @@
     let workflow = null;
     const extra = {};
     let rules = null;
+    // Una página que repite la tabla de otra (`reusesTable`) la toma de la página donde está transcrita; la imagen marcada
+    // sigue siendo la de esta página.
+    const loadTable = async (pageFile, tableId) => {
+      const p = await loadJsonOnce(data.tableData, `/data/tables/${pageFile}`);
+      const found = (p.tables || []).find((t) => t.id === tableId);
+      if (found || !p.reusesTable || p.reusesTable.id !== tableId) return found;
+      return loadTable(p.reusesTable.definedIn.split('/').pop(), tableId);
+    };
     try {
-      const page = await loadJsonOnce(data.tableData, `/data/tables/${calc.table.page}`);
-      table = page.tables.find((t) => t.id === calc.table.tableId);
+      // Un procedimiento sin tabla (p. ej. el resultado sobre un puerto) solo explica el cálculo.
+      if (calc.table) table = await loadTable(calc.table.page, calc.table.tableId);
       if (calc.rules) rules = await loadJsonOnce(data.tableData, `/data/rules/${calc.rules}`);
-      for (const x of calc.extraTables || []) {
-        const p = await loadJsonOnce(data.tableData, `/data/tables/${x.page}`);
-        extra[x.tableId] = p.tables.find((t) => t.id === x.tableId);
-      }
-      if (calc.choices) {
-        const wf = calc.choices.workflow ? await loadJsonOnce(data.workflows, `/data/workflows/${calc.choices.workflow}`) : null;
-        workflow = wf;
-        choices = DecisionGraphCalculators.resolveChoices(wf, calc.choices);
-      }
+      for (const x of calc.extraTables || []) extra[x.tableId] = await loadTable(x.page, x.tableId);
+      const wfFile = calc.workflow || (calc.choices && calc.choices.workflow);
+      if (wfFile) workflow = await loadJsonOnce(data.workflows, `/data/workflows/${wfFile}`);
+      if (calc.choices) choices = DecisionGraphCalculators.resolveChoices(workflow, calc.choices);
     } catch (err) {
       box.appendChild(el('p', 'pending-note', err.message));
       return box;
@@ -224,7 +231,7 @@
       if (def.kind === 'choice') {
         input = el('select');
         input.appendChild(Object.assign(el('option', null, 'Elige…'), { value: '' }));
-        (def.options || choices).forEach((g) => input.appendChild(Object.assign(el('option', null, g.label), { value: g.value })));
+        (DecisionGraphCalculators.fieldOptions(def, workflow, rules) || choices).forEach((g) => input.appendChild(Object.assign(el('option', null, g.label), { value: g.value })));
       } else {
         input = el('input');
         input.type = def.kind === 'text' ? 'text' : 'number';
@@ -239,6 +246,7 @@
       const row = el('div', 'decision-graph__field-row');
       row.appendChild(wrap);
       if (def.visualRef) { const b = openFactorButton(data, def.visualRef, def.visualTemplate); if (b) row.appendChild(b); }
+      if (def.planSource) row.appendChild(planPicker(def, input));
       return row;
     };
 
@@ -262,7 +270,7 @@
     (calc.sharedFields || []).forEach((def) => box.appendChild(field(def, inputs.shared[def.id], (v) => { inputs.shared[def.id] = v; update(); })));
     box.appendChild(resultHost);
 
-    const geometryOf = (tableId) => DecisionGraphCalculators.geometryFor(data.tableHotspots, calc.table.page, tableId);
+    const geometryOf = (tableId) => (calc.table ? DecisionGraphCalculators.geometryFor(data.tableHotspots, calc.table.page, tableId) : null);
     const withImage = await AppVisuals.privateImagesAvailable();
     function update() {
       conditional.forEach((c) => { c.row.hidden = !DecisionGraphCalculators.fieldApplies(c.def, c.values); });
@@ -271,18 +279,20 @@
       resultHost.textContent = '';
       const result = DecisionGraphCalculators.computeWithColumn(calc, { table, choices, extra, rules, workflow }, inputs);
       const anyOk = sides.some((s) => ['ok', 'column'].includes(result.sides[s.id].status));
-      const anyResult = sides.some((s) => result.sides[s.id].status === 'ok');
+      const anyResult = sides.some((s) => result.sides[s.id].status === 'ok') || ((result.summary || []).length > 0 && !result.pending);
       // Un cálculo puede elegir la tabla según una respuesta (p. ej. el evento de la búsqueda aérea).
-      const geometry = geometryOf(result.tableId || calc.table.tableId);
+      const geometry = calc.table ? geometryOf(result.tableId || calc.table.tableId) : null;
       sides.forEach((side) => {
         const r = result.sides[side.id];
         const card = el('div', 'decision-graph__side-result');
         card.style.borderColor = side.color;
         card.appendChild(el('strong', null, side.label));
-        if (r.status === 'incomplete') card.appendChild(el('p', 'source-refs', 'Faltan datos de este bando.'));
+        if (r.status === 'incomplete') card.appendChild(el('p', 'source-refs', side.optional ? 'Opcional: rellénalo solo si dispara.' : 'Faltan datos de este bando.'));
         (r.explanation || []).forEach((t) => card.appendChild(el('p', null, t)));
         resultHost.appendChild(card);
       });
+      // Total de varios disparos (p. ej. la suma de las reducciones de la interceptación).
+      (result.summary || []).forEach((t) => resultHost.appendChild(el('p', 'decision-graph__calc-summary', t)));
       if (anyOk && geometry) {
         const fig = el('figure', 'decision-graph__figure');
         fig.appendChild(markedTable(geometry, result, sides, withImage));
@@ -291,21 +301,98 @@
           : `La imagen de la tabla real (página ${geometry.page}) no está en este servidor: solo se ven las marcas. Abre la tabla transcrita.`);
         fig.appendChild(cap);
         resultHost.appendChild(fig);
-      } else if (anyOk) {
+      } else if (anyOk && calc.table) {
         resultHost.appendChild(el('p', 'pending-note', 'Esta tabla todavía no tiene la rejilla calibrada sobre la página real.'));
       }
       // Tablas extra de la misma página (p. ej. guerra electrónica), con la celda del bando que la consulta.
       (result.extraMarks || []).forEach((xm) => {
-        const g = DecisionGraphCalculators.geometryFor(data.tableHotspots, calc.table.page, xm.tableId);
+        const xPage = ((calc.extraTables || []).find((x) => x.tableId === xm.tableId) || calc.table).page;
+        const g = DecisionGraphCalculators.geometryFor(data.tableHotspots, xPage, xm.tableId);
         if (!g) return;
         const fig = el('figure', 'decision-graph__figure decision-graph__figure--extra');
         fig.appendChild(markedTable(g, result, sides, withImage, { [xm.sideId]: xm.mark }));
         fig.appendChild(el('figcaption', 'source-refs', `Tabla real, página ${g.page}: ${(extra[xm.tableId] || {}).title || xm.tableId}.`));
         resultHost.appendChild(fig);
       });
-      if (anyResult && calc.afterResult) resultHost.appendChild(el('p', 'phase-view__desc', calc.afterResult));
+      if (anyResult && !result.pending) {
+        calcSummaries.set(stateKey, [calc.title].concat(sides.filter((s) => result.sides[s.id].status !== 'unused' && result.sides[s.id].explanation).map((s) => `${s.label}: ${result.sides[s.id].explanation.join(' ')}`), result.summary || []));
+        if (onResult) onResult();
+      }
+      if (anyResult && !result.pending && calc.afterResult) resultHost.appendChild(el('p', 'phase-view__desc', calc.afterResult));
     }
     update();
+    return box;
+  }
+
+  // Selector de unidad y plan de ataque (data/ammunition/*): rellena el campo con el valor transcrito del plan elegido.
+  // `planSource`: «attack-value» (Valor de Ataque del plan, del dominio `planDomain`) o «naval-artillery» (número
+  // arriba a la derecha del perfil del barco). Con `planSum` el valor se suma al que ya hay (p. ej. toda la flota).
+  function planPicker(def, input) {
+    const box = el('details', 'decision-graph__plan');
+    box.appendChild(el('summary', null, def.planSource === 'naval-artillery' ? 'Tomar del plan de ataque del buque' : 'Tomar del plan de ataque'));
+    const country = el('select');
+    const category = el('select');
+    const unitSel = el('select');
+    const planSel = el('select');
+    const note = el('p', 'source-refs');
+    const use = el('button', 'btn btn--secondary', def.planSum ? 'Sumar este valor' : 'Usar este valor');
+    use.type = 'button';
+    use.disabled = true;
+    const opt = (sel, value, label) => sel.appendChild(Object.assign(el('option', null, label), { value }));
+    const label = (text, control) => { const w = el('label', 'decision-graph__field'); w.appendChild(el('span', null, text)); w.appendChild(control); return w; };
+    opt(country, '', 'Elige…');
+    AppData.AMMO_COUNTRIES.forEach((c) => opt(country, c.id, c.label));
+    const cats = def.planSource === 'naval-artillery' ? AppData.AMMO_CATEGORIES.filter((c) => c.id === 'naval') : AppData.AMMO_CATEGORIES;
+    opt(category, '', 'Elige…');
+    cats.forEach((c) => opt(category, c.id, c.title));
+    if (cats.length === 1) category.value = cats[0].id;
+    let units = [];
+    let choices = [];
+    const reset = (sel) => { sel.textContent = ''; opt(sel, '', 'Elige…'); };
+    async function loadUnits() {
+      reset(unitSel); reset(planSel); use.disabled = true; note.textContent = '';
+      const cat = cats.find((c) => c.id === category.value);
+      if (!country.value || !cat) return;
+      try {
+        const file = await AppData.loadAmmoFile(cat.dir, country.value);
+        units = cat.groups.flatMap((g) => file[g.key] || []);
+        if (def.planSource === 'naval-artillery') units = (file.surfaceShips || []).filter((u) => u.shipBadge !== undefined && u.shipBadge !== null);
+        units.forEach((u, i) => opt(unitSel, String(i), u.name || u.id));
+      } catch (err) { note.textContent = err.message; }
+    }
+    function loadPlans() {
+      reset(planSel); use.disabled = true; note.textContent = '';
+      const u = units[Number(unitSel.value)];
+      if (!u || unitSel.value === '') return;
+      if (def.planSource === 'naval-artillery') {
+        note.textContent = `Artillería Naval de ${u.name}: ${u.shipBadge}.`;
+        use.disabled = !/^\d+$/.test(String(u.shipBadge));
+        if (use.disabled) note.textContent += ' No es un número único: escríbelo a mano.';
+        return;
+      }
+      choices = DecisionGraphCalculators.planChoices(u, def.planDomain);
+      choices.forEach((c, i) => opt(planSel, String(i), c.label));
+      if (!choices.length) note.textContent = 'Esta unidad no tiene planes con valor transcrito para este ataque.';
+    }
+    country.addEventListener('change', loadUnits);
+    category.addEventListener('change', loadUnits);
+    unitSel.addEventListener('change', loadPlans);
+    planSel.addEventListener('change', () => {
+      const c = choices[Number(planSel.value)];
+      use.disabled = !c || planSel.value === '';
+      note.textContent = c ? `${c.label}.${def.planNote ? ` ${def.planNote}` : ''}` : '';
+    });
+    use.addEventListener('click', () => {
+      const value = def.planSource === 'naval-artillery' ? Number(units[Number(unitSel.value)].shipBadge) : choices[Number(planSel.value)].value;
+      input.value = String(def.planSum && input.value !== '' ? Number(input.value) + value : value);
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    box.appendChild(label('País', country));
+    if (cats.length > 1) box.appendChild(label('Tipo de unidad', category));
+    box.appendChild(label(def.planSource === 'naval-artillery' ? 'Buque' : 'Unidad', unitSel));
+    if (def.planSource !== 'naval-artillery') box.appendChild(label('Plan de ataque', planSel));
+    box.appendChild(note);
+    box.appendChild(use);
     return box;
   }
 
@@ -320,6 +407,7 @@
 
   async function renderDecisionGraph(startNodeId, entryId) {
     const navToken = Router.currentToken();
+    calcSummaries.clear();
     setBreadcrumb(['TCW Assistant', 'Asistente de combate']);
     viewRoot.innerHTML = '<p class="loading">Cargando…</p>';
     let data;
@@ -343,6 +431,7 @@
     const wrap = el('div', 'decision-graph');
     wrap.appendChild(el('h1', 'help-detail__title', 'Asistente de combate'));
     wrap.appendChild(el('p', 'phase-view__desc', 'Responde una pregunta cada vez: el asistente te lleva al procedimiento y a la tabla que corresponden. Puedes cambiar cualquier respuesta anterior; lo que venía después se descarta.'));
+    AppCore.mountTurnOrigin(wrap);
     if (entry) wrap.appendChild(el('p', 'decision-graph__entry', `Empiezas en: ${entry.title}. Las respuestas que la página da por puestas aparecen arriba y puedes cambiarlas.`));
     if (graph.reviewStatus === 'needs_review') wrap.appendChild(el('p', 'source-refs', 'Árbol de decisión pendiente de revisión por el mantenedor.'));
     const body = el('div', 'decision-graph__body');
@@ -351,9 +440,41 @@
     viewRoot.innerHTML = '';
     viewRoot.appendChild(wrap);
 
+    // Resolución ligada al nodo del turno desde el que se abrió (como hacían los wizards): aparece como «Resolución activa»
+    // en esa subfase hasta que se guarda o se cancela, y «Volver a la resolución» abre esta misma ruta.
+    const turnCtx = AppCore.getLastTurnContext();
+    const resolutionId = turnCtx && turnCtx.resolutionNodeId ? TurnProgressEngine.makeResolutionId('decision', turnCtx.band, turnCtx.resolutionNodeId) : null;
+    function linkToTurn() {
+      if (!resolutionId) return;
+      AppCore.registerPendingResolution({ id: resolutionId, type: 'decision', band: turnCtx.band, nodeId: turnCtx.resolutionNodeId, phaseId: turnCtx.phaseId, subphaseId: turnCtx.subphaseId, label: `Asistente de combate${entry ? `: ${entry.title}` : ''}`, resumeHash: location.hash });
+      AppStorage.saveDraft(`decision:${resolutionId}`, { hash: location.hash, session }, resolutionId);
+    }
+    function summaryText(node) {
+      const lines = ['Asistente de combate', node.title || node.question];
+      session.history.forEach((h) => lines.push(`${h.question} → ${h.answer}`));
+      DecisionGraphEngine.accumulatedEffects(session).forEach((e) => lines.push(`• ${e.text}`));
+      calcSummaries.forEach((l) => lines.push('', ...l));
+      return lines.join('\n');
+    }
+    function saveRow(node) {
+      const row = el('div', 'action-row');
+      const save = el('button', 'btn btn--primary', '💾 Guardar en el historial');
+      save.type = 'button';
+      const done = el('span', 'source-refs');
+      save.addEventListener('click', () => {
+        AppCore.saveResolutionToHistory({ workflowId: 'decision', workflowTitle: `Asistente de combate: ${node.title || node.question}`, summaryText: summaryText(node), state: { route: location.hash, session, calcInputs: loadCalcInputs(), calculators: Object.fromEntries(calcSummaries) } });
+        if (resolutionId) AppCore.removePendingResolution(resolutionId);
+        done.textContent = resolutionId ? 'Guardada en el historial y quitada de las resoluciones activas del turno.' : 'Guardada en el historial.';
+      });
+      row.appendChild(save);
+      row.appendChild(done);
+      return row;
+    }
+
     function update(next) {
       session = next;
       saveSession(session);
+      if (session.history.some((h) => !h.preset)) linkToTurn();
       // Quita el foco antes de redibujar (mismo arreglo que en los wizards, commit faf97d0).
       if (document.activeElement && body.contains(document.activeElement)) document.activeElement.blur();
       draw();
@@ -408,12 +529,7 @@
       body.appendChild(el('h2', 'combat-guide__question', node.question));
       const factors = factorBlock(data, node.id);
       if (factors) body.appendChild(factors);
-      const calcDef = DecisionGraphCalculators.calculatorForNode(data.calculators, node.id);
-      if (calcDef) {
-        const host = el('div');
-        body.appendChild(host);
-        calculatorBlock(data, calcDef, `${node.id}#${repeats}`, repeats + 1, DecisionGraphEngine.accumulatedEffects(session)).then((block) => host.appendChild(block));
-      }
+      calculatorsHere(node, repeats);
       // Pregunta en la que se cruza una tabla: el cálculo de ese paso, sin perder el recorrido (la sesión se recuerda).
       const calc = DecisionGraphEngine.nodeLinks(links, node.id);
       if (calc.length) {
@@ -425,7 +541,11 @@
         body.appendChild(box);
       }
       const list = el('div', 'help-list decision-graph__options');
+      // Respuestas de reglas opcionales o de la expansión: solo si el perfil de reglas las activa.
+      const profile = AppCore.loadRuleProfile();
+      const hidden = node.routes.filter((route) => !RuleProfileEngine.isAvailable(route, profile));
       node.routes.forEach((route, i) => {
+        if (hidden.includes(route)) return;
         const btn = el('button', 'help-card decision-graph__option');
         btn.type = 'button';
         btn.appendChild(el('span', 'help-card__title', route.answer));
@@ -433,9 +553,27 @@
         list.appendChild(btn);
       });
       body.appendChild(list);
+      if (hidden.length) {
+        const note = el('p', 'source-refs', `No se ofrece por tu perfil de reglas: ${hidden.map((r) => r.answer).join(', ')}. `);
+        const change = el('button', 'btn btn--secondary', 'Cambiar el perfil de reglas');
+        change.type = 'button';
+        change.addEventListener('click', () => { location.hash = '#/perfil-reglas'; });
+        note.appendChild(change);
+        body.appendChild(note);
+      }
       // La tabla de la página citada, abierta si la pregunta es la del cruce (tirada o tabla), plegada si no.
       const crossing = repeats > 0 || DecisionGraphEngine.nodeLinks(links, node.id).length > 0 || /d10|tabla|cruz|Tras resolver|ronda/i.test(node.question);
       DecisionGraphEngine.tablePagesFromSource(node.source, 3).forEach((page) => body.appendChild(tablePageBlock(data, page, crossing)));
+    }
+
+    // Cálculos de esta pregunta o resultado (puede haber varios), en el orden de los datos.
+    function calculatorsHere(node, repeats) {
+      DecisionGraphCalculators.calculatorsForNode(data.calculators, node.id).forEach((calcDef) => {
+        const host = el('div');
+        body.appendChild(host);
+        const key = calcDef.id === DecisionGraphCalculators.calculatorForNode(data.calculators, node.id).id ? `${node.id}#${repeats}` : `${node.id}:${calcDef.id}#${repeats}`;
+        calculatorBlock(data, calcDef, key, repeats + 1, DecisionGraphEngine.accumulatedEffects(session), linkToTurn).then((block) => host.appendChild(block));
+      });
     }
 
     function drawTerminal(node) {
@@ -446,6 +584,8 @@
       const ul = el('ul', 'decision-graph__instructions');
       node.instructions.forEach((text) => ul.appendChild(el('li', null, text)));
       body.appendChild(ul);
+      calculatorsHere(node, 0);
+      if (!illegal) body.appendChild(saveRow(node));
       const target = DecisionGraphEngine.terminalLinks(links, node.id);
       if (target.wizards.length || target.tables.length) {
         body.appendChild(el('h3', 'decision-graph__subtitle', 'Hacer el cálculo'));
@@ -508,6 +648,19 @@
     return key ? assistantHash('wizards', key) : null;
   }
 
+  // Ruta antigua de un wizard retirado (#/wizard/<id>): el punto del asistente que lo sustituye, o su inicio.
+  async function redirectFromWizard(slug) {
+    const target = (await assistantHashForWizardHash(`#/wizard/${slug}`)) || '#/decision';
+    location.replace(target);
+  }
+
+  // «Repetir» del historial: vuelve a la misma pregunta con las mismas respuestas y los mismos datos de los cálculos.
+  function restoreFromHistory(state) {
+    if (state && state.session) saveSession(state.session);
+    if (state && state.calcInputs) saveCalcInputs(state.calcInputs);
+    location.hash = (state && state.route) || '#/decision';
+  }
+
   root.Views = root.Views || {};
-  root.Views.DecisionGraph = { renderDecisionGraph, entryCard, assistantHash, assistantHashForWizardHash };
+  root.Views.DecisionGraph = { renderDecisionGraph, entryCard, assistantHash, assistantHashForWizardHash, redirectFromWizard, restoreFromHistory };
 })(typeof window !== 'undefined' ? window : globalThis);

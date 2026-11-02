@@ -1,13 +1,13 @@
-// Pasada de calidad: ninguna pantalla de los wizards de las Fases 11, 13 y 14 ni del perfil de reglas muestra
+// Pasada de calidad: ninguna pantalla de los procedimientos de las Fases 11, 13 y 14 (ahora en el asistente) ni del perfil de reglas muestra
 // restos de programación («undefined», «NaN», «[object», «null»).
 const { test, expect } = require('./fixtures');
 
 const ROUTES = [
-  '/#/wizard/submarine-ambush',
-  '/#/wizard/port-logistics',
-  '/#/wizard/cyber-attack',
-  '/#/wizard/space-war',
-  '/#/wizard/air-mission-group',
+  '/#/decision/ext.ambush.event',
+  '/#/decision/ext.port.ship_repair',
+  '/#/decision/strategic.cyber.compare',
+  '/#/decision/strategic.space.type',
+  '/#/decision/ext.air.organize',
   '/#/perfil-reglas',
   '/#/turno/fase/1/air-1/paralisis_red',
   '/#/turno/fase/0/logistica',

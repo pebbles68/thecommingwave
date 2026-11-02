@@ -302,6 +302,331 @@
         "canonical"
       ],
       "columnEdges": "detected"
+    },
+    {
+      "page": 3,
+      "tableId": "ground-guided-area-air-defense",
+      "searchY": [
+        0.56,
+        0.97
+      ],
+      "columns": 10,
+      "rows": 11,
+      "headerSchemes": [
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 11,
+      "tableId": "ground-guided-area-air-defense",
+      "searchY": [
+        0.4,
+        0.97
+      ],
+      "columns": 10,
+      "rows": 11,
+      "headerSchemes": [
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 19,
+      "tableId": "ground-guided-area-air-defense",
+      "searchY": [
+        0.545,
+        0.97
+      ],
+      "columns": 10,
+      "rows": 11,
+      "headerSchemes": [
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 4,
+      "tableId": "munition-interception-standard",
+      "searchY": [
+        0.54,
+        0.95
+      ],
+      "columns": 9,
+      "rows": 10,
+      "headerSchemes": [
+        "low",
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 12,
+      "tableId": "munition-interception-standard",
+      "searchY": [
+        0.5,
+        0.97
+      ],
+      "columns": 9,
+      "rows": 10,
+      "headerSchemes": [
+        "low",
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 20,
+      "tableId": "munition-interception-standard",
+      "searchY": [
+        0.525,
+        0.96
+      ],
+      "columns": 9,
+      "rows": 10,
+      "headerSchemes": [
+        "low",
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 8,
+      "tableId": "munition-interception-unguided",
+      "searchY": [
+        0.285,
+        0.7
+      ],
+      "columns": 9,
+      "rows": 11,
+      "headerSchemes": [
+        "low",
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 24,
+      "tableId": "munition-interception-unguided",
+      "searchY": [
+        0.315,
+        0.765
+      ],
+      "columns": 9,
+      "rows": 11,
+      "headerSchemes": [
+        "low",
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 7,
+      "tableId": "ground-unguided-final-interception",
+      "searchY": [
+        0.36,
+        0.76
+      ],
+      "columns": 10,
+      "rows": 10,
+      "headerSchemes": [
+        "canonical",
+        "high"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 23,
+      "tableId": "ground-unguided-final-interception",
+      "searchY": [
+        0.395,
+        0.745
+      ],
+      "columns": 10,
+      "rows": 10,
+      "headerSchemes": [
+        "canonical",
+        "high"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 18,
+      "tableId": "area-air-defense-concentrated-damage",
+      "searchY": [
+        0.445,
+        0.86
+      ],
+      "columns": 14,
+      "rows": 10,
+      "headerSchemes": [
+        "low",
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 21,
+      "tableId": "antiship-guided-vef-modifier",
+      "searchY": [
+        0.14,
+        0.32
+      ],
+      "searchX": [
+        0.6,
+        0.77
+      ],
+      "columns": 1,
+      "rows": 5,
+      "headerSchemes": [
+        "canonical"
+      ],
+      "headerIndex": 0
+    },
+    {
+      "page": 21,
+      "tableId": "antiship-guided-attack-multiplier",
+      "searchY": [
+        0.11,
+        0.34
+      ],
+      "searchX": [
+        0.775,
+        0.93
+      ],
+      "columns": 1,
+      "rows": 6,
+      "headerSchemes": [
+        "canonical"
+      ],
+      "headerIndex": 1
+    },
+    {
+      "page": 6,
+      "tableId": "low-altitude-counterattack",
+      "searchY": [
+        0.6,
+        0.95
+      ],
+      "searchX": [
+        0.47,
+        0.96
+      ],
+      "columns": 5,
+      "rows": 10,
+      "headerSchemes": [
+        "air_defense_system",
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 10,
+      "tableId": "low-altitude-counterattack",
+      "searchY": [
+        0.15,
+        0.55
+      ],
+      "searchX": [
+        0.47,
+        0.96
+      ],
+      "columns": 5,
+      "rows": 10,
+      "headerSchemes": [
+        "air_defense_system",
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 14,
+      "tableId": "anti-radiation-low-altitude-counterattack",
+      "searchY": [
+        0.14,
+        0.55
+      ],
+      "searchX": [
+        0.5,
+        0.96
+      ],
+      "columns": 2,
+      "rows": 10,
+      "headerSchemes": [
+        "canonical"
+      ],
+      "separatorIndex": 1
+    },
+    {
+      "page": 22,
+      "tableId": "surface-artillery-low-altitude-counterattack",
+      "searchY": [
+        0.58,
+        0.97
+      ],
+      "searchX": [
+        0.5,
+        0.96
+      ],
+      "columns": 5,
+      "rows": 10,
+      "headerSchemes": [
+        "canonical"
+      ]
+    },
+    {
+      "page": 26,
+      "tableId": "surface-artillery-low-altitude-counterattack",
+      "searchY": [
+        0.17,
+        0.6
+      ],
+      "searchX": [
+        0.48,
+        0.96
+      ],
+      "columns": 5,
+      "rows": 10,
+      "headerSchemes": [
+        "canonical"
+      ]
+    },
+    {
+      "page": 15,
+      "tableId": "air-combat-initiative-drm",
+      "searchY": [
+        0.485,
+        0.665
+      ],
+      "searchX": [
+        0.05,
+        0.225
+      ],
+      "columns": 1,
+      "rows": 5,
+      "headerSchemes": [
+        "canonical"
+      ],
+      "headerIndex": 0
+    },
+    {
+      "page": 15,
+      "tableId": "air-combat-bvr-outcome",
+      "searchY": [
+        0.5,
+        0.63
+      ],
+      "searchX": [
+        0.22,
+        0.94
+      ],
+      "columns": 2,
+      "rows": 3,
+      "headerSchemes": [
+        "canonical"
+      ],
+      "headerIndex": 0,
+      "columnEdges": "detected"
     }
   ]
 }

@@ -974,6 +974,7 @@ button {
 .decision-graph__figure--extra .decision-graph__marked-table { max-width: 420px; }
 .decision-graph__marked-table { display: block; width: 100%; max-width: 900px; height: auto; background: #fff; border-radius: var(--radius); }
 .decision-graph__calc-result > .phase-view__desc, .decision-graph__calc-result > .pending-note { grid-column: 1 / -1; }
+.decision-graph__calc-summary { grid-column: 1 / -1; margin: 0; font-weight: 600; }
 .counter-viewer__real-title { margin: 0 0 6px; font-weight: 700; }
 .counter-viewer--real > .ihv .ihv__stage { max-width: 420px; }
 .counter-viewer__sample { margin-top: 10px; }
@@ -1015,3 +1016,7 @@ button {
 .decision-graph__change { min-height: var(--touch-min, 48px); }
 .decision-graph__effects { margin-top: 16px; padding: 10px 14px; border-left: 4px solid var(--accent); background: var(--panel-alt); border-radius: 0 var(--radius) var(--radius) 0; }
 .decision-graph__effects ul, .decision-graph__instructions { margin: 6px 0; padding-left: 20px; }
+
+/* Selector de unidad y plan de ataque junto a un campo del asistente. */
+.decision-graph__plan { flex-basis: 100%; margin: 4px 0 8px; }
+.decision-graph__plan > summary { min-height: var(--touch-min, 48px); display: flex; align-items: center; cursor: pointer; }

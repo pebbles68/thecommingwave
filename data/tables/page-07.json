@@ -23,7 +23,9 @@
       "rowAxis": { "label": "Tirada (d10)", "values": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"] },
       "columnAxis": {
         "label": "Valor de Defensa Aérea (total de las unidades de ese consumo — Bajo o Alto, resueltos por separado y sumados, ver notes)",
-        "values": ["1", "2~3", "4~5", "6~7", "8~9", "10~11", "12~13", "14~15", "16~17", "18+"]
+        "values": ["1", "2~3", "4~5", "6~7", "8~9", "10~11", "12~13", "14~15", "16~17", "18+"],
+        "alternateLabelSets": { "high": [null, "1", "2", "3", "4", "5", "6", "7", "8", "9+"] },
+        "schemeNotes": { "canonical": "Fila «Bajo» de la cabecera (Todos los tipos).", "high": "Fila «Alto» de la cabecera (iconos de consumo Alto): «·» sobre la primera columna, luego 1, 2… 8 y 9+. Añadida el 2026-11-02 al calibrar la página real: la transcripción anterior solo tenía la fila Bajo y resolvía el A.A. de consumo Alto con las etiquetas de Bajo (ver docs/rules/known-ambiguities.md)." }
       },
       "cellLegend": { ".": "Sin impactos" },
       "cells": [

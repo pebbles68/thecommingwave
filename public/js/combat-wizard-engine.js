@@ -324,7 +324,9 @@
       shots.low = tableEngine.resolveCell(finalInterceptionTable, roll, aaTotalLow);
     }
     if (aaTotalHigh !== undefined && aaTotalHigh !== null && aaTotalHigh > 0) {
-      shots.high = tableEngine.resolveCell(finalInterceptionTable, roll, aaTotalHigh);
+      // La cabecera impresa tiene dos filas (Tablas-de-combate 5.pdf p.7 y p.23): «Bajo» (1, 2~3… 18+) y «Alto» (·, 1, 2…
+      // 8, 9+). El A.A. total de consumo Alto se lee con su fila (esquema «high»), no con las etiquetas de Bajo.
+      shots.high = tableEngine.resolveCell(finalInterceptionTable, roll, aaTotalHigh, finalInterceptionTable.columnAxis.alternateLabelSets && finalInterceptionTable.columnAxis.alternateLabelSets.high ? { columnScheme: "high" } : undefined);
     }
     let totalImpacts = 0;
     Object.keys(shots).forEach((key) => {
