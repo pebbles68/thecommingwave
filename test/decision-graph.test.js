@@ -786,3 +786,30 @@ test('Valor de Ataque del plan menos las defensas ya calculadas en el recorrido;
   assert.equal(Calc.defenseReductions(calc, history, { 'land.guided.area#0': { outcome: { reduction: -2 } } }).pending, true);
   assert.ok(calc.fields.find((f) => f.id === 'attackPlan').derives === 'attack');
 });
+
+test('distancia de ataque: la respuesta que encaja depende de los hexágonos y de si la misión es de Área', () => {
+  const dist = readJson('data/routing/decision-graph-distance.json');
+  Object.entries(dist.nodes).forEach(([id, bands]) => assert.equal(bands.length, fullGraph.nodes[id].routes.length, id));
+  const land = dist.nodes['land.guided.mobile_distance'];
+  assert.equal(Calc.distanceAnswerIndex(land, '1', 'point'), 1);
+  assert.equal(Calc.distanceAnswerIndex(land, '1', 'area'), 0);
+  assert.equal(Calc.distanceAnswerIndex(land, '2', 'area'), 1);
+  assert.equal(Calc.distanceAnswerIndex(land, '5', 'point'), 2);
+  assert.equal(Calc.distanceAnswerIndex(land, '1', ''), -1);
+  assert.equal(Calc.distanceAnswerIndex(dist.nodes['surface.guided.range'], '6', 'area'), 1);
+});
+
+test('grupo de misión: suma de Combate aéreo, Protecciones y aviones del orden BVR, solo unidades en combate', () => {
+  const Group = require('../public/js/air-mission-group.js');
+  const g = Group.emptyGroup();
+  g.sides.A.units.push(Group.newUnit({ airCombatValue: '3', protection: '2', electronic: '4' }), Group.newUnit({ airCombatValue: '2', protection: '1', status: 'withdrawn' }));
+  g.sides.B.units.push(Group.newUnit({ airCombatValue: '5', protection: '3', electronic: '6', detected: 'yes' }));
+  g.sides.B.eea = 'yes';
+  assert.deepEqual(Calc.groupValues(g, 'wvr-ca', ['A', 'B']).sides, { A: { airCombatValue: '3' }, B: { airCombatValue: '5' } });
+  assert.deepEqual(Calc.groupValues(g, 'protections', ['A', 'B']).sides, { A: { protections: '2' }, B: { protections: '3' } });
+  const bvr = Calc.groupValues(g, 'bvr-units', ['P1', 'P2', 'P3']);
+  assert.equal(bvr.sides.P2.side, 'B');
+  assert.equal(bvr.sides.P2.detected, 'yes');
+  assert.deepEqual(bvr.sides.P3, {});
+  assert.equal(bvr.shared.eeaB, 'yes');
+});

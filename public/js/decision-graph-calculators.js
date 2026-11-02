@@ -1154,6 +1154,38 @@
     return { total, pending, lines };
   }
 
+  // Respuesta de una pregunta de distancia (data/routing/decision-graph-distance.json) que encaja con la distancia en
+  // hexágonos y el tipo de misión ('area' | 'point'). Devuelve el índice de la respuesta o -1 si no encaja o falta algo.
+  function distanceAnswerIndex(bands, distance, missionType) {
+    const d = Number(distance);
+    if (!bands || distance === '' || distance === undefined || distance === null || Number.isNaN(d) || d < 0 || !['area', 'point'].includes(missionType)) return -1;
+    return bands.findIndex((b) => { const [min, max] = b[missionType]; return d >= min && (max === null || d <= max); });
+  }
+
+  // Grupo de misión aéreo → valores de un cálculo (solo unidades «En combate»). `kind`: 'wvr-ca' (Combate aéreo sumado
+  // por bando), 'protections' (Protección de cada unidad por bando) o 'bvr-units' (aviones del orden de elección BVR).
+  function groupValues(group, kind, sideIds) {
+    const active = (k) => ((group.sides[k] || {}).units || []).filter((u) => u.status === 'active');
+    const sideKey = (i) => ['A', 'B'][i];
+    if (kind === 'bvr-units') {
+      const units = active('A').map((u) => ({ ...u, side: 'A' })).concat(active('B').map((u) => ({ ...u, side: 'B' })));
+      const sides = {};
+      sideIds.forEach((id, i) => { const u = units[i]; sides[id] = u ? { side: u.side, electronic: u.electronic, detected: u.detected, ew: u.ew } : {}; });
+      return { sides, shared: { eeaA: group.sides.A.eea, eeaB: group.sides.B.eea }, missing: units.length > sideIds.length ? units.length - sideIds.length : 0 };
+    }
+    const sides = {};
+    sideIds.forEach((id, i) => {
+      const us = active(sideKey(i));
+      if (kind === 'wvr-ca') {
+        const values = us.map((u) => Number(u.airCombatValue)).filter((n) => !Number.isNaN(n) && String(n) !== '');
+        sides[id] = us.length ? { airCombatValue: String(values.reduce((a, b) => a + b, 0)) } : {};
+      } else {
+        sides[id] = us.length ? { protections: us.map((u) => u.protection).filter((p) => p !== '').join(' ') } : {};
+      }
+    });
+    return { sides, shared: {}, missing: 0 };
+  }
+
   function compute(calculator, context, inputs) {
     if (calculator.engine === 'bvr-initiative') return computeBvrInitiative(calculator, context.table, inputs, context.workflow, context.extra || {});
     if (calculator.engine === 'attack-intensity') return computeIntensity(calculator, inputs, context.workflow);
@@ -1253,5 +1285,5 @@
     return ((hotspots && hotspots.tables) || []).find((t) => t.page === n && t.tableId === tableId) || null;
   }
 
-  return { defenseReductions, planChoices, calculatorForNode, calculatorsForNode, computeBvrInitiative, computeIntensity, computeReaction, computeAmbush, computePortLogistics, computeGuarantee, computeCyberAttack, computeSpace, computeBvrSelection, computeFleetImpact, computeWvrAbsorption, computeEwEscort, computeLowAltitude, computeNavalArtillery, computeGroundUnitHit, computePortAttack, computeAirfield, computeShipImpact, findKey, resolveChoices, fieldApplies, fieldOptions, fieldModifiers, computeAreaReduction, computeMunitionInterception, computeFinalInterception, computeVefMultiplier, computeAreaShot, computeWvrRound, computeBvrAttack, computeGroundCloseCombat, computeAsw, computeSignatureSearch, computeAirSearch, computeTorpedo, computeArmyResupply, computeGroundGuided, computeAntiRadiation, computeAntishipGuidedFinal, computeAntishipUnguided, computeStrategicRolls, columnShiftFromEffects, compute, computeWithColumn, markRects, geometryFor };
+  return { distanceAnswerIndex, groupValues, defenseReductions, planChoices, calculatorForNode, calculatorsForNode, computeBvrInitiative, computeIntensity, computeReaction, computeAmbush, computePortLogistics, computeGuarantee, computeCyberAttack, computeSpace, computeBvrSelection, computeFleetImpact, computeWvrAbsorption, computeEwEscort, computeLowAltitude, computeNavalArtillery, computeGroundUnitHit, computePortAttack, computeAirfield, computeShipImpact, findKey, resolveChoices, fieldApplies, fieldOptions, fieldModifiers, computeAreaReduction, computeMunitionInterception, computeFinalInterception, computeVefMultiplier, computeAreaShot, computeWvrRound, computeBvrAttack, computeGroundCloseCombat, computeAsw, computeSignatureSearch, computeAirSearch, computeTorpedo, computeArmyResupply, computeGroundGuided, computeAntiRadiation, computeAntishipGuidedFinal, computeAntishipUnguided, computeStrategicRolls, columnShiftFromEffects, compute, computeWithColumn, markRects, geometryFor };
 });

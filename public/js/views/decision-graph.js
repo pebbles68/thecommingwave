@@ -24,10 +24,12 @@
       fetch('/data/routing/decision-graph-calculators.json').then((r) => (r.ok ? r.json() : { calculators: {} })),
       fetch('/data/image-hotspots/table-pages.json').then((r) => (r.ok ? r.json() : { tables: [] }))
     ]);
+    const distance = await fetch('/data/routing/decision-graph-distance.json').then((r) => (r.ok ? r.json() : { nodes: {} })).catch(() => ({ nodes: {} }));
+    const missions = await AppData.loadAirMissions().catch(() => null);
     const factorMap = await AppData.loadFactorMap().catch(() => null);
     // Ramas añadidas para los procedimientos que el árbol original no cubre (Fase 25, AD-005).
     const graph = DecisionGraphEngine.mergeExtensions(baseGraph, extensions);
-    cache = { graph, links, entrypoints, nodeRefs, visualRefs, calculators, tableHotspots, factorMap, pageTitles: new Map(), tableData: new Map(), workflows: new Map() };
+    cache = { graph, links, entrypoints, nodeRefs, visualRefs, calculators, tableHotspots, factorMap, distance, missions, pageTitles: new Map(), tableData: new Map(), workflows: new Map() };
     return cache;
   }
 
@@ -179,6 +181,11 @@
   // Cálculo dentro de la pregunta (data/routing/decision-graph-calculators.json): factores de cada bando con su ficha,
   // resultado explicado y tabla real marcada. Lo escrito se recuerda por pregunta y ronda.
   const CALC_KEY = 'tcw.decisionGraph.calc';
+  const MISSION_KEY = 'tcw.decisionGraph.mission';
+  // Preguntas donde se pide la misión del ataque (ataques aire-superficie y aire-tierra) y donde se edita el grupo de
+  // misión aéreo (interceptación y combate aéreo).
+  const MISSION_NODES = /^(land\.(guided|unguided|arm)|surface\.(guided|unguided))\./;
+  const GROUP_NODES = /^(air\.intercept\.|ext\.air\.)/;
   function loadCalcInputs() { try { return JSON.parse(sessionStorage.getItem(CALC_KEY) || '{}'); } catch (err) { return {}; } }
   function saveCalcInputs(all) { try { sessionStorage.setItem(CALC_KEY, JSON.stringify(all)); } catch (err) { /* sin almacenamiento */ } }
 
@@ -284,8 +291,33 @@
       });
       grid.appendChild(fs);
     });
+    if (calc.groupLoad) {
+      const load = el('button', 'btn btn--secondary', 'Cargar del grupo de misión');
+      load.type = 'button';
+      const info = el('span', 'source-refs');
+      load.addEventListener('click', () => {
+        const g = DecisionGraphCalculators.groupValues(AppCore.loadAirGroup(), calc.groupLoad, sides.map((s) => s.id));
+        const put = (key, value) => {
+          const target = inputEls[key];
+          if (!target || value === undefined) return;
+          target.value = value;
+          target.dispatchEvent(new Event(target.tagName === 'SELECT' ? 'change' : 'input', { bubbles: true }));
+        };
+        Object.entries(g.sides).forEach(([sid, vals]) => Object.entries(vals).forEach(([k, v]) => put(`${sid}:${k}`, v)));
+        Object.entries(g.shared).forEach(([k, v]) => put(`shared:${k}`, v));
+        info.textContent = g.missing ? `Cargado; ${g.missing} avión(es) del grupo no caben aquí.` : 'Cargado del grupo de misión (solo las unidades «En combate»).';
+      });
+      const row = el('div', 'action-row');
+      row.appendChild(load);
+      row.appendChild(info);
+      box.appendChild(row);
+    }
     box.appendChild(grid);
-    (calc.sharedFields || []).forEach((def) => box.appendChild(field(def, inputs.shared[def.id], (v) => { inputs.shared[def.id] = v; update(); })));
+    (calc.sharedFields || []).forEach((def) => {
+      const row = field(def, inputs.shared[def.id], (v) => { inputs.shared[def.id] = v; update(); });
+      inputEls[`shared:${def.id}`] = row.querySelector('input, select');
+      box.appendChild(row);
+    });
     box.appendChild(resultHost);
 
     const geometryOf = (tableId) => (calc.table ? DecisionGraphCalculators.geometryFor(data.tableHotspots, calc.table.page, tableId) : null);
@@ -552,6 +584,10 @@
       body.appendChild(el('h2', 'combat-guide__question', node.question));
       const factors = factorBlock(data, node.id);
       if (factors) body.appendChild(factors);
+      if (MISSION_NODES.test(node.id)) body.appendChild(missionBlock());
+      const distanceBands = (data.distance.nodes || {})[node.id];
+      if (distanceBands) body.appendChild(distanceBlock(node, distanceBands));
+      if (GROUP_NODES.test(node.id)) body.appendChild(groupBlock());
       calculatorsHere(node, repeats);
       // Pregunta en la que se cruza una tabla: el cálculo de ese paso, sin perder el recorrido (la sesión se recuerda).
       const calc = DecisionGraphEngine.nodeLinks(links, node.id);
@@ -597,6 +633,168 @@
         const key = calcDef.id === DecisionGraphCalculators.calculatorForNode(data.calculators, node.id).id ? `${node.id}#${repeats}` : `${node.id}:${calcDef.id}#${repeats}`;
         calculatorBlock(data, calcDef, key, repeats + 1, DecisionGraphEngine.accumulatedEffects(session), linkToTurn, session.history).then((block) => host.appendChild(block));
       });
+    }
+
+    // ---- Misión del ataque (antes: «paso 0» de los wizards; data/missions/air-missions.json, MissionContextEngine) ----
+    // Se recuerda en esta pestaña; desde una fase del turno con una sola misión posible se preselecciona.
+    function loadMission() { try { return JSON.parse(sessionStorage.getItem(MISSION_KEY) || '{}'); } catch (err) { return {}; } }
+    function saveMission(m) { try { sessionStorage.setItem(MISSION_KEY, JSON.stringify(m)); } catch (err) { /* sin almacenamiento */ } }
+    function currentMission() {
+      const m = loadMission();
+      if (!m.missionId && data.missions && turnCtx) {
+        const preset = MissionContextEngine.presetMissionForPhase(data.missions, turnCtx.phaseId);
+        if (preset) { m.missionId = preset; m.source = 'phase'; saveMission(m); }
+      }
+      return m;
+    }
+    function missionType(m) {
+      if (m.missionId && m.missionId !== MissionContextEngine.NONE && data.missions) {
+        const a = MissionContextEngine.areaMissionAnswer(data.missions, m.missionId);
+        if (a) return a === 'yes' ? 'area' : 'point';
+      }
+      return m.manualType || '';
+    }
+    function missionBlock() {
+      const box = el('details', 'decision-graph__mission');
+      const m = currentMission();
+      const name = (id) => { const x = data.missions && MissionContextEngine.findMission(data.missions, id); return x ? `${x.name}${x.abbreviation ? ` (${x.abbreviation})` : ''}` : ''; };
+      box.appendChild(el('summary', null, m.missionId && m.missionId !== MissionContextEngine.NONE ? `Misión del ataque: ${name(m.missionId)}` : (m.missionId ? 'Misión del ataque: no procede de una misión aérea' : 'Misión del ataque (opcional)')));
+      if (!data.missions) { box.appendChild(el('p', 'pending-note', 'No se han podido cargar las misiones aéreas.')); return box; }
+      const restriction = turnCtx ? MissionContextEngine.restrictionForPhase(data.missions, turnCtx.phaseId) : null;
+      if (restriction) box.appendChild(el('p', 'phase-view__desc', `En esta fase del turno la única misión aérea que se resuelve es ${restriction.onlyMissionIds.map(name).join(' o ')}.`));
+      const sel = el('select');
+      sel.setAttribute('aria-label', '¿Qué misión aérea ejecuta el grupo que ataca?');
+      sel.appendChild(Object.assign(el('option', null, 'Elige…'), { value: '' }));
+      MissionContextEngine.listMissions(data.missions, { surfaceOrGround: true, phaseId: turnCtx ? turnCtx.phaseId : null }).forEach((x) => sel.appendChild(Object.assign(el('option', null, name(x.id)), { value: x.id })));
+      sel.appendChild(Object.assign(el('option', null, 'No procede de una misión aérea (artillería, ataque naval o submarino)'), { value: MissionContextEngine.NONE }));
+      sel.value = m.missionId || '';
+      sel.addEventListener('change', () => { saveMission({ missionId: sel.value, source: 'manual' }); draw(); });
+      const wrap = el('label', 'decision-graph__field');
+      wrap.appendChild(el('span', null, '¿Qué misión aérea ejecuta el grupo que ataca?'));
+      wrap.appendChild(sel);
+      box.appendChild(wrap);
+      const card = m.missionId && m.missionId !== MissionContextEngine.NONE ? MissionContextEngine.buildCard(data.missions, m.missionId) : null;
+      if (card) {
+        [['Tipo de misión', card.missionType], ['Zona Central', card.centralZone], ['Distancia corta', card.shortRangeNote], ['Alcance permitido', card.ranges.join(' · ')], ['Duración', card.duration], ['Coste de mando', card.commandCost === null ? null : `${card.commandCost} Punto(s) de Mando`], ['Requisitos', card.requirements.join('; ')]]
+          .filter(([, v]) => v).forEach(([k, v]) => { const p = el('p', 'phase-view__desc'); p.appendChild(el('strong', null, `${k}: `)); p.appendChild(document.createTextNode(v)); box.appendChild(p); });
+        if (card.sourceRefs.length) box.appendChild(el('p', 'source-refs', card.sourceRefs.join(' · ')));
+      }
+      box.open = !m.missionId;
+      return box;
+    }
+
+    // ---- Distancia de ataque: señala la respuesta que encaja con los hexágonos y la misión (Área / Punto) ----
+    function distanceBlock(node, bands) {
+      const box = el('div', 'decision-graph__distance');
+      const m = currentMission();
+      const input = el('input');
+      input.type = 'number';
+      input.inputMode = 'numeric';
+      input.min = 0;
+      input.value = m.distance || '';
+      input.setAttribute('aria-label', 'Distancia de ataque en hexágonos');
+      const wrap = el('label', 'decision-graph__field');
+      wrap.appendChild(el('span', null, 'Distancia de ataque (hexágonos, contada desde la ficha del atacante)'));
+      wrap.appendChild(input);
+      box.appendChild(wrap);
+      const type = missionType(m);
+      let typeSel = null;
+      if (!type || m.manualType) {
+        typeSel = el('select');
+        typeSel.setAttribute('aria-label', '¿Es Misión de Área?');
+        [['', 'Elige…'], ['area', 'Sí, Misión de Área'], ['point', 'No, Misión de Punto o sin misión']].forEach(([v, l]) => typeSel.appendChild(Object.assign(el('option', null, l), { value: v })));
+        typeSel.value = m.manualType || '';
+        const w = el('label', 'decision-graph__field');
+        w.appendChild(el('span', null, '¿Es Misión de Área?'));
+        w.appendChild(typeSel);
+        box.appendChild(w);
+      } else {
+        box.appendChild(el('p', 'source-refs', `Según la misión elegida: ${type === 'area' ? 'Misión de Área' : 'Misión de Punto'}.`));
+      }
+      const out = el('p', 'decision-graph__distance-result');
+      box.appendChild(out);
+      const refresh = () => {
+        const cur = loadMission();
+        cur.distance = input.value;
+        if (typeSel) cur.manualType = typeSel.value;
+        saveMission(cur);
+        const idx = DecisionGraphCalculators.distanceAnswerIndex(bands, input.value, missionType(cur));
+        body.querySelectorAll('.decision-graph__option').forEach((b, i) => b.classList.toggle('decision-graph__option--suggested', i === idx));
+        out.textContent = idx >= 0 ? `Encaja con la respuesta «${node.routes[idx].answer}».` : (input.value === '' ? '' : 'Falta saber si es Misión de Área.');
+      };
+      input.addEventListener('input', refresh);
+      if (typeSel) typeSel.addEventListener('change', refresh);
+      setTimeout(refresh, 0);
+      return box;
+    }
+
+    // ---- Grupo de misión aéreo (antes: #/wizard/air-mission-group; AirMissionGroup + almacenamiento local) ----
+    function groupBlock() {
+      const box = el('details', 'decision-graph__group');
+      const group = AppCore.loadAirGroup();
+      const n = (k) => group.sides[k].units.filter((u) => u.status === 'active').length;
+      box.appendChild(el('summary', null, `Grupo de misión: ${n('A')} en combate en el bando azul, ${n('B')} en el rojo`));
+      box.appendChild(el('p', 'phase-view__desc', 'Las unidades de los dos bandos, guardadas en este navegador. Los cálculos de esta pregunta pueden cargarlas («Cargar del grupo de misión»); al retirarse o caer una unidad, cambia su estado y ya no se carga.'));
+      const save = () => AppCore.saveAirGroup(group);
+      const colLabels = [['name', 'Nombre', 'text'], ['airCombatValue', 'Combate aéreo', 'number'], ['protection', 'Protección', 'number'], ['electronic', 'Valor Electrónico', 'number']];
+      const yn = [['no', 'No'], ['yes', 'Sí']];
+      ['A', 'B'].forEach((k, si) => {
+        const s = group.sides[k];
+        const side = (data.calculators.sides || [])[si] || { label: k, color: '#888' };
+        const fsEl = el('fieldset', 'decision-graph__side');
+        fsEl.style.borderColor = side.color;
+        const legend = el('legend', null, side.label);
+        legend.style.color = side.color;
+        fsEl.appendChild(legend);
+        const eea = el('select');
+        yn.forEach(([v, l]) => eea.appendChild(Object.assign(el('option', null, l), { value: v })));
+        eea.value = s.eea;
+        eea.setAttribute('aria-label', `${side.label}: ¿lleva escolta electrónica (EEA)?`);
+        eea.addEventListener('change', () => { s.eea = eea.value; save(); });
+        const ew = el('label', 'decision-graph__field');
+        ew.appendChild(el('span', null, '¿Lleva escolta electrónica (EEA)?'));
+        ew.appendChild(eea);
+        fsEl.appendChild(ew);
+        s.units.forEach((u, ui) => {
+          const row = el('div', 'decision-graph__group-unit');
+          colLabels.forEach(([key, label, type]) => {
+            const i = el('input');
+            i.type = type;
+            if (type === 'number') { i.inputMode = 'numeric'; i.min = 0; }
+            i.value = u[key];
+            i.setAttribute('aria-label', `${side.label}, unidad ${ui + 1}: ${label}`);
+            i.addEventListener('input', () => { u[key] = i.value; save(); });
+            const w = el('label', 'decision-graph__field');
+            w.appendChild(el('span', null, label));
+            w.appendChild(i);
+            row.appendChild(w);
+          });
+          [['detected', '¿Detectada?', yn], ['ew', '¿Avión EW?', yn], ['status', 'Estado', AirMissionGroup.STATUSES.map((x) => [x.value, x.label])]].forEach(([key, label, opts]) => {
+            const sel = el('select');
+            opts.forEach(([v, l]) => sel.appendChild(Object.assign(el('option', null, l), { value: v })));
+            sel.value = u[key];
+            sel.setAttribute('aria-label', `${side.label}, unidad ${ui + 1}: ${label}`);
+            sel.addEventListener('change', () => { u[key] = sel.value; save(); });
+            const w = el('label', 'decision-graph__field');
+            w.appendChild(el('span', null, label));
+            w.appendChild(sel);
+            row.appendChild(w);
+          });
+          const del = el('button', 'btn btn--secondary', 'Quitar');
+          del.type = 'button';
+          del.setAttribute('aria-label', `Quitar la unidad ${ui + 1} del ${side.label}`);
+          del.addEventListener('click', () => { s.units.splice(ui, 1); save(); draw(); });
+          row.appendChild(del);
+          fsEl.appendChild(row);
+        });
+        const add = el('button', 'btn btn--secondary', 'Añadir unidad');
+        add.type = 'button';
+        add.setAttribute('aria-label', `Añadir una unidad al ${side.label}`);
+        add.addEventListener('click', () => { s.units.push(AirMissionGroup.newUnit()); save(); draw(); body.querySelector('.decision-graph__group').open = true; });
+        fsEl.appendChild(add);
+        box.appendChild(fsEl);
+      });
+      return box;
     }
 
     function drawTerminal(node) {

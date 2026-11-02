@@ -1020,3 +1020,10 @@ button {
 /* Selector de unidad y plan de ataque junto a un campo del asistente. */
 .decision-graph__plan { flex-basis: 100%; margin: 4px 0 8px; }
 .decision-graph__plan > summary { min-height: var(--touch-min, 48px); display: flex; align-items: center; cursor: pointer; }
+/* Misión del ataque, distancia y grupo de misión dentro del asistente. */
+.decision-graph__mission, .decision-graph__group { margin: 8px 0 12px; padding: 8px 12px; border: 1px solid var(--border, #ccc); border-radius: 8px; }
+.decision-graph__mission > summary, .decision-graph__group > summary { min-height: var(--touch-min, 48px); display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.decision-graph__distance { margin: 8px 0 12px; }
+.decision-graph__distance-result { font-weight: 600; }
+.decision-graph__option--suggested { outline: 3px solid var(--accent, #2f80ed); }
+.decision-graph__group-unit { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; padding: 6px 0; border-bottom: 1px dashed var(--border, #ccc); }

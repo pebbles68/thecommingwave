@@ -70,7 +70,8 @@
         "workflow": "05_combate_aereo.json",
         "key": "roundRule",
         "list": "groupTypes"
-      }
+      },
+      "groupLoad": "wvr-ca"
     },
     "bvr-attack": {
       "title": "Ataque BVR unidad contra unidad",
@@ -3457,7 +3458,8 @@
           "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf",
           "description": "§7.16.4 (absorción de impactos en el combate cercano)."
         }
-      ]
+      ],
+      "groupLoad": "protections"
     },
     "ew-escort": {
       "title": "Escolta electrónica: absorción prioritaria",
@@ -5557,7 +5559,8 @@
           "description": "§7.16.1 y §7.10.4."
         }
       ],
-      "order": 1
+      "order": 1,
+      "groupLoad": "bvr-units"
     },
     "intensity-land-guided": {
       "title": "Modificación de la Intensidad del Ataque",

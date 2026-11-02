@@ -1,0 +1,30 @@
+{
+  "id": "decision-graph-distance",
+  "description": "Preguntas del asistente de combate cuya respuesta depende de la distancia de ataque y de si la misión es de Área o de Punto. Para cada respuesta del nodo (por su posición en `routes`), el intervalo de hexágonos que le corresponde con misión de Punto y con misión de Área (max null = sin límite). El asistente señala la respuesta que encaja; el jugador sigue eligiendo. Los intervalos son los de las propias respuestas del árbol (páginas 5, 8, 21 y 24).",
+  "sourceRefs": [
+    { "document": "Tablas-de-combate 5.pdf", "description": "Páginas 5 y 8 (distancia 0 / 1 / ≥2 con su equivalente de Misión de Área), 21 (0~2 / 3~5 / +6) y 24." },
+    { "document": "TCW_Decision_Book_v1.0_-_COMPLETO_[v.ESP_-_1.2].pdf", "description": "§7.3-§7.10: Misión de Área (Zona Central) y de Punto." }
+  ],
+  "nodes": {
+    "land.guided.mobile_distance": [
+      { "point": [0, 0], "area": [0, 1] },
+      { "point": [1, 1], "area": [2, 2] },
+      { "point": [2, null], "area": [3, null] }
+    ],
+    "land.unguided.distance": [
+      { "point": [0, 0], "area": [0, 1] },
+      { "point": [1, 1], "area": [2, 2] },
+      { "point": [2, null], "area": [3, null] }
+    ],
+    "surface.guided.range": [
+      { "point": [0, 2], "area": [0, 3] },
+      { "point": [3, 5], "area": [4, 6] },
+      { "point": [6, null], "area": [7, null] }
+    ],
+    "surface.unguided.range": [
+      { "point": [0, 0], "area": [0, 1] },
+      { "point": [1, 1], "area": [2, 2] },
+      { "point": [2, null], "area": [3, null] }
+    ]
+  }
+}

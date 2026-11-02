@@ -2,6 +2,15 @@
 
 ## Estado actual
 
+### Misión del ataque, distancia y grupo de misión en el asistente — 2026-11-02
+
+- Estado: `done`, pendiente de comprobación del mantenedor; sin commit. Indicación del mantenedor: «realiza el paso 3».
+- **Misión del ataque** (antes «paso 0» de los wizards): en las preguntas de ataque terrestre, antirradiación y antibuque, un bloque plegable elige la misión aérea (`data/missions/air-missions.json`, `MissionContextEngine`) con su tarjeta (tipo Área/Punto, Zona Central, alcance, coste de mando, requisitos); desde una fase del turno con una sola misión posible (ON CALL, MPA) se preselecciona. Se recuerda en la pestaña.
+- **Distancia de ataque:** en las preguntas de distancia (`data/routing/decision-graph-distance.json`: `land.guided.mobile_distance`, `land.unguided.distance`, `surface.guided.range`, `surface.unguided.range`) se escribe la distancia en hexágonos y, con la misión (o «¿Es Misión de Área?»), se señala la respuesta que encaja (`DecisionGraphCalculators.distanceAnswerIndex`); el jugador sigue eligiendo.
+- **Grupo de misión aéreo** (antes `#/wizard/air-mission-group`): en las preguntas de interceptación y combate aéreo, un bloque plegable edita las unidades de los dos bandos (Combate aéreo, Protección, Valor Electrónico, detectada, avión EW, estado) y la escolta EEA, guardadas en el navegador (`AppCore.loadAirGroup`/`saveAirGroup`). «Cargar del grupo de misión» rellena la ronda WVR (Combate aéreo sumado), la absorción (Protecciones) y el orden de elección BVR (`groupLoad`, `DecisionGraphCalculators.groupValues`; solo unidades «En combate»).
+- **Validación:** `npm test` 853/853; Playwright 195/197 en la pasada completa, los 2 que fallaron (`scroll-top`, `touch-smoke`, ya conocidos como intermitentes) pasan al repetirlos.
+- **Visible en la web: sí.** `#/decision/land.guided.mobile_distance` (misión y distancia: la respuesta que encaja se recuadra) y `#/decision/air.intercept.round` (grupo de misión y «Cargar del grupo de misión»).
+
 ### Valor de Ataque del plan con las defensas ya restadas — 2026-11-02
 
 - Estado: `done`, pendiente de comprobación del mantenedor. Indicación del mantenedor: «haz el paso 4».
