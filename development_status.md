@@ -2,6 +2,14 @@
 
 ## Estado actual
 
+### Publicación de las imágenes reales — 2026-11-08
+
+- Estado: commit local, **push pendiente** de que el mantenedor confirme que ha desconectado GitHub de Cloudflare (la web se subirá a un repositorio propio).
+- **Permiso (confirmado por el mantenedor en el hilo):** las fichas reales de `images/` se publican con el mismo permiso que el editor dio para el módulo de Vassal; las páginas de las tablas (`images/tablas/`, maquetación de Sherlocky_Luke), también. Anotado en `NOTICE.md`.
+- **Cambios:** `.gitignore` deja fuera solo `images/review/` (copias de control de la calibración, 70 MB); `scripts/build-static.js` copia `images/` a `dist/images/` sin `review` (`dist/`: 1.546 archivos, 181 MB). El repositorio gana unos 1.270 archivos (~92 MB).
+- **Validación:** `npm test` 853/853; build comprobado (sin `images/review`).
+- **Visible en la web:** sí, en la web publicada cuando se suba: las fichas y tablas reales sustituyen a las marcas sobre fondo vacío.
+
 ### Misión del ataque, distancia y grupo de misión en el asistente — 2026-11-02
 
 - Estado: `done`, pendiente de comprobación del mantenedor; sin commit. Indicación del mantenedor: «realiza el paso 3».

@@ -11,10 +11,10 @@ La licencia MIT (`LICENSE`) cubre **solo el código de la aplicación**: lo que 
 El contenido que procede del juego y de sus materiales, y que la aplicación muestra o transcribe, **no está cubierto por la licencia MIT** y pertenece a sus titulares:
 
 - las reglas, tablas, valores, nombres y textos del Decision Book, las tablas de combate, las hojas de ayuda y las tablas de armamento, y sus datos transcritos en `data/`;
-- las imágenes de fichas, tarjetas, planes de ataque, hojas y tablas que acompañan a la aplicación en `data/` y `public/img/`;
+- las imágenes de fichas, tarjetas, planes de ataque, hojas y tablas que acompañan a la aplicación en `data/`, `public/img/` e `images/` (fichas reales del juego y páginas de las tablas de combate);
 - la traducción al español del reglamento, que es obra de **Sherlocky_Luke**.
 
-Este contenido se publica con el permiso del editor del juego (Kilovolt) y del traductor de la versión en español (Sherlocky_Luke). No se concede ningún derecho sobre él más allá de usarlo desde esta aplicación para jugar. Para reutilizarlo hay que pedir permiso a sus titulares.
+Este contenido se publica con el permiso del editor del juego (Kilovolt) y del traductor de la versión en español (Sherlocky_Luke). Las fichas reales de `images/` se publican con el mismo permiso que el editor dio para el módulo de Vassal del juego, y las páginas de las tablas de combate (`images/tablas/`, maquetación de Sherlocky_Luke) con el suyo (confirmado por el mantenedor, 2026-11-08). No se concede ningún derecho sobre él más allá de usarlo desde esta aplicación para jugar. Para reutilizarlo hay que pedir permiso a sus titulares.
 
 ## Qué no se distribuye
 

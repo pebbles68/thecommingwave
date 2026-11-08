@@ -16,10 +16,11 @@ playwright/.cache/
 *.pdf
 *.docx
 
-# Fichas, tarjetas y tablas reales del juego (carpeta images/, ~1.200 imágenes, entregada el 2026-10-31): se usan en local
-# y en el servidor privado de pruebas hasta que el editor dé el visto bueno; no se suben porque el repositorio publica en
-# abierto (Cloudflare). Ver roadmap.md, Fase 25.
-images/
+# Fichas, tarjetas y tablas reales del juego (carpeta images/): se publican con el permiso del editor (Kilovolt), el mismo
+# que dio para el módulo de Vassal, y las páginas de tablas con el de Sherlocky_Luke (confirmado por el mantenedor,
+# 2026-11-08; ver NOTICE.md). No se suben las imágenes de control de la calibración (images/review/): son copias marcadas
+# solo para revisar.
+images/review/
 
 # Web estática generada con `npm run build`
 dist/

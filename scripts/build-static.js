@@ -12,11 +12,13 @@ const path = require('node:path');
 const ROOT = path.join(__dirname, '..');
 const EXCLUDED = /\.(pdf|docx)$/i;
 
-function copyDir(from, to, stats) {
+// `skipDirs`: subcarpetas del primer nivel que no se copian (p. ej. images/review).
+function copyDir(from, to, stats, skipDirs) {
   fs.mkdirSync(to, { recursive: true });
   for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
     const src = path.join(from, entry.name);
     const dst = path.join(to, entry.name);
+    if (entry.isDirectory() && (skipDirs || []).includes(entry.name)) continue;
     if (entry.isDirectory()) {
       copyDir(src, dst, stats);
     } else if (entry.isFile() && !EXCLUDED.test(entry.name)) {
@@ -84,6 +86,8 @@ function build(outDir) {
   const stats = { files: 0, bytes: 0 };
   copyDir(path.join(ROOT, 'public'), out, stats);
   copyDir(path.join(ROOT, 'data'), path.join(out, 'data'), stats);
+  // Fichas y tablas reales (permisos en NOTICE.md), sin las imágenes de control de la calibración (images/review/).
+  if (fs.existsSync(path.join(ROOT, 'images'))) copyDir(path.join(ROOT, 'images'), path.join(out, 'images'), stats, ['review']);
   fs.writeFileSync(path.join(out, '_headers'), HEADERS_FILE);
   fs.writeFileSync(path.join(out, '.htaccess'), HTACCESS_FILE);
   return { out, ...stats };
